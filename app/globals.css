@@ -1,0 +1,420 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — exakta värden ur designunderlaget (design_handoff, v4).
+   Ändra här, inte i komponenterna.
+   ========================================================================== */
+
+@theme {
+  /* Accent */
+  --color-accent: #e05a00;
+  --color-accent-light: #f5851f;
+  --color-accent-glow: #ffa64a;
+
+  /* Ytor, ljust */
+  --color-page: #faf9f5;
+  --color-surface: #fffefb;
+  --color-surface-muted: #f0eee8;
+  --color-surface-row: #f5f3ee;
+  --color-surface-row-warm: #fffbf5;
+
+  /* Ytor, mörkt */
+  --color-ink: #0a0908;
+  --color-ink-card: #14110c;
+  --color-ink-deep: #060504;
+
+  /* Text */
+  --color-text: #171310;
+  --color-text-soft: #3e3830;
+  --color-text-article: #4a443b;
+  --color-text-muted: #6a6155;
+  --color-text-neutral: #8f8474;
+  --color-text-meta: #8a7b60;
+  --color-text-belt: #3b352c;
+  --color-on-accent: #fff8ec;
+  --color-on-dark: #f2ece0;
+  --color-on-dark-muted: #9c948a;
+  --color-on-dark-dim: #6e675e;
+  --color-on-dark-faint: #4e4840;
+
+  /* Marquee och övrigt */
+  --color-city: #d9d4c8;
+  --color-city-warm: #edba8a;
+  --color-danger: #c42a1c;
+  --color-whatsapp: #25d366;
+  --color-banner-ink: #1c0f05;
+
+  /* Radier */
+  --radius-pill: 100px;
+  --radius-float: 16px;
+  --radius-card: 20px;
+  --radius-media: 24px;
+  --radius-banner: 28px;
+
+  /* Enda brytpunkten i sajten. Designen är i övrigt helt fluid (clamp +
+     flex-wrap + auto-fit) och ska förbli det — men navraden med fem länkar
+     och två knappar går inte att göra fluid, den behöver en hamburgare. */
+  --breakpoint-nav: 840px;
+
+  /* Typsnitt — variablerna sätts av next/font i layouten */
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-instrument-sans), "Helvetica Neue", sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  --font-arabic: var(--font-noto-naskh-arabic), serif;
+}
+
+:root {
+  /* Gradienter */
+  --gradient-accent: linear-gradient(120deg, #f5851f, #e05a00);
+  --gradient-accent-text: linear-gradient(110deg, #f5851f 20%, #e05a00);
+  --gradient-banner: linear-gradient(115deg, #ff9e3d 0%, #f06f10 55%, #c94e00 100%);
+  --gradient-gold-card: linear-gradient(135deg, #241a10, #3d2408);
+  --gradient-featured: linear-gradient(165deg, #1e150b, #2a1a08);
+  --gradient-compare-head: linear-gradient(165deg, #fff7ef, #fdeeddff);
+  --gradient-fab: linear-gradient(135deg, #2a2118, #0a0908);
+  --gradient-media-fallback: linear-gradient(165deg, #efede6, #e2dfd6);
+
+  /* Hårlinjer */
+  --hairline-light: rgba(23, 19, 16, 0.1);
+  --hairline-dark: rgba(242, 236, 224, 0.12);
+
+  /* Skuggor */
+  --shadow-button: 0 8px 32px rgba(224, 90, 0, 0.35);
+  --shadow-button-hover: 0 16px 48px rgba(224, 90, 0, 0.5);
+  --shadow-nav-button: 0 4px 20px rgba(224, 90, 0, 0.3);
+  --shadow-card-light: 0 24px 64px rgba(23, 19, 16, 0.14);
+  --shadow-card-dark: 0 32px 80px rgba(0, 0, 0, 0.5);
+  --shadow-service-card: 0 -16px 48px rgba(23, 19, 16, 0.18);
+  --shadow-float: 0 10px 30px rgba(23, 19, 16, 0.14);
+  --shadow-fab: 0 16px 44px rgba(23, 19, 16, 0.35);
+
+  /* Easing och tider */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-hover: 0.3s;
+  --dur-reveal: 1.1s;
+
+  /* Layout */
+  --content-max: 1400px;
+  --content-narrow: 1100px;
+  --pad-x: clamp(20px, 4vw, 56px);
+  --pad-y: clamp(110px, 13vw, 180px);
+  --pad-y-light: clamp(80px, 10vw, 140px);
+  --header-h: 66px;
+}
+
+/* ==========================================================================
+   Bas
+   Måste ligga i @layer base — olagrad CSS vinner över allt i @layer, och
+   `a { color }` skulle då slå ut knappfärgerna i @layer components.
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-page);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(224, 90, 0, 0.2);
+    color: var(--color-text);
+  }
+
+  a {
+    color: var(--color-accent);
+  }
+  a:hover {
+    color: var(--color-accent-light);
+  }
+
+  /* Fixed header ~66px — ankarlänkar ska inte hamna under den. */
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 18px);
+  }
+
+  /* Persiska: Noto Naskh Arabic över hela dokumentet, letter-spacing
+     nollställt (annars bryts den arabiska skriften). */
+  html[dir="rtl"] body,
+  html[dir="rtl"] body * {
+    font-family: var(--font-arabic), var(--font-sans) !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   Återkommande mönster
+   ========================================================================== */
+
+@layer components {
+  .np-shell {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--pad-x);
+  }
+
+  .np-section {
+    padding-block: var(--pad-y);
+  }
+
+  .np-section-light {
+    padding-block: var(--pad-y-light);
+  }
+
+  /* Sektionslabel: IBM Plex Mono, versaler, brett letter-spacing */
+  .np-label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(13px, 1.1vw, 16px);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .np-meta {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .np-mono-link {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color var(--dur-hover);
+  }
+
+  .np-h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .np-h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  /* Knappar */
+  .np-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    transition:
+      transform var(--dur-hover) var(--ease),
+      box-shadow var(--dur-hover),
+      background var(--dur-hover),
+      border-color var(--dur-hover),
+      color var(--dur-hover);
+  }
+
+  .np-btn-primary {
+    background: var(--gradient-accent);
+    color: var(--color-on-accent);
+    font-weight: 600;
+    box-shadow: var(--shadow-button);
+  }
+  .np-btn-primary:hover {
+    color: var(--color-on-accent);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-button-hover);
+  }
+
+  .np-btn-outline {
+    border: 1px solid rgba(23, 19, 16, 0.25);
+    color: var(--color-text);
+    font-weight: 500;
+  }
+  .np-btn-outline:hover {
+    color: var(--color-text);
+    border-color: rgba(224, 90, 0, 0.6);
+    background: rgba(224, 90, 0, 0.07);
+  }
+
+  /* Gradient-clippad text (hero-rad 3, språkrubrik) */
+  .np-gradient-text {
+    background: var(--gradient-accent-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Kursiv serif behöver luft, annars klipps sista glyfen */
+    padding-inline: 0.08em;
+  }
+}
+
+/* ==========================================================================
+   Animationer
+   ========================================================================== */
+
+@keyframes np-rise {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes np-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes np-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes np-marquee-rev {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes np-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.85;
+  }
+}
+@keyframes np-wing-l {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-7deg) translateY(3%);
+  }
+}
+@keyframes np-wing-r {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(7deg) translateY(3%);
+  }
+}
+@keyframes np-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3.5%);
+  }
+}
+@keyframes np-tail-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(2.4deg) translateY(-1.5%);
+  }
+}
+@keyframes np-glow {
+  0%,
+  100% {
+    transform: translateX(-6%) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateX(6%) scale(1.12);
+    opacity: 0.85;
+  }
+}
+@keyframes np-grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-4%, 3%);
+  }
+  66% {
+    transform: translate(3%, -2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Reveal-tillstånd styrs av IntersectionObserver i lib/motion.ts */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity var(--dur-reveal) var(--ease),
+    transform var(--dur-reveal) var(--ease);
+}
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Processteget färgas permanent orange när det scrollats in (threshold .6). */
+[data-step][data-active="true"] [data-step-num] {
+  color: var(--color-accent-light);
+}
+
+/* ==========================================================================
+   Reducerad rörelse — allt dekorativt stannar, inget innehåll göms
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Marquees pausas helt i stället för att snurra utan animation */
+  [data-marquee] {
+    animation: none !important;
+    transform: none !important;
+  }
+}
