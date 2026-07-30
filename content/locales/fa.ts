@@ -110,6 +110,13 @@ export const fa: Dictionary = {
     ],
   },
 
+  reviews: {
+    label: "نظرات مشتریان",
+    h2a: "مشتریان ما",
+    h2b: "چه می‌گویند.",
+    iframeTitle: "نظرات مشتریان درباره نوردیک فینیکس",
+  },
+
   compare: {
     label: "( ۰۲ ) — دگرگونی",
     labelRight: "از آشفتگی به کنترل",

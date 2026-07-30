@@ -105,6 +105,15 @@ export const sv = {
     ],
   },
 
+  /* Utan sifferetikett: sektionerna är numrerade ( 01 ) till ( 08 ) och en
+     inskjuten siffra här skulle förskjuta hela den godkända numreringen. */
+  reviews: {
+    label: "Omdömen",
+    h2a: "Vad våra kunder",
+    h2b: "säger.",
+    iframeTitle: "Kundomdömen om Nordic Phoenix",
+  },
+
   compare: {
     label: "( 02 ) — Förvandlingen",
     labelRight: "Från kaos till kontroll",

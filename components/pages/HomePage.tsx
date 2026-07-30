@@ -6,6 +6,7 @@ import { Hero } from "@/components/home/Hero";
 import { Languages } from "@/components/home/Languages";
 import { Pricing } from "@/components/home/Pricing";
 import { Process } from "@/components/home/Process";
+import { Reviews } from "@/components/home/Reviews";
 import { Services } from "@/components/home/Services";
 import { Sweden } from "@/components/home/Sweden";
 import { WhyUs } from "@/components/home/WhyUs";
@@ -26,6 +27,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Hero t={t} locale={locale} />
       <ClientLogos t={t} />
       <Services t={t} />
+      <Reviews t={t} />
       <Comparison t={t} />
       <About t={t} />
       <Pricing t={t} />

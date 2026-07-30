@@ -40,6 +40,12 @@ export const agencyCredit = {
   href: "https://climon.se",
 } as const;
 
+/** Recensionswidget från LeadConnector/reputationhub. Se Reviews.tsx. */
+export const reviewWidget = {
+  script: "https://reputationhub.site/reputation/assets/review-widget.js",
+  src: "https://reputationhub.site/reputation/widgets/review_widget/66iE5ekAVPU5F03G3zJk?widgetId=6a6a6331f6fe9cd3afbb2445",
+} as const;
+
 /** GoHighLevel / LeadConnector-chatt. Laddas lazy, se ChatWidget.tsx. */
 export const chatWidget = {
   loader: "https://widgets.leadconnectorhq.com/loader.js",

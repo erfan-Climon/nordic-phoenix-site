@@ -110,6 +110,13 @@ export const en: Dictionary = {
     ],
   },
 
+  reviews: {
+    label: "Reviews",
+    h2a: "What our clients",
+    h2b: "say.",
+    iframeTitle: "Client reviews of Nordic Phoenix",
+  },
+
   compare: {
     label: "( 02 ) — The transformation",
     labelRight: "From chaos to control",
