@@ -9,12 +9,12 @@ export function Languages({ t }: { t: Dictionary }) {
         className="pointer-events-none absolute top-[-30%] left-[-10%] h-[50vw] w-[50vw] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(245,133,31,.1), transparent 65%)",
+            "radial-gradient(circle, rgba(255,148,36,.1), transparent 65%)",
         }}
       />
 
       <div className="relative mx-auto max-w-[var(--content-narrow)] px-[clamp(20px,5vw,64px)] py-[var(--pad-y)] text-center">
-        <p data-reveal className="np-label mb-11 text-accent">
+        <p data-reveal className="np-label mb-11 text-accent-ink">
           {t.languages.label}
         </p>
         <h2

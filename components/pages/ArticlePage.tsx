@@ -38,7 +38,7 @@ export function ArticlePage({ article }: { article: Article }) {
       <section className="mx-auto max-w-[900px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
         <Link
           href="/blogg"
-          className="np-mono-link text-[12px] tracking-[.16em] text-text-meta hover:text-accent"
+          className="np-mono-link text-[12px] tracking-[.16em] text-text-meta hover:text-accent-ink"
         >
           {t.blog.backToAll}
         </Link>

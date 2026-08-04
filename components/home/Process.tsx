@@ -22,7 +22,7 @@ export function Process({ t }: { t: Dictionary }) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener"
-            className="np-btn np-btn-primary px-[30px] py-[15px] text-[14px] shadow-none hover:shadow-[0_12px_36px_rgba(224,90,0,.4)]"
+            className="np-btn np-btn-primary px-[30px] py-[15px] text-[14px] shadow-none hover:shadow-[0_12px_36px_rgba(240,103,0,.4)]"
           >
             {t.process.cta}
           </a>
@@ -33,7 +33,7 @@ export function Process({ t }: { t: Dictionary }) {
             className="pointer-events-none absolute top-full left-[10%] h-[320px] w-[130%] -translate-x-1/2 rounded-full"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(255,166,74,.85), rgba(245,133,31,.4) 45%, transparent 70%)",
+                "radial-gradient(ellipse at center, rgba(255,180,84,.85), rgba(255,148,36,.4) 45%, transparent 70%)",
               filter: "blur(56px)",
               animation: "np-glow 4.5s ease-in-out infinite",
             }}
@@ -45,7 +45,7 @@ export function Process({ t }: { t: Dictionary }) {
             <div
               key={step.title}
               data-step
-              className="flex items-baseline gap-[clamp(20px,3vw,40px)] border-t border-[rgba(242,236,224,.14)] py-[clamp(28px,3vw,40px)] transition-[border-top-color] duration-[.8s] data-[active=true]:border-t-[rgba(245,133,31,.5)]"
+              className="flex items-baseline gap-[clamp(20px,3vw,40px)] border-t border-[rgba(242,236,224,.14)] py-[clamp(28px,3vw,40px)] transition-[border-top-color] duration-[.8s] data-[active=true]:border-t-[rgba(255,148,36,.5)]"
             >
               <span
                 data-step-num

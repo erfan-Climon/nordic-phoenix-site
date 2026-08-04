@@ -31,10 +31,10 @@ const cream: Skin = {
 const gold: Skin = {
   bg: "var(--gradient-gold-card)",
   fg: "var(--color-on-dark)",
-  border: "rgba(245,133,31,.35)",
+  border: "rgba(255,148,36,.35)",
   num: "var(--color-accent-light)",
   item: "#B9B1A4",
-  hairline: "rgba(245,133,31,.15)",
+  hairline: "rgba(255,148,36,.15)",
 };
 
 const SKINS: Skin[] = [dark, cream, dark, cream, dark, gold];
@@ -48,7 +48,7 @@ export function Services({ t }: { t: Dictionary }) {
           className="mb-[clamp(48px,6vw,80px)] flex flex-wrap items-end justify-between gap-6"
         >
           <div>
-            <p className="np-label mb-7 text-accent">{t.services.label}</p>
+            <p className="np-label mb-7 text-accent-ink">{t.services.label}</p>
             <h2 className="np-h2 text-[length:var(--fs-h2-xl)] leading-[1.08]">
               {t.services.h2a} <em className="text-accent">{t.services.h2b}</em>
             </h2>

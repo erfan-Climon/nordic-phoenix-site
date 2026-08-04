@@ -54,7 +54,7 @@ export function Reviews({ t }: { t: Dictionary }) {
     <section className="bg-page text-text" aria-labelledby="np-reviews-title">
       <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
         <div data-reveal className="mb-[clamp(40px,5vw,64px)] text-center">
-          <p className="np-label mb-7 text-accent">{t.reviews.label}</p>
+          <p className="np-label mb-7 text-accent-ink">{t.reviews.label}</p>
           <h2
             id="np-reviews-title"
             className="np-h2 text-[length:var(--fs-h2-sm)] leading-[1.25]"

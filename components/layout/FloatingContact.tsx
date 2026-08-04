@@ -94,7 +94,7 @@ export function FloatingContact({ t }: { t: Dictionary }) {
           <span className="font-heading text-[20px] leading-none text-text">
             {today?.day ?? ""}
           </span>
-          <span className="font-mono text-[9px] font-semibold tracking-[.14em] text-accent">
+          <span className="font-mono text-[9px] font-semibold tracking-[.14em] text-accent-ink">
             {today ? t.widget.months[today.monthIndex] : ""}
           </span>
         </div>
@@ -114,7 +114,7 @@ export function FloatingContact({ t }: { t: Dictionary }) {
             className="block h-[96px] w-full object-cover"
           />
           <span className="flex items-center justify-between px-[14px] py-[10px] font-mono text-[11px] font-medium tracking-[.2em] text-text uppercase">
-            {t.widget.blog} <span className="text-accent">↗</span>
+            {t.widget.blog} <span className="text-accent-ink">↗</span>
           </span>
         </Link>
 

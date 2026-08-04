@@ -19,7 +19,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         className="pointer-events-none absolute top-[-25%] right-[-18%] h-[62vw] w-[62vw] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(245,133,31,.15), rgba(245,133,31,.05) 45%, transparent 68%)",
+            "radial-gradient(circle, rgba(255,148,36,.15), rgba(255,148,36,.05) 45%, transparent 68%)",
           animation: "np-breathe 9s ease-in-out infinite",
         }}
       />
@@ -95,7 +95,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 className="absolute inset-0 block h-full w-full object-cover"
               />
             </div>
-            <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-pill bg-[rgba(255,254,251,.85)] px-4 py-2 backdrop-blur-[8px]">
+            <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-button bg-[rgba(255,254,251,.85)] px-4 py-2 backdrop-blur-[8px]">
               <span className="h-[7px] w-[7px] rounded-full bg-accent" />
               <span className="font-mono text-[10px] font-medium tracking-[.18em] text-text uppercase">
                 {t.hero.badge}

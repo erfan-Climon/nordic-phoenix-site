@@ -50,7 +50,7 @@ export function ClientLogos({ t }: { t: Dictionary }) {
     <section className="overflow-hidden bg-page pt-[clamp(48px,6vw,80px)] pb-[clamp(64px,8vw,110px)]">
       <p
         data-reveal
-        className="np-label mx-[var(--pad-x)] mb-[clamp(36px,4vw,56px)] text-center tracking-[.2em] text-accent"
+        className="np-label mx-[var(--pad-x)] mb-[clamp(36px,4vw,56px)] text-center tracking-[.2em] text-accent-ink"
       >
         {t.clients.title}
       </p>

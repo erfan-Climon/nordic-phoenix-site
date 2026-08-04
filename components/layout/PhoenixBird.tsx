@@ -20,7 +20,7 @@ export function PhoenixBird() {
          fågeln skulle annars hamna mitt i texten.
          Dold under nav-brytpunkten — i enkolumnsläget lägger den sig mitt i
          brödtexten, vilket den aldrig gör i tvåkolumnslayouten. */
-      className="pointer-events-none fixed top-1/2 end-[clamp(14px,3vw,44px)] z-[70] hidden w-[clamp(52px,6.5vw,100px)] [filter:drop-shadow(0_0_18px_rgba(245,133,31,.35))] nav:block"
+      className="pointer-events-none fixed top-1/2 end-[clamp(14px,3vw,44px)] z-[70] hidden w-[clamp(52px,6.5vw,100px)] [filter:drop-shadow(0_0_18px_rgba(255,148,36,.35))] nav:block"
       style={{ marginTop: "calc(clamp(52px, 6.5vw, 100px) / -2)" }}
     >
       <div

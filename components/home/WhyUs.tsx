@@ -20,7 +20,7 @@ export function WhyUs({ t }: { t: Dictionary }) {
             <div
               key={reason.title}
               data-reveal
-              className="border-r border-b border-[var(--hairline-dark)] p-[clamp(26px,3vw,40px)] transition-colors duration-[.35s] hover:bg-[rgba(224,90,0,.07)]"
+              className="border-r border-b border-[var(--hairline-dark)] p-[clamp(26px,3vw,40px)] transition-colors duration-[.35s] hover:bg-[rgba(240,103,0,.07)]"
             >
               <span className="font-mono text-[12px] text-accent-light">
                 {NUMBERS[i]}

@@ -76,7 +76,7 @@ export function Header({ locale, t }: Props) {
           <Link
             key={link.href}
             href={link.href}
-            className="np-mono-link text-text hover:text-accent"
+            className="np-mono-link text-text hover:text-accent-ink-ink"
           >
             {link.label}
           </Link>
@@ -85,7 +85,7 @@ export function Header({ locale, t }: Props) {
             nav-länkarna — det får normal siffersättning i stället. */}
         <a
           href={phone.href}
-          className="flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap text-text no-underline transition-colors duration-300 hover:text-accent"
+          className="flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap text-text no-underline transition-colors duration-300 hover:text-accent-ink-ink"
         >
           <PhoneGlyph />
           {phone.display}
@@ -95,7 +95,7 @@ export function Header({ locale, t }: Props) {
           href={whatsappUrl}
           target="_blank"
           rel="noopener"
-          className="np-btn rounded-pill bg-[image:var(--gradient-accent)] px-5 py-[11px] font-mono text-[12px] font-medium tracking-[.1em] text-on-accent uppercase shadow-[var(--shadow-nav-button)] hover:-translate-y-px hover:text-on-accent hover:shadow-[0_8px_28px_rgba(224,90,0,.45)]"
+          className="np-btn rounded-button bg-[image:var(--gradient-accent)] px-5 py-[11px] font-mono text-[12px] font-medium tracking-[.1em] text-on-accent uppercase shadow-[var(--shadow-nav-button)] hover:-translate-y-px hover:text-on-accent hover:shadow-[0_8px_28px_rgba(240,103,0,.45)]"
         >
           {t.nav.cta}
         </Link>
@@ -108,7 +108,7 @@ export function Header({ locale, t }: Props) {
         <a
           href={phone.href}
           aria-label={`${t.a11y.call} ${phone.display}`}
-          className="flex h-11 w-11 items-center justify-center rounded-pill border border-[rgba(23,19,16,.3)] text-text no-underline transition-colors duration-300 hover:border-accent hover:text-accent"
+          className="flex h-11 w-11 items-center justify-center rounded-button border border-[rgba(23,19,16,.3)] text-text no-underline transition-colors duration-300 hover:border-accent hover:text-accent-ink-ink"
         >
           <PhoneGlyph size={16} />
         </a>
@@ -119,7 +119,7 @@ export function Header({ locale, t }: Props) {
           aria-expanded={menuOpen}
           aria-controls="np-mobile-nav"
           aria-label={menuOpen ? t.a11y.closeMenu : t.a11y.openMenu}
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-pill border border-[rgba(23,19,16,.3)] bg-transparent transition-colors duration-300 hover:border-accent"
+          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-button border border-[rgba(23,19,16,.3)] bg-transparent transition-colors duration-300 hover:border-accent"
         >
           <span className="relative block h-[12px] w-[18px]">
             <span
@@ -150,7 +150,7 @@ export function Header({ locale, t }: Props) {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="np-mono-link border-b border-[var(--hairline-light)] py-4 text-text hover:text-accent"
+              className="np-mono-link border-b border-[var(--hairline-light)] py-4 text-text hover:text-accent-ink-ink"
             >
               {link.label}
             </Link>
@@ -158,7 +158,7 @@ export function Header({ locale, t }: Props) {
           <a
             href={phone.href}
             onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-2 border-b border-[var(--hairline-light)] py-4 font-mono text-[13px] font-medium text-text no-underline transition-colors duration-300 hover:text-accent"
+            className="flex items-center gap-2 border-b border-[var(--hairline-light)] py-4 font-mono text-[13px] font-medium text-text no-underline transition-colors duration-300 hover:text-accent-ink-ink"
           >
             <PhoneGlyph />
             {phone.display}
@@ -168,7 +168,7 @@ export function Header({ locale, t }: Props) {
             target="_blank"
             rel="noopener"
             onClick={() => setMenuOpen(false)}
-            className="np-btn mt-4 rounded-pill bg-[image:var(--gradient-accent)] px-6 py-[14px] font-mono text-[12px] font-medium tracking-[.1em] text-on-accent uppercase shadow-[var(--shadow-nav-button)] hover:text-on-accent"
+            className="np-btn mt-4 rounded-button bg-[image:var(--gradient-accent)] px-6 py-[14px] font-mono text-[12px] font-medium tracking-[.1em] text-on-accent uppercase shadow-[var(--shadow-nav-button)] hover:text-on-accent"
           >
             {t.nav.cta}
           </Link>
@@ -189,7 +189,7 @@ function LanguageLink({
       href={localePath(target, path)}
       hrefLang={target}
       aria-label={t.a11y.switchLanguage}
-      className="rounded-pill border border-[rgba(23,19,16,.3)] px-4 py-[9px] font-mono text-[12px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:border-accent hover:bg-[rgba(224,90,0,.06)] hover:text-accent"
+      className="rounded-button border border-[rgba(23,19,16,.3)] px-4 py-[9px] font-mono text-[12px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:border-accent hover:bg-[rgba(240,103,0,.06)] hover:text-accent-ink-ink"
     >
       {localeButtonLabel[target]}
     </Link>

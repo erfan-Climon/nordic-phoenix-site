@@ -100,6 +100,25 @@ sektioner med. Den ligger ca 30% under underlagets värden i toppen, på kundens
 begäran — en humanistisk sans har dessutom större x-höjd än serifen och läser
 större vid samma punktstorlek.
 
+## Accentfärgen
+
+Kalibrerad mot fenixlogotypen, som ligger på hue 23–36, mättnad 100% och
+ljushet 53–58%. Designunderlagets orange låg på hue 24 och ljushet 44%, alltså
+både mörkare och rödare än märket.
+
+| Token | Värde | Används till |
+|---|---|---|
+| `--color-accent` | `#F06700` | Ytor: knappar, gradienter, prickar, ikoner |
+| `--color-accent-ink` | `#D66000` | Accenten när den själv är text på ljus botten |
+| `--color-accent-light` | `#FF9424` | Gradientens ljusa ände, accent på mörk botten |
+| `--color-accent-glow` | `#FFB454` | Glöd och dekorlager |
+
+Två spår är medvetet. Ljusnar man accenten som används till små etiketter och
+länkar på ljus botten faller kontrasten under 3:1 och sektionsetiketterna blir
+svårlästa. `accent-ink` är hue-skiftad mot märket men behåller kontrasten
+(3,6:1, marginellt bättre än underlagets 3,54:1). Stora display-ord i `<em>`
+använder den ljusa accenten, de klarar sig på sin storlek.
+
 ## Designsystem
 
 Alla tokens ligger i `app/globals.css` (`@theme` + `:root`). Ändra värden där,

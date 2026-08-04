@@ -55,7 +55,7 @@ export function BlogIndexPage() {
               <p className="m-0 font-sans text-[15px] leading-[1.7] text-text-muted">
                 {featured.excerpt}
               </p>
-              <span className="font-sans text-[14px] font-medium text-accent">
+              <span className="font-sans text-[14px] font-medium text-accent-ink">
                 {t.blog.readArticle}
               </span>
             </div>
@@ -142,7 +142,7 @@ function CardBody({
       </p>
       <span
         className={`font-sans text-[13px] font-medium ${
-          accent ? "text-accent" : "text-text-meta"
+          accent ? "text-accent-ink" : "text-text-meta"
         }`}
       >
         {action}

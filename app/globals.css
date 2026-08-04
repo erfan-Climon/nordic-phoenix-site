@@ -6,10 +6,17 @@
    ========================================================================== */
 
 @theme {
-  /* Accent */
-  --color-accent: #e05a00;
-  --color-accent-light: #f5851f;
-  --color-accent-glow: #ffa64a;
+  /* Accent — kalibrerad mot fenixlogotypen, som ligger på hue 23–36,
+     mättnad 100% och ljushet 53–58%. Underlagets orange låg på hue 24 och
+     ljushet 44%, alltså mörkare och rödare än märket.
+
+     Två spår, medvetet: accent används på ytor (knappar, gradienter, prickar)
+     där vit text ligger ovanpå, accent-ink används när accenten SJÄLV är text
+     på ljus botten. Ljusnar man den senare blir sektionsetiketterna oläsbara. */
+  --color-accent: #f06700;
+  --color-accent-ink: #d66000;
+  --color-accent-light: #ff9424;
+  --color-accent-glow: #ffb454;
 
   /* Ytor, ljust */
   --color-page: #faf9f5;
@@ -45,7 +52,9 @@
   --color-banner-ink: #1c0f05;
 
   /* Radier */
-  --radius-pill: 100px;
+  /* Vassa kanter på knappar, pills och badges (kundbeslut). Kort och media
+     behåller sina radier, se nedan. */
+  --radius-button: 0px;
   --radius-float: 16px;
   --radius-card: 20px;
   --radius-media: 24px;
@@ -85,9 +94,9 @@
   --fs-city: clamp(32px, 4vw, 64px);
 
   /* Gradienter */
-  --gradient-accent: linear-gradient(120deg, #f5851f, #e05a00);
-  --gradient-accent-text: linear-gradient(110deg, #f5851f 20%, #e05a00);
-  --gradient-banner: linear-gradient(115deg, #ff9e3d 0%, #f06f10 55%, #c94e00 100%);
+  --gradient-accent: linear-gradient(120deg, #ff9424, #f06700);
+  --gradient-accent-text: linear-gradient(110deg, #ff9424 20%, #f06700);
+  --gradient-banner: linear-gradient(115deg, #ffb055 0%, #ff7a1a 55%, #e05c00 100%);
   --gradient-gold-card: linear-gradient(135deg, #241a10, #3d2408);
   --gradient-featured: linear-gradient(165deg, #1e150b, #2a1a08);
   --gradient-compare-head: linear-gradient(165deg, #fff7ef, #fdeeddff);
@@ -99,9 +108,9 @@
   --hairline-dark: rgba(242, 236, 224, 0.12);
 
   /* Skuggor */
-  --shadow-button: 0 8px 32px rgba(224, 90, 0, 0.35);
-  --shadow-button-hover: 0 16px 48px rgba(224, 90, 0, 0.5);
-  --shadow-nav-button: 0 4px 20px rgba(224, 90, 0, 0.3);
+  --shadow-button: 0 8px 32px rgba(240, 103, 0, 0.35);
+  --shadow-button-hover: 0 16px 48px rgba(240, 103, 0, 0.5);
+  --shadow-nav-button: 0 4px 20px rgba(240, 103, 0, 0.3);
   --shadow-card-light: 0 24px 64px rgba(23, 19, 16, 0.14);
   --shadow-card-dark: 0 32px 80px rgba(0, 0, 0, 0.5);
   --shadow-service-card: 0 -16px 48px rgba(23, 19, 16, 0.18);
@@ -143,12 +152,12 @@
   }
 
   ::selection {
-    background: rgba(224, 90, 0, 0.2);
+    background: rgba(240, 103, 0, 0.2);
     color: var(--color-text);
   }
 
   a {
-    color: var(--color-accent);
+    color: var(--color-accent-ink);
   }
   a:hover {
     color: var(--color-accent-light);
@@ -238,7 +247,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-button);
     text-decoration: none;
     font-family: var(--font-sans);
     transition:
@@ -268,8 +277,8 @@
   }
   .np-btn-outline:hover {
     color: var(--color-text);
-    border-color: rgba(224, 90, 0, 0.6);
-    background: rgba(224, 90, 0, 0.07);
+    border-color: rgba(240, 103, 0, 0.6);
+    background: rgba(240, 103, 0, 0.07);
   }
 
   /* Gradient-clippad text (hero-rad 3, språkrubrik) */

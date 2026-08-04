@@ -15,7 +15,7 @@ export function Sweden({ t }: { t: Dictionary }) {
         data-reveal
         className="mb-[clamp(48px,6vw,72px)] px-[clamp(20px,5vw,64px)] text-center"
       >
-        <p className="np-label mb-7 text-accent">{t.sweden.label}</p>
+        <p className="np-label mb-7 text-accent-ink">{t.sweden.label}</p>
         <h2 className="np-h2 text-[length:var(--fs-h2-sm)] leading-[1.25]">
           {t.sweden.h2a} <em className="text-accent">{t.sweden.h2b}</em>
         </h2>

@@ -9,8 +9,8 @@ export function Comparison({ t }: { t: Dictionary }) {
           data-reveal
           className="mb-[clamp(48px,6vw,80px)] flex flex-wrap items-baseline justify-between gap-x-6 gap-y-4"
         >
-          <p className="np-label text-accent">{t.compare.label}</p>
-          <p className="np-label text-accent">{t.compare.labelRight}</p>
+          <p className="np-label text-accent-ink">{t.compare.label}</p>
+          <p className="np-label text-accent-ink">{t.compare.labelRight}</p>
         </div>
 
         <div
@@ -27,10 +27,10 @@ export function Comparison({ t }: { t: Dictionary }) {
               </h3>
             </div>
             <div
-              className="border-b-2 border-[rgba(224,90,0,.35)] px-[clamp(18px,3vw,44px)] py-[clamp(22px,2.8vw,40px)]"
+              className="border-b-2 border-[rgba(240,103,0,.35)] px-[clamp(18px,3vw,44px)] py-[clamp(22px,2.8vw,40px)]"
               style={{ background: "var(--gradient-compare-head)" }}
             >
-              <p className="m-0 mb-2 font-mono text-[11px] tracking-[.22em] text-accent uppercase">
+              <p className="m-0 mb-2 font-mono text-[11px] tracking-[.22em] text-accent-ink uppercase">
                 {t.compare.rightLabel}
               </p>
               <h3 className="np-h3 text-[length:var(--fs-h3-sm)] leading-[1.15]">

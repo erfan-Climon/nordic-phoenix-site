@@ -26,11 +26,11 @@ const standard: CardSkin = {
 
 const featured: CardSkin = {
   bg: "var(--gradient-featured)",
-  border: "1.5px solid rgba(245,133,31,.55)",
-  shadow: "0 24px 64px rgba(224,90,0,.22)",
+  border: "1.5px solid rgba(255,148,36,.55)",
+  shadow: "0 24px 64px rgba(240,103,0,.22)",
   muted: "#B39B7E",
   item: "#E3D9C8",
-  hairline: "rgba(245,133,31,.2)",
+  hairline: "rgba(255,148,36,.2)",
   ctaBg: "var(--gradient-accent)",
   ctaFg: "var(--color-on-accent)",
 };
@@ -43,7 +43,7 @@ export function Pricing({ t }: { t: Dictionary }) {
         className="pointer-events-none absolute top-[-30%] right-[-10%] h-[55vw] w-[55vw] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(224,90,0,.12), transparent 65%)",
+            "radial-gradient(circle, rgba(240,103,0,.12), transparent 65%)",
         }}
       />
 
@@ -77,7 +77,7 @@ export function Pricing({ t }: { t: Dictionary }) {
                     {pkg.name}
                   </h3>
                   {pkg.featured ? (
-                    <span className="rounded-pill bg-[image:var(--gradient-accent)] px-3 py-[5px] font-mono text-[11px] font-medium tracking-[.08em] text-on-accent">
+                    <span className="rounded-button bg-[image:var(--gradient-accent)] px-3 py-[5px] font-mono text-[11px] font-medium tracking-[.08em] text-on-accent">
                       {t.pricing.popular}
                     </span>
                   ) : null}
@@ -106,7 +106,7 @@ export function Pricing({ t }: { t: Dictionary }) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener"
-                  className="np-btn mb-7 block rounded-pill px-6 py-4 text-center text-[15px] font-semibold hover:-translate-y-[2px] hover:shadow-[0_12px_32px_rgba(224,90,0,.35)]"
+                  className="np-btn mb-7 block rounded-button px-6 py-4 text-center text-[15px] font-semibold hover:-translate-y-[2px] hover:shadow-[0_12px_32px_rgba(240,103,0,.35)]"
                   style={{ background: skin.ctaBg, color: skin.ctaFg }}
                 >
                   {t.pricing.cta}

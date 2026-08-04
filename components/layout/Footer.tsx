@@ -82,7 +82,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener"
-              className="rounded-pill bg-on-dark px-[22px] py-3 font-mono text-[12px] font-medium tracking-[.1em] text-ink no-underline uppercase transition-colors duration-300 hover:bg-accent-light hover:text-ink"
+              className="rounded-button bg-on-dark px-[22px] py-3 font-mono text-[12px] font-medium tracking-[.1em] text-ink no-underline uppercase transition-colors duration-300 hover:bg-accent-light hover:text-ink"
             >
               {t.nav.cta}
             </a>
