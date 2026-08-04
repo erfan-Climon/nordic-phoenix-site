@@ -1,7 +1,7 @@
 /**
  * Bloggens innehåll. Artiklarna är svenskspråkigt SEO-innehåll och ligger
  * därför bara under den svenska rutten (/blogg). Nav-länken pekar hit från
- * alla språk — det finns inga översatta artiklar att peka på.
+ * alla språk. Det finns inga översatta artiklar att peka på.
  */
 
 export type ArticleBlock =
@@ -40,33 +40,33 @@ export const articles: Article[] = [
     date: "Juli 2026",
     published: "2026-07-01",
     readingMinutes: 6,
-    title: "Enskild firma eller aktiebolag — vad ska du välja?",
+    title: "Enskild firma eller aktiebolag, vad ska du välja?",
     titleLead: "Enskild firma eller",
     titleAccent: "aktiebolag?",
     excerpt:
-      "Ansvar, skatt, lön och administration — vi går igenom skillnaderna så att du väljer rätt bolagsform från start.",
+      "Ansvar, skatt, lön och administration. Vi går igenom skillnaderna så att du väljer rätt bolagsform från start.",
     intro:
-      "Det är en av de vanligaste frågorna vi får — och svaret beror på din situation. Här går vi igenom skillnaderna i ansvar, skatt och administration, så att du kan välja rätt från start.",
+      "Det är en av de vanligaste frågorna vi får, och svaret beror på din situation. Här går vi igenom skillnaderna i ansvar, skatt och administration, så att du kan välja rätt från start.",
     image: "/assets/blogg-thumb.webp",
     imageAlt: "Enskild firma eller aktiebolag?",
     metaTitle:
-      "Enskild firma eller aktiebolag? — Nordic Phoenix Redovisningsbyrå",
+      "Enskild firma eller aktiebolag? | Nordic Phoenix Redovisningsbyrå",
     metaDescription:
-      "Enskild firma eller aktiebolag? Vi går igenom ansvar, skatt, lön och administration — så att du väljer rätt bolagsform från start.",
+      "Enskild firma eller aktiebolag? Vi går igenom ansvar, skatt, lön och administration så att du väljer rätt bolagsform från start.",
     blocks: [
       { type: "heading", text: "Den stora skillnaden: ansvaret" },
       {
         type: "paragraph",
-        text: "En enskild firma är ingen egen juridisk person — det är du. Det betyder att du personligen ansvarar för företagets skulder och avtal. Ett aktiebolag är däremot en egen juridisk person: bolaget bär ansvaret, och din privata ekonomi är i regel skyddad.",
+        text: "En enskild firma är ingen egen juridisk person. Det är du. Det betyder att du personligen ansvarar för företagets skulder och avtal. Ett aktiebolag är däremot en egen juridisk person: bolaget bär ansvaret, och din privata ekonomi är i regel skyddad.",
       },
       {
         type: "paragraph",
-        text: "Har din verksamhet låg risk — till exempel konsultuppdrag utan stora inköp — kan enskild firma räcka långt. Tar du in lager, anställer eller skriver större avtal väger aktiebolagets skydd tyngre.",
+        text: "Har din verksamhet låg risk, till exempel konsultuppdrag utan stora inköp, kan enskild firma räcka långt. Tar du in lager, anställer eller skriver större avtal väger aktiebolagets skydd tyngre.",
       },
       { type: "heading", text: "Kapital och kostnad att starta" },
       {
         type: "paragraph",
-        text: "Enskild firma startar du gratis med en registrering hos Skatteverket. Ett aktiebolag kräver 25 000 kr i aktiekapital plus en registreringsavgift till Bolagsverket. Aktiekapitalet är inte en förlorad kostnad — det är bolagets pengar och kan användas i verksamheten.",
+        text: "Enskild firma startar du gratis med en registrering hos Skatteverket. Ett aktiebolag kräver 25 000 kr i aktiekapital plus en registreringsavgift till Bolagsverket. Aktiekapitalet är inte en förlorad kostnad. Det är bolagets pengar och kan användas i verksamheten.",
       },
       {
         type: "paragraph",
@@ -75,7 +75,7 @@ export const articles: Article[] = [
       { type: "heading", text: "Skatt, lön och utdelning" },
       {
         type: "paragraph",
-        text: "I enskild firma beskattas hela vinsten som din inkomst av näringsverksamhet — skatt och egenavgifter på alltihop. I ett aktiebolag tar du ut lön som anställd, och kan därutöver ta utdelning enligt 3:12-reglerna, ofta till lägre beskattning.",
+        text: "I enskild firma beskattas hela vinsten som din inkomst av näringsverksamhet, med skatt och egenavgifter på alltihop. I ett aktiebolag tar du ut lön som anställd, och kan därutöver ta utdelning enligt 3:12-reglerna, ofta till lägre beskattning.",
       },
       {
         type: "paragraph",
@@ -84,7 +84,7 @@ export const articles: Article[] = [
       { type: "heading", text: "Administration och bokföring" },
       {
         type: "paragraph",
-        text: "Enskild firma har enklare regler: förenklat årsbokslut om omsättningen är under 3 miljoner kr. Aktiebolag kräver årsredovisning till Bolagsverket och lite mer formalia — styrelse, bolagsstämma, protokoll. Med en byrå i ryggen är skillnaden i praktiken liten, men den finns.",
+        text: "Enskild firma har enklare regler: förenklat årsbokslut om omsättningen är under 3 miljoner kr. Aktiebolag kräver årsredovisning till Bolagsverket och lite mer formalia: styrelse, bolagsstämma och protokoll. Med en byrå i ryggen är skillnaden i praktiken liten, men den finns.",
       },
       {
         type: "callout",
@@ -104,7 +104,7 @@ export const articles: Article[] = [
       { type: "heading", text: "Så väljer du" },
       {
         type: "paragraph",
-        text: "Testar du en idé vid sidan av jobbet, med låg risk och blygsam vinst? Börja gärna med enskild firma — du kan ombilda till aktiebolag senare. Satsar du på heltid, planerar att anställa eller räknar med god vinst? Då är aktiebolag oftast rätt från dag ett.",
+        text: "Testar du en idé vid sidan av jobbet, med låg risk och blygsam vinst? Börja gärna med enskild firma. Du kan ombilda till aktiebolag senare. Satsar du på heltid, planerar att anställa eller räknar med god vinst? Då är aktiebolag oftast rätt från dag ett.",
       },
       {
         type: "paragraph",
@@ -120,7 +120,7 @@ export function getArticle(slug: string): Article | undefined {
 
 /**
  * Planerade artiklar. De saknar brödtext än så länge och renderas därför utan
- * länk — kortet visar "Kommer snart" i stället för "Läs artikeln".
+ * länk. Kortet visar "Kommer snart" i stället för "Läs artikeln".
  */
 export type UpcomingPost = {
   tag: string;
@@ -133,7 +133,7 @@ export const upcomingPosts: UpcomingPost[] = [
   {
     tag: "Moms",
     date: "Juni 2026",
-    title: "Momsdeklaration utan stress — så funkar det",
+    title: "Momsdeklaration utan stress, så funkar det",
     excerpt:
       "Vilka datum gäller, vad ska med, och vilka fel är vanligast? En tydlig genomgång för småföretagare.",
   },
@@ -142,7 +142,7 @@ export const upcomingPosts: UpcomingPost[] = [
     date: "Maj 2026",
     title: "Starta AB 2026: steg för steg",
     excerpt:
-      "Från namnförslag till registrering hos Bolagsverket och Skatteverket — allt du behöver veta innan start.",
+      "Från namnförslag till registrering hos Bolagsverket och Skatteverket. Allt du behöver veta innan start.",
   },
   {
     tag: "Myndigheter",
@@ -156,12 +156,12 @@ export const upcomingPosts: UpcomingPost[] = [
     date: "April 2026",
     title: "Från papperskaos till digital bokföring",
     excerpt:
-      "Så digitaliserar du kvitton, fakturor och rutiner — och vinner timmar varje vecka.",
+      "Så digitaliserar du kvitton, fakturor och rutiner, och vinner timmar varje vecka.",
   },
   {
     tag: "Lön",
     date: "April 2026",
-    title: "Arbetsgivardeklaration — undvik de vanligaste missarna",
+    title: "Arbetsgivardeklaration, undvik de vanligaste missarna",
     excerpt:
       "AGI varje månad låter enkelt, tills det inte är det. Här är fallgroparna och hur du undviker dem.",
   },

@@ -11,7 +11,7 @@ export const company = {
   city: "Sollentuna",
   region: "Stockholms län",
   country: "SE",
-  /** Sollentuna centrum — används i LocalBusiness-schemat. */
+  /** Sollentuna centrum, används i LocalBusiness-schemat. */
   geo: { lat: 59.4281, lng: 17.9508 },
   foundedDisplay: "2015–2026",
 } as const;
@@ -63,8 +63,8 @@ export const video = {
     "https://d8j0ntlcm91z4.cloudfront.net/user_3FwYeaDxGy6OM3B1w0DJg3BPHHw/hf_20260710_073532_790cedf0-1ecf-4a06-8424-0f816e49c950.mp4",
 } as const;
 
-/** Visas i språksektionen oavsett valt språk — därför inte i ordlistorna. */
-export const persianAlwaysLine = "ما در کنار شما هستیم — به زبان فارسی و سوئدی.";
+/** Visas i språksektionen oavsett valt språk, därför inte i ordlistorna. */
+export const persianAlwaysLine = "ما در کنار شما هستیم، به زبان فارسی و سوئدی.";
 
 /** Städer i logobältet/marquee delas i två rader som roterar åt olika håll. */
 export const cityRowSplit = 7;

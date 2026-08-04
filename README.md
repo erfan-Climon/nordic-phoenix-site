@@ -55,6 +55,22 @@ olika `lang`/`dir` på `<html>`, och `/` ska inte vara `/sv`.
   det finns inga översättningar att peka på, så nav-länken går alltid till
   `/blogg`.
 
+## Textregler
+
+Gäller all kundvänd text, i alla tre språk:
+
+- **Inga tankstreck (—).** Kunden upplever dem som ett AI-tecken. Skriv om
+  meningen i stället: punkt, kommatecken, kolon eller ett bindeord. Ta aldrig
+  bara bort strecket och lämna mellanrummet.
+- **Inga dubbla mellanslag.**
+- Sektionsetiketter och liknande avdelare använder mittpunkt (`·`), som redan
+  finns i designen (`STHLM · 59.4°N`, `Svenska · English · فارسی`).
+- Sidtitlar avdelas med `|`.
+- Tankstreck i sifferintervall (`2015–2026`, `450 000–500 000`) är en annan
+  glyf (–, en dash), korrekt svensk typografi och inget AI-tecken. De behålls.
+
+Innan leverans: `grep -rn '—' content/` ska ge noll träffar.
+
 ## Typografi
 
 Tre typsnitt, alla självhostade via `next/font` (`lib/fonts.ts`):

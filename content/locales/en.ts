@@ -3,9 +3,9 @@ import type { Dictionary } from "./sv";
 export const en: Dictionary = {
   meta: {
     title:
-      "Nordic Phoenix Accounting — Accounting, bookkeeping & advisory in Stockholm and across Sweden",
+      "Nordic Phoenix Accounting | Accounting, bookkeeping & advisory in Stockholm and across Sweden",
     description:
-      "Nordic Phoenix Redovisningsbyrå AB — a digital accounting firm in Stockholm/Sollentuna. Bookkeeping, payroll, VAT, annual accounts, tax returns and authority contacts. In Swedish, English and Persian, across Sweden.",
+      "Nordic Phoenix Redovisningsbyrå AB is a digital accounting firm in Stockholm and Sollentuna. Bookkeeping, payroll, VAT, annual accounts, tax returns and authority contacts. In Swedish, English and Persian, across Sweden.",
   },
 
   nav: {
@@ -34,21 +34,21 @@ export const en: Dictionary = {
     w1: "Control.",
     w2: "Clarity.",
     w3: "Confidence.",
-    sub: "Nordic Phoenix helps business owners across Sweden with bookkeeping, payroll, annual accounts, tax returns and authority contacts — fully digital, personal and clear.",
+    sub: "Nordic Phoenix helps business owners across Sweden with bookkeeping, payroll, annual accounts, tax returns and authority contacts. Fully digital, personal and clear.",
     cta1: "Contact us on WhatsApp",
     cta2: "See our services",
-    badge: "Nordic Phoenix — Sthlm",
+    badge: "Nordic Phoenix · Sthlm",
   },
 
   clients: {
-    title: "Nordic Phoenix has helped over 100 companies — of all sizes",
+    title: "Nordic Phoenix has helped over 100 companies of all sizes",
   },
 
   services: {
-    label: "( 01 ) — Services",
+    label: "( 01 ) · Services",
     h2a: "Everything your company needs.",
     h2b: "In one place.",
-    scrollHint: "06 areas — scroll",
+    scrollHint: "06 areas, scroll",
     groups: [
       {
         title: "Bookkeeping & accounting",
@@ -67,7 +67,7 @@ export const en: Dictionary = {
           "Payroll administration",
           "VAT reporting",
           "Employer declarations",
-          "Income tax return — Ltd & sole trader",
+          "Income tax return for Ltd and sole trader",
         ],
       },
       {
@@ -119,7 +119,7 @@ export const en: Dictionary = {
   },
 
   compare: {
-    label: "( 02 ) — The transformation",
+    label: "( 02 ) · The transformation",
     labelRight: "From chaos to control",
     leftLabel: "Without Nordic Phoenix",
     leftTitle: "Running a business with stress",
@@ -135,12 +135,12 @@ export const en: Dictionary = {
         with: "Everything digital, gathered and searchable",
       },
       {
-        without: "Answers at the last minute — or too late",
+        without: "Answers at the last minute, or too late",
         with: "Deadlines and authorities handled well in advance",
       },
       {
         without: "Invoices for hours you don’t understand",
-        with: "Fixed price — you always know the cost",
+        with: "Fixed price. You always know the cost",
       },
       {
         without: "Jargon with no explanation",
@@ -148,29 +148,29 @@ export const en: Dictionary = {
       },
     ],
     closing:
-      "So you can focus fully on your business — while we keep the numbers, deadlines and authorities in order.",
+      "So you can focus fully on your business, while we keep the numbers, deadlines and authorities in order.",
   },
 
   about: {
-    label: "( 03 ) — About Nordic Phoenix",
-    h2a: "More than an accounting firm —",
-    h2b: "a partner for your company’s journey.",
+    label: "( 03 ) · About Nordic Phoenix",
+    h2a: "More than an accounting firm.",
+    h2b: "A partner for your company’s journey.",
     p1: "Nordic Phoenix was founded with the ambition to make accounting, bookkeeping and financial advice clearer, safer and more accessible for business owners in Sweden.",
-    p2: "We work closely with our clients — helping them understand their finances, make better decisions and feel confident in contact with the authorities.",
+    p2: "We work closely with our clients and help them understand their finances, make better decisions and feel confident in contact with the authorities.",
     values: ["Accuracy", "Responsibility", "Transparency", "Long-term thinking"],
-    videoTitle: "Nordic Phoenix — about us",
+    videoTitle: "About Nordic Phoenix",
   },
 
   pricing: {
-    label: "( 04 ) — Pricing",
+    label: "( 04 ) · Pricing",
     h2a: "Clear packages.",
     h2b: "No surprises.",
-    sub: "Fixed monthly price based on your company’s size and needs. All packages can be tailored — prices below are guide prices.",
+    sub: "Fixed monthly price based on your company’s size and needs. All packages can be tailored and the prices below are guide prices.",
     popular: "Most popular",
     per: "SEK/mo",
     cta: "Get started",
     includes: "Includes:",
-    note: "All prices excl. VAT. We always tailor the package to your company’s needs — contact us for an exact quote.",
+    note: "All prices excl. VAT. We always tailor the package to your company’s needs. Contact us for an exact quote.",
     packages: [
       {
         name: "Basic",
@@ -217,14 +217,14 @@ export const en: Dictionary = {
   },
 
   languages: {
-    label: "( 05 ) — Svenska · English · فارسی",
+    label: "( 05 ) · Svenska · English · فارسی",
     h2a: "Finances in a language that feels",
     h2b: "clear and safe.",
-    text: "We help business owners understand rules, finances and authority requirements — in Swedish, English and Persian. Language should never stand between you and control of your finances.",
+    text: "We help business owners understand rules, finances and authority requirements in Swedish, English and Persian. Language should never stand between you and control of your finances.",
   },
 
   process: {
-    label: "( 06 ) — How to get started",
+    label: "( 06 ) · How to get started",
     h2a: "Three steps to",
     h2b: "order and clarity.",
     sub: "No run-up, no binders. We take you from first contact to a solution that feels right.",
@@ -232,7 +232,7 @@ export const en: Dictionary = {
     steps: [
       {
         title: "Get in touch",
-        text: "Write on WhatsApp or call. Free and without obligation — we get to know you and your company.",
+        text: "Write on WhatsApp or call. Free and without obligation. We get to know you and your company.",
       },
       {
         title: "We review your company’s needs",
@@ -240,16 +240,16 @@ export const en: Dictionary = {
       },
       {
         title: "We find a solution you feel confident with",
-        text: "A setup tailored to your company — clear routines, fixed price and full overview from day one.",
+        text: "A setup tailored to your company, with clear routines, fixed price and full overview from day one.",
       },
     ],
   },
 
   sweden: {
-    label: "( 07 ) — Digital accounting across Sweden",
-    h2a: "Wherever you run your business —",
-    h2b: "we’re close by.",
-    tail: "— and all of Sweden, digitally —",
+    label: "( 07 ) · Digital accounting across Sweden",
+    h2a: "Wherever you run your business.",
+    h2b: "We’re close by.",
+    tail: "· and all of Sweden, digitally ·",
     cities: [
       "Stockholm",
       "Gothenburg",
@@ -268,13 +268,13 @@ export const en: Dictionary = {
   },
 
   why: {
-    label: "( 08 ) — Why Nordic Phoenix",
+    label: "( 08 ) · Why Nordic Phoenix",
     h2a: "Your finances.",
     h2b: "Clearer. Safer. Smarter.",
     reasons: [
       {
         title: "Fully digital workflow",
-        text: "Cloud-based accounting — no binders, full overview wherever you are.",
+        text: "Cloud-based accounting without binders, with full overview wherever you are.",
       },
       {
         title: "All of Sweden",
@@ -282,7 +282,7 @@ export const en: Dictionary = {
       },
       {
         title: "Personal support",
-        text: "You always talk to someone who knows your business — not a switchboard.",
+        text: "You always talk to someone who knows your business, not a switchboard.",
       },
       {
         title: "Clear communication",
@@ -290,7 +290,7 @@ export const en: Dictionary = {
       },
       {
         title: "Three languages",
-        text: "Advice in Swedish, English or Persian — whichever feels safest to you.",
+        text: "Advice in Swedish, English or Persian. Whichever feels safest to you.",
       },
       {
         title: "More than bookkeeping",
@@ -302,18 +302,18 @@ export const en: Dictionary = {
       },
       {
         title: "Long-term partnership",
-        text: "Accuracy, responsibility and transparency — relationships that last.",
+        text: "Accuracy, responsibility and transparency. Relationships that last.",
       },
     ],
   },
 
   banner: {
-    h2a: "Talk to us —",
-    h2b: "we’ll help you.",
+    h2a: "Talk to us.",
+    h2b: "We’ll help you.",
     text: "Write to us on WhatsApp or call directly. Free consultation at a time that suits you. Welcome.",
     cta1: "Write on WhatsApp",
     cta2: "Call us directly",
-    portraitAlt: "Ali Nahroudi — Nordic Phoenix",
+    portraitAlt: "Ali Nahroudi, Nordic Phoenix",
   },
 
   widget: {
@@ -345,26 +345,26 @@ export const en: Dictionary = {
   },
 
   blog: {
-    metaTitle: "Blog — Nordic Phoenix Accounting",
+    metaTitle: "Blog | Nordic Phoenix Accounting",
     metaDescription:
-      "Guides and insights on bookkeeping, VAT, the Swedish Tax Agency, company formation and business finance — from Nordic Phoenix Accounting.",
-    eyebrow: "Blog — Guides & insights",
+      "Guides and insights on bookkeeping, VAT, the Swedish Tax Agency, company formation and business finance. From Nordic Phoenix Accounting.",
+    eyebrow: "Blog · Guides & insights",
     h1a: "We make finance",
     h1b: "make sense.",
     intro:
-      "Guides on bookkeeping, VAT, the Tax Agency and company formation — written for business owners, not for auditors.",
+      "Guides on bookkeeping, VAT, the Tax Agency and company formation, written for business owners and not for auditors.",
     featured: "Featured",
     readArticle: "Read the article →",
     comingSoon: "Coming soon",
     backToAll: "← All articles",
     readingTime: "min read",
     ctaTitle: "Want help choosing a company form?",
-    ctaText: "Free consultation — we run the numbers on your situation.",
+    ctaText: "Free consultation. We run the numbers on your situation.",
     ctaButton: "Contact us",
   },
 
   privacy: {
-    metaTitle: "Privacy policy — Nordic Phoenix Accounting",
+    metaTitle: "Privacy policy | Nordic Phoenix Accounting",
     metaDescription:
       "How Nordic Phoenix Redovisningsbyrå AB processes personal data.",
     title: "Privacy policy",
@@ -376,7 +376,7 @@ export const en: Dictionary = {
       },
       {
         heading: "What data we collect",
-        text: "We collect the information you provide yourself when contacting us via chat, WhatsApp, phone or email — for example your name, phone number, email address and the matter you describe.",
+        text: "We collect the information you provide yourself when contacting us via chat, WhatsApp, phone or email. That can be your name, phone number, email address and the matter you describe.",
       },
       {
         heading: "Why we process it",

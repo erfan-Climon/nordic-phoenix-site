@@ -1,11 +1,11 @@
-/** Svenska — referensordlistan. Definierar formen som en och fa måste följa. */
+/** Svenska, referensordlistan. Definierar formen som en och fa måste följa. */
 
 export const sv = {
   meta: {
     title:
-      "Nordic Phoenix Redovisningsbyrå — Redovisning, bokföring & rådgivning i Stockholm och hela Sverige",
+      "Nordic Phoenix Redovisningsbyrå | Redovisning, bokföring & rådgivning i Stockholm och hela Sverige",
     description:
-      "Nordic Phoenix Redovisningsbyrå AB — digital redovisningsbyrå i Stockholm/Sollentuna. Bokföring, lön, moms, bokslut, deklaration och myndighetskontakter. På svenska, engelska och persiska, i hela Sverige.",
+      "Nordic Phoenix Redovisningsbyrå AB är en digital redovisningsbyrå i Stockholm och Sollentuna. Bokföring, lön, moms, bokslut, deklaration och myndighetskontakter. På svenska, engelska och persiska, i hela Sverige.",
   },
 
   nav: {
@@ -34,21 +34,21 @@ export const sv = {
     w1: "Kontroll.",
     w2: "Klarhet.",
     w3: "Trygghet.",
-    sub: "Nordic Phoenix hjälper företagare i hela Sverige med bokföring, lön, bokslut, deklaration och myndighetskontakter — helt digitalt, personligt och tydligt.",
+    sub: "Nordic Phoenix hjälper företagare i hela Sverige med bokföring, lön, bokslut, deklaration och myndighetskontakter. Helt digitalt, personligt och tydligt.",
     cta1: "Kontakta oss på WhatsApp",
     cta2: "Se våra tjänster",
-    badge: "Nordic Phoenix — Sthlm",
+    badge: "Nordic Phoenix · Sthlm",
   },
 
   clients: {
-    title: "Nordic Phoenix har hjälpt över 100 företag — i alla storlekar",
+    title: "Nordic Phoenix har hjälpt över 100 företag i alla storlekar",
   },
 
   services: {
-    label: "( 01 ) — Tjänster",
+    label: "( 01 ) · Tjänster",
     h2a: "Allt ditt företag behöver.",
     h2b: "Samlat.",
-    scrollHint: "06 områden — scrolla",
+    scrollHint: "06 områden, scrolla",
     groups: [
       {
         title: "Bokföring & redovisning",
@@ -67,7 +67,7 @@ export const sv = {
           "Löneadministration",
           "Momsredovisning",
           "Arbetsgivardeklaration",
-          "Inkomstdeklaration — AB & enskild firma",
+          "Inkomstdeklaration för AB och enskild firma",
         ],
       },
       {
@@ -116,7 +116,7 @@ export const sv = {
   },
 
   compare: {
-    label: "( 02 ) — Förvandlingen",
+    label: "( 02 ) · Förvandlingen",
     labelRight: "Från kaos till kontroll",
     leftLabel: "Utan Nordic Phoenix",
     leftTitle: "Företagande med stress",
@@ -132,12 +132,12 @@ export const sv = {
         with: "Allt digitalt, samlat och sökbart",
       },
       {
-        without: "Besked i sista minuten — eller för sent",
+        without: "Besked i sista minuten, eller för sent",
         with: "Deadlines och myndigheter hanterade i god tid",
       },
       {
         without: "Fakturor för timmar du inte förstår",
-        with: "Fast pris — du vet alltid vad det kostar",
+        with: "Fast pris. Du vet alltid vad det kostar",
       },
       {
         without: "Krångligt fackspråk utan förklaring",
@@ -145,29 +145,29 @@ export const sv = {
       },
     ],
     closing:
-      "Så att du kan fokusera helt på din verksamhet — medan vi håller siffrorna, deadlines och myndigheterna i ordning.",
+      "Så att du kan fokusera helt på din verksamhet, medan vi håller siffrorna, deadlines och myndigheterna i ordning.",
   },
 
   about: {
-    label: "( 03 ) — Om Nordic Phoenix",
-    h2a: "Mer än en redovisningsbyrå —",
-    h2b: "en partner för företagets resa.",
+    label: "( 03 ) · Om Nordic Phoenix",
+    h2a: "Mer än en redovisningsbyrå.",
+    h2b: "En partner för företagets resa.",
     p1: "Nordic Phoenix grundades med ambitionen att göra redovisning, bokföring och ekonomisk rådgivning mer tydlig, trygg och tillgänglig för företagare i Sverige.",
-    p2: "Vi arbetar nära våra kunder — hjälper dem att förstå sin ekonomi, fatta bättre beslut och känna sig säkra i kontakten med myndigheter.",
+    p2: "Vi arbetar nära våra kunder och hjälper dem att förstå sin ekonomi, fatta bättre beslut och känna sig säkra i kontakten med myndigheter.",
     values: ["Noggrannhet", "Ansvar", "Transparens", "Långsiktighet"],
-    videoTitle: "Nordic Phoenix — om oss",
+    videoTitle: "Om Nordic Phoenix",
   },
 
   pricing: {
-    label: "( 04 ) — Priser",
+    label: "( 04 ) · Priser",
     h2a: "Tydliga paket.",
     h2b: "Inga överraskningar.",
-    sub: "Fast månadspris utifrån företagets storlek och behov. Alla paket kan anpassas — priserna nedan är riktpriser.",
+    sub: "Fast månadspris utifrån företagets storlek och behov. Alla paket kan anpassas och priserna nedan är riktpriser.",
     popular: "Populärast",
     per: "kr/mån",
     cta: "Kom igång",
     includes: "Ingår:",
-    note: "Alla priser exkl. moms. Vi skräddarsyr alltid paketet efter ditt företags behov — kontakta oss för en exakt offert.",
+    note: "Alla priser exkl. moms. Vi skräddarsyr alltid paketet efter ditt företags behov. Kontakta oss för en exakt offert.",
     packages: [
       {
         name: "Bas",
@@ -214,14 +214,14 @@ export const sv = {
   },
 
   languages: {
-    label: "( 05 ) — Svenska · English · فارسی",
+    label: "( 05 ) · Svenska · English · فارسی",
     h2a: "Ekonomi på ett språk som känns",
     h2b: "tydligt och tryggt.",
-    text: "Vi hjälper företagare att förstå regler, ekonomi och myndighetskrav — på svenska, engelska och persiska. Språket ska aldrig stå mellan dig och kontrollen över din ekonomi.",
+    text: "Vi hjälper företagare att förstå regler, ekonomi och myndighetskrav på svenska, engelska och persiska. Språket ska aldrig stå mellan dig och kontrollen över din ekonomi.",
   },
 
   process: {
-    label: "( 06 ) — Så kommer du igång",
+    label: "( 06 ) · Så kommer du igång",
     h2a: "Tre steg till",
     h2b: "ordning och reda.",
     sub: "Ingen startsträcka, inga pärmar. Vi tar dig från första samtal till en lösning som känns rätt.",
@@ -229,7 +229,7 @@ export const sv = {
     steps: [
       {
         title: "Hör av dig",
-        text: "Skriv på WhatsApp eller ring. Kostnadsfritt och förutsättningslöst — vi lär känna dig och ditt företag.",
+        text: "Skriv på WhatsApp eller ring. Kostnadsfritt och förutsättningslöst. Vi lär känna dig och ditt företag.",
       },
       {
         title: "Vi går igenom företagets behov",
@@ -237,16 +237,16 @@ export const sv = {
       },
       {
         title: "Vi hittar en lösning du känner dig trygg med",
-        text: "Ett upplägg anpassat efter just ditt företag — tydliga rutiner, fast pris och full överblick från dag ett.",
+        text: "Ett upplägg anpassat efter just ditt företag, med tydliga rutiner, fast pris och full överblick från dag ett.",
       },
     ],
   },
 
   sweden: {
-    label: "( 07 ) — Digital redovisning i hela Sverige",
-    h2a: "Var du än driver ditt företag —",
-    h2b: "vi finns nära.",
-    tail: "— och hela Sverige, digitalt —",
+    label: "( 07 ) · Digital redovisning i hela Sverige",
+    h2a: "Var du än driver ditt företag.",
+    h2b: "Vi finns nära.",
+    tail: "· och hela Sverige, digitalt ·",
     cities: [
       "Stockholm",
       "Göteborg",
@@ -265,13 +265,13 @@ export const sv = {
   },
 
   why: {
-    label: "( 08 ) — Varför Nordic Phoenix",
+    label: "( 08 ) · Varför Nordic Phoenix",
     h2a: "Din ekonomi.",
     h2b: "Tydligare. Tryggare. Smartare.",
     reasons: [
       {
         title: "Helt digitalt arbetssätt",
-        text: "Molnbaserad redovisning — inga pärmar, full överblick var du än är.",
+        text: "Molnbaserad redovisning utan pärmar, med full överblick var du än är.",
       },
       {
         title: "Hela Sverige",
@@ -279,7 +279,7 @@ export const sv = {
       },
       {
         title: "Personligt stöd",
-        text: "Du pratar alltid med någon som kan ditt företag — inte en växel.",
+        text: "Du pratar alltid med någon som kan ditt företag, inte en växel.",
       },
       {
         title: "Tydlig kommunikation",
@@ -287,7 +287,7 @@ export const sv = {
       },
       {
         title: "Tre språk",
-        text: "Rådgivning på svenska, engelska eller persiska — det som ger dig störst trygghet.",
+        text: "Rådgivning på svenska, engelska eller persiska. Det som ger dig störst trygghet.",
       },
       {
         title: "Mer än bokföring",
@@ -299,7 +299,7 @@ export const sv = {
       },
       {
         title: "Långsiktigt partnerskap",
-        text: "Noggrannhet, ansvar och transparens — relationer som håller.",
+        text: "Noggrannhet, ansvar och transparens. Relationer som håller.",
       },
     ],
   },
@@ -310,7 +310,7 @@ export const sv = {
     text: "Skriv till oss på WhatsApp eller ring direkt. Kostnadsfri rådgivning på en tid som passar dig. Välkommen.",
     cta1: "Skriv på WhatsApp",
     cta2: "Ring oss direkt",
-    portraitAlt: "Ali Nahroudi — Nordic Phoenix",
+    portraitAlt: "Ali Nahroudi, Nordic Phoenix",
   },
 
   widget: {
@@ -342,26 +342,26 @@ export const sv = {
   },
 
   blog: {
-    metaTitle: "Blogg — Nordic Phoenix Redovisningsbyrå",
+    metaTitle: "Blogg | Nordic Phoenix Redovisningsbyrå",
     metaDescription:
-      "Guider och insikter om bokföring, moms, Skatteverket, bolagsstart och företagsekonomi — från Nordic Phoenix Redovisningsbyrå.",
-    eyebrow: "Blogg — Guider & insikter",
+      "Guider och insikter om bokföring, moms, Skatteverket, bolagsstart och företagsekonomi. Från Nordic Phoenix Redovisningsbyrå.",
+    eyebrow: "Blogg · Guider & insikter",
     h1a: "Vi gör ekonomi",
     h1b: "begripligt.",
     intro:
-      "Guider om bokföring, moms, Skatteverket och bolagsstart — skrivna för företagare, inte för revisorer.",
+      "Guider om bokföring, moms, Skatteverket och bolagsstart, skrivna för företagare och inte för revisorer.",
     featured: "Utvald",
     readArticle: "Läs artikeln →",
     comingSoon: "Kommer snart",
     backToAll: "← Alla artiklar",
     readingTime: "min läsning",
     ctaTitle: "Vill du ha hjälp att välja bolagsform?",
-    ctaText: "Kostnadsfri konsultation — vi räknar på just din situation.",
+    ctaText: "Kostnadsfri konsultation. Vi räknar på just din situation.",
     ctaButton: "Kontakta oss",
   },
 
   privacy: {
-    metaTitle: "Integritetspolicy — Nordic Phoenix Redovisningsbyrå",
+    metaTitle: "Integritetspolicy | Nordic Phoenix Redovisningsbyrå",
     metaDescription:
       "Så behandlar Nordic Phoenix Redovisningsbyrå AB personuppgifter.",
     title: "Integritetspolicy",
@@ -373,7 +373,7 @@ export const sv = {
       },
       {
         heading: "Vilka uppgifter vi samlar in",
-        text: "Vi samlar in de uppgifter du själv lämnar när du kontaktar oss via chatt, WhatsApp, telefon eller mejl — till exempel namn, telefonnummer, e-postadress och det ärende du beskriver.",
+        text: "Vi samlar in de uppgifter du själv lämnar när du kontaktar oss via chatt, WhatsApp, telefon eller mejl. Det kan vara namn, telefonnummer, e-postadress och det ärende du beskriver.",
       },
       {
         heading: "Varför vi behandlar uppgifterna",
@@ -396,7 +396,7 @@ export const sv = {
 };
 
 /**
- * Formen härleds ur den svenska ordlistan. `as const` används medvetet inte —
+ * Formen härleds ur den svenska ordlistan. `as const` används medvetet inte:
  * en och fa ska matcha nycklarna, inte de svenska strängarna.
  */
 export type Dictionary = typeof sv;
