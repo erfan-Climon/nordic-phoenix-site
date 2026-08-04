@@ -8,7 +8,7 @@ export function WhyUs({ t }: { t: Dictionary }) {
       <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y)]">
         <div data-reveal className="mb-[clamp(56px,7vw,88px)]">
           <p className="np-label mb-7 text-accent-light">{t.why.label}</p>
-          <h2 className="np-h2 max-w-[18ch] text-[length:var(--fs-h2-xl)] leading-[1.1]">
+          <h2 className="np-h2 text-[length:var(--fs-h2-xl)] leading-[1.1]">
             {t.why.h2a} <em className="text-accent-light">{t.why.h2b}</em>
           </h2>
         </div>

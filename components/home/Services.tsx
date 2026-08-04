@@ -105,7 +105,9 @@ export function Services({ t }: { t: Dictionary }) {
                     {num}
                   </span>
                   <h3
-                    className="np-h3 mt-5 max-w-[16ch] text-[length:var(--fs-h3)] leading-[1.2]"
+                    /* Ingen ch-begränsning: rubriken ska rymmas på en rad.
+                       Den bryter bara när kolumnen faktiskt är för smal. */
+                    className="np-h3 mt-5 text-[length:var(--fs-h3)] leading-[1.2] text-pretty"
                     style={{ color: skin.fg }}
                   >
                     {group.title}

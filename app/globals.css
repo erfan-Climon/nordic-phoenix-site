@@ -78,7 +78,9 @@
   --fs-h2-xl: clamp(32px, 4.2vw, 64px);
   --fs-h2: clamp(28px, 3.2vw, 48px);
   --fs-h2-sm: clamp(26px, 2.8vw, 40px);
-  --fs-h3: clamp(22px, 2.2vw, 32px);
+  /* Minimivärdet är satt så att "Myndighetskontakt & rådgivning", den längsta
+     tjänsterubriken, ryms på en rad även på 375px-skärmar. */
+  --fs-h3: clamp(19px, 2.2vw, 32px);
   --fs-h3-sm: clamp(19px, 1.7vw, 24px);
   --fs-city: clamp(32px, 4vw, 64px);
 
