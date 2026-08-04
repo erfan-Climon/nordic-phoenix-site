@@ -55,6 +55,22 @@ olika `lang`/`dir` på `<html>`, och `/` ska inte vara `/sv`.
   det finns inga översättningar att peka på, så nav-länken går alltid till
   `/blogg`.
 
+## Typografi
+
+Tre typsnitt, alla självhostade via `next/font` (`lib/fonts.ts`):
+
+| Roll | Typsnitt |
+|---|---|
+| Rubriker, hero, stadsnamn, display-tal | Instrument Serif |
+| Brödtext, knappar, priser, listor | Open Sans |
+| Etiketter, sektionsnummer, nav | IBM Plex Mono |
+| Hela dokumentet på persiska | Noto Naskh Arabic |
+
+Open Sans valdes för att matcha kundens visitkort, som ser ut att vara satt i
+Segoe UI. Segoe UI får inte licensieras för webben; Open Sans är den närmaste
+fria motsvarigheten. Designunderlaget angav Instrument Sans här — bytet är ett
+kundbeslut, inte en avvikelse från underlaget av misstag.
+
 ## Designsystem
 
 Alla tokens ligger i `app/globals.css` (`@theme` + `:root`). Ändra värden där,

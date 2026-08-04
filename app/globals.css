@@ -60,7 +60,8 @@
 
   /* Typsnitt — variablerna sätts av next/font i layouten */
   --font-serif: var(--font-instrument-serif), Georgia, serif;
-  --font-sans: var(--font-instrument-sans), "Helvetica Neue", sans-serif;
+  /* Open Sans: närmaste licensierbara motsvarighet till kundens visitkort. */
+  --font-sans: var(--font-body-sans), "Segoe UI", "Helvetica Neue", sans-serif;
   --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
   --font-arabic: var(--font-noto-naskh-arabic), serif;
 }

@@ -1,8 +1,8 @@
 import {
   IBM_Plex_Mono,
-  Instrument_Sans,
   Instrument_Serif,
   Noto_Naskh_Arabic,
+  Open_Sans,
 } from "next/font/google";
 
 /**
@@ -18,10 +18,15 @@ export const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
 });
 
-export const instrumentSans = Instrument_Sans({
+/**
+ * Brödtext och UI. Kundens visitkort är satt i vad som ser ut att vara
+ * Segoe UI, som inte får licensieras för webben — Open Sans är den närmaste
+ * fria motsvarigheten. Rubrikerna ligger kvar i Instrument Serif.
+ */
+export const bodySans = Open_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-instrument-sans",
+  variable: "--font-body-sans",
 });
 
 export const ibmPlexMono = IBM_Plex_Mono({
@@ -45,7 +50,7 @@ export const notoNaskhArabic = Noto_Naskh_Arabic({
  */
 export const fontVariables = [
   instrumentSerif.variable,
-  instrumentSans.variable,
+  bodySans.variable,
   ibmPlexMono.variable,
   notoNaskhArabic.variable,
 ].join(" ");
