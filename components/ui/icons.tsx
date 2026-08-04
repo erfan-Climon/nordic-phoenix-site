@@ -55,7 +55,7 @@ export function InstagramGlyph() {
   );
 }
 
-/** Bocken i jämförelsetabell och prislistor bär betydelse — därav sr-texten. */
+/** Bocken i prislistorna bär betydelse, därav den dolda texten. */
 export function CheckMark({ label }: { label: string }) {
   return (
     <>
@@ -65,11 +65,3 @@ export function CheckMark({ label }: { label: string }) {
   );
 }
 
-export function CrossMark({ label }: { label: string }) {
-  return (
-    <>
-      <span aria-hidden="true">✕</span>
-      <span className="sr-only">{label}</span>
-    </>
-  );
-}

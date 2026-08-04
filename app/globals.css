@@ -21,9 +21,6 @@
   /* Ytor, ljust */
   --color-page: #faf9f5;
   --color-surface: #fffefb;
-  --color-surface-muted: #f0eee8;
-  --color-surface-row: #f5f3ee;
-  --color-surface-row-warm: #fffbf5;
 
   /* Ytor, mörkt */
   --color-ink: #0a0908;
@@ -47,7 +44,6 @@
   /* Marquee och övrigt */
   --color-city: #d9d4c8;
   --color-city-warm: #edba8a;
-  --color-danger: #c42a1c;
   --color-whatsapp: #25d366;
   --color-banner-ink: #1c0f05;
 
@@ -99,7 +95,6 @@
   --gradient-banner: linear-gradient(115deg, #ffb055 0%, #ff7a1a 55%, #e05c00 100%);
   --gradient-gold-card: linear-gradient(135deg, #241a10, #3d2408);
   --gradient-featured: linear-gradient(165deg, #1e150b, #2a1a08);
-  --gradient-compare-head: linear-gradient(165deg, #fff7ef, #fdeeddff);
   --gradient-fab: linear-gradient(135deg, #2a2118, #0a0908);
   --gradient-media-fallback: linear-gradient(165deg, #efede6, #e2dfd6);
 

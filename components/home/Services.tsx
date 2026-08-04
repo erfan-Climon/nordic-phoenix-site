@@ -43,19 +43,11 @@ export function Services({ t }: { t: Dictionary }) {
   return (
     <section id="tjanster" className="relative bg-page text-text">
       <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(80px,9vw,140px)]">
-        <div
-          data-reveal
-          className="mb-[clamp(48px,6vw,80px)] flex flex-wrap items-end justify-between gap-6"
-        >
-          <div>
-            <p className="np-label mb-7 text-accent-ink">{t.services.label}</p>
-            <h2 className="np-h2 text-[length:var(--fs-h2-xl)] leading-[1.08]">
-              {t.services.h2a} <em className="text-accent">{t.services.h2b}</em>
-            </h2>
-          </div>
-          <p className="m-0 font-mono text-[12px] tracking-[.16em] text-text-meta uppercase">
-            {t.services.scrollHint}
-          </p>
+        <div data-reveal className="mb-[clamp(48px,6vw,80px)]">
+          <p className="np-label mb-7 text-accent-ink">{t.services.label}</p>
+          <h2 className="np-h2 text-[length:var(--fs-h2-xl)] leading-[1.08]">
+            {t.services.h2a} <em className="text-accent">{t.services.h2b}</em>
+          </h2>
         </div>
       </div>
 

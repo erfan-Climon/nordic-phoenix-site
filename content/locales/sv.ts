@@ -25,7 +25,6 @@ export const sv = {
     closeContact: "Stäng kontaktmeny",
     switchLanguage: "Byt språk till engelska",
     yes: "Ingår",
-    no: "Ingår inte",
   },
 
   hero: {
@@ -45,10 +44,9 @@ export const sv = {
   },
 
   services: {
-    label: "( 01 ) · Tjänster",
+    label: "Tjänster",
     h2a: "Allt ditt företag behöver.",
     h2b: "Samlat.",
-    scrollHint: "06 områden, scrolla",
     groups: [
       {
         title: "Bokföring & redovisning",
@@ -106,8 +104,6 @@ export const sv = {
     ],
   },
 
-  /* Utan sifferetikett: sektionerna är numrerade ( 01 ) till ( 08 ) och en
-     inskjuten siffra här skulle förskjuta hela den godkända numreringen. */
   reviews: {
     label: "Omdömen",
     h2a: "Vad våra kunder",
@@ -115,41 +111,9 @@ export const sv = {
     iframeTitle: "Kundomdömen om Nordic Phoenix",
   },
 
-  compare: {
-    label: "( 02 ) · Förvandlingen",
-    labelRight: "Från kaos till kontroll",
-    leftLabel: "Utan Nordic Phoenix",
-    leftTitle: "Företagande med stress",
-    rightLabel: "Med Nordic Phoenix",
-    rightTitle: "Företagande utan stress",
-    rows: [
-      {
-        without: "Du jagar din redovisningskonsult för svar",
-        with: "Direktkontakt med någon som kan ditt företag",
-      },
-      {
-        without: "Papper, pärmar och mejl utspridda överallt",
-        with: "Allt digitalt, samlat och sökbart",
-      },
-      {
-        without: "Besked i sista minuten, eller för sent",
-        with: "Deadlines och myndigheter hanterade i god tid",
-      },
-      {
-        without: "Fakturor för timmar du inte förstår",
-        with: "Fast pris. Du vet alltid vad det kostar",
-      },
-      {
-        without: "Krångligt fackspråk utan förklaring",
-        with: "Tydliga besked på ditt språk",
-      },
-    ],
-    closing:
-      "Så att du kan fokusera helt på din verksamhet, medan vi håller siffrorna, deadlines och myndigheterna i ordning.",
-  },
 
   about: {
-    label: "( 03 ) · Om Nordic Phoenix",
+    label: "Om Nordic Phoenix",
     h2a: "Mer än en redovisningsbyrå.",
     h2b: "En partner för företagets resa.",
     p1: "Nordic Phoenix grundades med ambitionen att göra redovisning, bokföring och ekonomisk rådgivning mer tydlig, trygg och tillgänglig för företagare i Sverige.",
@@ -159,7 +123,7 @@ export const sv = {
   },
 
   pricing: {
-    label: "( 04 ) · Priser",
+    label: "Priser",
     h2a: "Tydliga paket.",
     h2b: "Inga överraskningar.",
     sub: "Fast månadspris utifrån företagets storlek och behov. Alla paket kan anpassas och priserna nedan är riktpriser.",
@@ -214,14 +178,14 @@ export const sv = {
   },
 
   languages: {
-    label: "( 05 ) · Svenska · English · فارسی",
+    label: "Svenska · English · فارسی",
     h2a: "Ekonomi på ett språk som känns",
     h2b: "tydligt och tryggt.",
     text: "Vi hjälper företagare att förstå regler, ekonomi och myndighetskrav på svenska, engelska och persiska. Språket ska aldrig stå mellan dig och kontrollen över din ekonomi.",
   },
 
   process: {
-    label: "( 06 ) · Så kommer du igång",
+    label: "Så kommer du igång",
     h2a: "Tre steg till",
     h2b: "ordning och reda.",
     sub: "Ingen startsträcka, inga pärmar. Vi tar dig från första samtal till en lösning som känns rätt.",
@@ -243,7 +207,7 @@ export const sv = {
   },
 
   sweden: {
-    label: "( 07 ) · Digital redovisning i hela Sverige",
+    label: "Digital redovisning i hela Sverige",
     h2a: "Var du än driver ditt företag.",
     h2b: "Vi finns nära.",
     tail: "· och hela Sverige, digitalt ·",
@@ -265,7 +229,7 @@ export const sv = {
   },
 
   why: {
-    label: "( 08 ) · Varför Nordic Phoenix",
+    label: "Varför Nordic Phoenix",
     h2a: "Din ekonomi.",
     h2b: "Tydligare. Tryggare. Smartare.",
     reasons: [

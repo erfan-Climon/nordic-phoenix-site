@@ -25,7 +25,6 @@ export const en: Dictionary = {
     closeContact: "Close contact menu",
     switchLanguage: "Switch language to Persian",
     yes: "Included",
-    no: "Not included",
   },
 
   hero: {
@@ -45,10 +44,9 @@ export const en: Dictionary = {
   },
 
   services: {
-    label: "( 01 ) · Services",
+    label: "Services",
     h2a: "Everything your company needs.",
     h2b: "In one place.",
-    scrollHint: "06 areas, scroll",
     groups: [
       {
         title: "Bookkeeping & accounting",
@@ -118,41 +116,9 @@ export const en: Dictionary = {
     iframeTitle: "Client reviews of Nordic Phoenix",
   },
 
-  compare: {
-    label: "( 02 ) · The transformation",
-    labelRight: "From chaos to control",
-    leftLabel: "Without Nordic Phoenix",
-    leftTitle: "Running a business with stress",
-    rightLabel: "With Nordic Phoenix",
-    rightTitle: "Running a business without stress",
-    rows: [
-      {
-        without: "You chase your accountant for answers",
-        with: "Direct contact with someone who knows your business",
-      },
-      {
-        without: "Papers, binders and emails scattered everywhere",
-        with: "Everything digital, gathered and searchable",
-      },
-      {
-        without: "Answers at the last minute, or too late",
-        with: "Deadlines and authorities handled well in advance",
-      },
-      {
-        without: "Invoices for hours you don’t understand",
-        with: "Fixed price. You always know the cost",
-      },
-      {
-        without: "Jargon with no explanation",
-        with: "Clear answers in your language",
-      },
-    ],
-    closing:
-      "So you can focus fully on your business, while we keep the numbers, deadlines and authorities in order.",
-  },
 
   about: {
-    label: "( 03 ) · About Nordic Phoenix",
+    label: "About Nordic Phoenix",
     h2a: "More than an accounting firm.",
     h2b: "A partner for your company’s journey.",
     p1: "Nordic Phoenix was founded with the ambition to make accounting, bookkeeping and financial advice clearer, safer and more accessible for business owners in Sweden.",
@@ -162,7 +128,7 @@ export const en: Dictionary = {
   },
 
   pricing: {
-    label: "( 04 ) · Pricing",
+    label: "Pricing",
     h2a: "Clear packages.",
     h2b: "No surprises.",
     sub: "Fixed monthly price based on your company’s size and needs. All packages can be tailored and the prices below are guide prices.",
@@ -217,14 +183,14 @@ export const en: Dictionary = {
   },
 
   languages: {
-    label: "( 05 ) · Svenska · English · فارسی",
+    label: "Svenska · English · فارسی",
     h2a: "Finances in a language that feels",
     h2b: "clear and safe.",
     text: "We help business owners understand rules, finances and authority requirements in Swedish, English and Persian. Language should never stand between you and control of your finances.",
   },
 
   process: {
-    label: "( 06 ) · How to get started",
+    label: "How to get started",
     h2a: "Three steps to",
     h2b: "order and clarity.",
     sub: "No run-up, no binders. We take you from first contact to a solution that feels right.",
@@ -246,7 +212,7 @@ export const en: Dictionary = {
   },
 
   sweden: {
-    label: "( 07 ) · Digital accounting across Sweden",
+    label: "Digital accounting across Sweden",
     h2a: "Wherever you run your business.",
     h2b: "We’re close by.",
     tail: "· and all of Sweden, digitally ·",
@@ -268,7 +234,7 @@ export const en: Dictionary = {
   },
 
   why: {
-    label: "( 08 ) · Why Nordic Phoenix",
+    label: "Why Nordic Phoenix",
     h2a: "Your finances.",
     h2b: "Clearer. Safer. Smarter.",
     reasons: [

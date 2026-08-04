@@ -1,6 +1,5 @@
 import { About } from "@/components/home/About";
 import { ClientLogos } from "@/components/home/ClientLogos";
-import { Comparison } from "@/components/home/Comparison";
 import { CtaBanner } from "@/components/home/CtaBanner";
 import { Hero } from "@/components/home/Hero";
 import { Languages } from "@/components/home/Languages";
@@ -28,7 +27,6 @@ export function HomePage({ locale }: { locale: Locale }) {
       <ClientLogos t={t} />
       <Services t={t} />
       <Reviews t={t} />
-      <Comparison t={t} />
       <About t={t} />
       <Pricing t={t} />
       <Languages t={t} />
