@@ -53,7 +53,14 @@ export function Header({ locale, t }: Props) {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[90] flex items-center justify-between gap-6 border-b border-[var(--hairline-light)] bg-[rgba(255,254,251,.95)] px-[var(--pad-x)] py-4 shadow-[0_2px_24px_rgba(23,19,16,.06)] backdrop-blur-[16px]">
+    <header
+      /* Navigeringen speglas inte i RTL. Resten av sidan vänder som den ska,
+         men logotyp och knappar ska ligga kvar där de gör på svenska och
+         engelska. De persiska etiketterna renderas ändå högerifrån, det
+         sköter bidi-algoritmen på teckennivå. */
+      dir="ltr"
+      className="fixed inset-x-0 top-0 z-[90] flex items-center justify-between gap-6 border-b border-[var(--hairline-light)] bg-[rgba(255,254,251,.95)] px-[var(--pad-x)] py-4 shadow-[0_2px_24px_rgba(23,19,16,.06)] backdrop-blur-[16px]"
+    >
       <Link href={home} className="flex items-center gap-3 no-underline">
         <Image
           src="/assets/phoenix-logo.webp"
