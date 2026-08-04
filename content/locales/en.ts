@@ -123,7 +123,6 @@ export const en: Dictionary = {
     h2b: "A partner for your company’s journey.",
     p1: "Nordic Phoenix was founded with the ambition to make accounting, bookkeeping and financial advice clearer, safer and more accessible for business owners in Sweden.",
     p2: "We work closely with our clients and help them understand their finances, make better decisions and feel confident in contact with the authorities.",
-    values: ["Accuracy", "Responsibility", "Transparency", "Long-term thinking"],
     videoTitle: "About Nordic Phoenix",
   },
 

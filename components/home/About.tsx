@@ -25,19 +25,11 @@ export function About({ t }: { t: Dictionary }) {
           <p className="m-0 mb-[18px] font-sans text-[16px] leading-[1.75] text-on-dark-muted">
             {t.about.p1}
           </p>
-          <p className="m-0 mb-[18px] font-sans text-[16px] leading-[1.75] text-on-dark-muted">
+          {/* Sista stycket saknar undre marginal: värderaden som stod under
+              det är borttagen, och marginalen hade lämnat ett tomrum. */}
+          <p className="m-0 font-sans text-[16px] leading-[1.75] text-on-dark-muted">
             {t.about.p2}
           </p>
-          <div className="mt-11 flex flex-wrap gap-[clamp(20px,3vw,48px)] border-t border-[rgba(242,236,224,.1)] pt-8">
-            {t.about.values.map((value) => (
-              <span
-                key={value}
-                className="font-heading text-[15px] italic text-accent-light"
-              >
-                {value}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div data-reveal data-reveal-delay="240" className="relative">

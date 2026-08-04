@@ -99,6 +99,87 @@ export function BookkeepingIcon({ className }: IconProps) {
   );
 }
 
+const PAYROLL_MASK = "np-icon-payroll";
+
+/** En anställd i kostym, används två gånger i löneikonen. */
+function PayrollPerson({ cx }: { cx: number }) {
+  return (
+    <>
+      {/* Huvud och överkropp */}
+      <circle cx={cx} cy="556" r="64" fill="#fff" />
+      <path
+        d={`M${cx - 117} 776 V706 C${cx - 117} 642 ${cx - 65} 622 ${cx} 622 C${cx + 65} 622 ${cx + 117} 642 ${cx + 117} 706 V776 Z`}
+        fill="#fff"
+      />
+      {/* Skjortan urtagen, slipsen kvar i färg */}
+      <path d={`M${cx - 34} 624 H${cx + 34} L${cx} 716 Z`} fill="#000" />
+      <path
+        d={`M${cx - 9} 628 H${cx + 9} L${cx + 15} 700 L${cx} 728 L${cx - 15} 700 Z`}
+        fill="#fff"
+      />
+      {/* Två smala urtag i underkanten */}
+      <rect x={cx - 84} y="732" width="17" height="44" fill="#000" />
+      <rect x={cx + 67} y="732" width="17" height="44" fill="#000" />
+    </>
+  );
+}
+
+/** Lön, moms & deklaration: hand som räcker fram en sedel, och två anställda. */
+export function PayrollIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      className={className}
+      fill="currentColor"
+      role="img"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <mask id={PAYROLL_MASK} maskUnits="userSpaceOnUse">
+        <rect width="1024" height="1024" fill="#000" />
+
+        {/* Manschett och hand */}
+        <rect x="216" y="155" width="66" height="172" fill="#fff" />
+        <path
+          d="M282 156 C330 148 372 146 410 158 C440 168 470 182 516 204 L516 306 C450 316 360 320 282 318 Z"
+          fill="#fff"
+        />
+
+        {/* Sedeln, med KR urtaget */}
+        <rect x="385" y="205" width="352" height="176" fill="#fff" />
+        <path d="M492 381 H656 L616 464 Z" fill="#fff" />
+        <text
+          x="561"
+          y="296"
+          fill="#000"
+          fontSize="118"
+          fontWeight="700"
+          fontFamily="var(--font-heading)"
+          textAnchor="middle"
+          dominantBaseline="central"
+          letterSpacing="4"
+        >
+          KR
+        </text>
+
+        {/* Tummen ligger över sedelns vänsterkant */}
+        <path
+          d="M348 258 C378 250 402 258 410 280 C418 302 406 320 386 324"
+          fill="none"
+          stroke="#000"
+          strokeWidth="20"
+          strokeLinecap="round"
+        />
+
+        <PayrollPerson cx={413} />
+        <PayrollPerson cx={655} />
+      </mask>
+
+      <rect width="1024" height="1024" mask={`url(#${PAYROLL_MASK})`} />
+    </svg>
+  );
+}
+
 /**
  * Myndighetskontakt & rådgivning: myndighetsbyggnad med flagga.
  * Ritad i konturstil, till skillnad från bokföringsikonen som är fylld.
@@ -145,5 +226,6 @@ export function AuthorityIcon({ className }: IconProps) {
 export const SERVICE_ICONS: Record<number, (p: IconProps) => React.ReactElement> =
   {
     0: BookkeepingIcon,
+    1: PayrollIcon,
     4: AuthorityIcon,
   };

@@ -118,7 +118,6 @@ export const sv = {
     h2b: "En partner för företagets resa.",
     p1: "Nordic Phoenix grundades med ambitionen att göra redovisning, bokföring och ekonomisk rådgivning mer tydlig, trygg och tillgänglig för företagare i Sverige.",
     p2: "Vi arbetar nära våra kunder och hjälper dem att förstå sin ekonomi, fatta bättre beslut och känna sig säkra i kontakten med myndigheter.",
-    values: ["Noggrannhet", "Ansvar", "Transparens", "Långsiktighet"],
     videoTitle: "Om Nordic Phoenix",
   },
 
