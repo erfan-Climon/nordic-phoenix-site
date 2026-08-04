@@ -57,7 +57,7 @@ export function Reviews({ t }: { t: Dictionary }) {
           <p className="np-label mb-7 text-accent">{t.reviews.label}</p>
           <h2
             id="np-reviews-title"
-            className="np-h2 text-[clamp(30px,3.6vw,52px)] leading-[1.25]"
+            className="np-h2 text-[length:var(--fs-h2-sm)] leading-[1.25]"
           >
             {t.reviews.h2a} <em className="text-accent">{t.reviews.h2b}</em>
           </h2>

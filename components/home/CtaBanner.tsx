@@ -12,7 +12,7 @@ export function CtaBanner({ t }: { t: Dictionary }) {
         style={{ background: "var(--gradient-banner)" }}
       >
         <div className="self-center p-[clamp(36px,5vw,72px)]">
-          <h2 className="np-h2 mb-5 text-[clamp(34px,4vw,60px)] leading-[1.12] tracking-[-.015em] text-banner-ink">
+          <h2 className="np-h2 mb-5 text-[length:var(--fs-h2)] leading-[1.12] tracking-[-.015em] text-banner-ink">
             {t.banner.h2a} <em>{t.banner.h2b}</em>
           </h2>
           <p className="m-0 mb-8 max-w-[42ch] font-sans text-[16px] leading-[1.7] text-[rgba(28,15,5,.75)]">

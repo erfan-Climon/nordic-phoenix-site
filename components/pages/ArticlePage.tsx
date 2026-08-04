@@ -53,7 +53,7 @@ export function ArticlePage({ article }: { article: Article }) {
           </span>
         </div>
 
-        <h1 className="np-h2 mb-6 text-[clamp(40px,6vw,84px)] leading-[1.05]">
+        <h1 className="np-h2 mb-6 text-[length:var(--fs-h1)] leading-[1.05]">
           {article.titleLead}{" "}
           <em className="np-gradient-text">{article.titleAccent}</em>
         </h1>
@@ -78,7 +78,7 @@ export function ArticlePage({ article }: { article: Article }) {
             return (
               <h2
                 key={i}
-                className="np-h2 mb-5 text-[clamp(26px,2.6vw,36px)] leading-[1.2] tracking-[-.01em]"
+                className="np-h2 mb-5 text-[length:var(--fs-h3)] leading-[1.2] tracking-[-.01em]"
               >
                 {block.text}
               </h2>
@@ -130,7 +130,7 @@ export function ArticlePage({ article }: { article: Article }) {
 
         <div className="mt-[clamp(48px,6vw,72px)] flex flex-wrap items-center justify-between gap-5 border-t border-[rgba(23,19,16,.14)] pt-9">
           <div className="flex flex-col gap-[6px]">
-            <span className="font-serif text-[22px]">{t.blog.ctaTitle}</span>
+            <span className="font-heading text-[22px]">{t.blog.ctaTitle}</span>
             <span className="font-sans text-[14px] text-text-muted">
               {t.blog.ctaText}
             </span>

@@ -18,7 +18,7 @@ export function About({ t }: { t: Dictionary }) {
       <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-[clamp(48px,7vw,120px)] px-[var(--pad-x)] py-[var(--pad-y)]">
         <div data-reveal data-reveal-delay="120" className="max-w-[760px]">
           <p className="np-label mb-9 text-accent-light">{t.about.label}</p>
-          <h2 className="np-h2 mb-8 text-[clamp(34px,4vw,60px)] leading-[1.15] tracking-[-.015em]">
+          <h2 className="np-h2 mb-8 text-[length:var(--fs-h2)] leading-[1.15] tracking-[-.015em]">
             {t.about.h2a}{" "}
             <em className="text-accent-light">{t.about.h2b}</em>
           </h2>
@@ -32,7 +32,7 @@ export function About({ t }: { t: Dictionary }) {
             {t.about.values.map((value) => (
               <span
                 key={value}
-                className="font-serif text-[15px] italic text-accent-light"
+                className="font-heading text-[15px] italic text-accent-light"
               >
                 {value}
               </span>

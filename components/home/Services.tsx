@@ -49,7 +49,7 @@ export function Services({ t }: { t: Dictionary }) {
         >
           <div>
             <p className="np-label mb-7 text-accent">{t.services.label}</p>
-            <h2 className="np-h2 text-[clamp(40px,6vw,96px)] leading-[1.08]">
+            <h2 className="np-h2 text-[length:var(--fs-h2-xl)] leading-[1.08]">
               {t.services.h2a} <em className="text-accent">{t.services.h2b}</em>
             </h2>
           </div>
@@ -99,13 +99,13 @@ export function Services({ t }: { t: Dictionary }) {
               <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(24px,4vw,64px)] px-[clamp(24px,3vw,44px)] py-[clamp(24px,3.5vw,52px)]">
                 <div>
                   <span
-                    className="font-serif text-[clamp(48px,6vw,92px)] leading-none italic"
+                    className="font-heading text-[length:var(--fs-h2)] leading-none italic"
                     style={{ color: skin.num }}
                   >
                     {num}
                   </span>
                   <h3
-                    className="np-h3 mt-5 max-w-[16ch] text-[clamp(28px,3vw,44px)] leading-[1.2]"
+                    className="np-h3 mt-5 max-w-[16ch] text-[length:var(--fs-h3)] leading-[1.2]"
                     style={{ color: skin.fg }}
                   >
                     {group.title}

@@ -59,7 +59,7 @@
   --breakpoint-nav: 1024px;
 
   /* Typsnitt — variablerna sätts av next/font i layouten */
-  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-heading: var(--font-heading-sans), "Segoe UI", sans-serif;
   /* Open Sans: närmaste licensierbara motsvarighet till kundens visitkort. */
   --font-sans: var(--font-body-sans), "Segoe UI", "Helvetica Neue", sans-serif;
   --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
@@ -67,6 +67,21 @@
 }
 
 :root {
+  /* --- Rubrikskala -----------------------------------------------------
+     En skala i stället för handsatta clamp() per sektion, så att alla
+     rubriker kan justeras på ett ställe. Sänkt ca 30% i toppen mot
+     designunderlagets värden, på kundens begäran: en humanistisk sans har
+     dessutom betydligt större x-höjd än serifen underlaget angav och läser
+     större vid samma punktstorlek. */
+  --fs-hero: clamp(40px, 5.8vw, 104px);
+  --fs-h1: clamp(34px, 4.6vw, 72px);
+  --fs-h2-xl: clamp(32px, 4.2vw, 64px);
+  --fs-h2: clamp(28px, 3.2vw, 48px);
+  --fs-h2-sm: clamp(26px, 2.8vw, 40px);
+  --fs-h3: clamp(22px, 2.2vw, 32px);
+  --fs-h3-sm: clamp(19px, 1.7vw, 24px);
+  --fs-city: clamp(32px, 4vw, 64px);
+
   /* Gradienter */
   --gradient-accent: linear-gradient(120deg, #f5851f, #e05a00);
   --gradient-accent-text: linear-gradient(110deg, #f5851f 20%, #e05a00);
@@ -198,17 +213,19 @@
     transition: color var(--dur-hover);
   }
 
+  /* Vikt 600, inte 400: en sans i rubrikvikt behöver tyngd för att bära
+     samma auktoritet som serifen i underlaget gjorde vid vikt 400. */
   .np-h2 {
-    font-family: var(--font-serif);
-    font-weight: 400;
+    font-family: var(--font-heading);
+    font-weight: 600;
     letter-spacing: -0.02em;
     margin: 0;
     text-wrap: balance;
   }
 
   .np-h3 {
-    font-family: var(--font-serif);
-    font-weight: 400;
+    font-family: var(--font-heading);
+    font-weight: 600;
     letter-spacing: -0.01em;
     margin: 0;
   }

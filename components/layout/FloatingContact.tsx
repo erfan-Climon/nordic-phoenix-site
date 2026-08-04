@@ -91,7 +91,7 @@ export function FloatingContact({ t }: { t: Dictionary }) {
           className="absolute top-[6px] left-[56px] flex flex-col items-center gap-px rounded-float border border-[rgba(23,19,16,.08)] bg-surface px-[14px] py-[10px] shadow-[var(--shadow-float)]"
           style={fly(".12s")}
         >
-          <span className="font-serif text-[20px] leading-none text-text">
+          <span className="font-heading text-[20px] leading-none text-text">
             {today?.day ?? ""}
           </span>
           <span className="font-mono text-[9px] font-semibold tracking-[.14em] text-accent">

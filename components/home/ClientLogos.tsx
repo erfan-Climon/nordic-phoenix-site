@@ -4,10 +4,10 @@ import type { Dictionary } from "@/content/locales/sv";
 /** Typografiska ordmärken — kunder utan egen logotypfil. */
 const WORDMARKS = [
   { text: "NORDBYGG", className: "font-sans text-[21px] font-bold tracking-[.1em]" },
-  { text: "Kafé Linnea", className: "font-serif text-[26px] italic" },
+  { text: "Kafé Linnea", className: "font-heading text-[26px] italic" },
   { text: "SVEA LOGISTIK", className: "font-mono text-[17px] font-medium tracking-[.2em]" },
   { text: "Studio Form", className: "font-sans text-[22px] font-semibold" },
-  { text: "Bright Konsult", className: "font-serif text-[25px] italic" },
+  { text: "Bright Konsult", className: "font-heading text-[25px] italic" },
   { text: "VERKSTAN", className: "font-sans text-[19px] font-bold tracking-[.24em]" },
 ];
 

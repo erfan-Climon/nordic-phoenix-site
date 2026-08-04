@@ -8,7 +8,7 @@ export function WhyUs({ t }: { t: Dictionary }) {
       <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y)]">
         <div data-reveal className="mb-[clamp(56px,7vw,88px)]">
           <p className="np-label mb-7 text-accent-light">{t.why.label}</p>
-          <h2 className="np-h2 max-w-[18ch] text-[clamp(38px,5.5vw,88px)] leading-[1.1]">
+          <h2 className="np-h2 max-w-[18ch] text-[length:var(--fs-h2-xl)] leading-[1.1]">
             {t.why.h2a} <em className="text-accent-light">{t.why.h2b}</em>
           </h2>
         </div>
@@ -25,7 +25,7 @@ export function WhyUs({ t }: { t: Dictionary }) {
               <span className="font-mono text-[12px] text-accent-light">
                 {NUMBERS[i]}
               </span>
-              <h3 className="np-h3 mt-[14px] mb-[10px] text-[clamp(20px,1.9vw,26px)] leading-[1.3]">
+              <h3 className="np-h3 mt-[14px] mb-[10px] text-[length:var(--fs-h3-sm)] leading-[1.3]">
                 {reason.title}
               </h3>
               <p className="m-0 font-sans text-[14px] leading-[1.65] text-on-dark-muted">

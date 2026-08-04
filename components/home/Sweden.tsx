@@ -16,7 +16,7 @@ export function Sweden({ t }: { t: Dictionary }) {
         className="mb-[clamp(48px,6vw,72px)] px-[clamp(20px,5vw,64px)] text-center"
       >
         <p className="np-label mb-7 text-accent">{t.sweden.label}</p>
-        <h2 className="np-h2 text-[clamp(30px,3.6vw,52px)] leading-[1.25]">
+        <h2 className="np-h2 text-[length:var(--fs-h2-sm)] leading-[1.25]">
           {t.sweden.h2a} <em className="text-accent">{t.sweden.h2b}</em>
         </h2>
       </div>
@@ -33,7 +33,7 @@ export function Sweden({ t }: { t: Dictionary }) {
           {repeat(row1, 3).map((city, i) => (
             <span
               key={`${city}-${i}`}
-              className="whitespace-nowrap pr-[.7em] font-serif text-[clamp(40px,5.5vw,86px)] leading-[1.25] tracking-[-.02em] text-city transition-colors duration-[.35s] hover:text-accent"
+              className="whitespace-nowrap pr-[.7em] font-heading text-[length:var(--fs-city)] leading-[1.25] tracking-[-.02em] text-city transition-colors duration-[.35s] hover:text-accent"
             >
               {city}
               <span className="pl-[.7em] text-city-warm italic">·</span>
@@ -48,7 +48,7 @@ export function Sweden({ t }: { t: Dictionary }) {
           {repeat(row2, 4).map((city, i) => (
             <span
               key={`${city}-${i}`}
-              className="whitespace-nowrap pr-[.7em] font-serif text-[clamp(40px,5.5vw,86px)] leading-[1.25] tracking-[-.02em] text-city-warm italic transition-colors duration-[.35s] hover:text-accent"
+              className="whitespace-nowrap pr-[.7em] font-heading text-[length:var(--fs-city)] leading-[1.25] tracking-[-.02em] text-city-warm italic transition-colors duration-[.35s] hover:text-accent"
             >
               {city}
               <span className="pl-[.7em] text-city">·</span>

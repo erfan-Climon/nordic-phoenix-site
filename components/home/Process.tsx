@@ -12,7 +12,7 @@ export function Process({ t }: { t: Dictionary }) {
       <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(48px,6vw,100px)] px-[var(--pad-x)] py-[var(--pad-y)]">
         <div className="sticky top-[120px]">
           <p className="np-label mb-8 text-accent-light">{t.process.label}</p>
-          <h2 className="np-h2 mb-7 text-[clamp(36px,4.4vw,68px)] leading-[1.12] tracking-[-.015em]">
+          <h2 className="np-h2 mb-7 text-[length:var(--fs-h2)] leading-[1.12] tracking-[-.015em]">
             {t.process.h2a} <em className="text-accent-light">{t.process.h2b}</em>
           </h2>
           <p className="m-0 mb-10 max-w-[38ch] font-sans text-[15px] leading-[1.7] text-on-dark-muted">
@@ -54,7 +54,7 @@ export function Process({ t }: { t: Dictionary }) {
                 {NUMBERS[i]}
               </span>
               <div>
-                <h3 className="np-h3 mb-[10px] text-[clamp(24px,2.4vw,34px)] leading-[1.3]">
+                <h3 className="np-h3 mb-[10px] text-[length:var(--fs-h3)] leading-[1.3]">
                   {step.title}
                 </h3>
                 <p className="m-0 max-w-[48ch] font-sans text-[15px] leading-[1.7] text-on-dark-muted">

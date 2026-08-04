@@ -1,8 +1,8 @@
 import {
   IBM_Plex_Mono,
-  Instrument_Serif,
   Noto_Naskh_Arabic,
   Open_Sans,
+  Source_Sans_3,
 } from "next/font/google";
 
 /**
@@ -10,12 +10,16 @@ import {
  * besökarens webbläsare (prestanda + GDPR, se handoff "Performance notes").
  */
 
-export const instrumentSerif = Instrument_Serif({
-  weight: "400",
+/**
+ * Rubriker. Medvetet inte samma snitt som brödtexten — Source Sans 3 är
+ * humanistisk och tydligt släkt med Open Sans och kortets Segoe UI, men
+ * smalare och stramare, så hierarkin mellan rubrik och brödtext håller.
+ */
+export const headingSans = Source_Sans_3({
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-instrument-serif",
+  variable: "--font-heading-sans",
 });
 
 /**
@@ -49,7 +53,7 @@ export const notoNaskhArabic = Noto_Naskh_Arabic({
  * oavsett valt språk. Därför ingår det arabiska subsettet överallt.
  */
 export const fontVariables = [
-  instrumentSerif.variable,
+  headingSans.variable,
   bodySans.variable,
   ibmPlexMono.variable,
   notoNaskhArabic.variable,

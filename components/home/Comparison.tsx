@@ -22,7 +22,7 @@ export function Comparison({ t }: { t: Dictionary }) {
               <p className="m-0 mb-2 font-mono text-[11px] tracking-[.22em] text-text-muted uppercase">
                 {t.compare.leftLabel}
               </p>
-              <h3 className="np-h3 text-[clamp(20px,2.2vw,32px)] leading-[1.15]">
+              <h3 className="np-h3 text-[length:var(--fs-h3-sm)] leading-[1.15]">
                 {t.compare.leftTitle}
               </h3>
             </div>
@@ -33,7 +33,7 @@ export function Comparison({ t }: { t: Dictionary }) {
               <p className="m-0 mb-2 font-mono text-[11px] tracking-[.22em] text-accent uppercase">
                 {t.compare.rightLabel}
               </p>
-              <h3 className="np-h3 text-[clamp(20px,2.2vw,32px)] leading-[1.15]">
+              <h3 className="np-h3 text-[length:var(--fs-h3-sm)] leading-[1.15]">
                 {t.compare.rightTitle}
               </h3>
             </div>

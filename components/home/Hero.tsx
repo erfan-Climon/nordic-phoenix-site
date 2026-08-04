@@ -37,7 +37,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         className="relative z-[2] flex w-full flex-wrap items-center gap-[clamp(32px,4vw,72px)] px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)]"
       >
         <div className="min-w-0 flex-[1_1_520px]">
-          <h1 className="m-0 flex flex-col font-serif text-[clamp(52px,8.5vw,148px)] leading-[0.98] tracking-[-.025em] text-text">
+          <h1 className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-text">
             <span style={{ animation: "np-rise 1.1s .05s var(--ease) both" }}>
               {t.hero.w1}
             </span>

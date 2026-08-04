@@ -20,7 +20,7 @@ export function BlogIndexPage() {
         <p className="np-meta m-0 mb-7 tracking-[.24em] text-text-meta">
           {t.blog.eyebrow}
         </p>
-        <h1 className="np-h2 mb-7 text-[clamp(48px,8vw,120px)] leading-none tracking-[-.025em]">
+        <h1 className="np-h2 mb-7 text-[length:var(--fs-h1)] leading-none tracking-[-.025em]">
           {t.blog.h1a} <em className="np-gradient-text">{t.blog.h1b}</em>
         </h1>
         <p className="m-0 max-w-[52ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-text-muted">
@@ -49,7 +49,7 @@ export function BlogIndexPage() {
                 </span>
                 <span>{featured.date}</span>
               </div>
-              <h2 className="np-h2 text-[clamp(28px,3vw,44px)] leading-[1.15] tracking-[-.015em]">
+              <h2 className="np-h2 text-[length:var(--fs-h3)] leading-[1.15] tracking-[-.015em]">
                 {featured.title}
               </h2>
               <p className="m-0 font-sans text-[15px] leading-[1.7] text-text-muted">
@@ -134,7 +134,7 @@ function CardBody({
         <span>{tag}</span>
         <span>{date}</span>
       </div>
-      <h2 className="np-h2 text-[clamp(22px,2vw,28px)] leading-[1.2] tracking-[-.01em]">
+      <h2 className="np-h2 text-[length:var(--fs-h3-sm)] leading-[1.2] tracking-[-.01em]">
         {title}
       </h2>
       <p className="m-0 flex-1 font-sans text-[14px] leading-[1.65] text-text-muted">

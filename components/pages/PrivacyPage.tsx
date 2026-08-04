@@ -5,7 +5,7 @@ export function PrivacyPage({ locale }: { locale: Locale }) {
 
   return (
     <section className="mx-auto max-w-[760px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)] pb-[clamp(96px,12vw,160px)]">
-      <h1 className="np-h2 mb-4 text-[clamp(36px,5vw,64px)] leading-[1.1]">
+      <h1 className="np-h2 mb-4 text-[length:var(--fs-h2)] leading-[1.1]">
         {t.privacy.title}
       </h1>
       <p className="np-meta m-0 mb-[clamp(40px,5vw,64px)] text-text-meta">
@@ -14,7 +14,7 @@ export function PrivacyPage({ locale }: { locale: Locale }) {
 
       {t.privacy.body.map((section) => (
         <div key={section.heading} className="mb-10">
-          <h2 className="np-h2 mb-4 text-[clamp(22px,2.2vw,30px)] leading-[1.25] tracking-[-.01em]">
+          <h2 className="np-h2 mb-4 text-[length:var(--fs-h3-sm)] leading-[1.25] tracking-[-.01em]">
             {section.heading}
           </h2>
           <p className="m-0 font-sans text-[17px] leading-[1.8] text-text-article">

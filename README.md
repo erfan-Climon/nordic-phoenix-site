@@ -61,15 +61,28 @@ Tre typsnitt, alla självhostade via `next/font` (`lib/fonts.ts`):
 
 | Roll | Typsnitt |
 |---|---|
-| Rubriker, hero, stadsnamn, display-tal | Instrument Serif |
+| Rubriker, hero, stadsnamn, display-tal | Source Sans 3 (vikt 600) |
 | Brödtext, knappar, priser, listor | Open Sans |
 | Etiketter, sektionsnummer, nav | IBM Plex Mono |
 | Hela dokumentet på persiska | Noto Naskh Arabic |
 
-Open Sans valdes för att matcha kundens visitkort, som ser ut att vara satt i
-Segoe UI. Segoe UI får inte licensieras för webben; Open Sans är den närmaste
-fria motsvarigheten. Designunderlaget angav Instrument Sans här — bytet är ett
-kundbeslut, inte en avvikelse från underlaget av misstag.
+Kundens visitkort ser ut att vara satt i Segoe UI, som inte får licensieras för
+webben. Open Sans är närmaste fria motsvarighet och används i brödtexten, med
+Segoe UI som första fallback så att den som har snittet installerat ser kortets
+typsnitt exakt. Rubrikerna ska enligt kunden inte vara exakt samma snitt som
+brödtexten: Source Sans 3 är humanistisk och tydligt släkt, men smalare och
+stramare, så hierarkin håller.
+
+Designunderlaget angav Instrument Serif för rubriker och Instrument Sans för
+brödtext. Båda bytena är kundbeslut fattade efter leverans av underlaget, inte
+avvikelser av misstag.
+
+Rubrikstorlekarna ligger som en skala i `:root` (`--fs-hero`, `--fs-h1`,
+`--fs-h2-xl`, `--fs-h2`, `--fs-h2-sm`, `--fs-h3`, `--fs-h3-sm`, `--fs-city`) i
+stället för handsatta `clamp()` per sektion. Justera skalan där, så följer alla
+sektioner med. Den ligger ca 30% under underlagets värden i toppen, på kundens
+begäran — en humanistisk sans har dessutom större x-höjd än serifen och läser
+större vid samma punktstorlek.
 
 ## Designsystem
 

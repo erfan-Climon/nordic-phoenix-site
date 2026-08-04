@@ -50,7 +50,7 @@ export function Pricing({ t }: { t: Dictionary }) {
       <div className="relative mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y)]">
         <div data-reveal className="mb-[clamp(48px,6vw,80px)]">
           <p className="np-label mb-7 text-accent-light">{t.pricing.label}</p>
-          <h2 className="np-h2 mb-5 text-[clamp(38px,5vw,80px)] leading-[1.1]">
+          <h2 className="np-h2 mb-5 text-[length:var(--fs-h2-xl)] leading-[1.1]">
             {t.pricing.h2a} <em className="text-accent-light">{t.pricing.h2b}</em>
           </h2>
           <p className="m-0 max-w-[52ch] font-sans text-[16px] leading-[1.7] text-on-dark-muted">
@@ -73,7 +73,7 @@ export function Pricing({ t }: { t: Dictionary }) {
                 }}
               >
                 <div className="mb-[10px] flex items-center gap-3">
-                  <h3 className="m-0 font-sans text-[clamp(22px,2vw,28px)] font-semibold tracking-[-.01em] text-on-dark">
+                  <h3 className="m-0 font-sans text-[length:var(--fs-h3-sm)] font-semibold tracking-[-.01em] text-on-dark">
                     {pkg.name}
                   </h3>
                   {pkg.featured ? (
@@ -91,7 +91,7 @@ export function Pricing({ t }: { t: Dictionary }) {
                 </p>
 
                 <div className="mb-7 flex items-baseline gap-[6px]">
-                  <span className="font-sans text-[clamp(38px,3.4vw,52px)] leading-none font-semibold tracking-[-.03em] text-on-dark">
+                  <span className="font-sans text-[clamp(30px,2.6vw,42px)] leading-none font-semibold tracking-[-.03em] text-on-dark">
                     {pkg.price}
                   </span>
                   <span

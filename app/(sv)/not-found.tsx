@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <section className="mx-auto flex min-h-[70svh] max-w-[720px] flex-col justify-center px-[var(--pad-x)] py-[clamp(150px,18vh,220px)]">
       <p className="np-meta m-0 mb-6 text-text-meta">404</p>
-      <h1 className="np-h2 mb-6 text-[clamp(36px,5vw,72px)] leading-[1.1]">
+      <h1 className="np-h2 mb-6 text-[length:var(--fs-h2)] leading-[1.1]">
         Sidan finns inte.
       </h1>
       <p className="m-0 mb-10 max-w-[46ch] font-sans text-[17px] leading-[1.7] text-text-muted">

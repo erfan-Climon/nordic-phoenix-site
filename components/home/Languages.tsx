@@ -19,7 +19,7 @@ export function Languages({ t }: { t: Dictionary }) {
         </p>
         <h2
           data-reveal
-          className="np-h2 mb-9 text-[clamp(32px,4.4vw,62px)] leading-[1.25] tracking-[-.01em]"
+          className="np-h2 mb-9 text-[length:var(--fs-h2)] leading-[1.25] tracking-[-.01em]"
         >
           {t.languages.h2a}{" "}
           <em className="np-gradient-text">{t.languages.h2b}</em>
