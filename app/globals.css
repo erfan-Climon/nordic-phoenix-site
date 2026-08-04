@@ -52,9 +52,11 @@
   --radius-banner: 28px;
 
   /* Enda brytpunkten i sajten. Designen är i övrigt helt fluid (clamp +
-     flex-wrap + auto-fit) och ska förbli det — men navraden med fem länkar
-     och två knappar går inte att göra fluid, den behöver en hamburgare. */
-  --breakpoint-nav: 840px;
+     flex-wrap + auto-fit) och ska förbli det — men navraden går inte att göra
+     fluid: fyra länkar, telefonnummer, språkknapp och CTA behöver en
+     hamburgare under den här bredden. Höjd från 840px när telefonnumret
+     tillkom, annars trängs raden ihop runt 900px. */
+  --breakpoint-nav: 1024px;
 
   /* Typsnitt — variablerna sätts av next/font i layouten */
   --font-serif: var(--font-instrument-serif), Georgia, serif;

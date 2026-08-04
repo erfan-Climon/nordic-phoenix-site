@@ -18,6 +18,7 @@ export const en: Dictionary = {
 
   a11y: {
     toTop: "Back to top",
+    call: "Call",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     openContact: "Open contact menu",

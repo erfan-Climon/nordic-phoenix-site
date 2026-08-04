@@ -18,6 +18,7 @@ export const fa: Dictionary = {
 
   a11y: {
     toTop: "بازگشت به بالا",
+    call: "تماس",
     openMenu: "باز کردن منو",
     closeMenu: "بستن منو",
     openContact: "باز کردن منوی تماس",

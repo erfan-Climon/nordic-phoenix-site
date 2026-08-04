@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
-import { whatsappUrl } from "@/content/site";
+import { phone, whatsappUrl } from "@/content/site";
+import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
   localeButtonLabel,
@@ -62,7 +63,9 @@ export function Header({ locale, t }: Props) {
           priority
           className="block h-auto w-[34px]"
         />
-        <span className="font-mono text-[12px] font-medium tracking-[.22em] text-text uppercase">
+        {/* Får inte brytas till två rader — headern måste hålla sig på ~66px,
+            det är höjden ankarlänkarnas scroll-margin räknar med. */}
+        <span className="font-mono text-[12px] font-medium tracking-[.22em] whitespace-nowrap text-text uppercase max-[400px]:hidden">
           Nordic Phoenix
         </span>
       </Link>
@@ -78,6 +81,15 @@ export function Header({ locale, t }: Props) {
             {link.label}
           </Link>
         ))}
+        {/* Telefonnumret är för långt för att versaliseras med .12em spärr som
+            nav-länkarna — det får normal siffersättning i stället. */}
+        <a
+          href={phone.href}
+          className="flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap text-text no-underline transition-colors duration-300 hover:text-accent"
+        >
+          <PhoneGlyph />
+          {phone.display}
+        </a>
         <LanguageLink locale={locale} t={t} path={path} />
         <Link
           href={whatsappUrl}
@@ -91,6 +103,15 @@ export function Header({ locale, t }: Props) {
 
       {/* --- Kompakt nav -------------------------------------------------- */}
       <div className="flex items-center gap-3 nav:hidden">
+        {/* Att ringa är en primär konvertering här — knappen ska finnas kvar
+            i topplisten även när resten av navigeringen fälls ihop. */}
+        <a
+          href={phone.href}
+          aria-label={`${t.a11y.call} ${phone.display}`}
+          className="flex h-11 w-11 items-center justify-center rounded-pill border border-[rgba(23,19,16,.3)] text-text no-underline transition-colors duration-300 hover:border-accent hover:text-accent"
+        >
+          <PhoneGlyph size={16} />
+        </a>
         <LanguageLink locale={locale} t={t} path={path} />
         <button
           type="button"
@@ -134,6 +155,14 @@ export function Header({ locale, t }: Props) {
               {link.label}
             </Link>
           ))}
+          <a
+            href={phone.href}
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center gap-2 border-b border-[var(--hairline-light)] py-4 font-mono text-[13px] font-medium text-text no-underline transition-colors duration-300 hover:text-accent"
+          >
+            <PhoneGlyph />
+            {phone.display}
+          </a>
           <Link
             href={whatsappUrl}
             target="_blank"

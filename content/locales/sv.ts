@@ -18,6 +18,7 @@ export const sv = {
 
   a11y: {
     toTop: "Till toppen",
+    call: "Ring",
     openMenu: "Öppna meny",
     closeMenu: "Stäng meny",
     openContact: "Öppna kontaktmeny",
