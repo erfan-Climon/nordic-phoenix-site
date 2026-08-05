@@ -40,14 +40,21 @@ export function nextLocale(locale: Locale): Locale {
   return locales[(i + 1) % locales.length];
 }
 
-/**
- * Etiketten på språkknappen visar det språk man byter *till*. Persiskan
- * kortas till två tecken i stället för hela "فارسی", så att knappen håller
- * samma bredd som SV och EN nu när ramen är borta.
- */
+/** Etiketten på språkknappen visar det språk man byter *till*. */
 export const localeButtonLabel: Record<Locale, string> = {
   sv: "SV",
   en: "EN",
+  fa: "فارسی",
+};
+
+/**
+ * Kort variant för det kompakta läget. Utan ram styrs knappens bredd helt av
+ * texten, och hela "فارسی" blir ungefär tre gånger bredare än SV och EN,
+ * vilket får raden att hoppa när man växlar språk. På desktop finns gott om
+ * plats, där används hela ordet.
+ */
+export const localeButtonLabelShort: Record<Locale, string> = {
+  ...localeButtonLabel,
   fa: "فا",
 };
 

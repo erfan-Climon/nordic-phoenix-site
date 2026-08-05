@@ -10,6 +10,7 @@ import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
   localeButtonLabel,
+  localeButtonLabelShort,
   localePath,
   nextLocale,
   stripLocale,
@@ -129,7 +130,7 @@ export function Header({ locale, t }: Props) {
         {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
             plats. Språkknappen flyttas då ner i menyn i stället. */}
         <span className="hidden min-[368px]:block">
-          <LanguageLink locale={locale} t={t} path={path} />
+          <LanguageLink locale={locale} t={t} path={path} short />
         </span>
         <button
           type="button"
@@ -191,7 +192,7 @@ export function Header({ locale, t }: Props) {
             className="border-b border-[var(--hairline-light)] py-4 min-[368px]:hidden"
             onClick={() => setMenuOpen(false)}
           >
-            <LanguageLink locale={locale} t={t} path={path} />
+            <LanguageLink locale={locale} t={t} path={path} short />
           </span>
           <Link
             href={whatsappUrl}
@@ -212,8 +213,10 @@ function LanguageLink({
   locale,
   t,
   path,
-}: Props & { path: string }) {
+  short = false,
+}: Props & { path: string; short?: boolean }) {
   const target = nextLocale(locale);
+  const label = short ? localeButtonLabelShort[target] : localeButtonLabel[target];
   return (
     <Link
       href={localePath(target, path)}
@@ -222,7 +225,7 @@ function LanguageLink({
       /* Ingen ram, bara etiketten. 44px höjd hålls som träffyta. */
       className="flex h-11 items-center px-1 font-mono text-[13px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:text-accent-ink"
     >
-      {localeButtonLabel[target]}
+      {label}
     </Link>
   );
 }

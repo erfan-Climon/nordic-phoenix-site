@@ -1,5 +1,4 @@
 import type { Dictionary } from "@/content/locales/sv";
-import { SERVICE_ICONS } from "@/components/ui/ServiceIcons";
 
 const NUMBERS = ["01", "02", "03", "04", "05", "06", "07", "08"];
 
@@ -56,7 +55,6 @@ export function Services({ t }: { t: Dictionary }) {
         {t.services.groups.map((group, i) => {
           const skin = SKINS[i] ?? cream;
           const num = NUMBERS[i];
-          const Icon = SERVICE_ICONS[i];
           return (
             <div
               key={group.title}
@@ -92,30 +90,12 @@ export function Services({ t }: { t: Dictionary }) {
 
               <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(24px,4vw,64px)] px-[clamp(24px,3vw,44px)] py-[clamp(24px,3.5vw,52px)]">
                 <div>
-                  {/* Har kortet en ikon ersätter den numret, annars står
-                      numret kvar. Ikonen ritas i currentColor och ärver
-                      därmed samma accentfärg som numret hade. */}
-                  {Icon ? (
-                    <span
-                      /* Större än numret var: en siffra läses vid 28px, en
-                         ikon med den här detaljnivån gör det inte. */
-                      className="block h-[clamp(56px,6vw,88px)] w-[clamp(56px,6vw,88px)]"
-                      style={{ color: skin.num }}
-                    >
-                      <Icon className="block h-full w-full" />
-                    </span>
-                  ) : (
-                    <span
-                      className="font-heading text-[length:var(--fs-h2)] leading-none italic"
-                      style={{ color: skin.num }}
-                    >
-                      {num}
-                    </span>
-                  )}
+                  {/* Varken ikon eller nummer i kortets kropp. Numret finns
+                      kvar i mini-headern som tonas in vid scroll. */}
                   <h3
                     /* Ingen ch-begränsning: rubriken ska rymmas på en rad.
                        Den bryter bara när kolumnen faktiskt är för smal. */
-                    className="np-h3 mt-5 text-[length:var(--fs-h3)] leading-[1.2] text-pretty"
+                    className="np-h3 text-[length:var(--fs-h3)] leading-[1.2] text-pretty"
                     style={{ color: skin.fg }}
                   >
                     {group.title}
