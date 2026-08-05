@@ -59,7 +59,9 @@ export function Sweden({ t }: { t: Dictionary }) {
 
       <p
         data-reveal
-        className="mt-[clamp(48px,6vw,72px)] mb-0 text-center font-mono text-[12px] tracking-[.2em] text-text-meta uppercase"
+        /* Minimivärdet hålls nere: versalt mono med .2em spärr blir brett, och
+           raden ska rymmas utan att brytas på en 375px-skärm. */
+        className="mt-[clamp(48px,6vw,72px)] mb-0 px-[var(--pad-x)] text-center font-mono text-[clamp(13px,1.6vw,22px)] tracking-[.2em] text-text-meta uppercase"
       >
         {t.sweden.tail}
       </p>
