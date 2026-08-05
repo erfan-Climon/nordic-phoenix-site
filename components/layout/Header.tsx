@@ -120,9 +120,11 @@ export function Header({ locale, t }: Props) {
         <a
           href={phone.href}
           aria-label={`${t.a11y.call} ${phone.display}`}
-          className="np-btn flex h-11 w-11 flex-none items-center justify-center bg-[image:var(--gradient-accent)] text-on-accent no-underline shadow-[var(--shadow-nav-button)] hover:-translate-y-px hover:text-on-accent hover:shadow-[0_8px_28px_rgba(240,103,0,.45)]"
+          /* Ingen ram och ingen platta, bara ikonen. Ytan hålls på 44px för
+             att förbli en rimlig träffyta även utan synlig knapp. */
+          className="flex h-11 w-11 flex-none items-center justify-center text-accent no-underline transition-colors duration-300 hover:text-accent-light"
         >
-          <PhoneGlyph size={16} />
+          <PhoneGlyph size={20} />
         </a>
         {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
             plats. Språkknappen flyttas då ner i menyn i stället. */}
@@ -135,20 +137,26 @@ export function Header({ locale, t }: Props) {
           aria-expanded={menuOpen}
           aria-controls="np-mobile-nav"
           aria-label={menuOpen ? t.a11y.closeMenu : t.a11y.openMenu}
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-button border border-[rgba(23,19,16,.3)] bg-transparent transition-colors duration-300 hover:border-accent"
+          className="flex h-11 w-11 cursor-pointer items-center justify-center border-none bg-transparent text-text transition-colors duration-300 hover:text-accent"
         >
-          <span className="relative block h-[12px] w-[18px]">
+          {/* Tre streck utan ram. Öppet läge: det mittersta tonas bort och de
+              yttre roterar ihop till ett kryss. */}
+          <span className="relative block h-[14px] w-[20px]">
             <span
-              className="absolute left-0 block h-[1.5px] w-full bg-text transition-transform duration-300 ease-[var(--ease)]"
+              className="absolute left-0 block h-[2px] w-full bg-current transition-all duration-300 ease-[var(--ease)]"
               style={{
-                top: menuOpen ? "5px" : "0",
+                top: menuOpen ? "6px" : "0",
                 transform: menuOpen ? "rotate(45deg)" : "none",
               }}
             />
             <span
-              className="absolute left-0 block h-[1.5px] w-full bg-text transition-transform duration-300 ease-[var(--ease)]"
+              className="absolute top-[6px] left-0 block h-[2px] w-full bg-current transition-opacity duration-300 ease-[var(--ease)]"
+              style={{ opacity: menuOpen ? 0 : 1 }}
+            />
+            <span
+              className="absolute left-0 block h-[2px] w-full bg-current transition-all duration-300 ease-[var(--ease)]"
               style={{
-                top: menuOpen ? "5px" : "10px",
+                top: menuOpen ? "6px" : "12px",
                 transform: menuOpen ? "rotate(-45deg)" : "none",
               }}
             />
@@ -211,7 +219,8 @@ function LanguageLink({
       href={localePath(target, path)}
       hrefLang={target}
       aria-label={t.a11y.switchLanguage}
-      className="rounded-button border border-[rgba(23,19,16,.3)] px-4 py-[9px] font-mono text-[12px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:border-accent hover:bg-[rgba(240,103,0,.06)] hover:text-accent-ink"
+      /* Ingen ram, bara etiketten. 44px höjd hålls som träffyta. */
+      className="flex h-11 items-center px-1 font-mono text-[13px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:text-accent-ink"
     >
       {localeButtonLabel[target]}
     </Link>

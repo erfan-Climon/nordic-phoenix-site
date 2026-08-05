@@ -40,11 +40,15 @@ export function nextLocale(locale: Locale): Locale {
   return locales[(i + 1) % locales.length];
 }
 
-/** Etiketten på språkknappen visar det språk man byter *till*. */
+/**
+ * Etiketten på språkknappen visar det språk man byter *till*. Persiskan
+ * kortas till två tecken i stället för hela "فارسی", så att knappen håller
+ * samma bredd som SV och EN nu när ramen är borta.
+ */
 export const localeButtonLabel: Record<Locale, string> = {
   sv: "SV",
   en: "EN",
-  fa: "فارسی",
+  fa: "فا",
 };
 
 /**
