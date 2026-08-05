@@ -10,7 +10,12 @@ export function Process({ t }: { t: Dictionary }) {
       className="relative bg-ink text-on-dark [overflow:clip]"
     >
       <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(48px,6vw,100px)] px-[var(--pad-x)] py-[var(--pad-y)]">
-        <div className="sticky top-[120px]">
+        {/* Blocket är sticky. Utan egen bakgrund scrollar stegen rakt igenom
+            det när mobilen lägger allt i en kolumn, så texterna hamnar
+            ovanpå varandra. Solid bakgrund plus z-10 gör att stegen försvinner
+            under det i stället. Bakgrunden går ut i kanterna på mobil, annars
+            syns en remsa av sektionen bredvid. */}
+        <div className="sticky top-[calc(var(--header-h)+24px)] z-10 -mx-[var(--pad-x)] bg-ink px-[var(--pad-x)] pt-6 pb-10 nav:mx-0 nav:px-0 nav:pt-0 nav:pb-0">
           <p className="np-label mb-8 text-accent-light">{t.process.label}</p>
           <h2 className="np-h2 mb-7 text-[length:var(--fs-h2)] leading-[1.12] tracking-[-.015em]">
             {t.process.h2a} <em className="text-accent-light">{t.process.h2b}</em>
@@ -27,10 +32,12 @@ export function Process({ t }: { t: Dictionary }) {
             {t.process.cta}
           </a>
 
-          {/* Glöden ligger under CTA:n och glider i sidled */}
+          {/* Glöden ligger under CTA:n och glider i sidled. Dold under
+              nav-brytpunkten: i enkolumnsläget hamnar den rakt ovanpå stegen
+              och gör dem svårlästa. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-full left-[10%] h-[320px] w-[130%] -translate-x-1/2 rounded-full"
+            className="pointer-events-none absolute top-full left-[10%] hidden h-[320px] w-[130%] -translate-x-1/2 rounded-full nav:block"
             style={{
               background:
                 "radial-gradient(ellipse at center, rgba(255,180,84,.85), rgba(255,148,36,.4) 45%, transparent 70%)",
