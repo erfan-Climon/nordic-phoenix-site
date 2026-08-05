@@ -70,9 +70,14 @@ export function Header({ locale, t }: Props) {
           priority
           className="block h-auto w-[34px]"
         />
-        {/* Får inte brytas till två rader — headern måste hålla sig på ~66px,
+        {/* Noto Naskh Arabic även på svenska och engelska. På persiska tvingar
+            RTL-regeln i globals.css hela dokumentet till det snittet med
+            nollställd spärr, och kunden vill ha just det utseendet på
+            ordmärket överallt. Därför ingen tracking här heller.
+
+            Får inte brytas till två rader: headern måste hålla sig på ~66px,
             det är höjden ankarlänkarnas scroll-margin räknar med. */}
-        <span className="font-mono text-[12px] font-medium tracking-[.22em] whitespace-nowrap text-text uppercase max-[400px]:hidden">
+        <span className="font-arabic text-[13px] font-medium whitespace-nowrap text-text uppercase max-[400px]:hidden">
           Nordic Phoenix
         </span>
       </Link>
