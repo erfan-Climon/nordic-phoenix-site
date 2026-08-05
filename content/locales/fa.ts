@@ -29,7 +29,6 @@ export const fa: Dictionary = {
 
   hero: {
     meta1: "دفتر حسابداری",
-    meta2: "استکهلم",
     w1: "کنترل.",
     w2: "شفافیت.",
     w3: "آرامش.",

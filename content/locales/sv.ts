@@ -29,7 +29,6 @@ export const sv = {
 
   hero: {
     meta1: "Redovisningsbyrå",
-    meta2: "Sthlm · 59.4°N",
     w1: "Kontroll.",
     w2: "Klarhet.",
     w3: "Trygghet.",

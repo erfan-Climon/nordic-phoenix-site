@@ -25,11 +25,10 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
       />
 
       <div
-        className="np-meta absolute inset-x-0 top-[92px] flex justify-between px-[var(--pad-x)] text-text-meta"
+        className="np-meta absolute inset-x-0 top-[92px] px-[var(--pad-x)] text-text-meta"
         style={{ animation: "np-fade 1.4s .9s ease both" }}
       >
         <span>{t.hero.meta1}</span>
-        <span>{t.hero.meta2}</span>
       </div>
 
       <div

@@ -29,7 +29,6 @@ export const en: Dictionary = {
 
   hero: {
     meta1: "Accounting firm",
-    meta2: "Sthlm · 59.4°N",
     w1: "Control.",
     w2: "Clarity.",
     w3: "Confidence.",

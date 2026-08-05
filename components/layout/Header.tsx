@@ -77,7 +77,7 @@ export function Header({ locale, t }: Props) {
 
             Får inte brytas till två rader: headern måste hålla sig på ~66px,
             det är höjden ankarlänkarnas scroll-margin räknar med. */}
-        <span className="font-arabic text-[13px] font-medium whitespace-nowrap text-text uppercase max-[400px]:hidden">
+        <span className="font-arabic text-[12px] font-medium whitespace-nowrap text-text uppercase min-[360px]:text-[13px]">
           Nordic Phoenix
         </span>
       </Link>
@@ -88,7 +88,7 @@ export function Header({ locale, t }: Props) {
           <Link
             key={link.href}
             href={link.href}
-            className="np-mono-link text-text hover:text-accent-ink-ink"
+            className="np-mono-link text-text hover:text-accent-ink"
           >
             {link.label}
           </Link>
@@ -97,7 +97,7 @@ export function Header({ locale, t }: Props) {
             nav-länkarna — det får normal siffersättning i stället. */}
         <a
           href={phone.href}
-          className="flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap text-text no-underline transition-colors duration-300 hover:text-accent-ink-ink"
+          className="flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap text-text no-underline transition-colors duration-300 hover:text-accent-ink"
         >
           <PhoneGlyph />
           {phone.display}
@@ -120,11 +120,15 @@ export function Header({ locale, t }: Props) {
         <a
           href={phone.href}
           aria-label={`${t.a11y.call} ${phone.display}`}
-          className="flex h-11 w-11 items-center justify-center rounded-button border border-[rgba(23,19,16,.3)] text-text no-underline transition-colors duration-300 hover:border-accent hover:text-accent-ink-ink"
+          className="np-btn flex h-11 w-11 flex-none items-center justify-center bg-[image:var(--gradient-accent)] text-on-accent no-underline shadow-[var(--shadow-nav-button)] hover:-translate-y-px hover:text-on-accent hover:shadow-[0_8px_28px_rgba(240,103,0,.45)]"
         >
           <PhoneGlyph size={16} />
         </a>
-        <LanguageLink locale={locale} t={t} path={path} />
+        {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
+            plats. Språkknappen flyttas då ner i menyn i stället. */}
+        <span className="hidden min-[368px]:block">
+          <LanguageLink locale={locale} t={t} path={path} />
+        </span>
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
@@ -162,7 +166,7 @@ export function Header({ locale, t }: Props) {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="np-mono-link border-b border-[var(--hairline-light)] py-4 text-text hover:text-accent-ink-ink"
+              className="np-mono-link border-b border-[var(--hairline-light)] py-4 text-text hover:text-accent-ink"
             >
               {link.label}
             </Link>
@@ -170,11 +174,17 @@ export function Header({ locale, t }: Props) {
           <a
             href={phone.href}
             onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-2 border-b border-[var(--hairline-light)] py-4 font-mono text-[13px] font-medium text-text no-underline transition-colors duration-300 hover:text-accent-ink-ink"
+            className="flex items-center gap-2 border-b border-[var(--hairline-light)] py-4 font-mono text-[13px] font-medium text-text no-underline transition-colors duration-300 hover:text-accent-ink"
           >
             <PhoneGlyph />
             {phone.display}
           </a>
+          <span
+            className="border-b border-[var(--hairline-light)] py-4 min-[368px]:hidden"
+            onClick={() => setMenuOpen(false)}
+          >
+            <LanguageLink locale={locale} t={t} path={path} />
+          </span>
           <Link
             href={whatsappUrl}
             target="_blank"
@@ -201,7 +211,7 @@ function LanguageLink({
       href={localePath(target, path)}
       hrefLang={target}
       aria-label={t.a11y.switchLanguage}
-      className="rounded-button border border-[rgba(23,19,16,.3)] px-4 py-[9px] font-mono text-[12px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:border-accent hover:bg-[rgba(240,103,0,.06)] hover:text-accent-ink-ink"
+      className="rounded-button border border-[rgba(23,19,16,.3)] px-4 py-[9px] font-mono text-[12px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:border-accent hover:bg-[rgba(240,103,0,.06)] hover:text-accent-ink"
     >
       {localeButtonLabel[target]}
     </Link>
