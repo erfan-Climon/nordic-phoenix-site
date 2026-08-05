@@ -1,3 +1,4 @@
+import { PhoenixBird } from "@/components/layout/PhoenixBird";
 import type { Dictionary } from "@/content/locales/sv";
 import { whatsappUrl } from "@/content/site";
 
@@ -9,6 +10,7 @@ export function Process({ t }: { t: Dictionary }) {
       id="process"
       className="relative bg-ink text-on-dark [overflow:clip]"
     >
+      <PhoenixBird />
       <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(48px,6vw,100px)] px-[var(--pad-x)] py-[var(--pad-y)]">
         {/* Blocket är sticky. Utan egen bakgrund scrollar stegen rakt igenom
             det när mobilen lägger allt i en kolumn, så texterna hamnar
@@ -47,7 +49,10 @@ export function Process({ t }: { t: Dictionary }) {
           />
         </div>
 
-        <div className="flex flex-col">
+        {/* Luft till höger så att stegens text aldrig når fram till fenixen,
+            som ligger i sektionens högerkant. Bara i tvåkolumnsläget, fågeln
+            är dold under nav-brytpunkten. */}
+        <div className="flex flex-col nav:pe-[clamp(80px,8vw,140px)]">
           {t.process.steps.map((step, i) => (
             <div
               key={step.title}

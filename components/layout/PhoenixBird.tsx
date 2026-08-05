@@ -8,9 +8,13 @@ const LAYERS = [
 ];
 
 /**
- * Fenixen sitter fast vid höger kant. Fyra separata bildlager animeras var för
- * sig — de får inte slås ihop till en bild. Helt dekorativ: aria-hidden och
- * pointer-events: none.
+ * Fenixen. Fyra separata bildlager animeras var för sig, de får inte slås ihop
+ * till en bild. Helt dekorativ: aria-hidden och pointer-events: none.
+ *
+ * Ligger absolut placerad inuti processektionen, inte fixed mot viewporten.
+ * Kunden vill ha den bara där, och att den följer med sidan när man scrollar
+ * i stället för att sväva över allt innehåll. Sektionen som renderar den
+ * måste därför vara position: relative.
  */
 export function PhoenixBird() {
   return (
@@ -18,9 +22,9 @@ export function PhoenixBird() {
       aria-hidden="true"
       /* Logisk inset, inte `right`: i RTL börjar rubrikerna vid höger kant och
          fågeln skulle annars hamna mitt i texten.
-         Dold under nav-brytpunkten — i enkolumnsläget lägger den sig mitt i
-         brödtexten, vilket den aldrig gör i tvåkolumnslayouten. */
-      className="pointer-events-none fixed top-1/2 end-[clamp(14px,3vw,44px)] z-[70] hidden w-[clamp(52px,6.5vw,100px)] [filter:drop-shadow(0_0_18px_rgba(255,148,36,.35))] nav:block"
+         Dold under nav-brytpunkten: i enkolumnsläget lägger den sig mitt i
+         stegens brödtext, vilket den aldrig gör i tvåkolumnslayouten. */
+      className="pointer-events-none absolute top-1/2 end-[clamp(14px,3vw,44px)] z-[5] hidden w-[clamp(52px,6.5vw,100px)] [filter:drop-shadow(0_0_18px_rgba(255,148,36,.35))] nav:block"
       style={{ marginTop: "calc(clamp(52px, 6.5vw, 100px) / -2)" }}
     >
       <div
