@@ -42,18 +42,6 @@ export function PhoneGlyph({ size = 14 }: { size?: number }) {
   );
 }
 
-/** Instagram-märket är ritat i CSS i prototypen — behållet som ren geometri. */
-export function InstagramGlyph() {
-  return (
-    <span
-      aria-hidden="true"
-      className="relative block h-[18px] w-[18px] rounded-[6px] border-[1.6px] border-text"
-    >
-      <span className="absolute top-1/2 left-1/2 block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.6px] border-text" />
-      <span className="absolute top-[2px] right-[2px] block h-[2.5px] w-[2.5px] rounded-full bg-text" />
-    </span>
-  );
-}
 
 /** Bocken i prislistorna bär betydelse, därav den dolda texten. */
 export function CheckMark({ label }: { label: string }) {

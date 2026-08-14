@@ -21,8 +21,6 @@ export const en: Dictionary = {
     call: "Call",
     openMenu: "Open menu",
     closeMenu: "Close menu",
-    openContact: "Open contact menu",
-    closeContact: "Close contact menu",
     switchLanguage: "Switch language to Persian",
     yes: "Included",
   },
@@ -280,23 +278,6 @@ export const en: Dictionary = {
     portraitAlt: "Ali Nahroudi, Nordic Phoenix",
   },
 
-  widget: {
-    blog: "The blog",
-    months: [
-      "JAN",
-      "FEB",
-      "MAR",
-      "APR",
-      "MAY",
-      "JUN",
-      "JUL",
-      "AUG",
-      "SEP",
-      "OCT",
-      "NOV",
-      "DEC",
-    ],
-  },
 
   footer: {
     tagline: "Accounting for business owners who want to grow with confidence.",

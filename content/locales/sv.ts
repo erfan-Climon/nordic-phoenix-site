@@ -21,8 +21,6 @@ export const sv = {
     call: "Ring",
     openMenu: "Öppna meny",
     closeMenu: "Stäng meny",
-    openContact: "Öppna kontaktmeny",
-    closeContact: "Stäng kontaktmeny",
     switchLanguage: "Byt språk till engelska",
     yes: "Ingår",
   },
@@ -275,23 +273,6 @@ export const sv = {
     portraitAlt: "Ali Nahroudi, Nordic Phoenix",
   },
 
-  widget: {
-    blog: "Bloggen",
-    months: [
-      "JAN",
-      "FEB",
-      "MAR",
-      "APR",
-      "MAJ",
-      "JUN",
-      "JUL",
-      "AUG",
-      "SEP",
-      "OKT",
-      "NOV",
-      "DEC",
-    ],
-  },
 
   footer: {
     tagline: "Redovisning för företagare som vill växa med trygghet.",
