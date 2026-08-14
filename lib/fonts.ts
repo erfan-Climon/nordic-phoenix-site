@@ -45,6 +45,12 @@ export const notoNaskhArabic = Noto_Naskh_Arabic({
   weight: ["400", "500", "600"],
   subsets: ["arabic"],
   display: "swap",
+  /* Preloadas inte. På svenska och engelska används snittet bara till
+     ordmärket i headern, alltså två ord, men tre vikter preloadades på varje
+     sida: 160 kB som blockerade den kritiska kedjan. Med display swap ritas
+     ordmärket i reservsnittet tills filen är hämtad. På persiska används
+     snittet i hela dokumentet och hämtas då direkt ändå. */
+  preload: false,
   variable: "--font-noto-naskh-arabic",
 });
 

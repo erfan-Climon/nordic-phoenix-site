@@ -6,10 +6,15 @@ import { chatWidget } from "@/content/site";
 const SCRIPT_ID = "np-ghl-chat";
 
 /**
- * GoHighLevel/LeadConnector-chatten. Tredjeparts-JS som inte är kritiskt för
- * first paint, så den laddas vid idle med 2,5 s som tak. Widgeten placerar
- * sig själv nere till höger. Den egna kontakthubben som tidigare låg där är
- * borttagen, så hörnet är fritt.
+ * GoHighLevel/LeadConnector-chatten.
+ *
+ * Tredjeparts-JS på 432 kB som blockerade huvudtråden i 174 ms och drog in
+ * ytterligare filer i fyra sekunder. Den laddas därför vid första tecknet på
+ * att besökaren är kvar: scroll, pekning, klick eller tangenttryck, med tio
+ * sekunder som tak. En besökare som studsar direkt hämtar den aldrig, och den
+ * hinner inte konkurrera med sidans egen rendering.
+ *
+ * Widgeten placerar sig själv nere till höger.
  */
 export function ChatWidget() {
   useEffect(() => {
@@ -28,19 +33,33 @@ export function ChatWidget() {
       document.body.appendChild(script);
     };
 
-    const idle = window.requestIdleCallback;
-    if (typeof idle === "function") {
-      const handle = idle(inject, { timeout: 2500 });
-      return () => {
-        cancelled = true;
-        window.cancelIdleCallback?.(handle);
-      };
-    }
+    const HANDELSER = [
+      "scroll",
+      "pointerdown",
+      "keydown",
+      "touchstart",
+    ] as const;
 
-    const timer = window.setTimeout(inject, 2500);
+    const start = () => {
+      städa();
+      // Ett rAF till, så att widgeten inte injiceras mitt i den bildruta där
+      // besökaren precis rörde sig.
+      requestAnimationFrame(inject);
+    };
+
+    const städa = () => {
+      HANDELSER.forEach((h) => window.removeEventListener(h, start));
+      window.clearTimeout(timer);
+    };
+
+    HANDELSER.forEach((h) =>
+      window.addEventListener(h, start, { once: true, passive: true }),
+    );
+    const timer = window.setTimeout(start, 10000);
+
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
+      städa();
     };
   }, []);
 
