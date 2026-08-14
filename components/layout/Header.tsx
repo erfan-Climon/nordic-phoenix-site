@@ -82,7 +82,11 @@ export function Header({ locale, t }: Props) {
   /** Öppen mobilmeny behöver ogenomskinlig botten för att gå att läsa. */
   const onHero = isHome && !pastHero && !menuOpen;
 
-  const inkClass = onHero ? "text-on-dark" : "text-text";
+  /* Över videon får navigeringstexten egen skugga, av samma skäl som
+     hero-texten: bilden ska slippa mörkas för att texten ska synas. */
+  const inkClass = onHero
+    ? "text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.65),0_4px_18px_rgba(0,0,0,.45)]"
+    : "text-text";
   const inkHoverClass = onHero ? "hover:text-accent-light" : "hover:text-accent-ink";
 
   // Lås bakgrunden och lyssna på Escape medan mobilmenyn är öppen.

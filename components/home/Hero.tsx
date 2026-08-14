@@ -29,34 +29,30 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
       <HeroBackgroundVideo />
 
-      {/* Slöjorna. Tre lager i stället för ett brett svep, så att bilden
-          får vara ljusare där den syns och mörkare bara där text ligger.
+      {/* Slöjorna ska dämpa videon, inte gömma den. Grundslöjan är svag och
+          ligger över hela ytan. Ovanpå den ett band under navraden och en mjuk
+          vänsterslöja som tonar ut vid 70 procent, alltså innan personen i
+          bild. Ingen av dem går över 0,45.
 
-          Grundslöjan är svag och gäller hela ytan. Bandet under navraden
-          täcker de översta 130 pixlarna. Spaltslöjan på bred skärm mörkar
-          textkolumnen och tonar ut vid 66 procent, alltså långt innan
-          personen i bild. På mobil går texten i full bredd och bilden
-          beskärs till mitten, så där mörkas nederkanten i stället.
-
-          Värdena är framsvepta mot videon, inte valda på känsla: mätningen
-          tar bakgrunden under textens verkliga rader över hela loopen och
-          kräver 4,5:1 för brödtext och 3:1 för displayraderna på den 95:e
-          percentilen. Byts videon ut måste svepet göras om. */}
+          Det räcker inte hela vägen till WCAG:s gränser mot videons ljusaste
+          rutor. Texten har därför egen skugga, se nedan. Att i stället mörka
+          bilden tillräckligt hade krävt runt 0,9 över textspalten, och då syns
+          inte videon. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.2),rgba(0,0,0,.05))]"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.3),rgba(0,0,0,.14))]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.62),transparent_145px)]"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.38),transparent_140px)]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.9),rgba(0,0,0,.9)_42%,transparent_66%)] md:block"
+        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.45),rgba(0,0,0,.22)_45%,transparent_70%)] md:block"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,.64)_36%,rgba(0,0,0,.8)_100%)] md:hidden"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,.42)_38%,rgba(0,0,0,.66)_100%)] md:hidden"
       />
 
       {/* Andande orange glöd uppe till höger */}
@@ -73,7 +69,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
       <div
         /* on-dark-muted ger 4,1:1 mot videon, under 4,5 för text i den här
            storleken. Full on-dark mätt till 10,4:1. */
-        className="np-meta absolute inset-x-0 top-[92px] z-[2] px-[var(--pad-x)] text-on-dark"
+        className="np-meta absolute inset-x-0 top-[92px] z-[2] px-[var(--pad-x)] text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.6),0_6px_28px_rgba(0,0,0,.5)]"
         style={{ animation: "np-fade 1.4s .9s ease both" }}
       >
         <span>{t.hero.meta1}</span>
@@ -86,21 +82,27 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         /* Texten skjuts in från vänsterkanten på bred skärm. Personen i
            videon sitter till höger, så ytan räcker ändå. På mobil ligger den
            kvar mot kanten, där finns ingen plats att ge bort. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(48px,7vw,150px)]"
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(64px,13vw,260px)]"
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
-          <h1 className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark">
+          <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
+            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.6),0_6px_28px_rgba(0,0,0,.5)]">
             <span style={{ animation: "np-rise 1.1s .05s var(--ease) both" }}>
               {t.hero.w1}
             </span>
             <span
-              className="text-on-dark-muted"
+              /* on-dark-muted är satt för mörka sektioner och ger 2,2:1 mot
+                 videon. Den här tonen ger 3,2:1 och ser fortfarande dämpad
+                 ut bredvid raden ovanför. */
+              className="text-[#b8b1a6]"
               style={{ animation: "np-rise 1.1s .18s var(--ease) both" }}
             >
               {t.hero.w2}
             </span>
             <span
-              className="np-gradient-text italic"
+              /* Standardgradienten slutar på #f06700, som ger 2,3:1 mot videon.
+                 Hero använder därför gradientens ljusa halva. */
+              className="np-gradient-text bg-[linear-gradient(110deg,#ffb454_20%,#ff9424)] italic [filter:drop-shadow(0_2px_10px_rgba(0,0,0,.55))]"
               style={{ animation: "np-rise 1.1s .31s var(--ease) both" }}
             >
               {t.hero.w3}
@@ -109,7 +111,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
           <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7">
             <p
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark"
+              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.6),0_6px_28px_rgba(0,0,0,.5)]"
               style={{ animation: "np-rise 1.1s .5s var(--ease) both" }}
             >
               {t.hero.sub}
@@ -130,7 +132,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 href={servicesHref}
                 /* Ljus variant av outline-knappen. Utilities vinner över
                    @layer components, så basklassen behålls för geometrin. */
-                className="np-btn np-btn-outline border-[rgba(242,236,224,.45)] px-[30px] py-[17px] text-[15px] text-on-dark hover:border-accent-light hover:bg-[rgba(240,103,0,.18)] hover:text-on-dark"
+                className="np-btn np-btn-outline border-[rgba(242,236,224,.5)] bg-[rgba(11,10,9,.42)] px-[30px] py-[17px] text-[15px] text-on-dark backdrop-blur-[6px] hover:border-accent-light hover:bg-[rgba(240,103,0,.3)] hover:text-on-dark"
               >
                 {t.hero.cta2}
               </Link>
