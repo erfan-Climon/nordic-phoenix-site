@@ -55,6 +55,27 @@ olika `lang`/`dir` på `<html>`, och `/` ska inte vara `/sv`.
   det finns inga översättningar att peka på, så nav-länken går alltid till
   `/blogg`.
 
+## Tjänstesidor
+
+`/tjanster/[tjanst]` med en sida per tjänstegrupp, plus en översikt på
+`/tjanster`. Innehållet ligger i `content/services.ts`.
+
+Tre regler gäller när en tjänst läggs till eller skrivs om:
+
+- **`name` ska vara exakt gruppens `title`** i den svenska ordlistan.
+  Startsidans tjänstekort kopplas till rätt sida via ordningen i listan, precis
+  som stadsnamnen i Sverige-sektionen, och en avvikelse ger tyst fel länk.
+- **`details` ska täcka gruppens punkter, i samma ordning.** Punkten på kortet
+  är löftet, sidan är utförandet. `npx tsx` mot `content/services.ts` och
+  ordlistan visar avvikelser direkt.
+- **Sakuppgifter ska hålla över tid.** Belopp och datum som ändras varje år
+  skrivs som beroende av bolagets förutsättningar i stället för som ett fast
+  tal, annars blir sidan felaktig utan att någon märker det.
+
+Varje sida har Service med `hasOfferCatalog`, FAQPage och BreadcrumbList, samt
+ankarlänkar till varje punkt. Nuvarande uppsättning ligger på 8 200 tecken som
+lägst och 38% ordöverlapp som mest.
+
 ## Ortssidor
 
 `/redovisningsbyra/[stad]` med en sida per ort i Sverige-sektionen, plus en

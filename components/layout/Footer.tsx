@@ -86,6 +86,15 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             >
               {t.nav.cta}
             </a>
+            {/* Tjänste- och ortsöversikten är sajtens två navsidor. De finns
+                bara på svenska, men länkas oavsett språk eftersom de är
+                relevanta för alla besökare. */}
+            <Link href="/tjanster" className={linkClass}>
+              Tjänster
+            </Link>
+            <Link href="/redovisningsbyra" className={linkClass}>
+              Orter
+            </Link>
             <Link
               href={localePath(locale, "/integritetspolicy")}
               className={linkClass}

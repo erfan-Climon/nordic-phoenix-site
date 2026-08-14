@@ -1,4 +1,6 @@
+import Link from "next/link";
 import type { Dictionary } from "@/content/locales/sv";
+import { serviceSlugs } from "@/content/services";
 
 /** Kortens skins alternerar mörk → cream → mörk → cream → mörk → guld. */
 type Skin = {
@@ -53,6 +55,9 @@ export function Services({ t }: { t: Dictionary }) {
       <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[clamp(80px,9vw,140px)]">
         {t.services.groups.map((group, i) => {
           const skin = SKINS[i] ?? cream;
+          /* Ordningen i ordlistornas grupper matchar ordningen i `services`,
+             så index kopplar kortet till rätt tjänstesida. */
+          const slug = serviceSlugs[i];
           return (
             <div
               key={group.title}
@@ -89,8 +94,29 @@ export function Services({ t }: { t: Dictionary }) {
                     className="np-h3 text-[length:var(--fs-h3)] leading-[1.2] text-pretty"
                     style={{ color: skin.fg }}
                   >
-                    {group.title}
+                    {/* Tjänstesidorna finns bara på svenska, men de är
+                        relevanta oavsett vilket språk besökaren läser sajten
+                        på, precis som ortssidorna. */}
+                    <Link
+                      href={`/tjanster/${slug}`}
+                      className="no-underline transition-colors duration-300 hover:text-accent"
+                      style={{ color: "inherit" }}
+                    >
+                      {group.title}
+                    </Link>
                   </h3>
+                  <p
+                    className="mt-5 mb-0 font-mono text-[12px] tracking-[.14em] uppercase"
+                    style={{ color: skin.accent }}
+                  >
+                    <Link
+                      href={`/tjanster/${slug}`}
+                      className="no-underline"
+                      style={{ color: "inherit" }}
+                    >
+                      Läs mer
+                    </Link>
+                  </p>
                 </div>
 
                 <ul className="m-0 flex list-none flex-col self-end p-0">
@@ -106,7 +132,10 @@ export function Services({ t }: { t: Dictionary }) {
                       <span>{item}</span>
                       <span
                         aria-hidden="true"
-                        className="font-mono text-[11px]"
+                        /* Punkten är kortets enda accent i listan och ska
+                           synas. Leading nollställs så den större glyfen
+                           inte gör raderna högre. */
+                        className="font-mono text-[17px] leading-none"
                         style={{ color: skin.accent }}
                       >
                         ✦

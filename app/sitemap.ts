@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
 import { locations } from "@/content/locations";
+import { services } from "@/content/services";
 import { SITE_URL } from "@/content/site";
 import { htmlLang, locales, localePath } from "@/lib/i18n";
 
@@ -66,5 +67,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...translated, ...orter, ...blog];
+  // Tjänstesidorna finns bara på svenska.
+  const tjanster = [
+    {
+      url: abs("/tjanster"),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    },
+    ...services.map((s) => ({
+      url: abs(`/tjanster/${s.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    })),
+  ];
+
+  return [...translated, ...tjanster, ...orter, ...blog];
 }

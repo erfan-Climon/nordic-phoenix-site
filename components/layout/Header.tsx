@@ -30,7 +30,7 @@ export function Header({ locale, t }: Props) {
    * sökväg under /en eller /fa hade gett en död länk, så därifrån byter den i
    * stället till språkets startsida.
    */
-  const swedishOnly = ["/blogg", "/redovisningsbyra"].some(
+  const swedishOnly = ["/blogg", "/redovisningsbyra", "/tjanster"].some(
     (prefix) => path === prefix || path.startsWith(`${prefix}/`),
   );
   const switchPath = swedishOnly ? "/" : path;
@@ -54,10 +54,15 @@ export function Header({ locale, t }: Props) {
   }, [menuOpen]);
 
   const home = localePath(locale, "/");
+  /**
+   * Sektionslänkarna pekar på startsidan plus ankare, inte på ett ankare i
+   * den sida som råkar visas. Utan sökvägen blir de verkningslösa på varje
+   * undersida, eftersom sektionerna bara finns på startsidan.
+   */
   const links = [
-    { href: `${home === "/" ? "" : home}#tjanster`, label: t.nav.services },
-    { href: `${home === "/" ? "" : home}#priser`, label: t.nav.pricing },
-    { href: `${home === "/" ? "" : home}#om`, label: t.nav.about },
+    { href: `${home}#tjanster`, label: t.nav.services },
+    { href: `${home}#priser`, label: t.nav.pricing },
+    { href: `${home}#om`, label: t.nav.about },
     // Artiklarna finns bara på svenska, så bloggen ligger alltid på /blogg.
     { href: "/blogg", label: t.nav.blog },
   ];
