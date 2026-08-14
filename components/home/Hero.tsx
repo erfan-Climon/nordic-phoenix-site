@@ -37,7 +37,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           filter, och då är videon i praktiken borta. 0,50 är vald som
           mellanläge: bilden syns, och texten bärs av sin egen skugga.
           Kvarvarande värden står i README. */}
-      <div aria-hidden="true" className="absolute inset-0 bg-[rgba(0,0,0,.5)]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
 
       {/* Andande orange glöd uppe till höger */}
       <div
@@ -62,7 +62,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
-            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.9),0_2px_8px_rgba(0,0,0,.75),0_8px_36px_rgba(0,0,0,.6)]">
+            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
             <span style={{ animation: "np-rise 1.1s .05s var(--ease) both" }}>
               {t.hero.w1}
             </span>
@@ -85,7 +85,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  background-clip: text används.
 
                  #ff9424 är knappens ljusa ände, alltså samma orange. */
-              className="text-[#ff9424] italic [text-shadow:0_1px_2px_rgba(0,0,0,.9),0_2px_8px_rgba(0,0,0,.75),0_8px_36px_rgba(0,0,0,.6)]"
+              className="text-[#ff9424] italic [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise 1.1s .31s var(--ease) both" }}
             >
               {t.hero.w3}
@@ -94,7 +94,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
           <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7">
             <p
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.9),0_2px_8px_rgba(0,0,0,.75),0_8px_36px_rgba(0,0,0,.6)]"
+              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise 1.1s .5s var(--ease) both" }}
             >
               {t.hero.sub}
