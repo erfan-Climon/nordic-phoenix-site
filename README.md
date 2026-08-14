@@ -132,8 +132,10 @@ föräldralösa, och en sida som bara finns i sitemapen rankar dåligt.
 
 ### Översättning och indexering
 
-Kundens största målgrupp är persisktalande företagare i Sverige, så ortssidorna
-översätts till persiska. Översättningarna ligger i `content/locations.fa.ts`.
+Kundens största målgrupp är persisktalande företagare i Sverige, så samtliga
+26 ortssidor finns på persiska. Översättningarna ligger i
+`content/locations.fa.ts`. Engelska finns inte, och ska inte läggas till utan
+att någon först visar att sökefterfrågan finns.
 
 **Här finns ingen reserv till svenskan, till skillnad från tjänsterna.** En
 ortssida under `/fa` som visar svensk text är en dubblett av den svenska sidan,
