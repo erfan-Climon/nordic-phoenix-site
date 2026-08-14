@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
 import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
@@ -23,6 +23,8 @@ type Props = {
 
 export function Header({ locale, t }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   // Språkväxlaren ska landa på samma sida i det andra språket.
   const { path } = stripLocale(usePathname() ?? "/");
   /**
@@ -34,6 +36,54 @@ export function Header({ locale, t }: Props) {
     (prefix) => path === prefix || path.startsWith(`${prefix}/`),
   );
   const switchPath = swedishOnly ? "/" : path;
+
+  /**
+   * Genomskinlig header gäller bara startsidan. Det är den enda sidan med
+   * mörk hero. Orts-, tjänste- och bloggsidorna börjar med ljus botten, och
+   * där hade ljus navigeringstext blivit osynlig.
+   */
+  const isHome = path === "/";
+
+  /**
+   * Följer när hero slutar täcka headern. Mäts mot sektionens verkliga höjd
+   * i stället för mot 100vh, eftersom hero använder svh och mobilens
+   * adressfält gör de två olika.
+   */
+  useEffect(() => {
+    if (!isHome) return;
+
+    const hero = document.getElementById("top");
+    if (!hero) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const headerHeight = headerRef.current?.offsetHeight ?? 0;
+      setPastHero(window.scrollY + headerHeight >= hero.offsetHeight);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    // Första mätningen läggs i en rAF, inte i effektkroppen, dels för att
+    // läsa layouten efter att den satt sig, dels för att inte sätta state
+    // direkt i en effekt.
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [isHome]);
+
+  /** Öppen mobilmeny behöver ogenomskinlig botten för att gå att läsa. */
+  const onHero = isHome && !pastHero && !menuOpen;
+
+  const inkClass = onHero ? "text-on-dark" : "text-text";
+  const inkHoverClass = onHero ? "hover:text-accent-light" : "hover:text-accent-ink";
 
   // Lås bakgrunden och lyssna på Escape medan mobilmenyn är öppen.
   useEffect(() => {
@@ -74,7 +124,12 @@ export function Header({ locale, t }: Props) {
          engelska. De persiska etiketterna renderas ändå högerifrån, det
          sköter bidi-algoritmen på teckennivå. */
       dir="ltr"
-      className="fixed inset-x-0 top-0 z-[90] flex items-center justify-between gap-6 border-b border-[var(--hairline-light)] bg-[rgba(255,254,251,.95)] px-[var(--pad-x)] py-4 shadow-[0_2px_24px_rgba(23,19,16,.06)] backdrop-blur-[16px]"
+      ref={headerRef}
+      className={`fixed inset-x-0 top-0 z-[90] flex items-center justify-between gap-6 border-b px-[var(--pad-x)] py-4 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
+        onHero
+          ? "border-transparent bg-transparent shadow-none"
+          : "border-[var(--hairline-light)] bg-[rgba(255,254,251,.95)] shadow-[0_2px_24px_rgba(23,19,16,.06)] backdrop-blur-[16px]"
+      }`}
     >
       <Link href={home} className="flex items-center gap-3 no-underline">
         <Image
@@ -92,7 +147,9 @@ export function Header({ locale, t }: Props) {
 
             Får inte brytas till två rader: headern måste hålla sig på ~66px,
             det är höjden ankarlänkarnas scroll-margin räknar med. */}
-        <span className="font-arabic text-[12px] font-medium whitespace-nowrap text-text uppercase min-[360px]:text-[13px]">
+        <span
+          className={`font-arabic text-[12px] font-medium whitespace-nowrap uppercase transition-colors duration-300 min-[360px]:text-[13px] ${inkClass}`}
+        >
           Nordic Phoenix
         </span>
       </Link>
@@ -103,7 +160,7 @@ export function Header({ locale, t }: Props) {
           <Link
             key={link.href}
             href={link.href}
-            className="np-mono-link text-text hover:text-accent-ink"
+            className={`np-mono-link ${inkClass} ${inkHoverClass}`}
           >
             {link.label}
           </Link>
@@ -112,12 +169,12 @@ export function Header({ locale, t }: Props) {
             nav-länkarna — det får normal siffersättning i stället. */}
         <a
           href={phone.href}
-          className="flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap text-text no-underline transition-colors duration-300 hover:text-accent-ink"
+          className={`flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap no-underline transition-colors duration-300 ${inkClass} ${inkHoverClass}`}
         >
           <PhoneGlyph />
           {phone.display}
         </a>
-        <LanguageLink locale={locale} t={t} path={switchPath} />
+        <LanguageLink locale={locale} t={t} path={switchPath} onDark={onHero} />
         <Link
           href={whatsappUrl}
           target="_blank"
@@ -137,14 +194,21 @@ export function Header({ locale, t }: Props) {
           aria-label={`${t.a11y.call} ${phone.display}`}
           /* Ingen ram och ingen platta, bara ikonen. Ytan hålls på 44px för
              att förbli en rimlig träffyta även utan synlig knapp. */
-          className="flex h-11 w-11 flex-none items-center justify-center text-accent no-underline transition-colors duration-300 hover:text-accent-light"
+          /* Orange på båda bottnarna, men den ljusare tonen över hero:
+             3,6:1 mot 5,2:1 uppmätt. Båda klarar gränsen för ikoner, den
+             ljusare är bara lättare att se. */
+          className={`flex h-11 w-11 flex-none items-center justify-center no-underline transition-colors duration-300 ${
+            onHero
+              ? "text-accent-light hover:text-accent-glow"
+              : "text-accent hover:text-accent-light"
+          }`}
         >
           <PhoneGlyph size={20} />
         </a>
         {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
             plats. Språkknappen flyttas då ner i menyn i stället. */}
         <span className="hidden min-[368px]:block">
-          <LanguageLink locale={locale} t={t} path={switchPath} short />
+          <LanguageLink locale={locale} t={t} path={switchPath} short onDark={onHero} />
         </span>
         <button
           type="button"
@@ -152,7 +216,7 @@ export function Header({ locale, t }: Props) {
           aria-expanded={menuOpen}
           aria-controls="np-mobile-nav"
           aria-label={menuOpen ? t.a11y.closeMenu : t.a11y.openMenu}
-          className="flex h-11 w-11 cursor-pointer items-center justify-center border-none bg-transparent text-text transition-colors duration-300 hover:text-accent"
+          className={`flex h-11 w-11 cursor-pointer items-center justify-center border-none bg-transparent transition-colors duration-300 hover:text-accent ${inkClass}`}
         >
           {/* Tre streck utan ram. Öppet läge: det mittersta tonas bort och de
               yttre roterar ihop till ett kryss. */}
@@ -206,7 +270,7 @@ export function Header({ locale, t }: Props) {
             className="border-b border-[var(--hairline-light)] py-4 min-[368px]:hidden"
             onClick={() => setMenuOpen(false)}
           >
-            <LanguageLink locale={locale} t={t} path={switchPath} short />
+            <LanguageLink locale={locale} t={t} path={switchPath} short onDark={onHero} />
           </span>
           <Link
             href={whatsappUrl}
@@ -228,7 +292,8 @@ function LanguageLink({
   t,
   path,
   short = false,
-}: Props & { path: string; short?: boolean }) {
+  onDark = false,
+}: Props & { path: string; short?: boolean; onDark?: boolean }) {
   const target = nextLocale(locale);
   const label = short ? localeButtonLabelShort[target] : localeButtonLabel[target];
   return (
@@ -237,7 +302,9 @@ function LanguageLink({
       hrefLang={target}
       aria-label={t.a11y.switchLanguage}
       /* Ingen ram, bara etiketten. 44px höjd hålls som träffyta. */
-      className="flex h-11 items-center px-1 font-mono text-[13px] font-medium tracking-[.08em] text-text no-underline transition-colors duration-300 hover:text-accent-ink"
+      className={`flex h-11 items-center px-1 font-mono text-[13px] font-medium tracking-[.08em] no-underline transition-colors duration-300 ${
+        onDark ? "text-on-dark hover:text-accent-light" : "text-text hover:text-accent-ink"
+      }`}
     >
       {label}
     </Link>

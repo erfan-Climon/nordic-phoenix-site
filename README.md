@@ -186,6 +186,20 @@ Designen är helt fluid (`clamp()`, `flex-wrap`, `grid auto-fit`). Den enda
 brytpunkten är `--breakpoint-nav: 840px`, som byter navraden mot en
 hamburgermeny. Behåll den strategin.
 
+## Navigeringen
+
+Headern är genomskinlig så länge hero täcker den, och blir ljus när man
+scrollat förbi. Det gäller bara startsidan: orts-, tjänste- och bloggsidorna
+börjar med ljus botten och ljus navigeringstext hade blivit osynlig där.
+
+Brytpunkten mäts mot hero-sektionens verkliga höjd, inte mot `100vh`. Hero
+använder `svh`, och på mobil gör adressfältet de två olika. Öppen mobilmeny
+tvingar alltid fram det ljusa läget, annars går menyn inte att läsa.
+
+Uppmätt kontrast mot videon i genomskinligt läge: 5,2:1 som lägst för
+navigeringstexten och 5,2:1 för telefonikonen, som byter till den ljusare
+accenten över hero.
+
 ## Hero-videon
 
 Bakgrundsvideon ligger i `public/video/` som `hero.webm`, `hero.mp4` och
