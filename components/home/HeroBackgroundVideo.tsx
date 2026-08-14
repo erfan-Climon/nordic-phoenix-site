@@ -4,15 +4,17 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import { video } from "@/content/site";
 import { REDUCED_MOTION_QUERY, retryPlayback } from "@/lib/motion";
 
-/** Under den här bredden visas bara posterbilden. */
+/** Under den här bredden spelas den förbeskurna mobilfilen i stället. */
 const DESKTOP_QUERY = "(min-width: 768px)";
 
 /**
  * Hero-sektionens bakgrundsvideo.
  *
+ * Mobil får en egen fil som är förbeskuren till det utsnitt som ändå visas,
+ * 278 kB mot 4,3 MB. Källorna byts alltså efter bredd.
+ *
  * `<video>` renderas först när villkoren är uppfyllda, i stället för att
- * renderas och döljas med CSS. En dold video laddas ändå ner, och hela
- * poängen på mobil är att de megabyten aldrig ska hämtas. Servern renderar
+ * renderas och döljas med CSS. En dold video laddas ändå ner. Servern renderar
  * därför ingenting alls här: posterbilden ligger som bakgrund på sektionen
  * och är det enda som syns tills klienten avgjort att videon ska spelas.
  */
@@ -27,7 +29,7 @@ export function HeroBackgroundVideo() {
    * konkurrerar om bandbredden med just det. Posterbilden syns under tiden,
    * så besökaren ser ingen skillnad.
    */
-  const show = isDesktop && !reducedMotion && loaded;
+  const show = !reducedMotion && loaded;
 
   useEffect(() => {
     if (!show) return;
@@ -39,6 +41,9 @@ export function HeroBackgroundVideo() {
   return (
     <video
       ref={ref}
+      /* key tvingar fram ett nytt element när källuppsättningen byts.
+         Webbläsaren läser inte om <source> av sig själv. */
+      key={isDesktop ? "desktop" : "mobil"}
       poster={video.heroPoster}
       autoPlay
       muted
@@ -49,9 +54,15 @@ export function HeroBackgroundVideo() {
       tabIndex={-1}
       className="absolute inset-0 h-full w-full object-cover"
     >
-      {/* WebM först, MP4 som fallback för Safari. */}
-      <source src={video.heroWebm} type="video/webm" />
-      <source src={video.hero} type="video/mp4" />
+      {isDesktop ? (
+        <>
+          {/* WebM först, MP4 som fallback för Safari. */}
+          <source src={video.heroWebm} type="video/webm" />
+          <source src={video.hero} type="video/mp4" />
+        </>
+      ) : (
+        <source src={video.heroMobile} type="video/mp4" />
+      )}
     </video>
   );
 }

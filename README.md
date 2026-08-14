@@ -206,12 +206,17 @@ Bakgrundsvideon ligger i `public/video/` som `hero.webm`, `hero.mp4` och
 `hero-poster.jpg`. Filerna är committade, sajten är inte beroende av någon
 extern CDN för dem.
 
-`components/home/HeroBackgroundVideo.tsx` renderar `<video>` först när tre
-villkor är uppfyllda: bredden är minst 768 px, `prefers-reduced-motion` är inte
-`reduce`, och sidans load-event har gått. Elementet renderas alltså inte och
-döljs med CSS, för en dold video hämtas ändå. På mobil laddas bara postern, och
-uppskjutningen till efter load gör att videon inte konkurrerar med hero-texten,
-som är sidans LCP-element.
+`components/home/HeroBackgroundVideo.tsx` renderar `<video>` först när
+`prefers-reduced-motion` inte är `reduce` och sidans load-event har gått.
+Elementet renderas alltså inte och döljs med CSS, för en dold video hämtas
+ändå. Uppskjutningen till efter load gör att videon inte konkurrerar med
+hero-texten, som är sidans LCP-element.
+
+Under 768 px används `hero-mobil.mp4`, som är förbeskuren till det utsnitt
+mobilen ändå visar: 278 kB mot 4,3 MB. Bara MP4 där, H.264 spelas överallt och
+en VP9 av samma klipp blev fem gånger så stor. Beskärningen är räknad ur
+`background-position: 48%` på posterbilden, så bilden inte hoppar när videon
+tar över. Ändras utsnittet måste filen kodas om.
 
 Två slöjor ligger mellan bilden och texten. Värdena är uppmätta mot videons
 ljusaste rutor, inte valda på känsla: bakgrundsfönstret når 0,71 i luminans och

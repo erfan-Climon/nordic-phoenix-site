@@ -57,6 +57,13 @@ export const video = {
   /** Hero-bakgrunden. WebM först i markup, MP4 som fallback för Safari. */
   hero: "/video/hero.mp4",
   heroWebm: "/video/hero.webm",
+  /**
+   * Mobilversionen är förbeskuren till det utsnitt mobilen ändå visar, alltså
+   * 26 procent av bildbredden vid 48 procent. Det gör filen 278 kB i stället
+   * för 4,3 MB. Bara MP4: H.264 spelas överallt, och en VP9 av samma klipp
+   * blev fem gånger så stor.
+   */
+  heroMobile: "/video/hero-mobil.mp4",
   heroPoster: "/video/hero-poster.jpg",
   /**
    * Om-videon ligger kvar på leverantörens CloudFront. Flytta till egen
