@@ -28,29 +28,16 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
       <HeroBackgroundVideo />
 
-      {/* Slöjorna. Grundslöjan är avsiktligt svag, videon ska synas. I
-          stället för ett svep över hela bilden ligger en mjuk kudde bara
-          bakom texten. Den är elliptisk med lång uttoning, så den syns inte
-          som ett band, och lämnar personen och rummet ljusa.
+      {/* Ett enda jämnt filter över hela videon. Inga gradienter, ingen
+          kudde bakom texten: sådana lager gör bilden ljusare på vissa ställen
+          och mörkare på andra, vilket syns.
 
-          Bandet under navraden är det enda som är rakt, och det täcker bara
-          de översta 130 pixlarna. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.2),rgba(0,0,0,.08))]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.5),transparent_130px)]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 hidden bg-[radial-gradient(ellipse_58%_52%_at_28%_58%,rgba(0,0,0,.66),rgba(0,0,0,.34)_55%,transparent_82%)] md:block"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_110%_46%_at_46%_64%,rgba(0,0,0,.7),rgba(0,0,0,.38)_58%,transparent_88%)] md:hidden"
-      />
+          Priset är att styrkan blir en avvägning. Uppmätt mot videons ljusaste
+          rutor krävs 0,88 för att varje element ska nå WCAG med ett jämnt
+          filter, och då är videon i praktiken borta. 0,50 är vald som
+          mellanläge: bilden syns, och texten bärs av sin egen skugga.
+          Kvarvarande värden står i README. */}
+      <div aria-hidden="true" className="absolute inset-0 bg-[rgba(0,0,0,.5)]" />
 
       {/* Andande orange glöd uppe till höger */}
       <div
