@@ -66,15 +66,6 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         }}
       />
 
-      <div
-        /* on-dark-muted ger 4,1:1 mot videon, under 4,5 för text i den här
-           storleken. Full on-dark mätt till 10,4:1. */
-        className="np-meta absolute inset-x-0 top-[92px] z-[2] px-[var(--pad-x)] text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.6),0_6px_28px_rgba(0,0,0,.5)]"
-        style={{ animation: "np-fade 1.4s .9s ease both" }}
-      >
-        <span>{t.hero.meta1}</span>
-      </div>
-
       {/* Texten hålls i vänsterhalvan. Personen i videon sitter till höger,
           och den ytan lämnas medvetet fri. */}
       <div
@@ -101,8 +92,12 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             </span>
             <span
               /* Standardgradienten slutar på #f06700, som ger 2,3:1 mot videon.
-                 Hero använder därför gradientens ljusa halva. */
-              className="np-gradient-text bg-[linear-gradient(110deg,#ffb454_20%,#ff9424)] italic [filter:drop-shadow(0_2px_10px_rgba(0,0,0,.55))]"
+                 Hero använder därför gradientens ljusa halva.
+
+                 Ingen skugga här. Bokstäverna är tunna och kursiva, och en
+                 skugga tätt under dem grumlar orangen till brunt. Kontrasten
+                 mäts mot gradientfärgen och klarar sig utan skugga. */
+              className="np-gradient-text bg-[linear-gradient(110deg,#ffb454_20%,#ff9424)] italic"
               style={{ animation: "np-rise 1.1s .31s var(--ease) both" }}
             >
               {t.hero.w3}

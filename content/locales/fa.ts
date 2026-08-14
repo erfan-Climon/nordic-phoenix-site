@@ -9,6 +9,8 @@ export const fa: Dictionary = {
   },
 
   nav: {
+    /** Står före ordmärket i headern. */
+    brandPrefix: "دفتر حسابداری",
     services: "خدمات",
     pricing: "قیمت‌ها",
     about: "درباره ما",
@@ -26,7 +28,6 @@ export const fa: Dictionary = {
   },
 
   hero: {
-    meta1: "دفتر حسابداری",
     w1: "کنترل.",
     w2: "شفافیت.",
     w3: "آرامش.",

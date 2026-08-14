@@ -9,6 +9,8 @@ export const sv = {
   },
 
   nav: {
+    /** Står före ordmärket i headern. */
+    brandPrefix: "Redovisningsbyrå",
     services: "Tjänster",
     pricing: "Priser",
     about: "Om",
@@ -26,7 +28,6 @@ export const sv = {
   },
 
   hero: {
-    meta1: "Redovisningsbyrå",
     w1: "Kontroll.",
     w2: "Klarhet.",
     w3: "Trygghet.",

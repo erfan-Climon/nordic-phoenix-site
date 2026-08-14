@@ -157,6 +157,14 @@ export function Header({ locale, t }: Props) {
         <span
           className={`font-arabic text-[12px] font-medium whitespace-nowrap uppercase transition-colors duration-300 min-[360px]:text-[13px] ${inkClass}`}
         >
+          {/* Etiketten före ordmärket. Uppmätt: raden kräver 465px med
+              etiketten och 374px utan. Brytpunkten sätts på 500px, vilket ger
+              marginal även för den engelska etiketten. Under den visas bara
+              namnet, annars krockar ordmärket med telefon-, språk- och
+              menyknapparna. */}
+          <span className="hidden min-[500px]:inline">
+            {t.nav.brandPrefix}{" "}
+          </span>
           Nordic Phoenix
         </span>
       </Link>

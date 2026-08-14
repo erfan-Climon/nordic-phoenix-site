@@ -9,6 +9,8 @@ export const en: Dictionary = {
   },
 
   nav: {
+    /** Står före ordmärket i headern. */
+    brandPrefix: "Accounting firm",
     services: "Services",
     pricing: "Pricing",
     about: "About",
@@ -26,7 +28,6 @@ export const en: Dictionary = {
   },
 
   hero: {
-    meta1: "Accounting firm",
     w1: "Control.",
     w2: "Clarity.",
     w3: "Confidence.",
