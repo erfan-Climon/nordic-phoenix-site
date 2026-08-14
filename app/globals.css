@@ -291,9 +291,13 @@
    Animationer
    ========================================================================== */
 
+/* Glider upp utan att tona in. Fade-in innebär opacity 0, alltså att texten
+   inte målas alls förrän animationen körts, och hero-rubriken är sidans
+   LCP-element. Uppmätt kostnad på mobil var flera sekunder. Rörelsen är
+   densamma, texten är bara synlig hela vägen. */
 @keyframes np-rise {
   from {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(60px);
   }
   to {

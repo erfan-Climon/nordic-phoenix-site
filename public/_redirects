@@ -1,0 +1,10 @@
+# Cloudflare Pages. Ordningen spelar roll, första träffen vinner.
+#
+# Den gamla sajten låg på både apex och www. Utan den här raden blir www en
+# egen kopia av hela sajten i Googles ögon.
+https://www.nordicphoenix.se/* https://nordicphoenix.se/:splat 301
+
+# Vanliga varianter av den bevarade persiska sidan, som kan finnas som
+# inlänkar. Själva sidan ligger kvar på sin ursprungliga URL.
+/persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm 301
+/persisk-redovisningsbyra-i-stockholm /persisk-redovisningsbyra-stockholm 301

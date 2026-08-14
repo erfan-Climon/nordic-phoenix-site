@@ -156,6 +156,23 @@ Språkväxlaren gissar inte längre vad som är översatt. Den läser sidans egn
 `<link rel="alternate" hreflang>` och kan därför aldrig hamna i otakt. Saknas
 taggen för målspråket går den till språkets startsida.
 
+## Bevarad URL från den gamla sajten
+
+`/persisk-redovisningsbyra-stockholm` är den enda undersida som fanns på den
+tidigare sajten, och den rankar på persiska sökord: حسابدار ایرانی,
+حسابدار فارسی‌زبان, persisk redovisningsbyrå i Stockholm. URL:en är därför
+oförändrad och sidan ligger på roten utan `/fa`-prefix, precis som förut.
+
+En omdirigering till `/fa` hade spätt ut länkvärdet och tappat sökordet som
+ligger i själva sökvägen. Flytta den inte utan att först kontrollera i Search
+Console vad den drar in.
+
+Sidan bär också en tjänst som inte nämns någon annanstans på sajten:
+affärsplan och طرح توجیهی för Migrationsverket, banker och Arbetsförmedlingen.
+
+`public/_redirects` skickar www till apex, annars blir www en egen kopia av
+hela sajten i Googles ögon.
+
 ## Textregler
 
 Gäller all kundvänd text, i alla tre språk:

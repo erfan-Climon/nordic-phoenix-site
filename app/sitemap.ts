@@ -95,5 +95,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...translated, ...tjanster, ...orter, ...blog];
+  /**
+   * Den enda undersidan från den gamla sajten. URL:en behålls oförändrad,
+   * eftersom den är indexerad och rankar på persiska sökord. Se sidans egen
+   * kommentar innan den flyttas eller tas bort.
+   */
+  const bevarade = [
+    {
+      url: abs("/persisk-redovisningsbyra-stockholm"),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+  ];
+
+  return [...translated, ...bevarade, ...tjanster, ...orter, ...blog];
 }
