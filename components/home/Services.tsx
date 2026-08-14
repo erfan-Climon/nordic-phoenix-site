@@ -1,13 +1,12 @@
 import type { Dictionary } from "@/content/locales/sv";
 
-const NUMBERS = ["01", "02", "03", "04", "05", "06", "07", "08"];
-
 /** Kortens skins alternerar mörk → cream → mörk → cream → mörk → guld. */
 type Skin = {
   bg: string;
   fg: string;
   border: string;
-  num: string;
+  /** Accentfärgen i kortet, används till ✦-tecknen i listan. */
+  accent: string;
   item: string;
   hairline: string;
 };
@@ -16,7 +15,7 @@ const dark: Skin = {
   bg: "var(--color-ink-card)",
   fg: "var(--color-on-dark)",
   border: "rgba(242,236,224,.1)",
-  num: "var(--color-accent-light)",
+  accent: "var(--color-accent-light)",
   item: "var(--color-on-dark-muted)",
   hairline: "rgba(242,236,224,.08)",
 };
@@ -24,7 +23,7 @@ const cream: Skin = {
   bg: "var(--color-surface)",
   fg: "var(--color-text)",
   border: "rgba(23,19,16,.1)",
-  num: "var(--color-accent)",
+  accent: "var(--color-accent)",
   item: "#5C5344",
   hairline: "rgba(23,19,16,.1)",
 };
@@ -32,7 +31,7 @@ const gold: Skin = {
   bg: "var(--gradient-gold-card)",
   fg: "var(--color-on-dark)",
   border: "rgba(255,148,36,.35)",
-  num: "var(--color-accent-light)",
+  accent: "var(--color-accent-light)",
   item: "#B9B1A4",
   hairline: "rgba(255,148,36,.15)",
 };
@@ -54,7 +53,6 @@ export function Services({ t }: { t: Dictionary }) {
       <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[clamp(80px,9vw,140px)]">
         {t.services.groups.map((group, i) => {
           const skin = SKINS[i] ?? cream;
-          const num = NUMBERS[i];
           return (
             <div
               key={group.title}
@@ -67,19 +65,14 @@ export function Services({ t }: { t: Dictionary }) {
                 border: `1px solid ${skin.border}`,
               }}
             >
-              {/* Mini-headern tonas in av MotionRuntime när nästa kort närmar sig */}
+              {/* Mini-headern tonas in av MotionRuntime när nästa kort närmar
+                  sig. Bara titeln, inget nummer. */}
               <div
                 data-svc-head
                 className="flex items-center gap-[14px] px-[clamp(24px,3vw,44px)] py-[14px] opacity-0 transition-opacity duration-[.35s]"
                 style={{ borderBottom: `1px solid ${skin.hairline}` }}
                 aria-hidden="true"
               >
-                <span
-                  className="font-mono text-[12px] font-medium tracking-[.18em] uppercase"
-                  style={{ color: skin.num }}
-                >
-                  {num}
-                </span>
                 <span
                   className="font-mono text-[12px] font-medium tracking-[.18em] uppercase opacity-85"
                   style={{ color: skin.fg }}
@@ -90,8 +83,6 @@ export function Services({ t }: { t: Dictionary }) {
 
               <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(24px,4vw,64px)] px-[clamp(24px,3vw,44px)] py-[clamp(24px,3.5vw,52px)]">
                 <div>
-                  {/* Varken ikon eller nummer i kortets kropp. Numret finns
-                      kvar i mini-headern som tonas in vid scroll. */}
                   <h3
                     /* Ingen ch-begränsning: rubriken ska rymmas på en rad.
                        Den bryter bara när kolumnen faktiskt är för smal. */
@@ -116,7 +107,7 @@ export function Services({ t }: { t: Dictionary }) {
                       <span
                         aria-hidden="true"
                         className="font-mono text-[11px]"
-                        style={{ color: skin.num }}
+                        style={{ color: skin.accent }}
                       >
                         ✦
                       </span>
