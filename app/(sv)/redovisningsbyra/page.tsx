@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { locations } from "@/content/locations";
+import { areasOf, cities } from "@/content/locations";
 import { phone, whatsappUrl } from "@/content/site";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -36,7 +36,7 @@ export default function Page() {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-0 border-t border-l border-[var(--hairline-light)]">
-            {locations.map((l) => (
+            {cities.map((l) => (
               <Link
                 key={l.slug}
                 href={`/redovisningsbyra/${l.slug}`}
@@ -51,6 +51,29 @@ export default function Page() {
                 <p className="m-0 font-sans text-[14px] leading-[1.65] text-text-muted">
                   {l.intro.split(". ")[0]}.
                 </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-page text-text">
+        <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
+          <h2 className="np-h2 mb-4 text-[length:var(--fs-h2-sm)] leading-[1.2]">
+            Stockholm med omnejd
+          </h2>
+          <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[56ch] font-sans text-[16px] leading-[1.7] text-text-muted">
+            Näringslivet skiljer sig åt mellan stadsdelarna och kommunerna runt
+            Stockholm. Här är hur vi arbetar i respektive område.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {areasOf("stockholm").map((a) => (
+              <Link
+                key={a.slug}
+                href={`/redovisningsbyra/${a.slug}`}
+                className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-text no-underline uppercase transition-colors duration-300 hover:border-accent hover:text-accent-ink"
+              >
+                {a.name}
               </Link>
             ))}
           </div>

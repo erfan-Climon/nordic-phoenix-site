@@ -37,6 +37,14 @@ export type Location = {
   faq: LocationFaq[];
   /** Slugs för intern länkning till närliggande orter. */
   nearby: string[];
+  /**
+   * Satt på områdessidor och pekar på den ort de hör till. Saknas fältet är
+   * posten en ort i sig. URL:erna är platta oavsett, alltså
+   * /redovisningsbyra/solna och inte /redovisningsbyra/stockholm/solna.
+   * Solna och Södertälje är egna kommuner, en påhittad hierarki hade varit
+   * felaktig och gett längre URL:er utan vinst.
+   */
+  partOf?: string;
 };
 
 export const locations: Location[] = [
@@ -825,13 +833,13 @@ export const locations: Location[] = [
       heading: "Så ser företagandet i Gävle ut",
       paragraphs: [
         "Entreprenad och industriservice innebär ojämn beläggning över året. Vintern kan vara tung och sommaren intensiv, eller tvärtom beroende på bransch. Det gör att resultatet i en enskild månad säger lite, och att skatteplaneringen behöver se till helåret.",
-        "Många bolag har dessutom omvänd skattskyldighet att förhålla sig till om de arbetar inom bygg. Där ska ingen moms läggas på fakturan till en annan byggentreprenör, och det blir fel förvånansvärt ofta.",
+        "Med hamnen som nav säljer många bolag utanför Sverige. Vid försäljning till ett momsregistrerat företag i ett annat EU-land ska ingen moms läggas på fakturan, men köparens VAT-nummer måste kontrolleras och försäljningen rapporteras i en periodisk sammanställning. Missas det kommer påminnelsen från Skatteverket.",
       ],
     },
     highlights: [
       {
-        title: "Omvänd skattskyldighet i bygg",
-        text: "Vi ser till att momsen hanteras rätt både när ni fakturerar och när ni tar emot fakturor.",
+        title: "Export och EU-handel",
+        text: "VAT-nummer kontrolleras och periodisk sammanställning lämnas i tid, varje period.",
       },
       {
         title: "Säsong som jämnas ut",
@@ -844,9 +852,9 @@ export const locations: Location[] = [
     ],
     faq: [
       {
-        question: "När gäller omvänd skattskyldighet inom bygg?",
+        question: "Vi säljer till kunder i andra EU-länder. Hur hanteras momsen?",
         answer:
-          "När du säljer byggtjänster till ett företag som självt säljer byggtjänster mer än tillfälligt. Då lägger du ingen moms på fakturan och köparen redovisar den i stället. Vi bedömer varje kundrelation åt er.",
+          "Säljer du varor till ett momsregistrerat företag i ett annat EU-land fakturerar du utan moms, men köparens VAT-nummer måste vara giltigt och försäljningen ska med i den periodiska sammanställningen. Vi kontrollerar numren och lämnar rapporten åt er.",
       },
       {
         question: "Vår verksamhet är säsongsbetonad. Blir bokföringen dyrare vissa månader?",
@@ -854,14 +862,14 @@ export const locations: Location[] = [
           "Nej. Priset baseras på volymen sett över året, och du betalar samma summa varje månad.",
       },
       {
-        question: "Kan ni hantera löner med traktamente och restid?",
+        question: "Kan ni hantera skiftarbete och OB-tillägg i lönen?",
         answer:
-          "Ja. Vi räknar traktamenten enligt Skatteverkets belopp och ser till att de redovisas rätt så att de förblir skattefria där de ska vara det.",
+          "Ja. Skiftscheman, OB-tillägg och övertid enligt kollektivavtal hanteras i lönekörningen, och underlaget rapporteras till Skatteverket varje månad.",
       },
       {
-        question: "Vi hyr in personal i perioder. Hur bokförs det?",
+        question: "Vi ska investera i en dyr maskin. Hur påverkar det resultatet?",
         answer:
-          "Inhyrd personal är en tjänsteinköp och bokförs som extern kostnad, inte som lön. Skillnaden påverkar både moms och arbetsgivaravgifter, och vi håller isär det.",
+          "Maskinen kostnadsförs inte direkt utan skrivs av över sin livslängd, normalt fem år. Vi går igenom hur investeringen slår på resultat och skatt innan ni skriver på, och om räkenskapsenlig avskrivning kan användas för att sänka skatten tidigare.",
       },
       {
         question: "Måste vi byta bokföringsprogram?",
@@ -871,8 +879,850 @@ export const locations: Location[] = [
     ],
     nearby: ["uppsala", "umea", "stockholm"],
   },
+
+  // --- Områden i och kring Stockholm -----------------------------------
+
+  {
+    slug: "kista",
+    name: "Kista",
+    inName: "Kista",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Kista | Bokföring för IT- och konsultbolag",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Kista. Bokföring, lön, bokslut och deklaration till fast pris. Vana vid IT-konsulter och bolag med utländska ägare.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Kista.",
+    intro:
+      "Kista är Sveriges tätaste ansamling av IT- och telekombolag, och runt de stora företagen finns hundratals mindre konsultbolag. Det är den typen av verksamhet vi arbetar med varje dag.",
+    context: {
+      heading: "Så ser företagandet i Kista ut",
+      paragraphs: [
+        "De flesta bolagen här säljer tid. Konsulter fakturerar mot ramavtal, ofta med underkonsulter inblandade i perioder, och då är det viktigt att egen tid och inköpt tid hålls isär i bokföringen. Annars säger marginalen ingenting om hur bolaget faktiskt går.",
+        "Kista har också ovanligt många bolag med utländska ägare eller grundare som flyttat hit. Där dyker frågor upp som svenska företagare aldrig möter: hur lön till en ägare bosatt utomlands hanteras, och vad som gäller för moms när kunden sitter i ett annat land.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Konsult och underkonsult",
+        text: "Egen fakturerad tid och inköpt tid separeras, så att du ser vad varje uppdrag verkligen ger.",
+      },
+      {
+        title: "Internationella ägare",
+        text: "Vi hanterar bolag med ägare utomlands och förklarar reglerna på svenska, engelska eller persiska.",
+      },
+      {
+        title: "Molntjänster och licenser",
+        text: "Programvara köpt från utlandet momsredovisas omvänt. Det sköts löpande i stället för att redas ut vid bokslut.",
+      },
+    ],
+    faq: [
+      {
+        question: "Vi fakturerar kunder utanför Sverige. Ska vi lägga på moms?",
+        answer:
+          "Vid tjänster till företag i andra EU-länder läggs ingen svensk moms på, köparen redovisar den. Till länder utanför EU gäller ofta ingen moms alls. Vi bedömer varje kundrelation och sköter redovisningen.",
+      },
+      {
+        question: "En av delägarna bor utomlands. Påverkar det lönen?",
+        answer:
+          "Ja, det kan påverka både skatteavdrag och sociala avgifter beroende på var arbetet utförs och vilket land det gäller. Vi går igenom situationen innan första lönen betalas ut.",
+      },
+      {
+        question: "Kan ni hantera bokföring på engelska?",
+        answer:
+          "Bokföringen sker enligt svenska regler, men vi kommunicerar och förklarar på engelska om det är enklare för er. Rapporter kan tas fram på engelska vid behov.",
+      },
+      {
+        question: "Vi är ett litet konsultbolag med två delägare. Vilket paket passar?",
+        answer:
+          "Standard passar oftast. Det täcker löpande bokföring upp till 75 verifikat i månaden, lön för upp till tre anställda, bokslut och deklaration för 2 995 kr i månaden.",
+      },
+      {
+        question: "Måste vi ses på plats i Kista?",
+        answer:
+          "Nej. Allt sköts digitalt. Vill ni ändå ses ligger vi i Sollentuna, ett par stationer bort.",
+      },
+    ],
+    nearby: ["stockholm", "solna", "sundbyberg"],
+  },
+
+  {
+    slug: "solna",
+    name: "Solna",
+    inName: "Solna",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Solna | Bokföring, lön och bokslut till fast pris",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Solna. Bokföring, lön, bokslut och deklaration till fast månadspris. Vana vid bolag i tillväxt och life science.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Solna.",
+    intro:
+      "Solna har en ovanligt hög koncentration av företag i förhållande till sin storlek, från huvudkontor i Arenastaden till forskningsnära bolag runt Karolinska. Det ger en blandning av snabbväxande bolag och verksamheter med lång startsträcka.",
+    context: {
+      heading: "Så ser företagandet i Solna ut",
+      paragraphs: [
+        "Bolag som växer snabbt passerar gränser de sällan har tänkt på i förväg. Kravet på revisor, gränsen för förenklat årsbokslut och den punkt där lönen till ägaren behöver läggas om för att utdelningsutrymmet ska bli bra. Att få veta det i förväg är skillnaden mellan planering och panik.",
+        "Runt Karolinska finns dessutom bolag som lever på forskningsmedel innan de säljer något. Där måste bidrag, lån och ägartillskott hållas isär i bokföringen, annars blir både eget kapital och skattemässigt resultat fel.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Varning innan gränserna",
+        text: "Revisorsplikt och momsgränser bevakas löpande. Vi hör av oss innan de passeras, inte efteråt.",
+      },
+      {
+        title: "Kontor och personal",
+        text: "Hyresavtal, förmåner och friskvård bokförs rätt så att det inte blir en skattesmäll i efterhand.",
+      },
+      {
+        title: "Finansiering hålls isär",
+        text: "Bidrag, lån och tillskott bokförs var för sig, så att resultatet visar vad verksamheten faktiskt gör.",
+      },
+    ],
+    faq: [
+      {
+        question: "När måste vårt bolag utse revisor?",
+        answer:
+          "När två av tre gränsvärden överskrids två år i rad: fler än tre anställda, mer än 1,5 miljoner i balansomslutning eller mer än 3 miljoner i nettoomsättning. Vi bevakar det åt er.",
+      },
+      {
+        question: "Hur bokförs friskvårdsbidrag till personalen?",
+        answer:
+          "Upp till 5 000 kr per anställd och år är skattefritt om det erbjuds alla på lika villkor. Överskjutande belopp blir en skattepliktig förmån. Vi håller isär det i lönen.",
+      },
+      {
+        question: "Vi hyr kontor. Är momsen avdragsgill?",
+        answer:
+          "Bara om hyresvärden är frivilligt skattskyldig för lokalen, vilket framgår av hyresavtalet och fakturan. Vi kontrollerar det så att avdraget blir rätt.",
+      },
+      {
+        question: "Vi har precis fått in en investerare. Hur bokförs det?",
+        answer:
+          "Aktiekapitalet ökar och överskjutande belopp läggs i överkursfond. Det är inte en intäkt. Vi bokför emissionen och tar fram underlaget till Bolagsverket.",
+      },
+      {
+        question: "Kan ni ta över mitt bolag mitt i räkenskapsåret?",
+        answer:
+          "Ja. Vi hämtar underlagen från din nuvarande byrå och tar vid från valfritt månadsskifte.",
+      },
+    ],
+    nearby: ["stockholm", "sundbyberg", "kista"],
+  },
+
+  {
+    slug: "sundbyberg",
+    name: "Sundbyberg",
+    inName: "Sundbyberg",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Sundbyberg | Bokföring för små bolag till fast pris",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Sundbyberg. Bokföring, moms, lön och bokslut till fast pris. Anpassat för enmansbolag och mindre tjänsteföretag.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Sundbyberg.",
+    intro:
+      "Sundbyberg är landets till ytan minsta kommun men en av de tätast befolkade, och företagandet präglas av många små tjänsteföretag snarare än av några få stora. Det är bolag där ägaren gör allt själv och där tiden är den knappaste resursen.",
+    context: {
+      heading: "Så ser företagandet i Sundbyberg ut",
+      paragraphs: [
+        "Ett enmansbolag har sällan komplicerad bokföring, men desto fler frågor om vad som får dras av. Hemmakontor, telefon, dator och resor är poster där gränsen mellan privat och företag är otydlig, och där misstagen kostar mer än de sparar.",
+        "Många börjar dessutom som enskild firma vid sidan av en anställning och går över till aktiebolag när uppdragen blir stadiga. Just den övergången är värd att räkna på i förväg i stället för att göra av magkänsla.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Rätt avdrag, inga övertramp",
+        text: "Hemmakontor, telefon och resor. Vi säger vad som faktiskt går att dra av och vad som inte gör det.",
+      },
+      {
+        title: "Firma eller aktiebolag",
+        text: "Vi räknar på dina siffror i stället för att gissa, och sköter övergången när den lönar sig.",
+      },
+      {
+        title: "Litet paket, låg tröskel",
+        text: "Från 1 495 kr i månaden. Du betalar för det som faktiskt händer i bolaget.",
+      },
+    ],
+    faq: [
+      {
+        question: "Får jag dra av för kontor hemma?",
+        answer:
+          "I aktiebolag krävs normalt att rummet används uteslutande för verksamheten, vilket sällan är uppfyllt. I enskild firma finns ett schablonavdrag under vissa förutsättningar. Vi går igenom din situation innan något dras av.",
+      },
+      {
+        question: "Kan jag dra av mobiltelefonen?",
+        answer:
+          "Ja, om abonnemanget står på bolaget och används i verksamheten. Ren privat användning i mindre omfattning brukar accepteras. Vi bokför det korrekt.",
+      },
+      {
+        question: "Vid vilken vinst blir aktiebolag bättre än enskild firma?",
+        answer:
+          "En vanlig tumregel är stabil vinst över ungefär 450 000 till 500 000 kr per år, men det beror på hur mycket du tar ut och vilken risk verksamheten har. Vi räknar på just dina siffror.",
+      },
+      {
+        question: "Jag har bara några få fakturor i månaden. Är det värt en byrå?",
+        answer:
+          "Ofta ja, eftersom tiden du lägger på att göra rätt är värd mer än vad Bas kostar. Tycker vi att du klarar det själv säger vi hellre det.",
+      },
+      {
+        question: "Behöver vi ses?",
+        answer:
+          "Nej, allt sköts digitalt. Du fotar underlagen i mobilen och vi hörs på WhatsApp eller telefon.",
+      },
+    ],
+    nearby: ["solna", "stockholm", "kista"],
+  },
+
+  {
+    slug: "upplands-vasby",
+    name: "Upplands Väsby",
+    inName: "Upplands Väsby",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Upplands Väsby | Bokföring för lager och logistik",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Upplands Väsby. Bokföring, lager, lön, bokslut och deklaration till fast pris. Vana vid logistik nära Arlanda.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Upplands Väsby.",
+    intro:
+      "Upplands Väsby ligger mellan Stockholm och Arlanda, och närheten till flygplatsen märks i näringslivet. Lager, distribution och lätt industri väger tyngre här än rena tjänsteföretag.",
+    context: {
+      heading: "Så ser företagandet i Upplands Väsby ut",
+      paragraphs: [
+        "Bolag med lager har kapital bundet i varor som ännu inte sålts. Hur lagret värderas vid bokslutet påverkar både resultat och skatt, och underlaget måste vara dokumenterat för att hålla vid en granskning.",
+        "Ligger verksamheten nära Arlanda följer ofta import med. Då redovisas momsen mot Tullverkets underlag och inte mot leverantörens faktura, vilket är två olika belopp och en av de vanligaste felkällorna i momsdeklarationen.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Lagervärdering som håller",
+        text: "Värdering enligt lägsta värdets princip med dokumenterat underlag inför bokslutet.",
+      },
+      {
+        title: "Import och tullvärde",
+        text: "Importmomsen stäms av mot Tullverkets sammanställning varje period.",
+      },
+      {
+        title: "Fordon och transport",
+        text: "Vi kan skillnaden i momsavdrag mellan personbil och lätt lastbil, och mellan leasing och köp.",
+      },
+    ],
+    faq: [
+      {
+        question: "Vi importerar varor. Hur redovisas importmomsen?",
+        answer:
+          "Med tullvärdet som underlag, inte med fakturabeloppet från leverantören. Vi stämmer av mot Tullverkets månadssammanställning så att beloppen blir rätt.",
+      },
+      {
+        question: "Hur värderas lagret vid bokslut?",
+        answer:
+          "Till det lägsta av anskaffningsvärde och nettoförsäljningsvärde. Vi går igenom lagret med er och dokumenterar beräkningen.",
+      },
+      {
+        question: "Får vi dra av momsen på firmabilen?",
+        answer:
+          "För personbil normalt inte vid köp och bara halva momsen vid leasing. För lätt lastbil gäller andra regler. Vi ser till att avdraget blir rätt för era fordon.",
+      },
+      {
+        question: "Vi har lagerpersonal med skiftarbete. Klarar ni lönen?",
+        answer:
+          "Ja. OB-tillägg, övertid och semesterersättning räknas i lönekörningen och rapporteras varje månad.",
+      },
+      {
+        question: "Vad kostar det för ett bolag med lager och import?",
+        answer:
+          "Fast månadspris från 1 495 kr. Har ni lager och flera anställda passar oftast Standard eller Premium.",
+      },
+    ],
+    nearby: ["sigtuna", "solna", "stockholm"],
+  },
+
+  {
+    slug: "sigtuna",
+    name: "Sigtuna",
+    inName: "Sigtuna",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Sigtuna | Bokföring för besöksnäring och logistik",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Sigtuna. Bokföring, lön, bokslut och deklaration till fast pris. Vana vid hotell, restaurang och verksamhet kring Arlanda.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Sigtuna.",
+    intro:
+      "Sigtuna kommun rymmer både en av landets äldsta stadskärnor och Arlanda. Det ger ett näringsliv där besöksnäring och logistik dominerar, båda med tydliga säsongsvängningar.",
+    context: {
+      heading: "Så ser företagandet i Sigtuna ut",
+      paragraphs: [
+        "Hotell, restaurang och konferens har en kostnadsbild som skiljer sig från de flesta branschers. Blandade momssatser på mat, logi och alkohol, personalliggare som är obligatorisk, och en personalstyrka som varierar kraftigt över året.",
+        "Säsongen gör dessutom att en enskild månad säger lite om hur det går. Resultatet behöver läsas över helåret, och skatten planeras därefter, annars kommer betalningarna vid fel tillfälle.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Blandade momssatser",
+        text: "Mat, logi och alkohol har olika moms. Vi ser till att fördelningen blir rätt varje period.",
+      },
+      {
+        title: "Personal som varierar",
+        text: "Timanställda, säsongspersonal och OB hanteras i lönekörningen utan att du behöver hålla reda på reglerna.",
+      },
+      {
+        title: "Säsong som jämnas ut",
+        text: "Vi läser helåret och säger till i god tid när skatt eller moms kommer att ligga tungt.",
+      },
+    ],
+    faq: [
+      {
+        question: "Vilka momssatser gäller för hotell och restaurang?",
+        answer:
+          "Logi har 12 procent, mat 12 procent och alkohol 25 procent. Serveringen ska därför delas upp. Vi lägger upp bokföringen så att fördelningen sker automatiskt.",
+      },
+      {
+        question: "Vi har många timanställda. Blir lönen dyrare?",
+        answer:
+          "Nej, priset utgår från antal anställda och inte från antal timmar. Premium täcker upp till tio anställda, och över det tar vi fram en offert.",
+      },
+      {
+        question: "Måste vi föra personalliggare?",
+        answer:
+          "Ja, inom restaurang och en del andra branscher är det ett krav och Skatteverket gör oanmälda kontroller. Vi påminner om det men själva liggaren sköts på plats.",
+      },
+      {
+        question: "Vår omsättning svänger kraftigt över året. Hur planerar vi skatten?",
+        answer:
+          "Vi följer resultatet löpande och justerar preliminärskatten när det behövs, så att inbetalningarna följer verkligheten i stället för fjolårets siffror.",
+      },
+      {
+        question: "Behöver ni komma hit?",
+        answer:
+          "Nej. Underlagen laddas upp digitalt och vi stämmer av på telefon eller video.",
+      },
+    ],
+    nearby: ["upplands-vasby", "stockholm", "uppsala"],
+  },
+
+  {
+    slug: "vasastan",
+    name: "Vasastan",
+    inName: "Vasastan",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Vasastan | Bokföring för mottagningar och konsulter",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Vasastan. Bokföring, moms, lön och bokslut till fast pris. Vana vid privata mottagningar och mindre konsultbolag.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Vasastan.",
+    intro:
+      "Vasastan har en tät blandning av små konsultbolag och privata mottagningar inom vård och tandvård. Just vårdbolagen har en momssituation som skiljer sig från nästan alla andra branscher.",
+    context: {
+      heading: "Så ser företagandet i Vasastan ut",
+      paragraphs: [
+        "Sjukvård och tandvård är undantagna från moms. Det låter enkelt men blir snabbt komplicerat, eftersom bolaget då inte heller får dra av moms på sina inköp. Säljer mottagningen dessutom något momspliktigt vid sidan om, till exempel hudvårdsprodukter, uppstår blandad verksamhet där avdragen måste fördelas.",
+        "Övriga bolag i området är ofta enmanskonsulter inom juridik, kommunikation eller design. Där handlar det mindre om regelkrångel och mer om att slippa lägga kvällar på bokföring.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Momsfri vård",
+        text: "Vi hanterar undantaget och den blandade verksamhet som uppstår när något momspliktigt säljs vid sidan om.",
+      },
+      {
+        title: "Fördelning av avdrag",
+        text: "Vid blandad verksamhet fördelas ingående moms efter en dokumenterad grund som håller vid granskning.",
+      },
+      {
+        title: "Enkelt för enmansbolag",
+        text: "Du fotar underlagen och vi sköter resten. Fast pris från 1 495 kr i månaden.",
+      },
+    ],
+    faq: [
+      {
+        question: "Vi driver mottagning. Ska vi fakturera med moms?",
+        answer:
+          "Sjukvård och tandvård som utförs av legitimerad personal är undantagen från moms. Konsekvensen är att ni inte heller får dra av moms på inköp. Vi lägger upp bokföringen efter det.",
+      },
+      {
+        question: "Vi säljer även produkter i receptionen. Hur påverkar det momsen?",
+        answer:
+          "Då uppstår blandad verksamhet. Ingående moms måste fördelas mellan den momsfria vården och den momspliktiga försäljningen. Vi tar fram en fördelningsgrund och dokumenterar den.",
+      },
+      {
+        question: "Kan ni hantera lön för anställd personal i mottagningen?",
+        answer:
+          "Ja. Lön, arbetsgivardeklaration och kontrolluppgifter ingår från paketet Standard.",
+      },
+      {
+        question: "Jag är konsult med eget aktiebolag. Vilket paket passar?",
+        answer:
+          "Bas räcker oftast om du har upp till 25 verifikat i månaden. Behöver du lön till dig själv och bokslut ingår det i Standard.",
+      },
+      {
+        question: "Måste jag komma in till er?",
+        answer:
+          "Nej. Allt sköts digitalt, men vi finns i Sollentuna om du hellre vill ses.",
+      },
+    ],
+    nearby: ["ostermalm", "kungsholmen", "stockholm"],
+  },
+
+  {
+    slug: "kungsholmen",
+    name: "Kungsholmen",
+    inName: "Kungsholmen",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Kungsholmen | Bokföring för byråer och konsultbolag",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare på Kungsholmen. Bokföring, lön, bokslut och deklaration till fast pris. Vana vid projektfakturering och mindre byråer.",
+    h1Lead: "Redovisningsbyrå på",
+    h1Accent: "Kungsholmen.",
+    intro:
+      "Kungsholmen har många mindre byråer och konsultbolag inom kommunikation, teknik och juridik. Det är verksamheter som arbetar i projekt, och där bokföringen behöver kunna svara på vad varje projekt gav.",
+    context: {
+      heading: "Så ser företagandet på Kungsholmen ut",
+      paragraphs: [
+        "Ett projektdrivet bolag fakturerar sällan jämnt över året. Ett uppdrag kan pågå i månader innan slutfakturan går ut, medan kostnaderna löper på hela tiden. Utan periodisering ser resultatet ryckigt ut och säger mindre än det borde.",
+        "Många byråer köper dessutom in frilansare i perioder. Att skilja egen tid från inköpt tid i bokföringen är det som gör att marginalen går att lita på.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Projekt som går att följa",
+        text: "Intäkter och kostnader kopplas till projekt, så att du ser vad varje uppdrag faktiskt gav.",
+      },
+      {
+        title: "Frilansare och underleverantörer",
+        text: "Inköpt tid hålls isär från egen, och vi kontrollerar F-skatt hos dem ni anlitar.",
+      },
+      {
+        title: "Periodisering",
+        text: "Långa uppdrag periodiseras så att resultatet följer arbetet och inte fakturadatumen.",
+      },
+    ],
+    faq: [
+      {
+        question: "Hur bokförs ett uppdrag som sträcker sig över årsskiftet?",
+        answer:
+          "Intäkten ska redovisas i takt med att arbetet utförs, inte när fakturan skickas. Vi periodiserar pågående arbeten vid bokslutet så att resultatet hamnar på rätt år.",
+      },
+      {
+        question: "Vi anlitar frilansare. Vad behöver vi tänka på?",
+        answer:
+          "Kontrollera att de har F-skatt, annars kan ni bli skyldiga att betala arbetsgivaravgifter. Vi kontrollerar det och flaggar om något ser fel ut.",
+      },
+      {
+        question: "Kan vi se resultat per kund?",
+        answer:
+          "Ja. Vi lägger upp bokföringen med projekt eller kund som dimension, så att rapporterna kan brytas ner den vägen.",
+      },
+      {
+        question: "Hur hanteras representation?",
+        answer:
+          "Avdragsrätten för representation är begränsad och skiljer sig mellan mat och enklare förtäring. Vi bokför det rätt så att avdraget inte ifrågasätts.",
+      },
+      {
+        question: "Vad kostar det för en frilansare utan anställda?",
+        answer:
+          "Från 1 495 kr i månaden. Byråer med anställda och bokslut hamnar oftast på Standard för 2 995 kr.",
+      },
+    ],
+    nearby: ["vasastan", "sodermalm", "stockholm"],
+  },
+
+  {
+    slug: "ostermalm",
+    name: "Östermalm",
+    inName: "Östermalm",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Östermalm | Bokföring, holdingbolag och utdelning",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare på Östermalm. Bokföring, bokslut, deklaration och K10 till fast pris. Vana vid holdingstrukturer och konsultbolag.",
+    h1Lead: "Redovisningsbyrå på",
+    h1Accent: "Östermalm.",
+    intro:
+      "På Östermalm är bolagsstrukturerna ofta mer sammansatta än på andra håll. Holdingbolag, flera delägare och verksamhet som byggts upp över lång tid ställer andra krav på bokslut och deklaration.",
+    context: {
+      heading: "Så ser företagandet på Östermalm ut",
+      paragraphs: [
+        "Ett holdingbolag som äger ett eller flera rörelsebolag innebär att utdelning ska hanteras i flera led, och att varje bolag har sitt eget bokslut och sin egen deklaration. Görs det slarvigt blir skatten fel på en nivå som märks.",
+        "Med flera delägare räknas dessutom utdelningsutrymmet enligt 3:12-reglerna per person. Löneuttaget under året avgör hur stort utrymmet blir, och det går inte att rätta i efterhand när året väl är slut.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Holdingstrukturer",
+        text: "Bokslut och deklaration för både moderbolag och dotterbolag, med utdelning hanterad i rätt ordning.",
+      },
+      {
+        title: "K10 per delägare",
+        text: "Utdelningsutrymmet räknas fram för var och en, med underlag du kan lämna till din deklaration.",
+      },
+      {
+        title: "Beslut medan de går att ta",
+        text: "Vi räknar på löneuttaget under hösten, inte i maj när året redan är låst.",
+      },
+    ],
+    faq: [
+      {
+        question: "Vi har ett holdingbolag och ett rörelsebolag. Blir det dubbelt pris?",
+        answer:
+          "Varje bolag behöver egen bokföring, eget bokslut och egen deklaration, så det blir två uppdrag. Holdingbolaget har normalt få transaktioner och ligger därför på det lägsta paketet.",
+      },
+      {
+        question: "Hur mycket lön måste jag ta ut för att få högre utdelningsutrymme?",
+        answer:
+          "För att få använda löneunderlagsregeln krävs ett eget löneuttag som beror på bolagets totala löner och på ett belopp kopplat till inkomstbasbeloppet. Vi räknar fram gränsen för ditt bolag under hösten.",
+      },
+      {
+        question: "Är utdelning alltid bättre än lön?",
+        answer:
+          "Nej. Lön ger pensionsgrundande inkomst, sjukpenning och föräldrapenning, och krävs dessutom för att bygga utdelningsutrymme. Rätt mix beror på din situation, och vi går igenom den med dig.",
+      },
+      {
+        question: "Kan ni ta hand om deklarationen för flera bolag?",
+        answer:
+          "Ja. Vi upprättar inkomstdeklaration för varje bolag och tar fram K10-underlag för delägarna.",
+      },
+      {
+        question: "Vi vill byta byrå men mitt i året. Går det?",
+        answer:
+          "Ja. Vi hämtar underlagen från nuvarande byrå och tar över från valfritt månadsskifte.",
+      },
+    ],
+    nearby: ["vasastan", "stockholm", "kungsholmen"],
+  },
+
+  {
+    slug: "sodermalm",
+    name: "Södermalm",
+    inName: "Södermalm",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Södermalm | Bokföring för frilans, restaurang och handel",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare på Södermalm. Bokföring, moms, lön och bokslut till fast pris. Vana vid frilansare, kreatörer, restaurang och butik.",
+    h1Lead: "Redovisningsbyrå på",
+    h1Accent: "Södermalm.",
+    intro:
+      "Södermalm har en ovanligt hög andel frilansare, kreatörer och små handels- och restaurangbolag. Det är verksamheter med låg administrativ tålighet, där bokföringen måste vara enkel för att bli gjord alls.",
+    context: {
+      heading: "Så ser företagandet på Södermalm ut",
+      paragraphs: [
+        "Frilansare inom foto, film, design och text har ofta oregelbundna intäkter och en kostnadsbild med utrustning som ska skrivas av. Många börjar i enskild firma och undrar när det är dags att byta till aktiebolag.",
+        "Restaurang och butik har i stället kassaregister, blandade momssatser och personal som varierar. Här är personalliggaren obligatorisk och kontrollerna oanmälda, vilket gör att rutinerna behöver sitta från dag ett.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Enkelt för frilans",
+        text: "Foto på kvittot räcker. Vi sköter resten och säger till om något saknas.",
+      },
+      {
+        title: "Utrustning och avskrivning",
+        text: "Kameror, datorer och verktyg. Vi avgör vad som ska kostnadsföras direkt och vad som skrivs av.",
+      },
+      {
+        title: "Kassa och blandad moms",
+        text: "Restaurang och butik med olika momssatser hanteras rätt varje period.",
+      },
+    ],
+    faq: [
+      {
+        question: "Jag är frilansare med ojämna inkomster. Hur planeras skatten?",
+        answer:
+          "Vi följer resultatet löpande och justerar preliminärskatten när det behövs, i stället för att låta den bygga på fjolårets siffror. Det gör att kvarskatten inte kommer som en överraskning.",
+      },
+      {
+        question: "Ska en ny kamera kostnadsföras eller skrivas av?",
+        answer:
+          "Inköp under ett halvt prisbasbelopp får kostnadsföras direkt. Dyrare utrustning som används i flera år skrivs av. Vi bedömer varje inköp.",
+      },
+      {
+        question: "Vilka momssatser gäller i restaurang?",
+        answer:
+          "Mat serverad på plats har 12 procent och alkohol 25 procent. Försäljningen behöver därför delas upp, och vi lägger upp bokföringen så att det sker automatiskt.",
+      },
+      {
+        question: "Måste jag ha kassaregister?",
+        answer:
+          "Ja, vid försäljning mot kontant eller kort till privatpersoner över ett visst belopp per år. Registret ska vara certifierat och anmält till Skatteverket.",
+      },
+      {
+        question: "Jag har enskild firma. Ska jag byta till aktiebolag?",
+        answer:
+          "Det beror på vinst, risk och hur mycket du tar ut. Vi räknar på dina siffror och säger vad som lönar sig, i stället för att svara med en tumregel.",
+      },
+    ],
+    nearby: ["kungsholmen", "farsta", "stockholm"],
+  },
+
+  {
+    slug: "haninge",
+    name: "Haninge",
+    inName: "Haninge",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Haninge | Bokföring för bygg och hantverk",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Haninge. Bokföring, ROT, omvänd skattskyldighet, lön och bokslut till fast pris.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Haninge.",
+    intro:
+      "Haninge har en stor andel bygg-, hantverks- och serviceföretag som arbetar både mot privatpersoner och mot andra byggföretag. Just den kombinationen gör momsen mer komplicerad än den ser ut.",
+    context: {
+      heading: "Så ser företagandet i Haninge ut",
+      paragraphs: [
+        "Fakturerar du en annan byggentreprenör gäller omvänd skattskyldighet, alltså ingen moms på fakturan. Fakturerar du en privatperson gäller vanlig moms, och ofta ROT-avdrag som ska begäras hos Skatteverket. Många bolag gör båda delarna och blandar ihop dem.",
+        "ROT innebär dessutom att en del av betalningen kommer från Skatteverket i stället för från kunden, vilket påverkar likviditeten. Utbetalningen dröjer, och det behöver man planera för.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Omvänd skattskyldighet",
+        text: "Vi bedömer varje kundrelation så att momsen blir rätt både när ni fakturerar och när ni tar emot fakturor.",
+      },
+      {
+        title: "ROT utan krångel",
+        text: "Ansökan om utbetalning sköts löpande och vi håller reda på vad som är utbetalt.",
+      },
+      {
+        title: "Lön med traktamente",
+        text: "Restid, traktamente och OB räknas rätt så att det förblir skattefritt där det ska vara det.",
+      },
+    ],
+    faq: [
+      {
+        question: "När gäller omvänd skattskyldighet?",
+        answer:
+          "När du säljer byggtjänster till ett företag som självt säljer byggtjänster mer än tillfälligt. Då lägger du ingen moms på fakturan och köparen redovisar den. Vi bedömer varje kund åt er.",
+      },
+      {
+        question: "Kan ni sköta ROT-ansökningarna?",
+        answer:
+          "Ja. Vi begär utbetalning från Skatteverket och stämmer av att beloppen kommer in, så att ni ser vad som är kvar att få.",
+      },
+      {
+        question: "Hur påverkar ROT vår likviditet?",
+        answer:
+          "Kunden betalar bara sin del direkt och resten kommer från Skatteverket senare. Vi håller koll på utestående ansökningar så att ni vet vad som är på väg in.",
+      },
+      {
+        question: "Vi hyr in personal ibland. Hur bokförs det?",
+        answer:
+          "Inhyrd personal är ett tjänsteinköp och bokförs som extern kostnad, inte som lön. Skillnaden påverkar både moms och arbetsgivaravgifter.",
+      },
+      {
+        question: "Vad kostar det för ett byggbolag med fem anställda?",
+        answer:
+          "Standard täcker lön för upp till tre anställda och Premium upp till tio. Med fem anställda hamnar ni på Premium för 4 995 kr i månaden.",
+      },
+    ],
+    nearby: ["farsta", "sodertalje", "stockholm"],
+  },
+
+  {
+    slug: "sodertalje",
+    name: "Södertälje",
+    inName: "Södertälje",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Södertälje | Bokföring för industri och underleverantörer",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Södertälje. Bokföring, lön, bokslut och deklaration till fast pris. Rådgivning på svenska, engelska och persiska.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Södertälje.",
+    intro:
+      "Södertälje är en industristad där mycket av företagandet kretsar kring de stora arbetsgivarna och deras leverantörskedjor. Här finns också en av landets mest entreprenöriella och flerspråkiga företagarmiljöer.",
+    context: {
+      heading: "Så ser företagandet i Södertälje ut",
+      paragraphs: [
+        "Underleverantörer till industrin har långa betalningsvillkor och fakturerar mot leveranser eller ramavtal snarare än per månad. Det binder kapital och gör att kundreskontran behöver hållas efter, annars märks inte att en betalning uteblivit förrän den är rejält sen.",
+        "Staden har dessutom en stor andel företagare med internationell bakgrund inom handel, restaurang och transport. Många driver bolaget skickligt men har aldrig fått svenska bokföringsregler förklarade på sitt eget språk, vilket skapar onödig oro inför varje kontakt med Skatteverket.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Rådgivning på ditt språk",
+        text: "Svenska, engelska eller persiska. Reglerna ska gå att förstå oavsett vilket språk du tänker på.",
+      },
+      {
+        title: "Reskontra som hålls efter",
+        text: "Långa betalningsvillkor kräver ordning. Vi rapporterar vad som är förfallet innan det blir ett problem.",
+      },
+      {
+        title: "Trygghet mot myndigheter",
+        text: "Vi tar kontakten med Skatteverket när det behövs och förklarar vad ett brev faktiskt betyder.",
+      },
+    ],
+    faq: [
+      {
+        question: "Kan jag få hjälp på persiska?",
+        answer:
+          "Ja. Vi ger rådgivning på svenska, engelska och persiska, och du kan skriva till oss på det språk du är mest bekväm med.",
+      },
+      {
+        question: "Jag har fått ett brev från Skatteverket. Kan ni hjälpa till?",
+        answer:
+          "Ja. Skicka över brevet så förklarar vi vad det gäller och vad som behöver göras. Vi kan svara åt er när det är en fråga om bokföring eller deklaration.",
+      },
+      {
+        question: "Vi levererar till en stor industrikund med långa betalningstider. Hur hanterar ni det?",
+        answer:
+          "Vi håller kundreskontran uppdaterad och rapporterar vad som är förfallet, så att ni kan agera i tid i stället för att upptäcka det för sent.",
+      },
+      {
+        question: "Vi driver både handel och transport i samma bolag. Går det?",
+        answer:
+          "Ja, men verksamheterna behöver kunna följas var för sig i bokföringen för att siffrorna ska säga något. Vi lägger upp det så.",
+      },
+      {
+        question: "Behöver vi ses fysiskt?",
+        answer:
+          "Nej. Allt sköts digitalt, men vi finns i Sollentuna om ni hellre vill träffas.",
+      },
+    ],
+    nearby: ["haninge", "stockholm", "skarholmen"],
+  },
+
+  {
+    slug: "farsta",
+    name: "Farsta",
+    inName: "Farsta",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Farsta | Bokföring för småföretag och vårdbolag",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Farsta. Bokföring, lön, bokslut och deklaration till fast pris. Vana vid mindre tjänsteföretag och vård och omsorg.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Farsta.",
+    intro:
+      "Farsta har ett näringsliv byggt kring lokal service: handel, hantverk, vård och omsorg. Det är bolag med få anställda där ägaren står mitt i verksamheten och sällan har tid över till administration.",
+    context: {
+      heading: "Så ser företagandet i Farsta ut",
+      paragraphs: [
+        "Inom vård och omsorg är tjänsterna ofta undantagna från moms, vilket också innebär att bolaget inte får dra av moms på sina inköp. Det är en regel som förvånar många, och som gör att kalkylen ser annorlunda ut än i andra branscher.",
+        "Många bolag har dessutom kommunen som beställare, med avtal som ställer krav på fakturaformat och ger längre betalningstider. Det påverkar likviditeten mer än storleken på uppdraget antyder.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Momsfri verksamhet",
+        text: "Vård och omsorg är undantagen från moms. Vi lägger upp bokföringen efter det från början.",
+      },
+      {
+        title: "Kommunala avtal",
+        text: "E-fakturakrav och långa betalningstider hanteras utan att ni behöver sätta er in i reglerna.",
+      },
+      {
+        title: "Få anställda, full koll",
+        text: "Lön, arbetsgivardeklaration och kontrolluppgifter sköts varje månad.",
+      },
+    ],
+    faq: [
+      {
+        question: "Vår verksamhet är momsfri. Vad innebär det i praktiken?",
+        answer:
+          "Ni lägger ingen moms på fakturorna, men får inte heller dra av moms på inköp. Det betyder att momsen blir en ren kostnad, vilket behöver räknas in i prissättningen.",
+      },
+      {
+        question: "Vi fakturerar kommunen. Behövs e-faktura?",
+        answer:
+          "Ja, vid inköp inom offentlig sektor är e-faktura enligt Peppol-standard ett krav. Vi hjälper er få rutinen på plats.",
+      },
+      {
+        question: "Vi har tre anställda. Vilket paket passar?",
+        answer:
+          "Standard, som täcker lön för upp till tre anställda, bokslut och deklaration för 2 995 kr i månaden.",
+      },
+      {
+        question: "Kan ni hantera sjuklön och karensavdrag?",
+        answer:
+          "Ja. Sjuklön, karensavdrag och ersättning från Försäkringskassan hanteras i lönekörningen.",
+      },
+      {
+        question: "Behöver jag komma in till er?",
+        answer:
+          "Nej. Du fotar underlagen i mobilen och vi hörs på telefon eller WhatsApp.",
+      },
+    ],
+    nearby: ["sodermalm", "haninge", "skarholmen"],
+  },
+
+  {
+    slug: "skarholmen",
+    name: "Skärholmen",
+    inName: "Skärholmen",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Skärholmen | Bokföring på svenska, engelska och persiska",
+    metaDescription:
+      "Digital redovisningsbyrå för företagare i Skärholmen. Bokföring, moms, lön och bokslut till fast pris. Rådgivning på svenska, engelska och persiska.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Skärholmen.",
+    intro:
+      "Skärholmen har ett starkt och företagsamt näringsliv med handel, restaurang och service, och en stor andel företagare med internationell bakgrund. Många driver verksamheten skickligt men har aldrig fått reglerna förklarade på sitt eget språk.",
+    context: {
+      heading: "Så ser företagandet i Skärholmen ut",
+      paragraphs: [
+        "Handel och restaurang innebär kassaregister, blandade momssatser och ofta kontanthantering. Det är också branscher där Skatteverket gör oanmälda kontroller, vilket gör att rutinerna behöver vara på plats innan någon knackar på.",
+        "Med Kungens kurva strax intill finns dessutom många bolag inom detaljhandel och lager. Där avgör lagervärderingen hur resultatet ser ut, och den behöver dokumenteras för att hålla.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Rådgivning på ditt språk",
+        text: "Svenska, engelska eller persiska. Du ska förstå din egen ekonomi, inte bara skriva under den.",
+      },
+      {
+        title: "Kassa och kontanter",
+        text: "Certifierat kassaregister, personalliggare och blandade momssatser hanteras rätt varje period.",
+      },
+      {
+        title: "Redo för kontroll",
+        text: "Underlagen är ordnade och sökbara, så att en oanmäld kontroll inte blir en kris.",
+      },
+    ],
+    faq: [
+      {
+        question: "Får jag rådgivningen på mitt eget språk?",
+        answer:
+          "Ja. Vi ger rådgivning på svenska, engelska och persiska. Skriv till oss på det språk du föredrar.",
+      },
+      {
+        question: "Måste jag ha certifierat kassaregister?",
+        answer:
+          "Ja, vid försäljning mot kontant eller kort till privatpersoner över ett visst belopp per år. Registret ska vara certifierat och anmält till Skatteverket.",
+      },
+      {
+        question: "Vad händer vid en oanmäld kontroll?",
+        answer:
+          "Skatteverket kontrollerar bland annat personalliggare och kassaregister på plats. Har ni rutinerna på plats är det odramatiskt, och vi ser till att bokföringen är i ordning.",
+      },
+      {
+        question: "Vi driver butik med lager. Hur värderas det vid bokslut?",
+        answer:
+          "Till det lägsta av anskaffningsvärde och nettoförsäljningsvärde. Vi går igenom lagret med er och dokumenterar beräkningen.",
+      },
+      {
+        question: "Jag ska starta företag men vet inte vilken bolagsform. Kan ni hjälpa?",
+        answer:
+          "Ja. Vi går igenom skillnaderna i ansvar, skatt och administration och räknar på vad som passar din situation, innan du registrerar något.",
+      },
+    ],
+    nearby: ["farsta", "sodertalje", "stockholm"],
+  },
 ];
 
 export function getLocation(slug: string): Location | undefined {
   return locations.find((l) => l.slug === slug);
+}
+
+/** Orter, alltså allt som inte är ett område under en annan ort. */
+export const cities = locations.filter((l) => !l.partOf);
+
+/** Områden som hör till en viss ort. */
+export function areasOf(slug: string): Location[] {
+  return locations.filter((l) => l.partOf === slug);
 }

@@ -7,7 +7,12 @@ import { htmlLang, locales, localePath } from "@/lib/i18n";
 // Krävs av `output: export` — filen genereras en gång vid build.
 export const dynamic = "force-static";
 
-const abs = (path: string) => new URL(path, SITE_URL).toString();
+/**
+ * Avslutande snedstreck, eftersom `trailingSlash: true` gör att det är den
+ * formen canonical-taggarna använder. Sitemapen ska peka på samma URL.
+ */
+const abs = (path: string) =>
+  new URL(path.endsWith("/") ? path : `${path}/`, SITE_URL).toString();
 
 /** Sidor som finns på alla tre språk. */
 const TRANSLATED_PATHS = ["/", "/integritetspolicy"];

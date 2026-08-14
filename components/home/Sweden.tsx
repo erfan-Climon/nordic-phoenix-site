@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Dictionary } from "@/content/locales/sv";
-import { locations } from "@/content/locations";
+import { cities as locationCities } from "@/content/locations";
 import { cityRowSplit } from "@/content/site";
 
 export function Sweden({ t }: { t: Dictionary }) {
@@ -12,7 +12,7 @@ export function Sweden({ t }: { t: Dictionary }) {
    */
   const cities = t.sweden.cities.map((name, i) => ({
     name,
-    slug: locations[i]?.slug,
+    slug: locationCities[i]?.slug,
   }));
 
   const row1 = cities.slice(0, cityRowSplit);

@@ -71,11 +71,25 @@ Två regler gäller när nya orter läggs till:
   som bara byter ortsnamn är doorway pages och skadar sajten.
 
 Riktvärde vid granskning: minst ~1 500 tecken ortsspecifik text per sida och
-högst ~40% ordöverlapp mot någon annan ortssida. Nuvarande uppsättning ligger
-på ~2 000 tecken och 24% som mest.
+högst ~40% ordöverlapp mot någon annan ortssida. Mät överlappet på den
+renderade prosan med de ord som finns på alla sidor borträknade, annars mäter
+du sidmallen och inte innehållet. Nuvarande uppsättning ligger på 2 484 tecken
+som lägst och 39% som mest (Uppsala mot Lund), median 17%.
+
+`partOf` gör en post till en områdessida under en ort. 13 områden ligger under
+Stockholm, från Kista till Skärholmen. URL:erna är platta oavsett, alltså
+`/redovisningsbyra/solna` och inte `/redovisningsbyra/stockholm/solna`: Solna
+och Södertälje är egna kommuner och en påhittad hierarki hade gett längre
+URL:er utan vinst.
+
+Områdessidorna har medvetet ingen knapp på startsidan, men de är länkade från
+Stockholmssidan och från `/redovisningsbyra`. Utan interna länkar blir de
+föräldralösa, och en sida som bara finns i sitemapen rankar dåligt.
 
 Sidorna finns bara på svenska. De riktar sig mot svensk lokal sökning, och
-översättningar hade inneburit tunt innehåll utan sökefterfrågan.
+översättningar hade inneburit tunt innehåll utan sökefterfrågan. Språkväxlaren
+byter därför till startsidan från `/blogg` och `/redovisningsbyra`, i stället
+för att peka på en `/en`-sökväg som inte finns.
 
 ## Textregler
 

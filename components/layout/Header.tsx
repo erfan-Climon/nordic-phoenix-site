@@ -25,6 +25,15 @@ export function Header({ locale, t }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   // Språkväxlaren ska landa på samma sida i det andra språket.
   const { path } = stripLocale(usePathname() ?? "/");
+  /**
+   * Bloggen och ortssidorna finns bara på svenska. Att peka växlaren på samma
+   * sökväg under /en eller /fa hade gett en död länk, så därifrån byter den i
+   * stället till språkets startsida.
+   */
+  const swedishOnly = ["/blogg", "/redovisningsbyra"].some(
+    (prefix) => path === prefix || path.startsWith(`${prefix}/`),
+  );
+  const switchPath = swedishOnly ? "/" : path;
 
   // Lås bakgrunden och lyssna på Escape medan mobilmenyn är öppen.
   useEffect(() => {
@@ -103,7 +112,7 @@ export function Header({ locale, t }: Props) {
           <PhoneGlyph />
           {phone.display}
         </a>
-        <LanguageLink locale={locale} t={t} path={path} />
+        <LanguageLink locale={locale} t={t} path={switchPath} />
         <Link
           href={whatsappUrl}
           target="_blank"
@@ -130,7 +139,7 @@ export function Header({ locale, t }: Props) {
         {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
             plats. Språkknappen flyttas då ner i menyn i stället. */}
         <span className="hidden min-[368px]:block">
-          <LanguageLink locale={locale} t={t} path={path} short />
+          <LanguageLink locale={locale} t={t} path={switchPath} short />
         </span>
         <button
           type="button"
@@ -192,7 +201,7 @@ export function Header({ locale, t }: Props) {
             className="border-b border-[var(--hairline-light)] py-4 min-[368px]:hidden"
             onClick={() => setMenuOpen(false)}
           >
-            <LanguageLink locale={locale} t={t} path={path} short />
+            <LanguageLink locale={locale} t={t} path={switchPath} short />
           </span>
           <Link
             href={whatsappUrl}

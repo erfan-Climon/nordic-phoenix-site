@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CheckMark } from "@/components/ui/icons";
-import { getLocation, type Location } from "@/content/locations";
+import { areasOf, getLocation, type Location } from "@/content/locations";
 import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
 import { getDictionary } from "@/lib/i18n";
 
@@ -68,6 +68,8 @@ export function LocationPage({ location }: { location: Location }) {
       { "@type": "ListItem", position: 3, name: location.name, item: url },
     ],
   };
+
+  const areas = areasOf(location.slug);
 
   const nearby = location.nearby
     .map((slug) => getLocation(slug))
@@ -260,6 +262,32 @@ export function LocationPage({ location }: { location: Location }) {
           </div>
         </div>
       </section>
+
+      {/* --- Områden under orten ----------------------------------------- */}
+      {areas.length > 0 ? (
+        <section className="bg-page text-text">
+          <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
+            <h2 className="np-h2 mb-4 text-[length:var(--fs-h2-sm)] leading-[1.2]">
+              Områden i {location.inName} med omnejd
+            </h2>
+            <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[56ch] font-sans text-[16px] leading-[1.7] text-text-muted">
+              Vi arbetar med företagare i hela regionen. Läs mer om hur vi
+              arbetar där du håller till.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {areas.map((a) => (
+                <Link
+                  key={a.slug}
+                  href={`/redovisningsbyra/${a.slug}`}
+                  className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-text no-underline uppercase transition-colors duration-300 hover:border-accent hover:text-accent-ink"
+                >
+                  {a.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {/* --- Närliggande orter ------------------------------------------- */}
       <section className="bg-page text-text">
