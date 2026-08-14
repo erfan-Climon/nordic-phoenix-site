@@ -17,13 +17,13 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           vid reducerad rörelse, och det som syns innan videon börjar spela. */}
       {/* På mobil beskärs bilden hårt på bredden. Centrerat hamnar den ljusa
           skjortan bakom texten, så utsnittet flyttas åt vänster till glasväggen
-          och skärmen, som är mörkare. 38 procent är det högsta värde som
-          klarar kontrastkraven, alltså så mycket av bilden som går att
-          behålla. På bred skärm ligger utsnittet kvar centrerat,
+          och skärmen, som är mörkare. 30 procent är det högsta värde som
+          klarar kontrastkraven med hero-radernas färger, alltså så mycket av
+          bilden som går att behålla. På bred skärm ligger utsnittet kvar centrerat,
           annars hoppar bilden när videon tar över. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-[position:38%_center] md:bg-center"
+        className="absolute inset-0 bg-cover bg-[position:30%_center] md:bg-center"
         style={{ backgroundImage: `url(${video.heroPoster})` }}
       />
 
@@ -48,7 +48,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.45),rgba(0,0,0,.22)_45%,transparent_70%)] md:block"
+        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.45),rgba(0,0,0,.32)_55%,transparent_80%)] md:block"
       />
       <div
         aria-hidden="true"
@@ -70,10 +70,11 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           och den ytan lämnas medvetet fri. */}
       <div
         data-parallax="0.14"
-        /* Texten skjuts in från vänsterkanten på bred skärm. Personen i
-           videon sitter till höger, så ytan räcker ändå. På mobil ligger den
+        /* Texten skjuts in från vänsterkanten på bred skärm. Insteget är
+           satt så att Se våra tjänster hamnar mitt på tangentbordet i bild,
+           som ligger på 30 till 49 procent vid 1512px. På mobil ligger texten
            kvar mot kanten, där finns ingen plats att ge bort. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(64px,13vw,260px)]"
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(64px,17vw,330px)]"
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
@@ -91,13 +92,10 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               {t.hero.w2}
             </span>
             <span
-              /* Standardgradienten slutar på #f06700, som ger 2,3:1 mot videon.
-                 Hero använder därför gradientens ljusa halva.
-
-                 Ingen skugga här. Bokstäverna är tunna och kursiva, och en
-                 skugga tätt under dem grumlar orangen till brunt. Kontrasten
-                 mäts mot gradientfärgen och klarar sig utan skugga. */
-              className="np-gradient-text bg-[linear-gradient(110deg,#ffb454_20%,#ff9424)] italic"
+              /* Samma gradient som WhatsApp-knappen, alltså --gradient-accent.
+                 Ingen skugga: bokstäverna är tunna och kursiva, och en skugga
+                 tätt under dem grumlar orangen till brunt. */
+              className="np-gradient-text bg-[image:var(--gradient-accent)] italic"
               style={{ animation: "np-rise 1.1s .31s var(--ease) both" }}
             >
               {t.hero.w3}

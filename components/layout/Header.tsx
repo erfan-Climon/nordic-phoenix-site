@@ -162,10 +162,11 @@ export function Header({ locale, t }: Props) {
               marginal även för den engelska etiketten. Under den visas bara
               namnet, annars krockar ordmärket med telefon-, språk- och
               menyknapparna. */}
-          <span className="hidden min-[500px]:inline">
-            {t.nav.brandPrefix}{" "}
-          </span>
           Nordic Phoenix
+          <span className="hidden min-[500px]:inline">
+            {" "}
+            {t.nav.brandPrefix}
+          </span>
         </span>
       </Link>
 
