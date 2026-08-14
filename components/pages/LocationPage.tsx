@@ -1,14 +1,24 @@
 import Link from "next/link";
 import { CheckMark } from "@/components/ui/icons";
 import { areasOf, getLocation, type Location } from "@/content/locations";
+import { getLocationCopy, type LocationCopy } from "@/content/location-copy";
 import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
-/** Ortssidorna är svenskspråkiga, de riktar sig mot lokal sökning i Sverige. */
-export function LocationPage({ location }: { location: Location }) {
-  const t = getDictionary("sv");
-  const url = `${SITE_URL}/redovisningsbyra/${location.slug}`;
+export function LocationPage({
+  location,
+  locale,
+  copy,
+}: {
+  location: Location;
+  locale: Locale;
+  copy: LocationCopy;
+}) {
+  const t = getDictionary(locale);
+  const lp = t.locationPage;
+  const base = localePath(locale, "/redovisningsbyra");
+  const url = `${SITE_URL}${base}/${location.slug}`;
 
   /**
    * Service, inte LocalBusiness. Byrån har ingen adress på orten, och att
@@ -18,14 +28,14 @@ export function LocationPage({ location }: { location: Location }) {
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: `Redovisningsbyrå i ${location.name}`,
+    name: `${copy.h1Lead} ${copy.h1Accent}`.replace(/\.$/, ""),
     serviceType: "Redovisning och bokföring",
-    description: location.metaDescription,
+    description: copy.metaDescription,
     url,
     areaServed: {
       "@type": "City",
-      name: location.name,
-      containedInPlace: { "@type": "State", name: location.region },
+      name: copy.name,
+      containedInPlace: { "@type": "State", name: copy.region },
     },
     provider: {
       "@type": "AccountingService",
@@ -43,12 +53,13 @@ export function LocationPage({ location }: { location: Location }) {
       },
     },
     availableLanguage: ["sv", "en", "fa"],
+    inLanguage: htmlLang[locale],
   };
 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: location.faq.map((f) => ({
+    mainEntity: copy.faq.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -59,22 +70,27 @@ export function LocationPage({ location }: { location: Location }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Start", item: SITE_URL },
+      { "@type": "ListItem", position: 1, name: lp.home, item: SITE_URL },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Redovisningsbyrå",
-        item: `${SITE_URL}/redovisningsbyra`,
+        name: lp.locations,
+        item: `${SITE_URL}${base}`,
       },
-      { "@type": "ListItem", position: 3, name: location.name, item: url },
+      { "@type": "ListItem", position: 3, name: copy.name, item: url },
     ],
   };
 
-  const areas = areasOf(location.slug);
+  /* Bara orter som finns på samma språk. En länk till en sida som inte
+     existerar på /fa hade gett 404, och en som pekar tillbaka till svenskan
+     hade blandat språken mitt i en sidfotslista. */
+  const finns = (l: Location) => Boolean(getLocationCopy(l, locale));
+  const areas = areasOf(location.slug).filter(finns);
 
   const nearby = location.nearby
     .map((slug) => getLocation(slug))
-    .filter((l): l is Location => Boolean(l));
+    .filter((l): l is Location => Boolean(l))
+    .filter(finns);
 
   return (
     <>
@@ -97,34 +113,34 @@ export function LocationPage({ location }: { location: Location }) {
           }}
         />
         <div className="relative mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)] pb-[clamp(64px,8vw,110px)]">
-          <nav aria-label="Brödsmulor" className="mb-8">
+          <nav aria-label={lp.breadcrumbLabel} className="mb-8">
             <ol className="m-0 flex list-none flex-wrap gap-2 p-0 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
               <li>
                 <Link href="/" className="text-text-meta no-underline hover:text-accent-ink">
-                  Start
+                  {lp.home}
                 </Link>
               </li>
               <li aria-hidden="true">·</li>
               <li>
                 <Link
-                  href="/redovisningsbyra"
+                  href={base}
                   className="text-text-meta no-underline hover:text-accent-ink"
                 >
-                  Orter
+                  {lp.locations}
                 </Link>
               </li>
               <li aria-hidden="true">·</li>
-              <li aria-current="page">{location.name}</li>
+              <li aria-current="page">{copy.name}</li>
             </ol>
           </nav>
 
           <h1 className="np-h2 mb-7 text-[length:var(--fs-h1)] leading-[1.05]">
-            {location.h1Lead}{" "}
-            <em className="np-gradient-text">{location.h1Accent}</em>
+            {copy.h1Lead}{" "}
+            <em className="np-gradient-text">{copy.h1Accent}</em>
           </h1>
 
           <p className="m-0 mb-[clamp(36px,4vw,56px)] max-w-[60ch] font-sans text-[clamp(16px,1.4vw,19px)] leading-[1.7] text-text-muted">
-            {location.intro}
+            {copy.intro}
           </p>
 
           <div className="flex flex-wrap gap-[14px]">
@@ -140,7 +156,7 @@ export function LocationPage({ location }: { location: Location }) {
               href={phone.href}
               className="np-btn np-btn-outline px-[30px] py-[17px] text-[15px]"
             >
-              Ring <PhoneNumber />
+              {lp.call} <PhoneNumber />
             </a>
           </div>
         </div>
@@ -150,13 +166,13 @@ export function LocationPage({ location }: { location: Location }) {
       <section className="bg-ink text-on-dark">
         <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-[clamp(40px,6vw,100px)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <div>
-            <p className="np-label mb-7 text-accent-light">Näringslivet</p>
+            <p className="np-label mb-7 text-accent-light">{lp.business}</p>
             <h2 className="np-h2 text-[length:var(--fs-h2)] leading-[1.15]">
-              {location.context.heading}
+              {copy.context.heading}
             </h2>
           </div>
           <div>
-            {location.context.paragraphs.map((p) => (
+            {copy.context.paragraphs.map((p) => (
               <p
                 key={p.slice(0, 40)}
                 className="m-0 mb-[18px] font-sans text-[16px] leading-[1.75] text-on-dark-muted last:mb-0"
@@ -172,10 +188,10 @@ export function LocationPage({ location }: { location: Location }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(40px,5vw,64px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Därför passar vi företagare i {location.inName}
+            {lp.whyHeading} {copy.inName}
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-0 border-t border-l border-[var(--hairline-light)]">
-            {location.highlights.map((h) => (
+            {copy.highlights.map((h) => (
               <div
                 key={h.title}
                 className="border-r border-b border-[var(--hairline-light)] p-[clamp(26px,3vw,40px)]"
@@ -196,7 +212,7 @@ export function LocationPage({ location }: { location: Location }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(32px,4vw,52px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Vad vi gör för bolag i {location.inName}
+            {lp.servicesHeading} {copy.inName}
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(24px,3vw,44px)]">
             {t.services.groups.map((group) => (
@@ -211,7 +227,7 @@ export function LocationPage({ location }: { location: Location }) {
                       className="flex items-baseline gap-3 font-sans text-[15px] leading-[1.55] text-text-muted"
                     >
                       <span className="flex-none text-[13px] font-bold text-accent">
-                        <CheckMark label="Ingår" />
+                        <CheckMark label={lp.includedMark} />
                       </span>
                       {item}
                     </li>
@@ -221,9 +237,9 @@ export function LocationPage({ location }: { location: Location }) {
             ))}
           </div>
           <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
-            Fast månadspris från 1 495 kr.{" "}
-            <Link href="/#priser" className="text-accent-ink">
-              Se alla paket och vad som ingår
+            {lp.priceLead}{" "}
+            <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
+              {lp.priceLink}
             </Link>
             .
           </p>
@@ -233,15 +249,15 @@ export function LocationPage({ location }: { location: Location }) {
       {/* --- FAQ --------------------------------------------------------- */}
       <section className="bg-ink text-on-dark">
         <div className="mx-auto max-w-[var(--content-narrow)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
-          <p className="np-label mb-7 text-accent-light">Vanliga frågor</p>
+          <p className="np-label mb-7 text-accent-light">{lp.faqLabel}</p>
           <h2 className="np-h2 mb-[clamp(36px,4vw,56px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Frågor från företagare i {location.inName}
+            {lp.faqHeading} {copy.inName}
           </h2>
 
           {/* <details> ger en fungerande dragspelsmeny utan JavaScript, vilket
               spelar roll i en statisk export. */}
           <div className="border-t border-[var(--hairline-dark)]">
-            {location.faq.map((f) => (
+            {copy.faq.map((f) => (
               <details
                 key={f.question}
                 className="group border-b border-[var(--hairline-dark)]"
@@ -269,17 +285,16 @@ export function LocationPage({ location }: { location: Location }) {
         <section className="bg-page text-text">
           <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
             <h2 className="np-h2 mb-4 text-[length:var(--fs-h2-sm)] leading-[1.2]">
-              Områden i {location.inName} med omnejd
+              {lp.areasHeading} {copy.inName} {lp.areasHeadingTail}
             </h2>
             <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[56ch] font-sans text-[16px] leading-[1.7] text-text-muted">
-              Vi arbetar med företagare i hela regionen. Läs mer om hur vi
-              arbetar där du håller till.
+              {lp.areasText}
             </p>
             <div className="flex flex-wrap gap-3">
               {areas.map((a) => (
                 <Link
                   key={a.slug}
-                  href={`/redovisningsbyra/${a.slug}`}
+                  href={`${base}/${a.slug}`}
                   className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-text no-underline uppercase transition-colors duration-300 hover:border-accent hover:text-accent-ink"
                 >
                   {a.name}
@@ -294,23 +309,23 @@ export function LocationPage({ location }: { location: Location }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(28px,3vw,40px)] text-[length:var(--fs-h3)] leading-[1.2]">
-            Vi finns även på andra orter
+            {lp.nearbyHeading}
           </h2>
           <div className="flex flex-wrap gap-3">
             {nearby.map((l) => (
               <Link
                 key={l.slug}
-                href={`/redovisningsbyra/${l.slug}`}
+                href={`${base}/${l.slug}`}
                 className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-text no-underline uppercase transition-colors duration-300 hover:border-accent hover:text-accent-ink"
               >
                 {l.name}
               </Link>
             ))}
             <Link
-              href="/redovisningsbyra"
+              href={base}
               className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-accent-ink no-underline uppercase transition-colors duration-300 hover:border-accent"
             >
-              Alla orter
+              {lp.allLocations}
             </Link>
           </div>
         </div>
@@ -323,11 +338,10 @@ export function LocationPage({ location }: { location: Location }) {
           style={{ background: "var(--gradient-banner)" }}
         >
           <h2 className="np-h2 mb-4 text-[length:var(--fs-h2-sm)] leading-[1.15] text-banner-ink">
-            Redo att lämna över bokföringen?
+            {lp.ctaHeading}
           </h2>
           <p className="m-0 mb-8 max-w-[52ch] font-sans text-[16px] leading-[1.7] text-[rgba(28,15,5,.75)]">
-            Kostnadsfri och förutsättningslös genomgång. Vi tittar på ditt
-            bolag och säger vad det skulle kosta, innan du bestämmer dig.
+            {lp.ctaText}
           </p>
           <div className="flex flex-wrap gap-[14px]">
             <a
@@ -336,7 +350,7 @@ export function LocationPage({ location }: { location: Location }) {
               rel="noopener"
               className="np-btn bg-banner-ink px-8 py-4 text-[15px] font-semibold text-[#F2EDE3] hover:-translate-y-[2px] hover:text-[#F2EDE3]"
             >
-              Skriv på WhatsApp
+              {lp.ctaWhatsApp}
             </a>
             <a
               href={phone.href}

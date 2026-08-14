@@ -8,13 +8,25 @@ import {
   localePath,
 } from "@/lib/i18n";
 
-/** hreflang för alla tre språk plus x-default (svenska på roten). */
-export function languageAlternates(path = "/"): Record<string, string> {
+/**
+ * hreflang för de språk sidan faktiskt finns på, plus x-default.
+ *
+ * `available` finns för sidor som inte är översatta hela vägen. Att peka
+ * hreflang på en språkversion som inte existerar, eller som visar svensk text
+ * under /fa, får Google att behandla sidorna som dubbletter. Utelämnas
+ * argumentet antas alla tre språken finnas.
+ */
+export function languageAlternates(
+  path = "/",
+  available: readonly Locale[] = locales,
+): Record<string, string> {
   const map: Record<string, string> = {};
-  locales.forEach((locale) => {
+  available.forEach((locale) => {
     map[htmlLang[locale]] = localePath(locale, path);
   });
-  map["x-default"] = localePath("sv", path);
+  // x-default pekar på svenskan när den finns, annars första tillgängliga.
+  const fallback = available.includes("sv") ? "sv" : available[0];
+  if (fallback) map["x-default"] = localePath(fallback, path);
   return map;
 }
 
@@ -23,11 +35,14 @@ export function buildMetadata({
   path = "/",
   title,
   description,
+  availableLocales,
 }: {
   locale: Locale;
   path?: string;
   title?: string;
   description?: string;
+  /** Språk sidan finns på. Utelämnas den antas alla tre. */
+  availableLocales?: readonly Locale[];
 }): Metadata {
   const t = getDictionary(locale);
   const resolvedTitle = title ?? t.meta.title;
@@ -46,7 +61,7 @@ export function buildMetadata({
     },
     alternates: {
       canonical: url,
-      languages: languageAlternates(path),
+      languages: languageAlternates(path, availableLocales),
     },
     openGraph: {
       type: "website",

@@ -8,6 +8,7 @@ import {
   social,
   whatsappUrl,
 } from "@/content/site";
+import { hasTranslatedLocations } from "@/content/location-copy";
 import { type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
@@ -93,8 +94,15 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             <Link href={localePath(locale, "/tjanster")} className={linkClass}>
               {t.nav.services}
             </Link>
-            <Link href="/redovisningsbyra" className={linkClass}>
-              Orter
+            <Link
+              href={
+                hasTranslatedLocations(locale)
+                  ? localePath(locale, "/redovisningsbyra")
+                  : "/redovisningsbyra"
+              }
+              className={linkClass}
+            >
+              {t.locationPage.locations}
             </Link>
             <Link
               href={localePath(locale, "/integritetspolicy")}

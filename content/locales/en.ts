@@ -143,6 +143,37 @@ export const en: Dictionary = {
     indexCtaText:
       "Most companies do not need everything. Get in touch and we will go through your company and tell you what is actually needed, and what it would cost.",
   },
+  locationPage: {
+    indexH1a: "Accounting firm across",
+    indexH1b: "all of Sweden.",
+    indexIntro:
+      "We work digitally, which means distance affects neither price nor response time. Choose your location and we will tell you how we work with business owners there.",
+    indexTitle: "Accounting firm across Sweden | Nordic Phoenix",
+    indexDescription:
+      "We handle bookkeeping, payroll, annual accounts and tax returns digitally across Sweden. Choose your location to read how we work with business owners there.",
+    breadcrumbLabel: "Breadcrumbs",
+    home: "Home",
+    locations: "Locations",
+    call: "Call",
+    business: "Local business",
+    whyHeading: "Why we suit business owners in",
+    servicesHeading: "What we do for companies in",
+    includedMark: "Included",
+    priceLead: "Fixed monthly price from SEK 1,495.",
+    priceLink: "See all packages and what they include",
+    faqLabel: "Common questions",
+    faqHeading: "Questions from business owners in",
+    areasHeading: "Areas in",
+    areasHeadingTail: "and nearby",
+    areasText:
+      "We work with business owners across the region. Read more about how we work where you are based.",
+    nearbyHeading: "We also work in other locations",
+    allLocations: "All locations",
+    ctaHeading: "Ready to hand over the bookkeeping?",
+    ctaText:
+      "A free consultation with no strings attached. We look at your company and tell you what it would cost, before you decide.",
+    ctaWhatsApp: "Message us on WhatsApp",
+  },
   reviews: {
     label: "Reviews",
     h2a: "What our clients",

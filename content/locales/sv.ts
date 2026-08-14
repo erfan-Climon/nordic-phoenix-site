@@ -138,6 +138,37 @@ export const sv = {
     indexCtaText:
       "De flesta behöver inte allt. Hör av dig så går vi igenom ditt bolag och säger vad som faktiskt behövs, och vad det skulle kosta.",
   },
+  locationPage: {
+    indexH1a: "Redovisningsbyrå i",
+    indexH1b: "hela Sverige.",
+    indexIntro:
+      "Vi arbetar digitalt, vilket betyder att avståndet inte påverkar vare sig pris eller svarstid. Välj din ort så berättar vi hur vi arbetar med företagare just där.",
+    indexTitle: "Redovisningsbyrå i hela Sverige | Nordic Phoenix",
+    indexDescription:
+      "Vi sköter bokföring, lön, bokslut och deklaration digitalt i hela Sverige. Välj din ort för att läsa mer om hur vi arbetar med företagare där.",
+    breadcrumbLabel: "Brödsmulor",
+    home: "Start",
+    locations: "Orter",
+    call: "Ring",
+    business: "Näringslivet",
+    whyHeading: "Därför passar vi företagare i",
+    servicesHeading: "Vad vi gör för bolag i",
+    includedMark: "Ingår",
+    priceLead: "Fast månadspris från 1 495 kr.",
+    priceLink: "Se alla paket och vad som ingår",
+    faqLabel: "Vanliga frågor",
+    faqHeading: "Frågor från företagare i",
+    areasHeading: "Områden i",
+    areasHeadingTail: "med omnejd",
+    areasText:
+      "Vi arbetar med företagare i hela regionen. Läs mer om hur vi arbetar där du håller till.",
+    nearbyHeading: "Vi finns även på andra orter",
+    allLocations: "Alla orter",
+    ctaHeading: "Redo att lämna över bokföringen?",
+    ctaText:
+      "Kostnadsfri och förutsättningslös genomgång. Vi tittar på ditt bolag och säger vad det skulle kosta, innan du bestämmer dig.",
+    ctaWhatsApp: "Skriv på WhatsApp",
+  },
   reviews: {
     label: "Omdömen",
     h2a: "Vad våra kunder",

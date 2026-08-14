@@ -130,10 +130,29 @@ Områdessidorna har medvetet ingen knapp på startsidan, men de är länkade fr�
 Stockholmssidan och från `/redovisningsbyra`. Utan interna länkar blir de
 föräldralösa, och en sida som bara finns i sitemapen rankar dåligt.
 
-Sidorna finns bara på svenska. De riktar sig mot svensk lokal sökning, och
-översättningar hade inneburit tunt innehåll utan sökefterfrågan. Språkväxlaren
-byter därför till startsidan från `/blogg` och `/redovisningsbyra`, i stället
-för att peka på en `/en`-sökväg som inte finns.
+### Översättning och indexering
+
+Kundens största målgrupp är persisktalande företagare i Sverige, så ortssidorna
+översätts till persiska. Översättningarna ligger i `content/locations.fa.ts`.
+
+**Här finns ingen reserv till svenskan, till skillnad från tjänsterna.** En
+ortssida under `/fa` som visar svensk text är en dubblett av den svenska sidan,
+och Google har inget sätt att se att det är ett misstag. Därför gäller:
+
+- `generateStaticParams` genererar bara orter som faktiskt är översatta. Saknas
+  översättningen finns ingen URL att indexera fel.
+- hreflang listar bara de språk orten finns på. En ort utan persisk version får
+  `sv-SE` och `x-default`, inget mer.
+- Sitemapen har en post per språk orten finns på, med samma uppsättning i
+  `alternates`. Kontrollen `URL:er i sitemap utan fil` ska ge noll.
+- Grannortslänkar och områdeslistor filtreras på samma villkor, så ingen länk
+  går till en sida som inte genererats.
+- Ortsöversikten `/fa/redovisningsbyra` genereras bara för språk som har minst
+  en översatt ort, annars vore sidan tom.
+
+Språkväxlaren gissar inte längre vad som är översatt. Den läser sidans egna
+`<link rel="alternate" hreflang>` och kan därför aldrig hamna i otakt. Saknas
+taggen för målspråket går den till språkets startsida.
 
 ## Textregler
 

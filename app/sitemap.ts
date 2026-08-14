@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
 import { locations } from "@/content/locations";
+import { localesForLocation } from "@/content/location-copy";
 import { services } from "@/content/services";
 import { SITE_URL } from "@/content/site";
 import { htmlLang, locales, localePath } from "@/lib/i18n";
@@ -59,12 +60,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
-    ...locations.map((l) => ({
-      url: abs(`/redovisningsbyra/${l.slug}`),
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
+    /* En post per språk orten är översatt till, med alternates som listar
+       exakt samma uppsättning. En URL som inte finns får inte stå här. */
+    ...locations.flatMap((l) => {
+      const sprak = localesForLocation(l.slug);
+      const path = `/redovisningsbyra/${l.slug}`;
+      return sprak.map((locale) => ({
+        url: abs(localePath(locale, path)),
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+        alternates: {
+          languages: Object.fromEntries(
+            sprak.map((alt) => [htmlLang[alt], abs(localePath(alt, path))]),
+          ),
+        },
+      }));
+    }),
   ];
 
   /** Tjänstesidorna finns på alla tre språk och länkar till varandra. */

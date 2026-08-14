@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LocationPage } from "@/components/pages/LocationPage";
 import { getLocation, locations } from "@/content/locations";
+import { localesForLocation } from "@/content/location-copy";
 import { buildMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
@@ -15,16 +16,15 @@ export async function generateMetadata({
   const location = getLocation(stad);
   if (!location) return {};
 
-  return {
-    ...buildMetadata({
-      locale: "sv",
-      path: `/redovisningsbyra/${location.slug}`,
-      title: location.metaTitle,
-      description: location.metaDescription,
-    }),
-    // Ortssidorna finns bara på svenska, så inga hreflang-alternativ.
-    alternates: { canonical: `/redovisningsbyra/${location.slug}` },
-  };
+  return buildMetadata({
+    locale: "sv",
+    path: `/redovisningsbyra/${location.slug}`,
+    title: location.metaTitle,
+    description: location.metaDescription,
+    // Bara de språk orten faktiskt är översatt till. Att peka hreflang på en
+    // sida som inte finns får Google att behandla dem som dubbletter.
+    availableLocales: localesForLocation(location.slug),
+  });
 }
 
 export default async function Page({
@@ -33,5 +33,5 @@ export default async function Page({
   const { stad } = await params;
   const location = getLocation(stad);
   if (!location) notFound();
-  return <LocationPage location={location} />;
+  return <LocationPage location={location} locale="sv" copy={location} />;
 }

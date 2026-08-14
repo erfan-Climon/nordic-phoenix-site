@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { Dictionary } from "@/content/locales/sv";
 import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
   localeButtonLabel,
+  htmlLang,
   localeButtonLabelShort,
   localePath,
   nextLocale,
@@ -28,15 +29,15 @@ export function Header({ locale, t }: Props) {
   // Språkväxlaren ska landa på samma sida i det andra språket.
   const { path } = stripLocale(usePathname() ?? "/");
   /**
-   * Bloggen och ortssidorna finns bara på svenska. Att peka växlaren på samma
-   * sökväg under /en eller /fa hade gett en död länk, så därifrån byter den i
-   * stället till språkets startsida. Tjänstesidorna är översatta och står
-   * därför inte med här.
+   * Alla sidor finns inte på alla språk. Bloggen är svenskspråkig, och
+   * ortssidorna finns bara på de språk de faktiskt är översatta till.
+   *
+   * I stället för att lista undantagen här läser växlaren sidans egna
+   * hreflang-taggar, som servern redan skriver ut med exakt den
+   * informationen. Finns ingen tagg för målspråket går den till startsidan.
+   * Listan kan därmed aldrig hamna i otakt med vad som är översatt.
    */
-  const swedishOnly = ["/blogg", "/redovisningsbyra"].some(
-    (prefix) => path === prefix || path.startsWith(`${prefix}/`),
-  );
-  const switchPath = swedishOnly ? "/" : path;
+  const switchPath = path;
 
   /**
    * Genomskinlig header gäller bara startsidan. Det är den enda sidan med
@@ -313,9 +314,10 @@ function LanguageLink({
 }: Props & { path: string; short?: boolean; onDark?: boolean }) {
   const target = nextLocale(locale);
   const label = short ? localeButtonLabelShort[target] : localeButtonLabel[target];
+  const href = useAlternateHref(target, path);
   return (
     <Link
-      href={localePath(target, path)}
+      href={href}
       hrefLang={target}
       aria-label={t.a11y.switchLanguage}
       /* Ingen ram, bara etiketten. 44px höjd hålls som träffyta. */
@@ -325,5 +327,30 @@ function LanguageLink({
     >
       {label}
     </Link>
+  );
+}
+
+/**
+ * Sökvägen till samma sida i ett annat språk, hämtad ur sidans hreflang.
+ *
+ * Servern skriver ut `<link rel="alternate" hreflang>` för de språk sidan
+ * faktiskt finns på. Att läsa dem här betyder att växlaren aldrig pekar på en
+ * sida som inte existerar, utan att klienten behöver veta vad som är översatt.
+ * Före hydrering och när taggen saknas används språkets startsida, som alltid
+ * finns.
+ */
+function useAlternateHref(target: Locale, path: string): string {
+  const fallback = path === "/" ? localePath(target, "/") : localePath(target, "/");
+  return useSyncExternalStore(
+    () => () => {},
+    () => {
+      const el = document.querySelector<HTMLLinkElement>(
+        `link[rel="alternate"][hreflang="${htmlLang[target]}"]`,
+      );
+      if (!el) return fallback;
+      const url = new URL(el.href);
+      return url.pathname + url.search;
+    },
+    () => fallback,
   );
 }
