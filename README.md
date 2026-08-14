@@ -76,6 +76,29 @@ Varje sida har Service med `hasOfferCatalog`, FAQPage och BreadcrumbList, samt
 ankarlänkar till varje punkt. Nuvarande uppsättning ligger på 8 200 tecken som
 lägst och 38% ordöverlapp som mest.
 
+### Översättning
+
+Tjänstesidorna finns på alla tre språk. Svenskan står i `content/services.ts`,
+översättningarna i `content/services.en.ts` och `content/services.fa.ts` som
+uppslag på slug. `content/service-copy.ts` väljer rätt och **faller tillbaka
+på svenskan** om en nyckel saknas. Det gör att en tjänst kan läggas till på
+svenska och översättas senare utan att bygget går sönder, men innebär också
+att en glömd översättning inte syns som ett fel. `saknadeOversattningar()`
+finns för att fånga just det.
+
+URL:en är samma slug på alla språk: `/tjanster/bokslut-och-arsredovisning`,
+`/en/tjanster/...`, `/fa/tjanster/...`. Slugarna är svenska även i de
+översatta versionerna, eftersom en översatt slug hade brutit alla befintliga
+länkar och gjort hreflang svårare att hålla ihop.
+
+Myndighetsnamn och regelverk översätts inte: Skatteverket, Bolagsverket,
+F-skatt, K2, K3, K10, BAS och Peppol står kvar med latinska bokstäver även i
+persiskan. Läsaren ska kunna känna igen namnet på blanketten.
+
+Telefonnumret renderas genom `components/ui/PhoneNumber.tsx`, som sätter
+`dir="ltr"`. Utan det vänder bidi-algoritmen sifferblocken i persiskan, så
+072-008 40 00 visas som 00 40 008-072.
+
 ## Ortssidor
 
 `/redovisningsbyra/[stad]` med en sida per ort i Sverige-sektionen, plus en

@@ -9,6 +9,7 @@ import {
   whatsappUrl,
 } from "@/content/site";
 import { type Locale, localePath } from "@/lib/i18n";
+import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
 const textClass = "font-sans text-[14px] leading-[1.7] text-on-dark-muted";
 const linkClass = `${textClass} no-underline transition-colors duration-300 hover:text-accent-light`;
@@ -44,7 +45,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
               {company.street}, {company.postalCode} {company.city}
             </span>
             <a href={phone.href} className={linkClass}>
-              {phone.display}
+              <PhoneNumber />
             </a>
           </div>
 
@@ -86,11 +87,11 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             >
               {t.nav.cta}
             </a>
-            {/* Tjänste- och ortsöversikten är sajtens två navsidor. De finns
-                bara på svenska, men länkas oavsett språk eftersom de är
-                relevanta för alla besökare. */}
-            <Link href="/tjanster" className={linkClass}>
-              Tjänster
+            {/* Tjänsteöversikten finns på alla tre språk. Ortsöversikten är
+                svenskspråkig men länkas oavsett språk, den är relevant för
+                alla besökare. */}
+            <Link href={localePath(locale, "/tjanster")} className={linkClass}>
+              {t.nav.services}
             </Link>
             <Link href="/redovisningsbyra" className={linkClass}>
               Orter

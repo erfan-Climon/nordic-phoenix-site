@@ -67,21 +67,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  // Tjänstesidorna finns bara på svenska.
-  const tjanster = [
-    {
-      url: abs("/tjanster"),
+  /** Tjänstesidorna finns på alla tre språk och länkar till varandra. */
+  const tjanstePaths = ["/tjanster", ...services.map((s) => `/tjanster/${s.slug}`)];
+  const tjanster = tjanstePaths.flatMap((path) =>
+    locales.map((locale) => ({
+      url: abs(localePath(locale, path)),
       lastModified,
       changeFrequency: "monthly" as const,
-      priority: 0.8,
-    },
-    ...services.map((s) => ({
-      url: abs(`/tjanster/${s.slug}`),
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.9,
+      priority: path === "/tjanster" ? 0.8 : 0.9,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((alt) => [htmlLang[alt], abs(localePath(alt, path))]),
+        ),
+      },
     })),
-  ];
+  );
 
   return [...translated, ...tjanster, ...orter, ...blog];
 }

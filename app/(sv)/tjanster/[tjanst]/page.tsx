@@ -22,8 +22,7 @@ export async function generateMetadata({
       title: service.metaTitle,
       description: service.metaDescription,
     }),
-    // Tjänstesidorna finns bara på svenska, så inga hreflang-alternativ.
-    alternates: { canonical: `/tjanster/${service.slug}` },
+    // buildMetadata sätter canonical och hreflang för alla tre språk.
   };
 }
 
@@ -33,5 +32,5 @@ export default async function Page({
   const { tjanst } = await params;
   const service = getService(tjanst);
   if (!service) notFound();
-  return <ServicePage service={service} />;
+  return <ServicePage service={service} locale="sv" />;
 }

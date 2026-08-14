@@ -30,9 +30,10 @@ export function Header({ locale, t }: Props) {
   /**
    * Bloggen och ortssidorna finns bara på svenska. Att peka växlaren på samma
    * sökväg under /en eller /fa hade gett en död länk, så därifrån byter den i
-   * stället till språkets startsida.
+   * stället till språkets startsida. Tjänstesidorna är översatta och står
+   * därför inte med här.
    */
-  const swedishOnly = ["/blogg", "/redovisningsbyra", "/tjanster"].some(
+  const swedishOnly = ["/blogg", "/redovisningsbyra"].some(
     (prefix) => path === prefix || path.startsWith(`${prefix}/`),
   );
   const switchPath = swedishOnly ? "/" : path;

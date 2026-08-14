@@ -3,6 +3,7 @@ import { CheckMark } from "@/components/ui/icons";
 import { areasOf, getLocation, type Location } from "@/content/locations";
 import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
 import { getDictionary } from "@/lib/i18n";
+import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
 /** Ortssidorna är svenskspråkiga, de riktar sig mot lokal sökning i Sverige. */
 export function LocationPage({ location }: { location: Location }) {
@@ -139,7 +140,7 @@ export function LocationPage({ location }: { location: Location }) {
               href={phone.href}
               className="np-btn np-btn-outline px-[30px] py-[17px] text-[15px]"
             >
-              Ring {phone.display}
+              Ring <PhoneNumber />
             </a>
           </div>
         </div>
@@ -341,7 +342,7 @@ export function LocationPage({ location }: { location: Location }) {
               href={phone.href}
               className="np-btn border-[1.5px] border-[rgba(28,15,5,.5)] px-7 py-[15px] text-[15px] font-medium text-banner-ink hover:border-banner-ink hover:bg-[rgba(28,15,5,.08)] hover:text-banner-ink"
             >
-              {phone.display}
+              <PhoneNumber />
             </a>
           </div>
         </div>

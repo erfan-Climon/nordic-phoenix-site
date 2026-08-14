@@ -2,13 +2,24 @@ import Link from "next/link";
 import { CheckMark } from "@/components/ui/icons";
 import { cities } from "@/content/locations";
 import { getService, type Service } from "@/content/services";
+import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
+import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
-/** Tjänstesidorna är svenskspråkiga, som ortssidorna och bloggen. */
-export function ServicePage({ service }: { service: Service }) {
-  const t = getDictionary("sv");
-  const url = `${SITE_URL}/tjanster/${service.slug}`;
+export function ServicePage({
+  service,
+  locale,
+}: {
+  service: Service;
+  locale: Locale;
+}) {
+  const t = getDictionary(locale);
+  const s = t.servicePage;
+  /** Texten på valt språk. Faller tillbaka på svenskan om den saknas. */
+  const copy = getServiceCopy(service, locale);
+  const base = localePath(locale, "/tjanster");
+  const url = `${SITE_URL}${base}/${service.slug}`;
 
   /**
    * Service med hasOfferCatalog, där varje punkt i tjänsten blir en post.
@@ -18,9 +29,9 @@ export function ServicePage({ service }: { service: Service }) {
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: service.name,
-    serviceType: service.name,
-    description: service.metaDescription,
+    name: copy.name,
+    serviceType: copy.name,
+    description: copy.metaDescription,
     url,
     areaServed: { "@type": "Country", name: "Sverige" },
     provider: {
@@ -39,10 +50,11 @@ export function ServicePage({ service }: { service: Service }) {
       },
     },
     availableLanguage: ["sv", "en", "fa"],
+    inLanguage: htmlLang[locale],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: service.name,
-      itemListElement: service.details.map((d) => ({
+      name: copy.name,
+      itemListElement: copy.details.map((d) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
@@ -56,7 +68,7 @@ export function ServicePage({ service }: { service: Service }) {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: service.faq.map((f) => ({
+    mainEntity: copy.faq.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -67,20 +79,25 @@ export function ServicePage({ service }: { service: Service }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Start", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: s.home,
+        item: `${SITE_URL}${localePath(locale, "/")}`,
+      },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Tjänster",
-        item: `${SITE_URL}/tjanster`,
+        name: s.services,
+        item: `${SITE_URL}${base}`,
       },
-      { "@type": "ListItem", position: 3, name: service.name, item: url },
+      { "@type": "ListItem", position: 3, name: copy.name, item: url },
     ],
   };
 
   const related = service.related
     .map((slug) => getService(slug))
-    .filter((s): s is Service => Boolean(s));
+    .filter((r): r is Service => Boolean(r));
 
   /** Ett urval orter, så att tjänstesidan hänger ihop med den lokala sökningen. */
   const topCities = cities.slice(0, 6);
@@ -106,43 +123,43 @@ export function ServicePage({ service }: { service: Service }) {
           }}
         />
         <div className="relative mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)] pb-[clamp(64px,8vw,110px)]">
-          <nav aria-label="Brödsmulor" className="mb-8">
+          <nav aria-label={s.breadcrumbLabel} className="mb-8">
             <ol className="m-0 flex list-none flex-wrap gap-2 p-0 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
               <li>
                 <Link
-                  href="/"
+                  href={localePath(locale, "/")}
                   className="text-text-meta no-underline hover:text-accent-ink"
                 >
-                  Start
+                  {s.home}
                 </Link>
               </li>
               <li aria-hidden="true">·</li>
               <li>
                 <Link
-                  href="/tjanster"
+                  href={base}
                   className="text-text-meta no-underline hover:text-accent-ink"
                 >
-                  Tjänster
+                  {s.services}
                 </Link>
               </li>
               <li aria-hidden="true">·</li>
-              <li aria-current="page">{service.shortName}</li>
+              <li aria-current="page">{copy.shortName}</li>
             </ol>
           </nav>
 
           <h1 className="np-h2 mb-7 text-[length:var(--fs-h1)] leading-[1.05]">
-            {service.h1Lead}{" "}
-            <em className="np-gradient-text">{service.h1Accent}</em>
+            {copy.h1Lead}{" "}
+            <em className="np-gradient-text">{copy.h1Accent}</em>
           </h1>
 
           <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[60ch] font-sans text-[clamp(16px,1.4vw,19px)] leading-[1.7] text-text-muted">
-            {service.intro}
+            {copy.intro}
           </p>
 
           {/* Innehållsförteckning. Ger besökaren en överblick direkt, och
               Google en tydlig bild av vad sidan faktiskt täcker. */}
           <ul className="m-0 mb-[clamp(36px,4vw,56px)] flex list-none flex-wrap gap-x-6 gap-y-3 p-0">
-            {service.details.map((d) => (
+            {copy.details.map((d) => (
               <li key={d.title}>
                 <a
                   href={`#${slugify(d.title)}`}
@@ -167,7 +184,7 @@ export function ServicePage({ service }: { service: Service }) {
               href={phone.href}
               className="np-btn np-btn-outline px-[30px] py-[17px] text-[15px]"
             >
-              Ring {phone.display}
+              {s.call} <PhoneNumber />
             </a>
           </div>
         </div>
@@ -177,13 +194,13 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="bg-ink text-on-dark">
         <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-[clamp(40px,6vw,100px)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <div>
-            <p className="np-label mb-7 text-accent-light">Bakgrund</p>
+            <p className="np-label mb-7 text-accent-light">{s.background}</p>
             <h2 className="np-h2 text-[length:var(--fs-h2)] leading-[1.15]">
-              {service.problem.heading}
+              {copy.problem.heading}
             </h2>
           </div>
           <div>
-            {service.problem.paragraphs.map((p) => (
+            {copy.problem.paragraphs.map((p) => (
               <p
                 key={p.slice(0, 40)}
                 className="m-0 mb-[18px] font-sans text-[16px] leading-[1.75] text-on-dark-muted last:mb-0"
@@ -199,10 +216,10 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(40px,5vw,64px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Passar dig som
+            {s.forWhom}
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-0 border-t border-l border-[var(--hairline-light)]">
-            {service.forWhom.map((f) => (
+            {copy.forWhom.map((f) => (
               <div
                 key={f.title}
                 className="border-r border-b border-[var(--hairline-light)] p-[clamp(26px,3vw,40px)]"
@@ -223,11 +240,11 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(40px,5vw,64px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Det här ingår, punkt för punkt
+            {s.included}
           </h2>
 
           <div className="flex flex-col gap-[clamp(48px,6vw,88px)]">
-            {service.details.map((d, i) => (
+            {copy.details.map((d, i) => (
               <article
                 key={d.title}
                 id={slugify(d.title)}
@@ -266,25 +283,25 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="bg-surface text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(32px,4vw,52px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Vad du får
+            {s.youGet}
           </h2>
           <ul className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-x-[clamp(24px,3vw,44px)] gap-y-[14px] p-0">
-            {service.deliverables.map((item) => (
+            {copy.deliverables.map((item) => (
               <li
                 key={item}
                 className="flex items-baseline gap-3 font-sans text-[16px] leading-[1.6] text-text-muted"
               >
                 <span className="flex-none text-[13px] font-bold text-accent">
-                  <CheckMark label="Ingår" />
+                  <CheckMark label={s.includedMark} />
                 </span>
                 {item}
               </li>
             ))}
           </ul>
           <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
-            Fast månadspris från 1 495 kr.{" "}
-            <Link href="/#priser" className="text-accent-ink">
-              Se alla paket och vad som ingår
+            {s.priceLead}{" "}
+            <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
+              {s.priceLink}
             </Link>
             .
           </p>
@@ -294,15 +311,15 @@ export function ServicePage({ service }: { service: Service }) {
       {/* --- FAQ --------------------------------------------------------- */}
       <section className="bg-ink text-on-dark">
         <div className="mx-auto max-w-[var(--content-narrow)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
-          <p className="np-label mb-7 text-accent-light">Vanliga frågor</p>
+          <p className="np-label mb-7 text-accent-light">{s.faqLabel}</p>
           <h2 className="np-h2 mb-[clamp(36px,4vw,56px)] text-[length:var(--fs-h2-sm)] leading-[1.2]">
-            Frågor om {service.shortName.toLowerCase()}
+            {s.faqHeading} {copy.shortName.toLowerCase()}
           </h2>
 
           {/* <details> ger en dragspelsmeny utan JavaScript, vilket spelar
               roll i en statisk export. */}
           <div className="border-t border-[var(--hairline-dark)]">
-            {service.faq.map((f) => (
+            {copy.faq.map((f) => (
               <details
                 key={f.question}
                 className="group border-b border-[var(--hairline-dark)]"
@@ -329,13 +346,13 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-[clamp(28px,3vw,40px)] text-[length:var(--fs-h3)] leading-[1.2]">
-            Hänger ihop med
+            {s.related}
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-0 border-t border-l border-[var(--hairline-light)]">
             {related.map((r) => (
               <Link
                 key={r.slug}
-                href={`/tjanster/${r.slug}`}
+                href={`${base}/${r.slug}`}
                 className="border-r border-b border-[var(--hairline-light)] p-[clamp(24px,3vw,36px)] text-inherit no-underline transition-colors duration-300 hover:bg-[rgba(240,103,0,.05)]"
               >
                 <h3 className="np-h3 mb-3 text-[length:var(--fs-h3-sm)] leading-[1.25]">
@@ -354,11 +371,10 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
           <h2 className="np-h2 mb-4 text-[length:var(--fs-h3)] leading-[1.2]">
-            Vi arbetar digitalt i hela Sverige
+            {s.citiesHeading}
           </h2>
           <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[56ch] font-sans text-[16px] leading-[1.7] text-text-muted">
-            Avståndet påverkar varken pris eller svarstid. Läs om hur vi
-            arbetar med företagare på din ort.
+            {s.citiesText}
           </p>
           <div className="flex flex-wrap gap-3">
             {topCities.map((c) => (
@@ -374,7 +390,7 @@ export function ServicePage({ service }: { service: Service }) {
               href="/redovisningsbyra"
               className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-accent-ink no-underline uppercase transition-colors duration-300 hover:border-accent"
             >
-              Alla orter
+              {s.allCities}
             </Link>
           </div>
         </div>
@@ -387,11 +403,10 @@ export function ServicePage({ service }: { service: Service }) {
           style={{ background: "var(--gradient-banner)" }}
         >
           <h2 className="np-h2 mb-4 text-[length:var(--fs-h2-sm)] leading-[1.15] text-banner-ink">
-            Vill du veta vad det skulle kosta?
+            {s.ctaHeading}
           </h2>
           <p className="m-0 mb-8 max-w-[52ch] font-sans text-[16px] leading-[1.7] text-[rgba(28,15,5,.75)]">
-            Kostnadsfri och förutsättningslös genomgång. Vi tittar på ditt
-            bolag och ger dig en fast summa, innan du bestämmer dig.
+            {s.ctaText}
           </p>
           <div className="flex flex-wrap gap-[14px]">
             <a
@@ -400,13 +415,13 @@ export function ServicePage({ service }: { service: Service }) {
               rel="noopener"
               className="np-btn bg-banner-ink px-8 py-4 text-[15px] font-semibold text-[#F2EDE3] hover:-translate-y-[2px] hover:text-[#F2EDE3]"
             >
-              Skriv på WhatsApp
+              {s.ctaWhatsApp}
             </a>
             <a
               href={phone.href}
               className="np-btn border-[1.5px] border-[rgba(28,15,5,.5)] px-7 py-[15px] text-[15px] font-medium text-banner-ink hover:border-banner-ink hover:bg-[rgba(28,15,5,.08)] hover:text-banner-ink"
             >
-              {phone.display}
+              <PhoneNumber />
             </a>
           </div>
         </div>
