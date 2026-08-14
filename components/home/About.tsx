@@ -37,6 +37,8 @@ export function About({ t }: { t: Dictionary }) {
             {/* Porträttformat och visas oklippt — beskär inte videon. */}
             <AutoVideo
               src={video.about}
+              webmSrc={video.aboutWebm}
+              poster={video.aboutPoster}
               controls
               playWhenVisible
               title={t.about.videoTitle}

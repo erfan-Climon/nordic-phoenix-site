@@ -5,6 +5,8 @@ import { forceMutedPlayback, retryPlayback } from "@/lib/motion";
 
 type Props = {
   src: string;
+  /** Läggs före `src` som <source>, för format som inte alla spelar. */
+  webmSrc?: string;
   className?: string;
   style?: React.CSSProperties;
   /** Videokontroller visas på Om-videon, inte på hero. */
@@ -21,6 +23,7 @@ type Props = {
  */
 export function AutoVideo({
   src,
+  webmSrc,
   className,
   style,
   controls = false,
@@ -59,7 +62,9 @@ export function AutoVideo({
   return (
     <video
       ref={ref}
-      src={src}
+      /* Med <source> får webbläsaren välja format. `src` sätts bara när det
+         inte finns någon webm, annars vinner attributet över barnen. */
+      src={webmSrc ? undefined : src}
       poster={poster}
       title={title}
       autoPlay
@@ -70,6 +75,13 @@ export function AutoVideo({
       preload="metadata"
       className={className}
       style={style}
-    />
+    >
+      {webmSrc ? (
+        <>
+          <source src={webmSrc} type="video/webm" />
+          <source src={src} type="video/mp4" />
+        </>
+      ) : null}
+    </video>
   );
 }

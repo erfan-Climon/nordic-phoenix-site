@@ -66,11 +66,13 @@ export const video = {
   heroMobile: "/video/hero-mobil.mp4",
   heroPoster: "/video/hero-poster.jpg",
   /**
-   * Om-videon ligger kvar på leverantörens CloudFront. Flytta till egen
-   * asset-pipeline vid tillfälle (se handoff "Assets").
+   * Om-videon. Låg tidigare på leverantörens CloudFront och vägde 36 MB,
+   * vilket var sidans enskilt tyngsta resurs. Källan var HEVC i .mov, som
+   * varken Chrome eller Firefox spelar, och hade ett ljudspår som strippats.
    */
-  about:
-    "https://d8j0ntlcm91z4.cloudfront.net/user_3FwYeaDxGy6OM3B1w0DJg3BPHHw/hf_20260710_073532_790cedf0-1ecf-4a06-8424-0f816e49c950.mp4",
+  about: "/video/om.mp4",
+  aboutWebm: "/video/om.webm",
+  aboutPoster: "/video/om-poster.jpg",
 } as const;
 
 /** Visas i språksektionen oavsett valt språk, därför inte i ordlistorna. */

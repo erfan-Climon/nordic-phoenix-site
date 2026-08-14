@@ -104,6 +104,40 @@ export const sv = {
     ],
   },
 
+  servicePage: {
+    breadcrumbLabel: "Brödsmulor",
+    home: "Start",
+    services: "Tjänster",
+    background: "Bakgrund",
+    forWhom: "Passar dig som",
+    included: "Det här ingår, punkt för punkt",
+    youGet: "Vad du får",
+    includedMark: "Ingår",
+    priceLead: "Fast månadspris från 1 495 kr.",
+    priceLink: "Se alla paket och vad som ingår",
+    faqLabel: "Vanliga frågor",
+    faqHeading: "Frågor om",
+    related: "Hänger ihop med",
+    citiesHeading: "Vi arbetar digitalt i hela Sverige",
+    citiesText:
+      "Avståndet påverkar varken pris eller svarstid. Läs om hur vi arbetar med företagare på din ort.",
+    allCities: "Alla orter",
+    ctaHeading: "Vill du veta vad det skulle kosta?",
+    ctaText:
+      "Kostnadsfri och förutsättningslös genomgång. Vi tittar på ditt bolag och ger dig en fast summa, innan du bestämmer dig.",
+    ctaWhatsApp: "Skriv på WhatsApp",
+    call: "Ring",
+    indexTitle: "Våra tjänster | Bokföring, lön, bokslut och rådgivning",
+    indexDescription:
+      "Bokföring, lön och moms, bokslut och årsredovisning, företagsstart, myndighetskontakt och digitalisering. Allt till fast månadspris, digitalt i hela Sverige.",
+    indexH1a: "Allt ditt företag behöver.",
+    indexH1b: "Samlat.",
+    indexIntro:
+      "Sex områden som täcker en företagares hela ekonomiska år, från registreringen till bokslutet. Välj ett område så berättar vi exakt vad som ingår och hur vi arbetar med det.",
+    indexCtaHeading: "Vet du inte vad du behöver?",
+    indexCtaText:
+      "De flesta behöver inte allt. Hör av dig så går vi igenom ditt bolag och säger vad som faktiskt behövs, och vad det skulle kosta.",
+  },
   reviews: {
     label: "Omdömen",
     h2a: "Vad våra kunder",

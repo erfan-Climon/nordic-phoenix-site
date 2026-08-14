@@ -109,6 +109,40 @@ export const en: Dictionary = {
     ],
   },
 
+  servicePage: {
+    breadcrumbLabel: "Breadcrumbs",
+    home: "Home",
+    services: "Services",
+    background: "Background",
+    forWhom: "This suits you if",
+    included: "What is included, point by point",
+    youGet: "What you get",
+    includedMark: "Included",
+    priceLead: "Fixed monthly price from SEK 1,495.",
+    priceLink: "See all packages and what they include",
+    faqLabel: "Common questions",
+    faqHeading: "Questions about",
+    related: "Related services",
+    citiesHeading: "We work digitally across Sweden",
+    citiesText:
+      "Distance affects neither price nor response time. Read about how we work with business owners in your area.",
+    allCities: "All locations",
+    ctaHeading: "Want to know what it would cost?",
+    ctaText:
+      "A free consultation with no strings attached. We look at your company and give you a fixed figure, before you decide.",
+    ctaWhatsApp: "Message us on WhatsApp",
+    call: "Call",
+    indexTitle: "Our services | Bookkeeping, payroll, annual accounts and advisory",
+    indexDescription:
+      "Bookkeeping, payroll and VAT, annual accounts, company formation, dealings with authorities and digitalisation. All at a fixed monthly price, digitally across Sweden.",
+    indexH1a: "Everything your company needs.",
+    indexH1b: "In one place.",
+    indexIntro:
+      "Six areas covering a business owner's entire financial year, from registration to the annual accounts. Choose an area and we will tell you exactly what is included and how we work with it.",
+    indexCtaHeading: "Not sure what you need?",
+    indexCtaText:
+      "Most companies do not need everything. Get in touch and we will go through your company and tell you what is actually needed, and what it would cost.",
+  },
   reviews: {
     label: "Reviews",
     h2a: "What our clients",
