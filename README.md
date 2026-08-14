@@ -55,6 +55,28 @@ olika `lang`/`dir` på `<html>`, och `/` ska inte vara `/sv`.
   det finns inga översättningar att peka på, så nav-länken går alltid till
   `/blogg`.
 
+## Ortssidor
+
+`/redovisningsbyra/[stad]` med en sida per ort i Sverige-sektionen, plus en
+översikt på `/redovisningsbyra`. Innehållet ligger i `content/locations.ts`.
+
+Två regler gäller när nya orter läggs till:
+
+- **Ingen påhittad lokal närvaro.** Byrån sitter i Sollentuna och arbetar
+  digitalt. Ingen text får antyda kontor eller besöksadress på orten. Schemat
+  använder `Service` med `areaServed` och `provider` med den riktiga adressen,
+  aldrig `LocalBusiness` med lokal adress.
+- **Varje sida ska stå på egna ben.** Vinkeln utgår från ortens faktiska
+  näringsliv och FAQ:n ska innehålla frågor som bara är relevanta där. Sidor
+  som bara byter ortsnamn är doorway pages och skadar sajten.
+
+Riktvärde vid granskning: minst ~1 500 tecken ortsspecifik text per sida och
+högst ~40% ordöverlapp mot någon annan ortssida. Nuvarande uppsättning ligger
+på ~2 000 tecken och 24% som mest.
+
+Sidorna finns bara på svenska. De riktar sig mot svensk lokal sökning, och
+översättningar hade inneburit tunt innehåll utan sökefterfrågan.
+
 ## Textregler
 
 Gäller all kundvänd text, i alla tre språk:

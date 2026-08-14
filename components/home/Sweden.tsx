@@ -1,13 +1,75 @@
+import Link from "next/link";
 import type { Dictionary } from "@/content/locales/sv";
+import { locations } from "@/content/locations";
 import { cityRowSplit } from "@/content/site";
 
 export function Sweden({ t }: { t: Dictionary }) {
-  const row1 = t.sweden.cities.slice(0, cityRowSplit);
-  const row2 = t.sweden.cities.slice(cityRowSplit);
+  /**
+   * Ordningen i ordlistornas `cities` matchar ordningen i `locations`, så
+   * index kopplar ihop det översatta namnet med rätt ortssida. Sidorna finns
+   * bara på svenska, men de är relevanta oavsett vilket språk besökaren läser
+   * sajten på.
+   */
+  const cities = t.sweden.cities.map((name, i) => ({
+    name,
+    slug: locations[i]?.slug,
+  }));
 
-  // Listorna repeteras så att marqueen loopar utan hopp.
+  const row1 = cities.slice(0, cityRowSplit);
+  const row2 = cities.slice(cityRowSplit);
+
+  /** Listorna repeteras så att marqueen loopar utan hopp. */
   const repeat = <T,>(list: T[], times: number) =>
-    Array.from({ length: times }, () => list).flat();
+    Array.from({ length: times }, (_, run) =>
+      list.map((item) => ({ item, run })),
+    ).flat();
+
+  const cityClass =
+    "whitespace-nowrap pr-[.7em] font-heading text-[length:var(--fs-city)] leading-[1.25] tracking-[-.02em] no-underline transition-colors duration-[.35s] hover:text-accent";
+
+  const renderRow = (
+    row: typeof cities,
+    times: number,
+    tone: "cool" | "warm",
+  ) =>
+    repeat(row, times).map(({ item, run }, i) => {
+      const färg = tone === "cool" ? "text-city" : "text-city-warm italic";
+      const separator = tone === "cool" ? "text-city-warm italic" : "text-city";
+      // Bara första varvet är riktiga länkar. Kopiorna finns för loopen och
+      // döljs för skärmläsare, annars läses varje stad upp tre till fyra gånger.
+      const duplicate = run > 0;
+
+      const inner = (
+        <>
+          {item.name}
+          <span aria-hidden="true" className={`pl-[.7em] ${separator}`}>
+            ·
+          </span>
+        </>
+      );
+
+      if (!item.slug || duplicate) {
+        return (
+          <span
+            key={`${item.name}-${i}`}
+            aria-hidden={duplicate || undefined}
+            className={`${cityClass} ${färg}`}
+          >
+            {inner}
+          </span>
+        );
+      }
+
+      return (
+        <Link
+          key={`${item.name}-${i}`}
+          href={`/redovisningsbyra/${item.slug}`}
+          className={`${cityClass} ${färg}`}
+        >
+          {inner}
+        </Link>
+      );
+    });
 
   return (
     <section className="overflow-hidden bg-page py-[clamp(100px,12vw,160px)] text-text">
@@ -21,46 +83,25 @@ export function Sweden({ t }: { t: Dictionary }) {
         </h2>
       </div>
 
-      <div
-        aria-hidden="true"
-        className="flex flex-col gap-[clamp(10px,1.5vw,20px)]"
-      >
+      <div className="flex flex-col gap-[clamp(10px,1.5vw,20px)]">
         <div
           data-marquee
           className="flex w-max"
           style={{ animation: "np-marquee 48s linear infinite" }}
         >
-          {repeat(row1, 3).map((city, i) => (
-            <span
-              key={`${city}-${i}`}
-              className="whitespace-nowrap pr-[.7em] font-heading text-[length:var(--fs-city)] leading-[1.25] tracking-[-.02em] text-city transition-colors duration-[.35s] hover:text-accent"
-            >
-              {city}
-              <span className="pl-[.7em] text-city-warm italic">·</span>
-            </span>
-          ))}
+          {renderRow(row1, 3, "cool")}
         </div>
         <div
           data-marquee
           className="flex w-max"
           style={{ animation: "np-marquee-rev 56s linear infinite" }}
         >
-          {repeat(row2, 4).map((city, i) => (
-            <span
-              key={`${city}-${i}`}
-              className="whitespace-nowrap pr-[.7em] font-heading text-[length:var(--fs-city)] leading-[1.25] tracking-[-.02em] text-city-warm italic transition-colors duration-[.35s] hover:text-accent"
-            >
-              {city}
-              <span className="pl-[.7em] text-city">·</span>
-            </span>
-          ))}
+          {renderRow(row2, 4, "warm")}
         </div>
       </div>
 
       <p
         data-reveal
-        /* Minimivärdet hålls nere: versalt mono med .2em spärr blir brett, och
-           raden ska rymmas utan att brytas på en 375px-skärm. */
         className="mt-[clamp(48px,6vw,72px)] mb-0 px-[var(--pad-x)] text-center font-mono text-[clamp(13px,1.6vw,22px)] tracking-[.2em] text-text-meta uppercase"
       >
         {t.sweden.tail}

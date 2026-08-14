@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
+import { locations } from "@/content/locations";
 import { SITE_URL } from "@/content/site";
 import { htmlLang, locales, localePath } from "@/lib/i18n";
 
@@ -44,5 +45,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...translated, ...blog];
+  // Ortssidorna finns bara på svenska och har inga språkalternativ.
+  const orter = [
+    {
+      url: abs("/redovisningsbyra"),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
+    ...locations.map((l) => ({
+      url: abs(`/redovisningsbyra/${l.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...translated, ...orter, ...blog];
 }
