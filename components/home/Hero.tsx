@@ -17,42 +17,39 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           vid reducerad rörelse, och det som syns innan videon börjar spela. */}
       {/* På mobil beskärs bilden hårt på bredden. Centrerat hamnar den ljusa
           skjortan bakom texten, så utsnittet flyttas åt vänster till glasväggen
-          och skärmen, som är mörkare. 30 procent är det högsta värde som
-          klarar kontrastkraven med hero-radernas färger, alltså så mycket av
-          bilden som går att behålla. På bred skärm ligger utsnittet kvar centrerat,
-          annars hoppar bilden när videon tar över. */}
+          skjutet något åt vänster så att både ansiktet och händerna kommer med.
+          På bred skärm ligger utsnittet kvar centrerat, annars hoppar bilden
+          när videon tar över. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-[position:30%_center] md:bg-center"
+        className="absolute inset-0 bg-cover bg-[position:48%_center] md:bg-center"
         style={{ backgroundImage: `url(${video.heroPoster})` }}
       />
 
       <HeroBackgroundVideo />
 
-      {/* Slöjorna ska dämpa videon, inte gömma den. Grundslöjan är svag och
-          ligger över hela ytan. Ovanpå den ett band under navraden och en mjuk
-          vänsterslöja som tonar ut vid 70 procent, alltså innan personen i
-          bild. Ingen av dem går över 0,45.
+      {/* Slöjorna. Grundslöjan är avsiktligt svag, videon ska synas. I
+          stället för ett svep över hela bilden ligger en mjuk kudde bara
+          bakom texten. Den är elliptisk med lång uttoning, så den syns inte
+          som ett band, och lämnar personen och rummet ljusa.
 
-          Det räcker inte hela vägen till WCAG:s gränser mot videons ljusaste
-          rutor. Texten har därför egen skugga, se nedan. Att i stället mörka
-          bilden tillräckligt hade krävt runt 0,9 över textspalten, och då syns
-          inte videon. */}
+          Bandet under navraden är det enda som är rakt, och det täcker bara
+          de översta 130 pixlarna. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.3),rgba(0,0,0,.14))]"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.2),rgba(0,0,0,.08))]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.38),transparent_140px)]"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.5),transparent_130px)]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.45),rgba(0,0,0,.32)_55%,transparent_80%)] md:block"
+        className="absolute inset-0 hidden bg-[radial-gradient(ellipse_58%_52%_at_28%_58%,rgba(0,0,0,.66),rgba(0,0,0,.34)_55%,transparent_82%)] md:block"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,.42)_38%,rgba(0,0,0,.66)_100%)] md:hidden"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_110%_46%_at_46%_64%,rgba(0,0,0,.7),rgba(0,0,0,.38)_58%,transparent_88%)] md:hidden"
       />
 
       {/* Andande orange glöd uppe till höger */}
@@ -78,15 +75,15 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
-            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.6),0_6px_28px_rgba(0,0,0,.5)]">
+            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.9),0_2px_8px_rgba(0,0,0,.75),0_8px_36px_rgba(0,0,0,.6)]">
             <span style={{ animation: "np-rise 1.1s .05s var(--ease) both" }}>
               {t.hero.w1}
             </span>
             <span
-              /* on-dark-muted är satt för mörka sektioner och ger 2,2:1 mot
-                 videon. Den här tonen ger 3,2:1 och ser fortfarande dämpad
-                 ut bredvid raden ovanför. */
-              className="text-[#b8b1a6]"
+              /* on-dark-muted är satt för mörka sektioner och blir för svag
+                 mot en ljus video. Den här tonen läser fortfarande som dämpad
+                 bredvid raden ovanför, men klarar kontrasten. */
+              className="text-[#cbc4b9]"
               style={{ animation: "np-rise 1.1s .18s var(--ease) both" }}
             >
               {t.hero.w2}
@@ -95,7 +92,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               /* Samma gradient som WhatsApp-knappen, alltså --gradient-accent.
                  Ingen skugga: bokstäverna är tunna och kursiva, och en skugga
                  tätt under dem grumlar orangen till brunt. */
-              className="np-gradient-text bg-[image:var(--gradient-accent)] italic"
+              className="np-gradient-text bg-[image:var(--gradient-accent)] italic [filter:drop-shadow(0_1px_1px_rgba(0,0,0,.85))]"
               style={{ animation: "np-rise 1.1s .31s var(--ease) both" }}
             >
               {t.hero.w3}
@@ -104,7 +101,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
           <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7">
             <p
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.6),0_6px_28px_rgba(0,0,0,.5)]"
+              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.9),0_2px_8px_rgba(0,0,0,.75),0_8px_36px_rgba(0,0,0,.6)]"
               style={{ animation: "np-rise 1.1s .5s var(--ease) both" }}
             >
               {t.hero.sub}
