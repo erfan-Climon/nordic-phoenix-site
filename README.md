@@ -186,6 +186,29 @@ Designen är helt fluid (`clamp()`, `flex-wrap`, `grid auto-fit`). Den enda
 brytpunkten är `--breakpoint-nav: 840px`, som byter navraden mot en
 hamburgermeny. Behåll den strategin.
 
+## Hero-videon
+
+Bakgrundsvideon ligger i `public/video/` som `hero.webm`, `hero.mp4` och
+`hero-poster.jpg`. Filerna är committade, sajten är inte beroende av någon
+extern CDN för dem.
+
+`components/home/HeroBackgroundVideo.tsx` renderar `<video>` först när tre
+villkor är uppfyllda: bredden är minst 768 px, `prefers-reduced-motion` är inte
+`reduce`, och sidans load-event har gått. Elementet renderas alltså inte och
+döljs med CSS, för en dold video hämtas ändå. På mobil laddas bara postern, och
+uppskjutningen till efter load gör att videon inte konkurrerar med hero-texten,
+som är sidans LCP-element.
+
+Två slöjor ligger mellan bilden och texten. Värdena är uppmätta mot videons
+ljusaste rutor, inte valda på känsla: bakgrundsfönstret når 0,71 i luminans och
+ljus text hamnar runt 1,5:1 mot det utan slöja. Med nuvarande uppsättning ligger
+sämsta uppmätta kontrast på 3,15:1 för displayraderna och 5,6:1 för brödtexten.
+Byts videon ut måste värdena mätas om.
+
+Omkodning kräver ffmpeg, som inte finns installerat här. Hämtas tillfälligt med
+`npm install --no-save ffmpeg-static`, som lägger binären i `node_modules` utan
+att röra `package.json`.
+
 ## Rörelse
 
 `components/layout/MotionRuntime.tsx` är hela rörelselagret: reveal-in,

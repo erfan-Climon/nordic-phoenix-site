@@ -54,7 +54,10 @@ export const chatWidget = {
 } as const;
 
 export const video = {
+  /** Hero-bakgrunden. WebM först i markup, MP4 som fallback för Safari. */
   hero: "/video/hero.mp4",
+  heroWebm: "/video/hero.webm",
+  heroPoster: "/video/hero-poster.jpg",
   /**
    * Om-videon ligger kvar på leverantörens CloudFront. Flytta till egen
    * asset-pipeline vid tillfälle (se handoff "Assets").
