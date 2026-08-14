@@ -76,10 +76,16 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               {t.hero.w2}
             </span>
             <span
-              /* Samma gradient som WhatsApp-knappen, alltså --gradient-accent.
-                 Ingen skugga: bokstäverna är tunna och kursiva, och en skugga
-                 tätt under dem grumlar orangen till brunt. */
-              className="np-gradient-text bg-[image:var(--gradient-accent)] italic [filter:drop-shadow(0_1px_1px_rgba(0,0,0,.85))]"
+              /* Solid orange, inte klippt gradient. Knappen syns mot videon
+                 för att den är en fylld platta: orangen är bakgrunden och
+                 täcker bilden. Ett ord är bara tunna streck med video emellan,
+                 och behöver därför samma skugga som raderna ovanför för att
+                 stå emot. Skuggan kräver i sin tur solid färg, eftersom
+                 text-shadow fyller bokstaven i stället för att rama in den när
+                 background-clip: text används.
+
+                 #ff9424 är knappens ljusa ände, alltså samma orange. */
+              className="text-[#ff9424] italic [text-shadow:0_1px_2px_rgba(0,0,0,.9),0_2px_8px_rgba(0,0,0,.75),0_8px_36px_rgba(0,0,0,.6)]"
               style={{ animation: "np-rise 1.1s .31s var(--ease) both" }}
             >
               {t.hero.w3}
