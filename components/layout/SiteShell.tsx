@@ -1,3 +1,4 @@
+import { ChatWidget } from "@/components/layout/ChatWidget";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MotionRuntime } from "@/components/layout/MotionRuntime";
@@ -21,6 +22,7 @@ export function SiteShell({
       <Footer locale={locale} t={t} />
       <ScrollToTop href={`${localePath(locale, "/")}#top`} label={t.a11y.toTop} />
       <MotionRuntime />
+      <ChatWidget />
     </>
   );
 }

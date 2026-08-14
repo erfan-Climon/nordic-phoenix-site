@@ -46,6 +46,13 @@ export const reviewWidget = {
   src: "https://reputationhub.site/reputation/widgets/review_widget/66iE5ekAVPU5F03G3zJk?widgetId=6a6a6331f6fe9cd3afbb2445",
 } as const;
 
+/** GoHighLevel / LeadConnector-chatt. Laddas lazy, se ChatWidget.tsx. */
+export const chatWidget = {
+  loader: "https://widgets.leadconnectorhq.com/loader.js",
+  resourcesUrl: "https://widgets.leadconnectorhq.com/chat-widget/loader.js",
+  widgetId: "6a4f7dcc88718db6dd6ed6a5",
+} as const;
+
 export const video = {
   hero: "/video/hero.mp4",
   /**
