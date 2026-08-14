@@ -40,10 +40,10 @@ export function CtaBanner({ t }: { t: Dictionary }) {
         <div className="flex items-end justify-center px-[clamp(24px,3vw,48px)] pt-[clamp(40px,4vw,64px)]">
           {/* Bottenjusterad så figuren "står" i banderollens underkant */}
           <Image
-            src="/assets/ali-cutout-v2.webp"
+            src="/assets/ali-portratt.webp"
             alt={t.banner.portraitAlt}
             width={840}
-            height={1050}
+            height={1003}
             loading="lazy"
             className="block h-auto w-[min(420px,90%)] [filter:drop-shadow(0_18px_40px_rgba(28,15,5,.35))]"
           />

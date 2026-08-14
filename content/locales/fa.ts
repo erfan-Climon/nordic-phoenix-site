@@ -42,6 +42,8 @@ export const fa: Dictionary = {
 
   services: {
     label: "خدمات",
+    /** Länken på varje tjänstekort in till tjänstesidan. */
+    readMore: "بیشتر بخوانید",
     h2a: "هر آنچه شرکت شما نیاز دارد.",
     h2b: "یکجا.",
     groups: [

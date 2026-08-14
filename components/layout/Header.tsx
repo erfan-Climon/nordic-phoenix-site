@@ -135,10 +135,13 @@ export function Header({ locale, t }: Props) {
         <Image
           src="/assets/phoenix-logo.webp"
           alt="Nordic Phoenix"
-          width={34}
-          height={27}
+          /* 46px bred blir 36px hög. Headern är 77px och styrs av de 44px
+             höga knapparna, så logotypen kan växa hit utan att listen gör
+             det. Ankarlänkarnas scroll-margin räknar med den höjden. */
+          width={46}
+          height={36}
           priority
-          className="block h-auto w-[34px]"
+          className="block h-auto w-[46px]"
         />
         {/* Noto Naskh Arabic även på svenska och engelska. På persiska tvingar
             RTL-regeln i globals.css hela dokumentet till det snittet med

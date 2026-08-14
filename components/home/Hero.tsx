@@ -15,38 +15,48 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
     >
       {/* Posterbilden ligger alltid kvar. Den är hela bakgrunden på mobil och
           vid reducerad rörelse, och det som syns innan videon börjar spela. */}
+      {/* På mobil beskärs bilden hårt på bredden. Centrerat hamnar den ljusa
+          skjortan bakom texten, så utsnittet flyttas åt vänster till glasväggen
+          och skärmen, som är mörkare. 38 procent är det högsta värde som
+          klarar kontrastkraven, alltså så mycket av bilden som går att
+          behålla. På bred skärm ligger utsnittet kvar centrerat,
+          annars hoppar bilden när videon tar över. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-[position:38%_center] md:bg-center"
         style={{ backgroundImage: `url(${video.heroPoster})` }}
       />
 
       <HeroBackgroundVideo />
 
-      {/* Slöjorna. Den lodräta dämpar hela bilden och ligger alltid på.
-          Ovanpå den kommer en av två, beroende på bredd.
+      {/* Slöjorna. Tre lager i stället för ett brett svep, så att bilden
+          får vara ljusare där den syns och mörkare bara där text ligger.
 
-          På bred skärm står texten i vänsterhalvan, så där mörkas bara den
-          kanten. Videons fönster i bakgrunden når 0,71 i luminans, och utan
-          den slöjan hamnar ljus text runt 1,5:1 mot den.
+          Grundslöjan är svag och gäller hela ytan. Bandet under navraden
+          täcker de översta 130 pixlarna. Spaltslöjan på bred skärm mörkar
+          textkolumnen och tonar ut vid 66 procent, alltså långt innan
+          personen i bild. På mobil går texten i full bredd och bilden
+          beskärs till mitten, så där mörkas nederkanten i stället.
 
-          På mobil beskärs bilden till mitten, alltså den ljusa skjortan, och
-          texten går i full bredd. Där hjälper ingen kantslöja, utan bilden
-          mörkas nedtill där texten ligger.
-
-          Värdena är uppmätta mot videons ljusaste rutor, inte gissade. Byts
-          videon ut måste de mätas om. */}
+          Värdena är framsvepta mot videon, inte valda på känsla: mätningen
+          tar bakgrunden under textens verkliga rader över hela loopen och
+          kräver 4,5:1 för brödtext och 3:1 för displayraderna på den 95:e
+          percentilen. Byts videon ut måste svepet göras om. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.35),rgba(0,0,0,.15))]"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.2),rgba(0,0,0,.05))]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.72),rgba(0,0,0,.45)_45%,transparent_72%)] md:block"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.62),transparent_145px)]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,.4)_0%,rgba(0,0,0,.62)_38%,rgba(0,0,0,.82)_100%)] md:hidden"
+        className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(0,0,0,.9),rgba(0,0,0,.9)_42%,transparent_66%)] md:block"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,.64)_36%,rgba(0,0,0,.8)_100%)] md:hidden"
       />
 
       {/* Andande orange glöd uppe till höger */}
@@ -73,7 +83,10 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           och den ytan lämnas medvetet fri. */}
       <div
         data-parallax="0.14"
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)]"
+        /* Texten skjuts in från vänsterkanten på bred skärm. Personen i
+           videon sitter till höger, så ytan räcker ändå. På mobil ligger den
+           kvar mot kanten, där finns ingen plats att ge bort. */
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(48px,7vw,150px)]"
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark">

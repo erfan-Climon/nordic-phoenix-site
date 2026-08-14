@@ -42,6 +42,8 @@ export const sv = {
 
   services: {
     label: "Tjänster",
+    /** Länken på varje tjänstekort in till tjänstesidan. */
+    readMore: "Läs mer",
     h2a: "Allt ditt företag behöver.",
     h2b: "Samlat.",
     groups: [

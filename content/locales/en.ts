@@ -42,6 +42,8 @@ export const en: Dictionary = {
 
   services: {
     label: "Services",
+    /** Länken på varje tjänstekort in till tjänstesidan. */
+    readMore: "Read more",
     h2a: "Everything your company needs.",
     h2b: "In one place.",
     groups: [

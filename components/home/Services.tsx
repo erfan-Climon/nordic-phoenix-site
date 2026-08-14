@@ -114,7 +114,7 @@ export function Services({ t }: { t: Dictionary }) {
                       className="no-underline"
                       style={{ color: "inherit" }}
                     >
-                      Läs mer
+                      {t.services.readMore}
                     </Link>
                   </p>
                 </div>
