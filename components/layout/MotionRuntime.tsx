@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { clamp01, prefersReducedMotion } from "@/lib/motion";
 
@@ -11,9 +12,22 @@ import { clamp01, prefersReducedMotion } from "@/lib/motion";
  *
  * Allt hoppas över vid prefers-reduced-motion. CSS:en i globals.css visar då
  * reveal-elementen direkt, så inget innehåll blir osynligt.
+ *
+ * KÖR OM VID VARJE SIDBYTE. Komponenten sitter i layouten, och layouten
+ * monteras inte om vid klientnavigering. Utan pathname i beroendelistan
+ * frågade effekten bara efter [data-reveal] en enda gång, på den sida
+ * besökaren råkade landa på först. Klickade man sig vidare observerades den
+ * nya sidans element aldrig, de låg kvar på opacity 0, och sidan såg svart
+ * ut tills man laddade om.
  */
 export function MotionRuntime() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    // Kvittens till skyddsnätet i MotionBoot: rörelselagret lever, så det
+    // behöver inte visa allt innehåll på egen hand.
+    document.documentElement.dataset.motion = "ready";
+
     if (prefersReducedMotion()) {
       document
         .querySelectorAll<HTMLElement>("[data-reveal]")
@@ -46,7 +60,24 @@ export function MotionRuntime() {
         },
         { threshold: 0.1 },
       );
-      revealEls.forEach((el) => revealObserver.observe(el));
+      /* Det som redan ligger i vy visas direkt, mätt synkront, i stället för
+         att vänta på observerns första callback.
+
+         Två skäl. Kommer besökaren till ett ankare mitt på sidan har hen
+         redan valt att vara där och ska inte se innehållet animeras fram.
+         Och viktigare: synligheten hänger inte längre på att observern
+         faktiskt kör. Den pausas i dolda flikar och i vissa inbäddade vyer,
+         och då blev sidan svart. */
+      const vh = window.innerHeight;
+      revealEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < vh && rect.bottom > 0) {
+          el.setAttribute("data-revealed", "true");
+        } else {
+          revealObserver.observe(el);
+        }
+      });
+
       cleanups.push(() => {
         revealObserver.disconnect();
         revealTimers.forEach(window.clearTimeout);
@@ -127,7 +158,7 @@ export function MotionRuntime() {
     }
 
     return () => cleanups.forEach((fn) => fn());
-  }, []);
+  }, [pathname]);
 
   return null;
 }

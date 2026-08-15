@@ -402,15 +402,18 @@
   }
 }
 
-/* Reveal-tillstånd styrs av IntersectionObserver i lib/motion.ts */
-[data-reveal] {
+/* Reveal-tillstånd styrs av IntersectionObserver i MotionRuntime.
+   Villkoret på html[data-js] är ett skyddsnät, se components/layout/
+   MotionBoot.tsx: utan fungerande JavaScript döljs ingenting alls, i stället
+   för att besökaren lämnas med en tom sida. */
+html[data-js="on"] [data-reveal] {
   opacity: 0;
   transform: translateY(36px);
   transition:
     opacity var(--dur-reveal) var(--ease),
     transform var(--dur-reveal) var(--ease);
 }
-[data-reveal][data-revealed="true"] {
+html[data-js="on"] [data-reveal][data-revealed="true"] {
   opacity: 1;
   transform: none;
 }
@@ -437,7 +440,7 @@
     transition-duration: 0.001ms !important;
   }
 
-  [data-reveal] {
+  html[data-js="on"] [data-reveal] {
     opacity: 1;
     transform: none;
   }
