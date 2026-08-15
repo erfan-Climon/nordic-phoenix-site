@@ -126,6 +126,29 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 {t.hero.cta2}
               </Link>
             </div>
+
+            {/* Språkraden. Persiskan står med sin egen skrift och hela frasen,
+                eftersom det är den formen persisktalande företagare söker på,
+                och de är kundens största målgrupp. Raden ligger i hero för att
+                startsidan är sajtens starkaste sida.
+
+                Raden hamnar 82 procent ner i hero, alltså över skrivbordet som
+                är videons ljusaste yta. Enbart skugga räcker inte där: uppmätt
+                över bokstävernas egna rutor blev medianen 8,8 men de ljusaste
+                fem procenten 2,5, alltså under AA. Raden får därför samma
+                mörka platta som etiketten nere till höger redan använder. Det
+                är en avgränsad platta bakom en etikett, inte ännu ett lager
+                över videon, och kontrasten blir densamma oavsett vilken ruta
+                som spelas.
+
+                12px i stället för 11, eftersom persisk skrift behöver något
+                mer storlek för att vara läsbar. */}
+            <p
+              className="m-0 inline-flex w-fit rounded-button bg-[rgba(11,10,9,.55)] px-4 py-2 font-mono text-[12px] tracking-[.16em] text-on-dark backdrop-blur-[8px]"
+              style={{ animation: "np-rise .5s .4s var(--ease) both" }}
+            >
+              {t.hero.langs}
+            </p>
           </div>
         </div>
 

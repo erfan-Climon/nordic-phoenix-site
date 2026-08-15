@@ -35,6 +35,11 @@ export const sv = {
     cta1: "Kontakta oss på WhatsApp",
     cta2: "Se våra tjänster",
     badge: "Nordic Phoenix · Sthlm",
+    /* Språkraden under knapparna. Persiskan står med sin egen skrift och
+       fullständiga fras, inte bara "persiska", eftersom det är den formen
+       målgruppen söker på. Sant påstående, inte utfyllnad: byrån arbetar
+       på alla tre språken. */
+    langs: "Svenska · English · حسابداری به زبان فارسی",
   },
 
   clients: {
@@ -245,7 +250,7 @@ export const sv = {
     label: "Svenska · English · فارسی",
     h2a: "Ekonomi på ett språk som känns",
     h2b: "tydligt och tryggt.",
-    text: "Vi hjälper företagare att förstå regler, ekonomi och myndighetskrav på svenska, engelska och persiska. Språket ska aldrig stå mellan dig och kontrollen över din ekonomi.",
+    text: "Vi hjälper företagare att förstå regler, ekonomi och myndighetskrav på svenska, engelska och persiska, حسابداری به زبان فارسی. Språket ska aldrig stå mellan dig och kontrollen över din ekonomi.",
   },
 
   process: {
