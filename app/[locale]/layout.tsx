@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import { MotionBoot } from "@/components/layout/MotionBoot";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { fontVariables } from "@/lib/fonts";
 import { dirFor, htmlLang, isLocale, prefixedLocales } from "@/lib/i18n";
@@ -28,7 +29,15 @@ export default async function LocalisedRootLayout({
   if (!isLocale(locale) || locale === "sv") notFound();
 
   return (
-    <html lang={htmlLang[locale]} dir={dirFor(locale)} className={fontVariables}>
+    <html
+      lang={htmlLang[locale]}
+      dir={dirFor(locale)}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
+      <head>
+        <MotionBoot />
+      </head>
       <body>
         <SiteShell locale={locale}>{children}</SiteShell>
       </body>

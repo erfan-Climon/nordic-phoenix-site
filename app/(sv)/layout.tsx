@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import { MotionBoot } from "@/components/layout/MotionBoot";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { fontVariables } from "@/lib/fonts";
 import { dirFor, htmlLang } from "@/lib/i18n";
@@ -18,7 +19,15 @@ export default function SwedishRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang={htmlLang.sv} dir={dirFor("sv")} className={fontVariables}>
+    <html
+      lang={htmlLang.sv}
+      dir={dirFor("sv")}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
+      <head>
+        <MotionBoot />
+      </head>
       <body>
         <SiteShell locale="sv">{children}</SiteShell>
       </body>

@@ -11,9 +11,17 @@ const WORDMARKS = [
   { text: "VERKSTAN", className: "font-sans text-[19px] font-bold tracking-[.24em]" },
 ];
 
+/**
+ * Måtten är filernas verkliga pixelmått, inte den storlek de visas i.
+ * Proportionen räknas ur dem, och `visasHöjd` styr sedan storleken i CSS.
+ *
+ * Tehr var tidigare angiven som 120 × 52 men är i själva verket nästan
+ * kvadratisk. Webbläsaren reserverade därför 120 px bredd för något som
+ * renderas 51 px brett, och bredden hoppade när filen kom.
+ */
 const IMAGE_MARKS = [
-  { src: "/assets/client-climon.webp", alt: "Climon", height: 24, width: 96 },
-  { src: "/assets/client-tehr.webp", alt: "Tehr Tattoo", height: 52, width: 120 },
+  { src: "/assets/client-climon.webp", alt: "Climon", width: 794, height: 195, visasHöjd: 24 },
+  { src: "/assets/client-tehr.webp", alt: "Tehr Tattoo", width: 360, height: 364, visasHöjd: 52 },
 ];
 
 const MARK_STYLE = "flex-none opacity-80 mix-blend-multiply [filter:grayscale(1)_contrast(1.05)]";
@@ -30,8 +38,10 @@ export function ClientLogos({ t }: { t: Dictionary }) {
           aria-hidden={duplicate || undefined}
           width={mark.width}
           height={mark.height}
-          className={`${MARK_STYLE} block w-auto`}
-          style={{ height: `${mark.height}px` }}
+          className={`${MARK_STYLE} block`}
+          /* Båda måtten anges i CSS. Sätts bara det ena varnar next/image,
+             eftersom proportionen då kan glida isär från attributen. */
+          style={{ height: `${mark.visasHöjd}px`, width: "auto" }}
         />
       ))}
       {WORDMARKS.map((mark) => (

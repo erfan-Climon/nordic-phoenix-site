@@ -418,6 +418,44 @@ html[data-js="on"] [data-reveal][data-revealed="true"] {
   transform: none;
 }
 
+/* Recensionswidgetens iframe.
+   LeadConnectors skript mäter innehållet och sätter höjden först efteråt.
+   Fram till dess står iframen på sin minimihöjd, och skillnaden var 208 px
+   på mobil. Det gav CLS 0,25, alltså underkänt mot Googles gräns på 0,1.
+
+   Widgeten lägger recensionerna i rader om cirka 51 px och byter antal rader
+   med bredden, så minimihöjden måste följa med. Värdena är uppmätta
+   2026-08-15 vid respektive bredd. Ändrar leverantören widgeten ger de här
+   antingen ett litet hopp eller en liten lucka: mät om i så fall. */
+.np-reviews-frame {
+  min-height: 368px;
+}
+@media (min-width: 480px) {
+  .np-reviews-frame {
+    min-height: 318px;
+  }
+}
+@media (min-width: 600px) {
+  .np-reviews-frame {
+    min-height: 267px;
+  }
+}
+@media (min-width: 900px) {
+  .np-reviews-frame {
+    min-height: 212px;
+  }
+}
+@media (min-width: 1024px) {
+  .np-reviews-frame {
+    min-height: 183px;
+  }
+}
+@media (min-width: 1200px) {
+  .np-reviews-frame {
+    min-height: 161px;
+  }
+}
+
 /* Processteget färgas permanent orange när det scrollats in (threshold .6). */
 [data-step][data-active="true"] [data-step-num] {
   color: var(--color-accent-light);

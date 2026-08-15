@@ -64,15 +64,15 @@ export function Reviews({ t }: { t: Dictionary }) {
         </div>
 
         <iframe
-          className="lc_reviews_widget block w-full min-w-full border-0"
+          /* np-reviews-frame reserverar den höjd widgeten faktiskt landar
+             på vid varje bredd. Se globals.css: höjden sätts av leverantörens
+             skript långt efter att sidan renderats, och utan reservation
+             hoppade allt nedanför 208 px på mobil. */
+          className="lc_reviews_widget np-reviews-frame block w-full min-w-full border-0"
           src={reviewWidget.src}
           title={t.reviews.iframeTitle}
           loading="lazy"
           scrolling="no"
-          /* Golv innan skriptet hunnit sätta höjden. Håll det lågt — sätts det
-             för högt lämnar widgeten en död lucka under sig, eftersom
-             min-height vinner över höjden skriptet räknar fram. */
-          style={{ minHeight: 160 }}
         />
       </div>
     </section>

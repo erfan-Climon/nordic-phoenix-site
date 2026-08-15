@@ -1,7 +1,6 @@
 import { ChatWidget } from "@/components/layout/ChatWidget";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { MotionBoot } from "@/components/layout/MotionBoot";
 import { MotionRuntime } from "@/components/layout/MotionRuntime";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { getDictionary, type Locale, localePath } from "@/lib/i18n";
@@ -18,7 +17,6 @@ export function SiteShell({
 
   return (
     <>
-      <MotionBoot />
       <Header locale={locale} t={t} />
       <main>{children}</main>
       <Footer locale={locale} t={t} />

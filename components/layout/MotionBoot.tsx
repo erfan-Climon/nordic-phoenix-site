@@ -13,9 +13,15 @@
  *  - Laddar rörelselagret aldrig tas attributet bort efter en stund, och allt
  *    innehåll visas. Hellre utan animation än osynligt.
  *
- * Skriptet ligger först i body och körs synkront, alltså före första
- * målningen. Sätts attributet senare hinner besökaren se innehållet blinka
- * fram och försvinna igen.
+ * Ligger i <head> i rotlayouten och körs synkront under HTML-tolkningen,
+ * alltså före första målningen. Sätts attributet senare hinner besökaren se
+ * innehållet blinka fram och försvinna igen. Se Next-guiden
+ * "How to prevent flash before hydration", avsnittet om teman: det är samma
+ * mönster, ett attribut på <html> satt före paint.
+ *
+ * <html> behöver `suppressHydrationWarning` eftersom attributet inte finns i
+ * serverns HTML. Utan det behandlar React skillnaden som ett hydreringsfel
+ * och bygger om trädet från närmaste gräns, vilket både blinkar och kostar.
  */
 
 /** Tid innan skyddsnätet ger upp och visar allt ändå. */
@@ -31,5 +37,15 @@ setTimeout(function () {
 `.trim();
 
 export function MotionBoot() {
-  return <script dangerouslySetInnerHTML={{ __html: SKRIPT }} />;
+  return (
+    <script
+      /* text/javascript på servern, text/plain i webbläsaren. Skriptet ska
+         bara köras när HTML:en tolkas. React varnar annars för att skript
+         som renderas av en komponent aldrig körs på klienten, och den
+         varningen är befogad: här är det avsiktligt. */
+      type={typeof window === "undefined" ? "text/javascript" : "text/plain"}
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: SKRIPT }}
+    />
+  );
 }

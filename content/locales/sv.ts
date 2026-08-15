@@ -28,6 +28,16 @@ export const sv = {
   },
 
   hero: {
+    /* Förrad inuti H1. Varumärkesraden nedanför säger ingenting om vad byrån
+       gör, och H1 är sidans starkaste rubriksignal. Google läser hela H1:ans
+       textinnehåll oavsett grad, så den lilla raden ger full effekt utan att
+       ta plats från Kontroll/Klarhet/Trygghet.
+
+       Bara Stockholm, inte "och hela Sverige": den längre lydelsen wrappade
+       till två rader på mobil och blev en tung banner i stället för en
+       förrad. Räckvidden i hela landet står redan i hero-ingressen och i
+       Sverige-sektionen, så ingenting tappas. */
+    eyebrow: "Redovisningsbyrå i Stockholm",
     w1: "Kontroll.",
     w2: "Klarhet.",
     w3: "Trygghet.",

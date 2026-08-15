@@ -41,6 +41,8 @@ export function About({ t }: { t: Dictionary }) {
               poster={video.aboutPoster}
               controls
               playWhenVisible
+              width={720}
+              height={1280}
               title={t.about.videoTitle}
               className="block h-auto w-full bg-ink-card object-contain"
               style={{

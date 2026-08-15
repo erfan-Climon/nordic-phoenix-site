@@ -69,6 +69,21 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
             className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
+            {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
+                är ren varumärkestext utan ett enda sökord, och H1 är sidans
+                starkaste rubriksignal. Graden spelar ingen roll för hur
+                Google läser den, bara att den står i H1. */}
+            {/* Egen platta, av samma skäl som språkraden längst ner. Uppmätt
+                över bokstävernas rutor mot videons ljusaste utsnitt gav enbart
+                skugga medianen 3,1 och 2,5 i värsta fallet, mot kravet 4,5 för
+                text under 18px. Raden ligger dessutom högt i hero, där
+                glasväggen bakom är som ljusast. */}
+            <span
+              className="mb-[clamp(18px,2vw,26px)] w-fit rounded-button bg-[rgba(11,10,9,.55)] px-4 py-2 font-mono text-[clamp(11px,1vw,13px)] leading-[1.4] font-medium tracking-[.2em] text-on-dark uppercase backdrop-blur-[8px]"
+              style={{ animation: "np-rise .5s var(--ease) both" }}
+            >
+              {t.hero.eyebrow}
+            </span>
             <span style={{ animation: "np-rise .5s .05s var(--ease) both" }}>
               {t.hero.w1}
             </span>

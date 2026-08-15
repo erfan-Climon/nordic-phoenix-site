@@ -28,6 +28,7 @@ export const en: Dictionary = {
   },
 
   hero: {
+    eyebrow: "Accounting firm in Stockholm",
     w1: "Control.",
     w2: "Clarity.",
     w3: "Confidence.",
