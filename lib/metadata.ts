@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { company, phone, SITE_URL, social } from "@/content/site";
+import { isPreview } from "@/lib/preview";
 import {
   getDictionary,
   htmlLang,
@@ -84,7 +85,12 @@ export function buildMetadata({
       title: resolvedTitle,
       description: resolvedDescription,
     },
-    robots: { index: true, follow: true },
+    /* robots.txt räcker inte på granskningskopian: en spärrad sida kan ändå
+       hamna i index om någon länkar till den. noindex på sidan är det som
+       faktiskt håller. */
+    robots: isPreview
+      ? { index: false, follow: false, nocache: true }
+      : { index: true, follow: true },
   };
 }
 

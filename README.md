@@ -325,3 +325,22 @@ Statisk export, fungerar på vilken statisk host som helst.
   och sitemap.
 - De sex planerade bloggartiklarna saknar brödtext och renderas som
   "Kommer snart". Lägg in dem i `content/blog.ts` när texterna finns.
+
+## Granskningskopia
+
+Bygg med `NEXT_PUBLIC_PREVIEW=1` när sajten ska läggas upp någon annanstans än
+på den skarpa domänen, till exempel för kundgranskning.
+
+```bash
+NEXT_PUBLIC_PREVIEW=1 npm run build
+```
+
+Då spärras hela kopian i `robots.txt` **och** med `noindex` på varje sida.
+Bara robots.txt räcker inte: en spärrad sida kan ändå hamna i index om någon
+länkar till den, och en kopia med samma texter och samma canonical mot
+nordicphoenix.se är en dubblett som kan skada originalet.
+
+Verifiera före publicering att `out/robots.txt` innehåller `Disallow: /` och
+att antalet sidor utan `noindex` är noll. Produktionsbygget sätter inte
+variabeln och är opåverkat: där ska bara 404-sidorna vara noindex, vilket är
+Next standard.
