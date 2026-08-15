@@ -35,11 +35,12 @@ export const sv = {
     cta1: "Kontakta oss på WhatsApp",
     cta2: "Se våra tjänster",
     badge: "Nordic Phoenix · Sthlm",
-    /* Språkraden under knapparna. Persiskan står med sin egen skrift och
-       fullständiga fras, inte bara "persiska", eftersom det är den formen
-       målgruppen söker på. Sant påstående, inte utfyllnad: byrån arbetar
-       på alla tre språken. */
-    langs: "Svenska · English · حسابداری به زبان فارسی",
+    /* Raden under knapparna. Frasen står med persisk skrift och i sin
+       fullständiga form, eftersom det är så målgruppen söker på den.
+       Svenska och engelska stod här tidigare men är borttagna: sajten är
+       redan på de språken, och uppräkningen tog uppmärksamhet från det
+       enda som faktiskt säger något nytt. */
+    langs: "حسابداری به زبان فارسی",
   },
 
   clients: {
