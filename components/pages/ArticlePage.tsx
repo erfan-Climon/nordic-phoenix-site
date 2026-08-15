@@ -1,11 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/content/blog";
+import type { ArticleCopy } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
-import { getDictionary } from "@/lib/i18n";
+import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
 
-export function ArticlePage({ article }: { article: Article }) {
-  const t = getDictionary("sv");
+/**
+ * `article` bär strukturen som är lika på alla språk: slug, datum, bild och
+ * lästid. `copy` bär texten på besökarens språk. Samma uppdelning som på
+ * ortssidorna, se `content/blog-copy.ts`.
+ */
+export function ArticlePage({
+  article,
+  copy,
+  locale,
+}: {
+  article: Article;
+  copy: ArticleCopy;
+  locale: Locale;
+}) {
+  const t = getDictionary(locale);
+  const blogHref = localePath(locale, "/blogg");
 
   /* Två scheman i en graf. FAQPage är det som ger utfällbara frågor direkt i
      sökresultatet, och kräver att frågorna också syns på sidan: Google
@@ -15,12 +30,12 @@ export function ArticlePage({ article }: { article: Article }) {
     "@graph": [
       {
         "@type": "BlogPosting",
-        headline: article.title,
-        description: article.excerpt,
+        headline: copy.title,
+        description: copy.excerpt,
         datePublished: article.published,
         dateModified: article.published,
         image: `${SITE_URL}${article.image}`,
-        mainEntityOfPage: `${SITE_URL}/blogg/${article.slug}`,
+        mainEntityOfPage: `${SITE_URL}${blogHref}/${article.slug}`,
         author: { "@type": "Organization", name: company.legalName },
         publisher: {
           "@type": "Organization",
@@ -30,11 +45,11 @@ export function ArticlePage({ article }: { article: Article }) {
             url: `${SITE_URL}/assets/phoenix-logo.png`,
           },
         },
-        inLanguage: "sv-SE",
+        inLanguage: htmlLang[locale],
       },
       {
         "@type": "FAQPage",
-        mainEntity: article.faq.map((post) => ({
+        mainEntity: copy.faq.map((post) => ({
           "@type": "Question",
           name: post.q,
           acceptedAnswer: { "@type": "Answer", text: post.a },
@@ -52,16 +67,16 @@ export function ArticlePage({ article }: { article: Article }) {
 
       <section className="mx-auto max-w-[900px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
         <Link
-          href="/blogg"
+          href={blogHref}
           className="np-mono-link text-[12px] tracking-[.16em] text-text-meta hover:text-accent-ink"
         >
           {t.blog.backToAll}
         </Link>
 
         <div className="my-9 mb-6 flex gap-4 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
-          <span>{article.tag}</span>
+          <span>{copy.tag}</span>
           <span aria-hidden="true">·</span>
-          <time dateTime={article.published}>{article.date}</time>
+          <time dateTime={article.published}>{copy.date}</time>
           <span aria-hidden="true">·</span>
           <span>
             {article.readingMinutes} {t.blog.readingTime}
@@ -69,17 +84,17 @@ export function ArticlePage({ article }: { article: Article }) {
         </div>
 
         <h1 className="np-h2 mb-6 text-[length:var(--fs-h1)] leading-[1.05]">
-          {article.titleLead}{" "}
-          <em className="np-gradient-text">{article.titleAccent}</em>
+          {copy.titleLead}{" "}
+          <em className="np-gradient-text">{copy.titleAccent}</em>
         </h1>
 
         <p className="m-0 mb-[clamp(40px,5vw,64px)] max-w-[56ch] font-sans text-[clamp(16px,1.5vw,20px)] leading-[1.65] text-text-muted">
-          {article.intro}
+          {copy.intro}
         </p>
 
         <Image
           src={article.image}
-          alt={article.imageAlt}
+          alt={copy.imageAlt}
           width={900}
           height={600}
           priority
@@ -88,7 +103,7 @@ export function ArticlePage({ article }: { article: Article }) {
       </section>
 
       <article className="mx-auto max-w-[720px] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)]">
-        {article.blocks.map((block, i) => {
+        {copy.blocks.map((block, i) => {
           if (block.type === "heading") {
             return (
               <h2
@@ -102,7 +117,7 @@ export function ArticlePage({ article }: { article: Article }) {
 
           if (block.type === "paragraph") {
             const nextIsHeading =
-              article.blocks[i + 1]?.type !== "paragraph";
+              copy.blocks[i + 1]?.type !== "paragraph";
             return (
               <p
                 key={i}
@@ -151,7 +166,7 @@ export function ArticlePage({ article }: { article: Article }) {
             {t.blog.checklistTitle}
           </h2>
           <ul className="m-0 flex list-none flex-col gap-4 p-0">
-            {article.checklist.map((item) => (
+            {copy.checklist.map((item) => (
               <li key={item} className="flex gap-4">
                 <span
                   aria-hidden="true"
@@ -173,7 +188,7 @@ export function ArticlePage({ article }: { article: Article }) {
             {t.blog.faqTitle}
           </h2>
           <dl className="m-0 flex flex-col">
-            {article.faq.map((post) => (
+            {copy.faq.map((post) => (
               <div
                 key={post.q}
                 className="border-t border-[rgba(23,19,16,.14)] py-7 last:border-b"
@@ -195,7 +210,7 @@ export function ArticlePage({ article }: { article: Article }) {
             {/* Artikelns egen uppmaning, inte den generella. Contentplanen
                 skriver en per artikel som knyter an till just det ämnet. */}
             <span className="font-sans text-[14px] leading-[1.6] text-text-muted">
-              {article.cta}
+              {copy.cta}
             </span>
           </div>
           <a

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
+import { localesForArticle, localesWithBlogIndex } from "@/content/blog-copy";
 import { locations } from "@/content/locations";
 import { localesForLocation } from "@/content/location-copy";
 import { services } from "@/content/services";
@@ -36,20 +37,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  // Bloggen finns bara på svenska — inga språkalternativ.
+  /* Bloggen finns på svenska och på de språk artiklarna är översatta till.
+     Samma regel som för orterna: en URL som inte finns får inte stå här, och
+     alternates listar exakt den uppsättning som existerar. */
+  const bloggSprak = localesWithBlogIndex();
   const blog = [
-    {
-      url: abs("/blogg"),
+    ...bloggSprak.map((locale) => ({
+      url: abs(localePath(locale, "/blogg")),
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.6,
-    },
-    ...articles.map((article) => ({
-      url: abs(`/blogg/${article.slug}`),
-      lastModified: new Date(article.published),
-      changeFrequency: "yearly" as const,
-      priority: 0.5,
+      alternates: {
+        languages: Object.fromEntries(
+          bloggSprak.map((alt) => [htmlLang[alt], abs(localePath(alt, "/blogg"))]),
+        ),
+      },
     })),
+    ...articles.flatMap((article) => {
+      const sprak = localesForArticle(article.slug);
+      const path = `/blogg/${article.slug}`;
+      return sprak.map((locale) => ({
+        url: abs(localePath(locale, path)),
+        lastModified: new Date(article.published),
+        changeFrequency: "yearly" as const,
+        priority: 0.5,
+        alternates: {
+          languages: Object.fromEntries(
+            sprak.map((alt) => [htmlLang[alt], abs(localePath(alt, path))]),
+          ),
+        },
+      }));
+    }),
   ];
 
   // Ortssidorna finns bara på svenska och har inga språkalternativ.

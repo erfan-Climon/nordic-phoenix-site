@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticlePage } from "@/components/pages/ArticlePage";
 import { articles, getArticle } from "@/content/blog";
+import { localesForArticle } from "@/content/blog-copy";
 import { buildMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
@@ -21,8 +22,11 @@ export async function generateMetadata({
       path: `/blogg/${article.slug}`,
       title: article.metaTitle,
       description: article.metaDescription,
+      // Bara de språk artikeln faktiskt är översatt till. En hreflang som
+      // pekar på en sida som inte finns gör att Google slutar lita på hela
+      // uppsättningen.
+      availableLocales: localesForArticle(article.slug),
     }),
-    alternates: { canonical: `/blogg/${article.slug}` },
     openGraph: {
       type: "article",
       title: article.metaTitle,
@@ -37,5 +41,5 @@ export default async function Page({ params }: PageProps<"/blogg/[slug]">) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
-  return <ArticlePage article={article} />;
+  return <ArticlePage article={article} copy={article} locale="sv" />;
 }

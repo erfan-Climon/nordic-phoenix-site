@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { articles } from "@/content/blog";
-import { getDictionary } from "@/lib/i18n";
+import { articlesForLocale } from "@/content/blog-copy";
+import { type Locale, getDictionary, localePath } from "@/lib/i18n";
 
 const cardBase =
   "flex flex-col overflow-hidden rounded-card border border-[rgba(23,19,16,.1)] bg-surface";
@@ -10,9 +10,10 @@ const cardBase =
  * Blogglistningen. Prototypen låg kvar på v3-paletten (#B4520F/#F2EDE3) —
  * här används startsidans v4-tokens, enligt handoffens "samma tokens".
  */
-export function BlogIndexPage() {
-  const t = getDictionary("sv");
-  const [featured, ...rest] = articles;
+export function BlogIndexPage({ locale }: { locale: Locale }) {
+  const t = getDictionary(locale);
+  const blogHref = localePath(locale, "/blogg");
+  const [featured, ...rest] = articlesForLocale(locale);
 
   return (
     <>
@@ -31,12 +32,12 @@ export function BlogIndexPage() {
       <section className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[clamp(96px,12vw,160px)]">
         {featured ? (
           <Link
-            href={`/blogg/${featured.slug}`}
+            href={`${blogHref}/${featured.article.slug}`}
             className="mb-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center overflow-hidden rounded-media border border-[rgba(23,19,16,.1)] bg-surface text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]"
           >
             <Image
-              src={featured.image}
-              alt={featured.imageAlt}
+              src={featured.article.image}
+              alt={featured.copy.imageAlt}
               width={840}
               height={560}
               priority
@@ -45,15 +46,15 @@ export function BlogIndexPage() {
             <div className="flex flex-col gap-4 p-[clamp(28px,4vw,56px)]">
               <div className="flex justify-between gap-3 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
                 <span>
-                  {t.blog.featured} · {featured.tag}
+                  {t.blog.featured} · {featured.copy.tag}
                 </span>
-                <span>{featured.date}</span>
+                <span>{featured.copy.date}</span>
               </div>
               <h2 className="np-h2 text-[length:var(--fs-h3)] leading-[1.15] tracking-[-.015em]">
-                {featured.title}
+                {featured.copy.title}
               </h2>
               <p className="m-0 font-sans text-[15px] leading-[1.7] text-text-muted">
-                {featured.excerpt}
+                {featured.copy.excerpt}
               </p>
               <span className="font-sans text-[14px] font-medium text-accent-ink">
                 {t.blog.readArticle}
@@ -63,24 +64,24 @@ export function BlogIndexPage() {
         ) : null}
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(24px,3vw,40px)]">
-          {rest.map((article) => (
+          {rest.map(({ article, copy }) => (
             <Link
               key={article.slug}
-              href={`/blogg/${article.slug}`}
+              href={`${blogHref}/${article.slug}`}
               className={`${cardBase} text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]`}
             >
               <Image
                 src={article.image}
-                alt={article.imageAlt}
+                alt={copy.imageAlt}
                 width={600}
                 height={220}
                 className="block h-[220px] w-full object-cover"
               />
               <CardBody
-                tag={article.tag}
-                date={article.date}
-                title={article.title}
-                excerpt={article.excerpt}
+                tag={copy.tag}
+                date={copy.date}
+                title={copy.title}
+                excerpt={copy.excerpt}
                 action={t.blog.readArticle}
                 accent
               />
