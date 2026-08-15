@@ -344,3 +344,23 @@ Verifiera före publicering att `out/robots.txt` innehåller `Disallow: /` och
 att antalet sidor utan `noindex` är noll. Produktionsbygget sätter inte
 variabeln och är opåverkat: där ska bara 404-sidorna vara noindex, vilket är
 Next standard.
+
+### Cloudflare Pages, projektinställningar
+
+Projektet `nordic-phoenix-site` bygger från GitHub-repot.
+
+| Inställning | Värde |
+|---|---|
+| Build command | `npm run build` |
+| Build output directory | `out` |
+| Production branch | `main` |
+| Preview branches | alla andra, alltså även `nextjs-site` |
+
+`NEXT_PUBLIC_PREVIEW=1` ligger som variabel på **Preview**, inte på Production.
+Det betyder att granskningsbyggena är spärrade från Google, medan ett framtida
+produktionsbygge från `main` blir indexerbart utan att någon behöver komma ihåg
+att ta bort variabeln.
+
+Byggkonfigurationen var tom fram till 2026-08-15, vilket gjorde att Cloudflare
+la ut repots filer som de var i stället för att bygga. Undersidor gav 404 och
+varken robots.txt eller sitemap fanns.
