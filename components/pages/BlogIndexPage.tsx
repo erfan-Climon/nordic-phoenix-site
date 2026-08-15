@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { articles, upcomingPosts } from "@/content/blog";
+import { articles } from "@/content/blog";
 import { getDictionary } from "@/lib/i18n";
 
 const cardBase =
@@ -85,27 +85,6 @@ export function BlogIndexPage() {
                 accent
               />
             </Link>
-          ))}
-
-          {/* Planerade artiklar saknar brödtext och länkas därför inte. */}
-          {upcomingPosts.map((post) => (
-            <article key={post.title} className={cardBase}>
-              <div
-                aria-hidden="true"
-                className="h-[220px]"
-                style={{
-                  background:
-                    "repeating-linear-gradient(135deg, #F0EEE8 0px, #F0EEE8 18px, #F5F3EE 18px, #F5F3EE 36px)",
-                }}
-              />
-              <CardBody
-                tag={post.tag}
-                date={post.date}
-                title={post.title}
-                excerpt={post.excerpt}
-                action={t.blog.comingSoon}
-              />
-            </article>
           ))}
         </div>
       </section>
