@@ -12,7 +12,19 @@ import { type Locale, locales } from "@/lib/i18n";
 export type ArticleCopy = Omit<
   Article,
   "slug" | "published" | "image" | "readingMinutes"
->;
+> & {
+  /**
+   * Egen bild för språket. Bilderna har rubriken tryckt i motivet, så den
+   * svenska bilden kan inte ligga på den persiska sidan och tvärtom.
+   *
+   * Valfri: saknas den faller sidan tillbaka på artikelns svenska bild. Det
+   * är rätt avvägning här, till skillnad från texten. En bild med fel språk
+   * är en skönhetsfläck, en textsida med fel språk är en dubblett i Googles
+   * ögon. Fältet finns för att de tolv persiska bilderna kan levereras efter
+   * de svenska utan att något är trasigt under tiden.
+   */
+  image?: string;
+};
 
 const TABELLER: Partial<Record<Locale, Record<string, ArticleCopy>>> = {
   fa: articlesFa,
@@ -31,6 +43,15 @@ export function getArticleCopy(
 ): ArticleCopy | undefined {
   if (locale === "sv") return article;
   return TABELLER[locale]?.[article.slug];
+}
+
+/**
+ * Bilden för språket. Bilderna har rubriken tryckt i motivet, så språket
+ * avgör vilken fil som ska visas. Saknas den språkegna faller den tillbaka
+ * på artikelns svenska bild.
+ */
+export function articleImage(article: Article, copy: ArticleCopy): string {
+  return copy.image ?? article.image;
 }
 
 /** Språk artikeln finns på. Svenskan finns alltid. */

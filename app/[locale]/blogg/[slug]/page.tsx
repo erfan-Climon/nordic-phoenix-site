@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArticlePage } from "@/components/pages/ArticlePage";
 import { getArticle } from "@/content/blog";
 import {
+  articleImage,
   getArticleCopy,
   localesForArticle,
   translatedArticleSlugs,
@@ -43,7 +44,7 @@ export async function generateMetadata({
       title: copy.metaTitle,
       description: copy.metaDescription,
       publishedTime: article.published,
-      images: [{ url: article.image }],
+      images: [{ url: articleImage(article, copy) }],
     },
   };
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticlePage } from "@/components/pages/ArticlePage";
 import { articles, getArticle } from "@/content/blog";
-import { localesForArticle } from "@/content/blog-copy";
+import { articleImage, localesForArticle } from "@/content/blog-copy";
 import { buildMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
@@ -32,7 +32,7 @@ export async function generateMetadata({
       title: article.metaTitle,
       description: article.metaDescription,
       publishedTime: article.published,
-      images: [{ url: article.image }],
+      images: [{ url: articleImage(article, article) }],
     },
   };
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { articlesForLocale } from "@/content/blog-copy";
+import { articleImage, articlesForLocale } from "@/content/blog-copy";
 import { type Locale, getDictionary, localePath } from "@/lib/i18n";
 
 const cardBase =
@@ -36,7 +36,7 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
             className="mb-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center overflow-hidden rounded-media border border-[rgba(23,19,16,.1)] bg-surface text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]"
           >
             <Image
-              src={featured.article.image}
+              src={articleImage(featured.article, featured.copy)}
               alt={featured.copy.imageAlt}
               width={840}
               height={560}
@@ -71,7 +71,7 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
               className={`${cardBase} text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]`}
             >
               <Image
-                src={article.image}
+                src={articleImage(article, copy)}
                 alt={copy.imageAlt}
                 width={600}
                 height={220}

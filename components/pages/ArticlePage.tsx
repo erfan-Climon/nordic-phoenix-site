@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/content/blog";
-import type { ArticleCopy } from "@/content/blog-copy";
+import { type ArticleCopy, articleImage } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
 import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
 
@@ -21,6 +21,7 @@ export function ArticlePage({
 }) {
   const t = getDictionary(locale);
   const blogHref = localePath(locale, "/blogg");
+  const bild = articleImage(article, copy);
 
   /* Två scheman i en graf. FAQPage är det som ger utfällbara frågor direkt i
      sökresultatet, och kräver att frågorna också syns på sidan: Google
@@ -34,7 +35,7 @@ export function ArticlePage({
         description: copy.excerpt,
         datePublished: article.published,
         dateModified: article.published,
-        image: `${SITE_URL}${article.image}`,
+        image: `${SITE_URL}${bild}`,
         mainEntityOfPage: `${SITE_URL}${blogHref}/${article.slug}`,
         author: { "@type": "Organization", name: company.legalName },
         publisher: {
@@ -93,7 +94,7 @@ export function ArticlePage({
         </p>
 
         <Image
-          src={article.image}
+          src={bild}
           alt={copy.imageAlt}
           width={900}
           height={600}
