@@ -61,10 +61,18 @@ export function localesForArticle(slug: string): Locale[] {
   );
 }
 
-/** Slugar som är översatta till ett visst språk. Styr generateStaticParams. */
+/**
+ * Slugar som finns på språket. Styr generateStaticParams.
+ *
+ * Utgår från `articles`, alltså de släppta artiklarna. Tidigare lästes den
+ * persiska tabellen rakt av, och då fick osläppta artiklar en /fa-sida trots
+ * att den svenska inte fanns. Sitemapen var rätt, men sidorna låg där för
+ * den som hittade dem.
+ */
 export function translatedArticleSlugs(locale: Locale): string[] {
-  if (locale === "sv") return articles.map((article) => article.slug);
-  return Object.keys(TABELLER[locale] ?? {});
+  return articles
+    .filter((article) => Boolean(getArticleCopy(article, locale)))
+    .map((article) => article.slug);
 }
 
 /** Artiklar som finns på språket, i samma ordning som den svenska listan. */

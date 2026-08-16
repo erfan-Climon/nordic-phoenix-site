@@ -77,12 +77,28 @@ export type Article = {
   author?: Author;
 };
 
-export const articles: Article[] = [
+/**
+ * Utgivningsdatum, i tur och ordning en gång i månaden.
+ *
+ * En artikel som inte släppts än finns inte alls: ingen sida genereras,
+ * ingenting hamnar i sitemapen, inga hreflang pekar dit. Alternativet, att
+ * dölja den med CSS eller en flagga i sidan, hade lämnat texten kvar i
+ * HTML:en där Google läser den. Halvpublicerat innehåll är sämre än
+ * opublicerat.
+ *
+ * Jämförelsen görs mot byggtiden, eftersom sajten är statiskt exporterad.
+ * Datumet passerar alltså inte av sig självt: sidan måste byggas om för att
+ * nästa artikel ska dyka upp. Se .github/workflows för den månatliga
+ * ombyggnaden.
+ */
+const IDAG = new Date().toISOString().slice(0, 10);
+
+const ALLA: Article[] = [
   {
     slug: "ekonomisk-halsokontroll-foretag",
     tag: "Ekonomistyrning",
     date: "Augusti 2026",
-    published: "2026-08-15",
+    published: "2026-08-16",
     readingMinutes: 4,
     title: "Ge företaget en ekonomisk höststart på 60 minuter",
     titleLead: "Ge företaget en ekonomisk höststart på",
@@ -203,7 +219,7 @@ export const articles: Article[] = [
     slug: "enskild-firma-eller-aktiebolag",
     tag: "Bolagsstart",
     date: "Augusti 2026",
-    published: "2026-08-15",
+    published: "2026-08-16",
     readingMinutes: 4,
     title:
       "Enskild firma eller aktiebolag: välj efter risk och vardag, inte bara skatt",
@@ -316,8 +332,8 @@ export const articles: Article[] = [
   {
     slug: "nya-3-12-regler-2026",
     tag: "Fåmansbolag",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "September 2026",
+    published: "2026-09-01",
     readingMinutes: 4,
     title:
       "Nya 3:12-reglerna: det här behöver ägare i fåmansbolag förstå före årsskiftet",
@@ -433,8 +449,8 @@ export const articles: Article[] = [
   {
     slug: "skatteplanering-infor-arsskiftet",
     tag: "Skatteplanering",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "Oktober 2026",
+    published: "2026-10-01",
     readingMinutes: 4,
     title:
       "Skatteplanering före årsskiftet: åtgärder som fortfarande går att påverka",
@@ -557,8 +573,8 @@ export const articles: Article[] = [
   {
     slug: "bokslut-checklista",
     tag: "Bokslut",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "November 2026",
+    published: "2026-11-01",
     readingMinutes: 4,
     title: "Bokslut utan panik: underlagen som sparar mest tid och pengar",
     titleLead: "Bokslut utan panik:",
@@ -693,8 +709,8 @@ export const articles: Article[] = [
   {
     slug: "k2-k3-nya-regler-2026",
     tag: "Regelverk",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "December 2026",
+    published: "2026-12-01",
     readingMinutes: 4,
     title:
       "K2 och K3 efter regeländringarna: kontrollera vilket regelverk företaget får använda",
@@ -803,8 +819,8 @@ export const articles: Article[] = [
   {
     slug: "anstalla-forsta-medarbetaren-vaxa-stod",
     tag: "Lön",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "Januari 2027",
+    published: "2027-01-01",
     readingMinutes: 4,
     title:
       "Anställa första eller andra medarbetaren: räkna på hela kostnaden och sök stödet rätt",
@@ -917,8 +933,8 @@ export const articles: Article[] = [
   {
     slug: "deklaration-enskild-firma-aktiebolag",
     tag: "Deklaration",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "Februari 2027",
+    published: "2027-02-01",
     readingMinutes: 4,
     title:
       "Deklaration för enskild firma och aktiebolag: tre dokument som ofta blandas ihop",
@@ -1035,8 +1051,8 @@ export const articles: Article[] = [
   {
     slug: "avdrag-foretag-vanliga-fel",
     tag: "Avdrag",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "Mars 2027",
+    published: "2027-03-01",
     readingMinutes: 4,
     title: "Avdrag som företagare ofta missar eller gör fel på",
     titleLead: "Avdrag som företagare",
@@ -1144,8 +1160,8 @@ export const articles: Article[] = [
   {
     slug: "moms-for-smaforetag",
     tag: "Moms",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "April 2027",
+    published: "2027-04-01",
     readingMinutes: 4,
     title: "Moms utan gissningar: fem situationer där små fel blir stora",
     titleLead: "Moms utan gissningar:",
@@ -1259,8 +1275,8 @@ export const articles: Article[] = [
   {
     slug: "likviditetsbudget-13-veckor",
     tag: "Likviditet",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "Maj 2027",
+    published: "2027-05-01",
     readingMinutes: 4,
     title:
       "Resultatet visar om du tjänar pengar. Likviditeten visar om du överlever.",
@@ -1386,8 +1402,8 @@ export const articles: Article[] = [
   {
     slug: "spara-bokforing-kvitton-digitalt",
     tag: "Bokföring",
-    date: "Augusti 2026",
-    published: "2026-08-15",
+    date: "Juni 2027",
+    published: "2027-06-01",
     readingMinutes: 4,
     title: "Digital bokföring är inte samma sak som säker arkivering",
     titleLead: "Digital bokföring är inte samma sak som",
@@ -1505,6 +1521,14 @@ export const articles: Article[] = [
     cta: "Vi kan hjälpa dig att dokumentera en enkel arkiveringspolicy och säkerställa att allt går att exportera innan du byter system eller redovisningsbyrå.",
   },
 ];
+
+/** Artiklar som är släppta. Allt användarvänt ska gå genom den här. */
+export const articles: Article[] = ALLA.filter(
+  (article) => article.published <= IDAG,
+);
+
+/** Hela listan, även det som ligger och väntar. Endast för verktyg. */
+export const allArticles: Article[] = ALLA;
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((article) => article.slug === slug);

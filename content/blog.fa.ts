@@ -241,7 +241,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "nya-3-12-regler-2026": {
     tag: "شرکت‌های کوچک سهامی",
-    date: "اوت ۲۰۲۶",
+    date: "سپتامبر ۲۰۲۶",
     title: "قوانین جدید ۳:۱۲: آنچه مالکان fåmansbolag باید پیش از پایان سال بدانند",
     titleLead: "قوانین جدید ۳:۱۲: آنچه مالکان fåmansbolag باید",
     titleAccent: "پیش از پایان سال بدانند",
@@ -347,7 +347,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "skatteplanering-infor-arsskiftet": {
     tag: "برنامه‌ریزی مالیاتی",
-    date: "اوت ۲۰۲۶",
+    date: "اکتبر ۲۰۲۶",
     title: "برنامه‌ریزی مالیاتی پیش از پایان سال: اقداماتی که هنوز می‌شود روی آن‌ها اثر گذاشت",
     titleLead: "برنامه‌ریزی مالیاتی پیش از پایان سال: اقداماتی که",
     titleAccent: "هنوز می‌شود روی آن‌ها اثر گذاشت",
@@ -457,7 +457,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "bokslut-checklista": {
     tag: "صورت‌های مالی",
-    date: "اوت ۲۰۲۶",
+    date: "نوامبر ۲۰۲۶",
     title: "bokslut بدون اضطراب: مستنداتی که بیشترین وقت و پول را صرفه‌جویی می‌کنند",
     titleLead: "bokslut بدون اضطراب: مستنداتی که بیشترین",
     titleAccent: "وقت و پول را صرفه‌جویی می‌کنند",
@@ -575,7 +575,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "k2-k3-nya-regler-2026": {
     tag: "چارچوب مقررات",
-    date: "اوت ۲۰۲۶",
+    date: "دسامبر ۲۰۲۶",
     title: "K2 و K3 پس از تغییر قوانین: بررسی کنید شرکت شما کدام چارچوب را می‌تواند به کار ببرد",
     titleLead: "K2 و K3 پس از تغییر قوانین: بررسی کنید شرکت شما",
     titleAccent: "کدام چارچوب را می‌تواند به کار ببرد",
@@ -677,7 +677,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "anstalla-forsta-medarbetaren-vaxa-stod": {
     tag: "حقوق و دستمزد",
-    date: "اوت ۲۰۲۶",
+    date: "ژانویه ۲۰۲۷",
     title: "استخدام اولین یا دومین کارمند: کل هزینه را حساب کنید و درست درخواست حمایت بدهید",
     titleLead: "استخدام اولین یا دومین کارمند: کل هزینه را حساب کنید و",
     titleAccent: "درست درخواست حمایت بدهید",
@@ -780,7 +780,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "deklaration-enskild-firma-aktiebolag": {
     tag: "اظهارنامه مالیاتی",
-    date: "اوت ۲۰۲۶",
+    date: "فوریه ۲۰۲۷",
     title: "اظهارنامه enskild firma و aktiebolag: سه سندی که اغلب با هم اشتباه می‌شوند",
     titleLead: "اظهارنامه enskild firma و aktiebolag: سه سندی که",
     titleAccent: "اغلب با هم اشتباه می‌شوند",
@@ -887,7 +887,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "avdrag-foretag-vanliga-fel": {
     tag: "کسورات مالیاتی",
-    date: "اوت ۲۰۲۶",
+    date: "مارس ۲۰۲۷",
     title: "کسوراتی که کارآفرینان اغلب از دست می‌دهند یا اشتباه انجام می‌دهند",
     titleLead: "کسوراتی که کارآفرینان اغلب از دست می‌دهند",
     titleAccent: "یا اشتباه انجام می‌دهند",
@@ -993,7 +993,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "moms-for-smaforetag": {
     tag: "moms",
-    date: "اوت ۲۰۲۶",
+    date: "آوریل ۲۰۲۷",
     title: "moms بدون حدس و گمان: پنج وضعیتی که خطای کوچک در آن‌ها بزرگ می‌شود",
     titleLead: "moms بدون حدس و گمان: پنج وضعیتی که",
     titleAccent: "خطای کوچک در آن‌ها بزرگ می‌شود",
@@ -1099,7 +1099,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "likviditetsbudget-13-veckor": {
     tag: "نقدینگی",
-    date: "اوت ۲۰۲۶",
+    date: "مه ۲۰۲۷",
     title: "نتیجه نشان می‌دهد که آیا پول درمی‌آورید. نقدینگی نشان می‌دهد که آیا دوام می‌آورید.",
     titleLead: "نتیجه نشان می‌دهد که آیا پول درمی‌آورید.",
     titleAccent: "نقدینگی نشان می‌دهد که آیا دوام می‌آورید.",
@@ -1215,7 +1215,7 @@ export const articlesFa: Record<string, ArticleCopy> = {
 
   "spara-bokforing-kvitton-digitalt": {
     tag: "دفترداری",
-    date: "اوت ۲۰۲۶",
+    date: "ژوئن ۲۰۲۷",
     title: "دفترداری دیجیتال همان بایگانی امن نیست",
     titleLead: "دفترداری دیجیتال همان",
     titleAccent: "بایگانی امن نیست",

@@ -1,0 +1,50 @@
+# Bygger om sajten den första varje månad, så att nästa bloggartikel släpps.
+#
+# Artiklarnas synlighet styrs av utgivningsdatum i content/blog.ts, och
+# jämförelsen görs mot byggtiden eftersom sajten är statiskt exporterad.
+# Datumet passerar alltså inte av sig självt: utan en ombyggnad ligger nästa
+# artikel kvar osläppt hur länge som helst.
+#
+# Flödet rör ingen kod. Det säger bara till Cloudflare Pages att bygga om
+# från senaste commit, vilket är precis vad som behövs.
+#
+# FÖRUTSÄTTNINGAR
+#
+#  1. En deploy hook i Cloudflare Pages: projektet, Settings, Builds and
+#     deployments, Deploy hooks. Skapa en och peka den på produktionsgrenen.
+#  2. Adressen läggs som hemlighet i GitHub under Settings, Secrets and
+#     variables, Actions, med namnet CLOUDFLARE_DEPLOY_HOOK. Den är en
+#     nyckel: den som har den kan trigga bygget, så den ska inte i klartext.
+#
+# TVÅ SAKER ATT VETA OM SCHEMALAGDA FLÖDEN
+#
+#  - De körs bara från förvarets standardgren. Ligger filen på en annan gren
+#    startar den aldrig av sig själv.
+#  - GitHub stänger av schemat automatiskt om förvaret ligger stilla i
+#    sextio dagar. Det mailas ut, och det räcker att slå på det igen.
+
+name: Månatlig publicering
+
+on:
+  schedule:
+    # 05:00 UTC den första varje månad, alltså tidig morgon svensk tid.
+    - cron: "0 5 1 * *"
+  # Går också att köra för hand, för att släppa en artikel tidigare.
+  workflow_dispatch:
+
+jobs:
+  bygg-om:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Be Cloudflare Pages bygga om
+        env:
+          HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "Hemligheten CLOUDFLARE_DEPLOY_HOOK saknas. Se kommentaren överst i filen."
+            exit 1
+          fi
+          # --fail gör att ett felsvar från Cloudflare fäller jobbet, i
+          # stället för att se ut som en lyckad körning.
+          curl --fail --silent --show-error -X POST "$HOOK"
+          echo "Ombyggnad beställd."
