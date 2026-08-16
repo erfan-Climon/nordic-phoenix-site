@@ -64,7 +64,7 @@ export const articles: Article[] = [
       "Gör en ekonomisk hälsokontroll på 60 minuter. Få kontroll över likviditet, skatter, kundfordringar och kostnader inför hösten.",
     intro:
       "Efter sommaren är det lätt att gå direkt in i leveranser, kundmöten och nya projekt. Men en timmes ekonomisk genomgång i augusti kan vara mer värd än flera dagars brandsläckning senare under hösten. Här är en enkel kontroll som fungerar för både enskild firma och aktiebolag.",
-    image: "/assets/blogg-thumb.webp",
+    image: "/assets/blogg/ekonomisk-halsokontroll-foretag-sv.webp",
     imageAlt: "Ge företaget en ekonomisk höststart på 60 minuter",
     metaTitle:
       "Ekonomisk höststart: 60-minuterskontrollen för småföretag | Nordic Phoenix Redovisningsbyrå",

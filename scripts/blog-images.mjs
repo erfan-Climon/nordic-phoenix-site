@@ -1,23 +1,15 @@
 /**
- * Sätter artikelrubriken på bloggens bilder, ett språk i taget.
+ * Lägger in en bloggbild: komprimerar till webp och skriver den på rätt plats.
  *
- * VARFÖR INTE LÅTA BILDGENERATORN SKRIVA TEXTEN:
- * Den kan inte stava. Kundens egen persiska bildserie fick 323 400 kronor i
- * stället för 322 400, och "۲ بخش" där det skulle stå "۴ بخش". På persiska ska
- * bokstäverna dessutom bindas ihop och läsas från höger, vilket bildmodeller
- * regelmässigt får om bakfoten.
+ *   node scripts/blog-images.mjs <källfil> <slug> [sv|fa]
  *
- * Här kommer texten i stället direkt ur content/blog.ts och content/blog.fa.ts,
- * alltså exakt samma strängar som står på sajten. Renderingen görs av headless
- * Chrome, som både formar persiskan korrekt och använder sajtens egna typsnitt.
+ * Bilderna kommer från bildgeneratorn som PNG på flera megabyte. Sajten
+ * byggs med `output: export`, så Next optimerar inga bilder vid körning:
+ * det som läggs i public serveras rakt av. Komprimeringen måste därför göras
+ * här. Se docs/bildprompter-blogg.md för hur bilderna tas fram.
  *
- * Bakgrunderna är AI-genererade och textfria, se docs/bildprompter-blogg.md.
- *
- * Körs med:
- *   node scripts/blog-images.mjs
- *
- * Läser  public/assets/blogg/bakgrund/<slug>.{png,jpg,jpeg,webp}
- * Skriver public/assets/blogg/<slug>-{sv,fa}.png
+ * Konverteringen görs av headless Chrome via canvas. Varken sips, Pillow
+ * eller ImageMagick finns på maskinen, och Chrome kodar webp bra.
  */
 
 import { execFileSync } from "node:child_process";
@@ -26,177 +18,78 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const BAKGRUND = path.join(ROT, "public/assets/blogg/bakgrund");
 const UT = path.join(ROT, "public/assets/blogg");
-const TMP = path.join(ROT, ".blogg-bilder");
+const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-const CHROME =
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+/** Bilden visas som mest 900 px bred, så 1536 räcker även på retinaskärm. */
+const MAXBREDD = 1536;
+const KVALITET = 0.82;
 
-/** 3:2. Visas som mest 900 px brett på sajten, så 1536 räcker även retina. */
-const BREDD = 1536;
-const HOJD = 1024;
+const [källa, slug, locale = "sv"] = process.argv.slice(2);
+if (!källa || !slug) {
+  console.error("Användning: node scripts/blog-images.mjs <källfil> <slug> [sv|fa]");
+  process.exit(1);
+}
+if (!fs.existsSync(källa)) {
+  console.error(`Hittar inte ${källa}`);
+  process.exit(1);
+}
 
-const SPRAK = {
-  sv: { dir: "ltr", lang: "sv" },
-  fa: { dir: "rtl", lang: "fa" },
+const tmp = fs.mkdtempSync(path.join(ROT, ".bildjobb-"));
+const html = path.join(tmp, "konvertera.html");
+
+fs.writeFileSync(
+  html,
+  `<!doctype html><meta charset="utf-8"><body><div id="ut"></div><script>
+const bild = new Image();
+bild.onload = () => {
+  const skala = Math.min(1, ${MAXBREDD} / bild.naturalWidth);
+  const c = document.createElement("canvas");
+  c.width = Math.round(bild.naturalWidth * skala);
+  c.height = Math.round(bild.naturalHeight * skala);
+  const ctx = c.getContext("2d");
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(bild, 0, 0, c.width, c.height);
+  document.getElementById("ut").textContent = c.toDataURL("image/webp", ${KVALITET});
 };
+bild.src = ${JSON.stringify("file://" + path.resolve(källa))};
+</script></body>`,
+);
 
-/**
- * Sajtens typsnitt, hämtade ur det byggda resultatet. Alternativet vore att
- * lita på systemtypsnitt, men då blir bilderna inte satta i samma typsnitt som
- * sidan de ligger på.
- */
-function typsnittsCss() {
-  const chunks = path.join(ROT, "out/_next/static/chunks");
-  if (!fs.existsSync(chunks)) {
-    throw new Error("Kör npm run build först, typsnitten hämtas ur out/.");
-  }
-  const css = fs
-    .readdirSync(chunks)
-    .filter((f) => f.endsWith(".css"))
-    .map((f) => fs.readFileSync(path.join(chunks, f), "utf8"))
-    .join("");
+/* --allow-file-access-from-files krävs: utan den räknar Chrome canvasen som
+   kontaminerad av en bild från ett annat ursprung, och toDataURL kastar.
+   Resultatet läses ur ett element, inte ur <title>, eftersom data-URL:en är
+   ett par hundra kilobyte lång. */
+const dom = execFileSync(
+  CHROME,
+  [
+    "--headless",
+    "--disable-gpu",
+    "--allow-file-access-from-files",
+    "--virtual-time-budget=8000",
+    "--dump-dom",
+    `file://${html}`,
+  ],
+  { encoding: "utf8", maxBuffer: 200 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] },
+);
 
-  const regler = css.match(/@font-face\{[^}]*\}/g) ?? [];
-  if (!regler.length) throw new Error("Hittade inga @font-face i bygget.");
-
-  // Relativa URL:er duger inte när sidan laddas från file://.
-  return regler
-    .map((r) =>
-      r.replace(
-        /url\(([^)]+)\)/g,
-        (_, u) =>
-          `url(file://${path.join(ROT, "out", u.replace(/^\/?/, "/"))})`,
-      ),
-    )
-    .join("\n");
+const träff = dom.match(/id="ut">data:image\/webp;base64,([^<]+)</);
+if (!träff) {
+  fs.rmSync(tmp, { recursive: true, force: true });
+  console.error("Chrome gav ingen webp. Är källfilen en giltig bild?");
+  process.exit(1);
 }
 
-function mall({ bakgrund, etikett, rubrik, ingress, locale }) {
-  const { dir, lang } = SPRAK[locale];
-  // Texten ligger till vänster i vänsterläst och till höger i högerläst, så
-  // att den börjar där ögat börjar. Bakgrundens tomma yta är komponerad för
-  // det, se prompterna.
-  return `<!doctype html><html lang="${lang}" dir="${dir}"><meta charset="utf-8">
-<style>
-${typsnittsCss()}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:${BREDD}px;height:${HOJD}px;overflow:hidden}
-.bild{position:relative;width:${BREDD}px;height:${HOJD}px;
-  background:#EDE8DF url("file://${bakgrund}") center/cover no-repeat}
-/* Mjuk slöja från textsidan, så att rubriken bär även om bakgrundens
-   tomma yta råkar bli ljusare än väntat. Ingen jämn mörkning över hela
-   bilden: det skulle döda pappersstrukturen som är hela poängen. */
-.slöja{position:absolute;inset:0;background:linear-gradient(
-  to ${dir === "rtl" ? "left" : "right"},
-  rgba(250,249,245,.94) 0%, rgba(250,249,245,.88) 38%,
-  rgba(250,249,245,.45) 62%, rgba(250,249,245,0) 82%)}
-.text{position:absolute;top:0;${dir === "rtl" ? "right" : "left"}:0;
-  width:62%;height:100%;display:flex;flex-direction:column;justify-content:center;
-  gap:28px;padding:0 96px}
-.etikett{font-family:"IBM Plex Mono",monospace;font-size:20px;letter-spacing:.22em;
-  text-transform:uppercase;color:#8A7B60}
-.rubrik{font-family:"Source Sans 3",sans-serif;font-weight:700;
-  font-size:${locale === "fa" ? 58 : 62}px;line-height:1.14;letter-spacing:-.02em;
-  color:#171310;text-wrap:balance}
-.rubrik em{font-style:normal;color:#F06700}
-.regel{width:96px;height:5px;background:#F06700;border-radius:3px}
-.ingress{font-family:"Open Sans",sans-serif;font-size:24px;line-height:1.6;
-  color:#4A443B;max-width:34ch}
-/* Persiskan behöver mer radavstånd, annars kolliderar de nedhängande
-   bokstäverna med raden under. */
-[dir=rtl] .rubrik{line-height:1.45;font-family:"Noto Naskh Arabic",serif}
-[dir=rtl] .ingress{line-height:1.9;font-family:"Noto Naskh Arabic",serif;font-size:22px}
-</style>
-<div class="bild"><div class="slöja"></div>
-  <div class="text">
-    <span class="etikett">${etikett}</span>
-    <h1 class="rubrik">${rubrik}</h1>
-    <span class="regel"></span>
-    <p class="ingress">${ingress}</p>
-  </div>
-</div></html>`;
-}
+fs.mkdirSync(UT, { recursive: true });
+const mål = path.join(UT, `${slug}-${locale}.webp`);
+fs.writeFileSync(mål, Buffer.from(träff[1], "base64"));
+fs.rmSync(tmp, { recursive: true, force: true });
 
-const rensa = (s) =>
-  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-/** Rubriken delas redan i innehållet. Andra halvan får accentfärgen. */
-const rubrikHtml = (copy) =>
-  `${rensa(copy.titleLead)} <em>${rensa(copy.titleAccent)}</em>`;
-
-function hittaBakgrund(slug) {
-  for (const ext of ["png", "jpg", "jpeg", "webp"]) {
-    const p = path.join(BAKGRUND, `${slug}.${ext}`);
-    if (fs.existsSync(p)) return p;
-  }
-  return null;
-}
-
-async function main() {
-  const { articles } = await import(path.join(ROT, "content/blog.ts"));
-  const { articlesFa } = await import(path.join(ROT, "content/blog.fa.ts"));
-
-  fs.mkdirSync(TMP, { recursive: true });
-  fs.mkdirSync(UT, { recursive: true });
-
-  let gjorda = 0;
-  const saknade = [];
-
-  for (const article of articles) {
-    const bakgrund = hittaBakgrund(article.slug);
-    if (!bakgrund) {
-      saknade.push(article.slug);
-      continue;
-    }
-
-    for (const [locale, copy] of [
-      ["sv", article],
-      ["fa", articlesFa[article.slug]],
-    ]) {
-      if (!copy) continue;
-
-      const html = path.join(TMP, `${article.slug}-${locale}.html`);
-      const png = path.join(UT, `${article.slug}-${locale}.png`);
-      fs.writeFileSync(
-        html,
-        mall({
-          bakgrund,
-          etikett: rensa(copy.tag),
-          rubrik: rubrikHtml(copy),
-          // Ingressen kortas: bilden ska läsas på en sekund, inte läsas klart.
-          ingress: rensa(copy.excerpt.split(/(?<=[.!?؟])\s/)[0]),
-          locale,
-        }),
-      );
-
-      execFileSync(
-        CHROME,
-        [
-          "--headless",
-          "--disable-gpu",
-          "--hide-scrollbars",
-          `--window-size=${BREDD},${HOJD}`,
-          `--screenshot=${png}`,
-          `file://${html}`,
-        ],
-        { stdio: "ignore" },
-      );
-      gjorda++;
-      console.log(`  ${path.relative(ROT, png)}`);
-    }
-  }
-
-  fs.rmSync(TMP, { recursive: true, force: true });
-  console.log(`\n${gjorda} bilder skrivna.`);
-  if (saknade.length) {
-    console.log(
-      `\nSaknar bakgrund för ${saknade.length} artiklar. Lägg dem i ` +
-        `${path.relative(ROT, BAKGRUND)}/<slug>.png:`,
-    );
-    saknade.forEach((s) => console.log(`  ${s}`));
-  }
-}
-
-main();
+const före = fs.statSync(källa).size;
+const efter = fs.statSync(mål).size;
+console.log(
+  `${path.relative(ROT, mål)}  ${(före / 1e6).toFixed(1)} MB -> ` +
+    `${Math.round(efter / 1024)} kB  (${Math.round((1 - efter / före) * 100)} % mindre)`,
+);
+console.log(`\nKoppla den genom att sätta image i content/blog.ts:`);
+console.log(`  image: "/assets/blogg/${slug}-${locale}.webp",`);
