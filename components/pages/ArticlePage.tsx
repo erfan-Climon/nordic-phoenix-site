@@ -41,7 +41,12 @@ export function ArticlePage({
            behandlar namngivet författarskap som en styrka på innehåll om
            pengar och skatt. */
         author: copy.author
-          ? { "@type": "Person", name: copy.author.name }
+          ? {
+              "@type": "Person",
+              name: copy.author.name,
+              jobTitle: copy.author.jobTitle,
+              worksFor: { "@type": "Organization", name: company.legalName },
+            }
           : { "@type": "Organization", name: company.legalName },
         publisher: {
           "@type": "Organization",

@@ -26,7 +26,19 @@ export type FaqPost = { q: string; a: string };
  * Valfri på artikeln: bara de artiklar som faktiskt har en skribent ska visa
  * ett block. Rollen och presentationen översätts, namnet gör det inte.
  */
-export type Author = { name: string; role: string; bio: string };
+export type Author = {
+  name: string;
+  /** Raden under namnet. Får innehålla flera roller. */
+  role: string;
+  /**
+   * Enbart yrkestiteln, till Person-schemat. Hålls isär från `role`, som är
+   * en visningsrad: schemat ska bära behörigheten ren, utan grundare och
+   * ägare inblandat. Auktoriserad redovisningskonsult är en svensk
+   * behörighet och skrivs likadant på alla språk.
+   */
+  jobTitle: string;
+  bio: string;
+};
 
 export type ArticleBlock =
   | { type: "heading"; text: string }
@@ -182,8 +194,9 @@ export const articles: Article[] = [
     cta: "Vill du få en tydlig månadsrapport som visar vad siffrorna betyder och vad du bör göra härnäst? Boka en ekonomisk genomgång med oss.",
     author: {
       name: "Ali Nahroudi",
-      role: "Nordic Phoenix Redovisningsbyrå",
-      bio: "Ali arbetar dagligen med bokföring, bokslut och deklarationer för företagare i hela Sverige, och med myndighetskontakterna som följer med. Nordic Phoenix hjälper kunder på svenska, engelska och persiska.",
+      role: "Auktoriserad redovisningskonsult · Grundare och ägare",
+      jobTitle: "Auktoriserad redovisningskonsult",
+      bio: "Ali grundade Nordic Phoenix med ambitionen att göra redovisning tydlig, trygg och tillgänglig för företagare i Sverige. Han arbetar dagligen med bokföring, bokslut, deklarationer och myndighetskontakter, och möter kunder på svenska, engelska och persiska.",
     },
   },
   {
