@@ -37,7 +37,12 @@ export function ArticlePage({
         dateModified: article.published,
         image: `${SITE_URL}${bild}`,
         mainEntityOfPage: `${SITE_URL}${blogHref}/${article.slug}`,
-        author: { "@type": "Organization", name: company.legalName },
+        /* Person när artikeln har en skribent, annars byrån. Google
+           behandlar namngivet författarskap som en styrka på innehåll om
+           pengar och skatt. */
+        author: copy.author
+          ? { "@type": "Person", name: copy.author.name }
+          : { "@type": "Organization", name: company.legalName },
         publisher: {
           "@type": "Organization",
           name: company.legalName,
@@ -204,6 +209,29 @@ export function ArticlePage({
             ))}
           </dl>
         </section>
+
+        {/* Skribenten står efter frågorna och före uppmaningen: läsaren
+            möter avsändaren när argumenten är klara, precis innan hen ombeds
+            höra av sig. */}
+        {copy.author ? (
+          <section className="mt-[clamp(48px,6vw,72px)] rounded-media border border-[rgba(23,19,16,.12)] bg-page p-[clamp(28px,3.5vw,44px)]">
+            <p className="np-mono m-0 mb-5 font-mono text-[11px] tracking-[.24em] text-text-meta uppercase">
+              {t.blog.authorLabel}
+            </p>
+            <div className="flex items-baseline gap-3">
+              <span className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent" />
+              <p className="np-h3 m-0 font-heading text-[22px] leading-[1.2]">
+                {copy.author.name}
+              </p>
+            </div>
+            <p className="m-0 mt-1 ms-[19px] font-sans text-[14px] tracking-[.02em] text-text-meta">
+              {copy.author.role}
+            </p>
+            <p className="m-0 mt-5 max-w-[62ch] font-sans text-[16px] leading-[1.75] text-text-muted">
+              {copy.author.bio}
+            </p>
+          </section>
+        ) : null}
 
         <div className="mt-[clamp(48px,6vw,72px)] flex flex-wrap items-center justify-between gap-5 border-t border-[rgba(23,19,16,.14)] pt-9">
           <div className="flex max-w-[52ch] flex-col gap-[6px]">

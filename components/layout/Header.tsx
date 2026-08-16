@@ -3,17 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { nextLocaleForPath } from "@/lib/locales-for-path";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
 import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
   localeButtonLabel,
-  htmlLang,
   localeButtonLabelShort,
   localePath,
-  nextLocale,
   stripLocale,
 } from "@/lib/i18n";
 
@@ -312,9 +311,22 @@ function LanguageLink({
   short = false,
   onDark = false,
 }: Props & { path: string; short?: boolean; onDark?: boolean }) {
-  const target = nextLocale(locale);
+  /* Bara språk sidan faktiskt finns på. Cyklade växlaren blint hamnade
+     besökaren på engelska startsidan från en bloggartikel, eftersom bloggen
+     inte finns på engelska, och persiskan gick inte att nå. Saknas
+     alternativ visas ingen knapp: en knapp som leder fel är sämre än ingen. */
+  const target = nextLocaleForPath(locale, path);
+  if (!target) return null;
+
+  /* Adressen räknas ut direkt i stället för att läsas ur sidans hreflang
+     efter hydrering. Sökvägen är densamma på alla språk, bara prefixet
+     skiljer, och nextLocaleForPath har redan slagit fast att sidan finns på
+     målspråket. Den tidigare lösningen skrev ut språkets startsida i
+     server-HTML:en och rättade den först på klienten: Google följde alltså
+     fel länk, och ett klick före hydrering hamnade på fel sida. */
+  const href = localePath(target, path);
+
   const label = short ? localeButtonLabelShort[target] : localeButtonLabel[target];
-  const href = useAlternateHref(target, path);
   return (
     <Link
       href={href}
@@ -330,27 +342,3 @@ function LanguageLink({
   );
 }
 
-/**
- * Sökvägen till samma sida i ett annat språk, hämtad ur sidans hreflang.
- *
- * Servern skriver ut `<link rel="alternate" hreflang>` för de språk sidan
- * faktiskt finns på. Att läsa dem här betyder att växlaren aldrig pekar på en
- * sida som inte existerar, utan att klienten behöver veta vad som är översatt.
- * Före hydrering och när taggen saknas används språkets startsida, som alltid
- * finns.
- */
-function useAlternateHref(target: Locale, path: string): string {
-  const fallback = path === "/" ? localePath(target, "/") : localePath(target, "/");
-  return useSyncExternalStore(
-    () => () => {},
-    () => {
-      const el = document.querySelector<HTMLLinkElement>(
-        `link[rel="alternate"][hreflang="${htmlLang[target]}"]`,
-      );
-      if (!el) return fallback;
-      const url = new URL(el.href);
-      return url.pathname + url.search;
-    },
-    () => fallback,
-  );
-}

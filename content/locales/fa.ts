@@ -373,6 +373,7 @@ export const fa: Dictionary = {
     backToAll: "← همه مقاله‌ها",
     readingTime: "دقیقه مطالعه",
     checklistTitle: "فهرست اقدامات",
+    authorLabel: "نویسنده",
     faqTitle: "پرسش‌های متداول",
     ctaTitle: "در این زمینه به کمک نیاز دارید؟",
     ctaButton: "تماس با ما",

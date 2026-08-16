@@ -382,6 +382,7 @@ export const sv = {
     backToAll: "← Alla artiklar",
     readingTime: "min läsning",
     checklistTitle: "Handlingschecklista",
+    authorLabel: "Skribent",
     faqTitle: "Vanliga frågor",
     ctaTitle: "Vill du ha hjälp med det här?",
     ctaButton: "Kontakta oss",

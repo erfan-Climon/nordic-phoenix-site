@@ -15,6 +15,19 @@
 
 export type FaqPost = { q: string; a: string };
 
+/**
+ * Skribenten under artikeln.
+ *
+ * Namngiven författare är inte pynt på den här sortens innehåll. Google
+ * väger E-E-A-T tyngst på det som rör pengar, och skatteråd utan avsändare
+ * bedöms hårdare än samma text med en person bakom. Namnet går också in i
+ * BlogPosting-schemat som Person i stället för Organization.
+ *
+ * Valfri på artikeln: bara de artiklar som faktiskt har en skribent ska visa
+ * ett block. Rollen och presentationen översätts, namnet gör det inte.
+ */
+export type Author = { name: string; role: string; bio: string };
+
 export type ArticleBlock =
   | { type: "heading"; text: string }
   | { type: "paragraph"; text: string }
@@ -48,6 +61,8 @@ export type Article = {
   faq: FaqPost[];
   /** Artikelns egen uppmaning, i stället for den generella i ordlistan. */
   cta: string;
+  /** Visas efter frågorna, före uppmaningen. Saknas den visas inget block. */
+  author?: Author;
 };
 
 export const articles: Article[] = [
@@ -165,6 +180,11 @@ export const articles: Article[] = [
       },
     ],
     cta: "Vill du få en tydlig månadsrapport som visar vad siffrorna betyder och vad du bör göra härnäst? Boka en ekonomisk genomgång med oss.",
+    author: {
+      name: "Ali Nahroudi",
+      role: "Nordic Phoenix Redovisningsbyrå",
+      bio: "Ali arbetar dagligen med bokföring, bokslut och deklarationer för företagare i hela Sverige, och med myndighetskontakterna som följer med. Nordic Phoenix hjälper kunder på svenska, engelska och persiska.",
+    },
   },
   {
     slug: "enskild-firma-eller-aktiebolag",

@@ -373,6 +373,7 @@ export const en: Dictionary = {
     backToAll: "← All articles",
     readingTime: "min read",
     checklistTitle: "Action checklist",
+    authorLabel: "Written by",
     faqTitle: "Frequently asked questions",
     ctaTitle: "Want help with this?",
     ctaButton: "Contact us",
