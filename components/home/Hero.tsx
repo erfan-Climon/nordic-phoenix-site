@@ -142,13 +142,35 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               inte finns något tangentbord att träffa. */}
           <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7 md:mb-[clamp(88px,10.3vw,150px)]">
             <p
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
+              /* Fem rader oavsett språk på bred skärm. Ingressen är olika
+                 lång på svenska, engelska och persiska, och eftersom
+                 blocket flödar uppifrån hamnade knapparna på tre olika
+                 höjder: uppmätt 700, 671 och 642 pixlar. Bara persiskan
+                 landade då på tangentbordet i bild. Minsta höjden är den
+                 längsta ingressens, så ingen text trängs ihop. */
+              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:min-h-[8.25em] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise .5s .26s var(--ease) both" }}
             >
               {t.hero.sub}
             </p>
             <div
-              className="flex flex-wrap gap-[14px]"
+              /* WhatsApp-knappen ligger först i koden, så att den primära
+                 åtgärden kommer först för skärmläsare och tangentbord.
+
+                 I högerläst text hamnar den då längst till höger i raden,
+                 alltså på tangentbordet i bild. I vänsterläst text hamnar
+                 den i stället längst till vänster, ute på skrivbordet.
+                 Raden vänds därför visuellt på bred skärm, så att knappen
+                 landar på samma ställe oavsett språk. På mobil är bilden
+                 så hårt beskuren att det inte finns något tangentbord att
+                 träffa, och där behålls den vanliga ordningen.
+
+                 Vändningen börjar först vid 1024 och inte vid 768. Under
+                 den bredden får de två knapparna inte plats på samma rad
+                 i vänsterläst text, och en vänd rad som bryts staplar dem
+                 högerställda under en vänsterställd text. Uppmätt bröts
+                 raden vid 900 men inte vid 1000. */
+              className="flex flex-wrap gap-[14px] lg:ltr:flex-row-reverse"
               style={{ animation: "np-rise .5s .33s var(--ease) both" }}
             >
               <a
