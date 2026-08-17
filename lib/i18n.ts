@@ -58,6 +58,28 @@ export const localeButtonLabelShort: Record<Locale, string> = {
   fa: "فا",
 };
 
+/** Språkets eget namn, som det skrivs av dem som talar det. */
+export const localeNativeName: Record<Locale, string> = {
+  sv: "Svenska",
+  en: "English",
+  fa: "فارسی",
+};
+
+/**
+ * Flagga per språk.
+ *
+ * Flaggor står för länder och inte för språk, vilket är en känd svaghet.
+ * Den syns tydligast på persiskan: en stor del av den iranska diasporan i
+ * Sverige lämnade av politiska skäl, och det är samma grupp som är kundens
+ * viktigaste målgrupp. Vill kunden hellre visa persiskan utan flagga är det
+ * den här raden som ändras.
+ */
+export const localeFlag: Record<Locale, string> = {
+  sv: "🇸🇪",
+  en: "🇬🇧",
+  fa: "🇮🇷",
+};
+
 /**
  * Bygger en absolut sökväg för ett språk.
  * `path` anges alltid utan språkprefix, t.ex. "/" eller "/blogg".

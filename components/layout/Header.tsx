@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { nextLocaleForPath } from "@/lib/locales-for-path";
+import { LanguageMenu } from "@/components/layout/LanguageMenu";
 import { showsPricing } from "@/lib/pricing-visible";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
@@ -11,8 +11,6 @@ import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
-  localeButtonLabel,
-  localeButtonLabelShort,
   localePath,
   stripLocale,
 } from "@/lib/i18n";
@@ -196,7 +194,7 @@ export function Header({ locale, t }: Props) {
           <PhoneGlyph />
           {phone.display}
         </a>
-        <LanguageLink locale={locale} t={t} path={switchPath} onDark={onHero} />
+        <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
         <Link
           href={whatsappUrl}
           target="_blank"
@@ -230,7 +228,7 @@ export function Header({ locale, t }: Props) {
         {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
             plats. Språkknappen flyttas då ner i menyn i stället. */}
         <span className="hidden min-[368px]:block">
-          <LanguageLink locale={locale} t={t} path={switchPath} short onDark={onHero} />
+          <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
         </span>
         <button
           type="button"
@@ -292,7 +290,7 @@ export function Header({ locale, t }: Props) {
             className="border-b border-[var(--hairline-light)] py-4 min-[368px]:hidden"
             onClick={() => setMenuOpen(false)}
           >
-            <LanguageLink locale={locale} t={t} path={switchPath} short onDark={onHero} />
+            <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
           </span>
           <Link
             href={whatsappUrl}
@@ -309,41 +307,4 @@ export function Header({ locale, t }: Props) {
   );
 }
 
-function LanguageLink({
-  locale,
-  t,
-  path,
-  short = false,
-  onDark = false,
-}: Props & { path: string; short?: boolean; onDark?: boolean }) {
-  /* Bara språk sidan faktiskt finns på. Cyklade växlaren blint hamnade
-     besökaren på engelska startsidan från en bloggartikel, eftersom bloggen
-     inte finns på engelska, och persiskan gick inte att nå. Saknas
-     alternativ visas ingen knapp: en knapp som leder fel är sämre än ingen. */
-  const target = nextLocaleForPath(locale, path);
-  if (!target) return null;
-
-  /* Adressen räknas ut direkt i stället för att läsas ur sidans hreflang
-     efter hydrering. Sökvägen är densamma på alla språk, bara prefixet
-     skiljer, och nextLocaleForPath har redan slagit fast att sidan finns på
-     målspråket. Den tidigare lösningen skrev ut språkets startsida i
-     server-HTML:en och rättade den först på klienten: Google följde alltså
-     fel länk, och ett klick före hydrering hamnade på fel sida. */
-  const href = localePath(target, path);
-
-  const label = short ? localeButtonLabelShort[target] : localeButtonLabel[target];
-  return (
-    <Link
-      href={href}
-      hrefLang={target}
-      aria-label={t.a11y.switchLanguage}
-      /* Ingen ram, bara etiketten. 44px höjd hålls som träffyta. */
-      className={`flex h-11 items-center px-1 font-mono text-[13px] font-medium tracking-[.08em] no-underline transition-colors duration-300 ${
-        onDark ? "text-on-dark hover:text-accent-light" : "text-text hover:text-accent-ink"
-      }`}
-    >
-      {label}
-    </Link>
-  );
-}
 
