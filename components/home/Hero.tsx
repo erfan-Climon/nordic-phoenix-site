@@ -74,7 +74,14 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
            riktning. */
         className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-[clamp(120px,14.2vh,180px)] md:pl-[clamp(64px,17vw,330px)] rtl:justify-end"
       >
-        <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
+        {/* Extra insteg i vänsterläst text. Insteget från vänsterkanten är
+            detsamma på alla språk, men texten fyller ytan åt olika håll:
+            högerläst text slutar vid blockets högerkant, vänsterläst
+            börjar vid dess vänsterkant. WhatsApp-knappen hamnade därför
+            en bit till vänster om handen i bild även efter att raden
+            vänts. De fyrtio pixlarna skjuter in den över tangentbordet.
+            Bara från 1024 och uppåt, av samma skäl som vändningen. */}
+        <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full lg:ltr:ml-10">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
             className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
             {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
