@@ -1,4 +1,4 @@
-import type { Location } from "@/content/locations";
+import { type Location, locations } from "@/content/locations";
 import { locationsFa } from "@/content/locations.fa";
 import { type Locale, locales } from "@/lib/i18n";
 
@@ -36,9 +36,22 @@ export function localesForLocation(slug: string): Locale[] {
   );
 }
 
-/** Slugar som är översatta till ett visst språk. Styr generateStaticParams. */
+/**
+ * Slugar som finns på språket. Styr generateStaticParams.
+ *
+ * Utgår från hela ortslistan och frågar `getLocationCopy`, i stället för att
+ * läsa översättningstabellen rakt av. Tabellen innehåller bara de språk som
+ * faktiskt är översatta, så svenskan gav tomt: den har inget eget uppslag
+ * eftersom orten själv är den svenska texten.
+ *
+ * Det spelade ingen roll så länge svenskan låg på roten och aldrig gick
+ * genom den här funktionen. När roten blev persisk hade alla 26 svenska
+ * ortssidor försvunnit.
+ */
 export function translatedSlugs(locale: Locale): string[] {
-  return Object.keys(TABELLER[locale] ?? {});
+  return locations
+    .filter((location) => Boolean(getLocationCopy(location, locale)))
+    .map((location) => location.slug);
 }
 
 /** Sant om språket har minst en översatt ort. Svenskan har alla. */

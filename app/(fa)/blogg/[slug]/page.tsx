@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticlePage } from "@/components/pages/ArticlePage";
-import { articles, getArticle } from "@/content/blog";
-import { articleImage, localesForArticle } from "@/content/blog-copy";
+import { getArticle } from "@/content/blog";
+import {
+  articleImage,
+  getArticleCopy,
+  localesForArticle,
+  translatedArticleSlugs,
+} from "@/content/blog-copy";
 import { buildMetadata } from "@/lib/metadata";
 
+/* Bara artiklar som finns på persiska, eftersom roten är persisk. Alla
+   släppta artiklar är översatta, men regeln ska stå i koden och inte vara
+   ett antagande. */
 export function generateStaticParams() {
-  return articles.map((article) => ({ slug: article.slug }));
+  return translatedArticleSlugs("fa").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -15,13 +23,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
+  const copy = getArticleCopy(article, "fa");
+  if (!copy) return {};
 
   return {
     ...buildMetadata({
-      locale: "sv",
+      locale: "fa",
       path: `/blogg/${article.slug}`,
-      title: article.metaTitle,
-      description: article.metaDescription,
+      title: copy.metaTitle,
+      description: copy.metaDescription,
       // Bara de språk artikeln faktiskt är översatt till. En hreflang som
       // pekar på en sida som inte finns gör att Google slutar lita på hela
       // uppsättningen.
@@ -29,10 +39,10 @@ export async function generateMetadata({
     }),
     openGraph: {
       type: "article",
-      title: article.metaTitle,
-      description: article.metaDescription,
+      title: copy.metaTitle,
+      description: copy.metaDescription,
       publishedTime: article.published,
-      images: [{ url: articleImage(article, article) }],
+      images: [{ url: articleImage(article, copy) }],
     },
   };
 }
@@ -41,5 +51,7 @@ export default async function Page({ params }: PageProps<"/blogg/[slug]">) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
-  return <ArticlePage article={article} copy={article} locale="sv" />;
+  const copy = getArticleCopy(article, "fa");
+  if (!copy) notFound();
+  return <ArticlePage article={article} copy={copy} locale="fa" />;
 }

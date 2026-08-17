@@ -11,7 +11,7 @@ import { buildMetadata } from "@/lib/metadata";
  * en egen rotlayout i app/[locale] — de behöver andra lang/dir på <html>.
  */
 
-export const metadata: Metadata = buildMetadata({ locale: "sv" });
+export const metadata: Metadata = buildMetadata({ locale: "fa" });
 
 export default function SwedishRootLayout({
   children,
@@ -20,8 +20,8 @@ export default function SwedishRootLayout({
 }) {
   return (
     <html
-      lang={htmlLang.sv}
-      dir={dirFor("sv")}
+      lang={htmlLang.fa}
+      dir={dirFor("fa")}
       className={fontVariables}
       suppressHydrationWarning
     >
@@ -29,7 +29,7 @@ export default function SwedishRootLayout({
         <MotionBoot />
       </head>
       <body>
-        <SiteShell locale="sv">{children}</SiteShell>
+        <SiteShell locale="fa">{children}</SiteShell>
       </body>
     </html>
   );

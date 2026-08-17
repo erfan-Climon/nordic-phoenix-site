@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 
 export default function NotFound() {
-  const t = getDictionary("sv");
+  const t = getDictionary("fa");
 
   return (
     <section className="mx-auto flex min-h-[70svh] max-w-[720px] flex-col justify-center px-[var(--pad-x)] py-[clamp(150px,18vh,220px)]">

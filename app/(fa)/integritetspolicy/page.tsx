@@ -3,15 +3,15 @@ import { PrivacyPage } from "@/components/pages/PrivacyPage";
 import { getDictionary } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/metadata";
 
-const t = getDictionary("sv");
+const t = getDictionary("fa");
 
 export const metadata: Metadata = buildMetadata({
-  locale: "sv",
+  locale: "fa",
   path: "/integritetspolicy",
   title: t.privacy.metaTitle,
   description: t.privacy.metaDescription,
 });
 
 export default function Page() {
-  return <PrivacyPage locale="sv" />;
+  return <PrivacyPage locale="fa" />;
 }

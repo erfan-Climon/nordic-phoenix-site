@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PrivacyPage } from "@/components/pages/PrivacyPage";
-import { getDictionary, isLocale, prefixedLocales } from "@/lib/i18n";
+import {
+  defaultLocale,
+  getDictionary,
+  isLocale,
+  prefixedLocales,
+} from "@/lib/i18n";
 import { buildMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
@@ -26,6 +31,6 @@ export default async function Page({
   params,
 }: PageProps<"/[locale]/integritetspolicy">) {
   const { locale } = await params;
-  if (!isLocale(locale) || locale === "sv") notFound();
+  if (!isLocale(locale) || locale === defaultLocale) notFound();
   return <PrivacyPage locale={locale} />;
 }

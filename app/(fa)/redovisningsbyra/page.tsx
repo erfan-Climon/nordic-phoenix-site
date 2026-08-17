@@ -4,10 +4,10 @@ import { localesWithLocationIndex } from "@/content/location-copy";
 import { getDictionary } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/metadata";
 
-const t = getDictionary("sv");
+const t = getDictionary("fa");
 
 export const metadata: Metadata = buildMetadata({
-  locale: "sv",
+  locale: "fa",
   path: "/redovisningsbyra",
   title: t.locationPage.indexTitle,
   description: t.locationPage.indexDescription,
@@ -15,5 +15,5 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <LocationIndexPage locale="sv" />;
+  return <LocationIndexPage locale="fa" />;
 }

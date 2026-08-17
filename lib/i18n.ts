@@ -5,8 +5,20 @@ import { sv, type Dictionary } from "@/content/locales/sv";
 export const locales = ["sv", "en", "fa"] as const;
 export type Locale = (typeof locales)[number];
 
-/** Svenska ligger på roten (`/`), övriga språk under prefix (`/en`, `/fa`). */
-export const defaultLocale: Locale = "sv";
+/**
+ * Persiskan ligger på roten (`/`), övriga språk under prefix (`/sv`, `/en`).
+ *
+ * Roten var svensk från början. Bytet gjordes för att kundens viktigaste
+ * målgrupp är persisktalande företagare, och för att den gamla sajtens rot
+ * redan rankar på persiska sökfraser. Persiskan hamnar därmed på exakt den
+ * URL som har auktoriteten, i stället för på en undersida som måste bygga
+ * upp sin egen.
+ *
+ * Priset var att alla svenska adresser fick `/sv` framför sig. Det kostade
+ * nästan ingenting, eftersom bara två URL:er från den gamla sajten var
+ * indexerade när bytet gjordes: roten och /persisk-redovisningsbyra-stockholm.
+ */
+export const defaultLocale: Locale = "fa";
 
 /** Språken som får ett eget prefixat rotsegment i app/[locale]. */
 export const prefixedLocales = locales.filter(

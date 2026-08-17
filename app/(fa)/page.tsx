@@ -27,7 +27,7 @@ import { buildMetadata } from "@/lib/metadata";
  * egentligen vill ha på roten. Gör det inte innan, och inte utan att titta.
  */
 export const metadata: Metadata = buildMetadata({
-  locale: "sv",
+  locale: "fa",
   path: "/",
   title:
     "حسابدار ایرانی در سوئد | حسابدار فارسی‌زبان در استکهلم | Nordic Phoenix Redovisningsbyrå",
@@ -36,5 +36,5 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <HomePage locale="sv" />;
+  return <HomePage locale="fa" />;
 }

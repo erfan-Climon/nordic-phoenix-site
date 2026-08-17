@@ -4,10 +4,10 @@ import { localesWithBlogIndex } from "@/content/blog-copy";
 import { getDictionary } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/metadata";
 
-const t = getDictionary("sv");
+const t = getDictionary("fa");
 
 export const metadata: Metadata = buildMetadata({
-  locale: "sv",
+  locale: "fa",
   path: "/blogg",
   title: t.blog.metaTitle,
   description: t.blog.metaDescription,
@@ -16,5 +16,5 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function Page() {
-  return <BlogIndexPage locale="sv" />;
+  return <BlogIndexPage locale="fa" />;
 }

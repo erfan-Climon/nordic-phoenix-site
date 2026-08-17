@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServicePage } from "@/components/pages/ServicePage";
 import { getService, services } from "@/content/services";
+import { getServiceCopy } from "@/content/service-copy";
 import { buildMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
@@ -14,13 +15,16 @@ export async function generateMetadata({
   const { tjanst } = await params;
   const service = getService(tjanst);
   if (!service) return {};
+  /* Persisk titel på den persiska roten. Föll den tillbaka på service.*
+     hade rotens tjänstesidor fått svenska titlar. */
+  const copy = getServiceCopy(service, "fa");
 
   return {
     ...buildMetadata({
-      locale: "sv",
+      locale: "fa",
       path: `/tjanster/${service.slug}`,
-      title: service.metaTitle,
-      description: service.metaDescription,
+      title: copy.metaTitle,
+      description: copy.metaDescription,
     }),
     // buildMetadata sätter canonical och hreflang för alla tre språk.
   };
@@ -32,5 +36,5 @@ export default async function Page({
   const { tjanst } = await params;
   const service = getService(tjanst);
   if (!service) notFound();
-  return <ServicePage service={service} locale="sv" />;
+  return <ServicePage service={service} locale="fa" />;
 }

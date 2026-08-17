@@ -25,7 +25,13 @@ export function languageAlternates(
   available.forEach((locale) => {
     map[htmlLang[locale]] = localePath(locale, path);
   });
-  // x-default pekar på svenskan när den finns, annars första tillgängliga.
+  /* x-default pekar på svenskan när den finns, annars första tillgängliga.
+     Den står kvar på svenska även efter att roten blev persisk, och det är
+     med flit: x-default gäller besökare vars språk inte matchar något av
+     alternativen, och de är per definition inte persisktalande. En besökare
+     med tyskt eller finskt webbläsarspråk ska mötas av svenska hos en svensk
+     byrå. Valet påverkar inte vilken sida som rankar, bara vilken Google
+     föreslår när inget språk passar. */
   const fallback = available.includes("sv") ? "sv" : available[0];
   if (fallback) map["x-default"] = localePath(fallback, path);
   return map;
