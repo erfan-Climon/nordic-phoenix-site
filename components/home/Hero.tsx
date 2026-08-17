@@ -61,10 +61,17 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
       <div
         data-parallax="0.14"
         /* Texten skjuts in från vänsterkanten på bred skärm. Insteget är
-           satt så att Se våra tjänster hamnar mitt på tangentbordet i bild,
-           som ligger på 30 till 49 procent vid 1512px. På mobil ligger texten
-           kvar mot kanten, där finns ingen plats att ge bort. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(64px,17vw,330px)]"
+           satt så att knapparna hamnar mitt på tangentbordet i bild, som
+           ligger på 30 till 49 procent. På mobil ligger texten kvar mot
+           kanten, där finns ingen plats att ge bort.
+
+           rtl:justify-end håller persiskan i samma vänsterhalva. I högerläst
+           text går flödet från höger, så blocket hamnar annars vid
+           högerkanten, ovanpå personen i bild i stället för på tangentbordet.
+           Uppmätt låg det på 64 till 96 procent före ändringen. Insteget är
+           detsamma på båda språken: det mäts från vänsterkanten oavsett
+           riktning. */
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(64px,17vw,330px)] rtl:justify-end"
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
