@@ -170,14 +170,20 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  Raden vänds därför visuellt på bred skärm, så att knappen
                  landar på samma ställe oavsett språk. På mobil är bilden
                  så hårt beskuren att det inte finns något tangentbord att
-                 träffa, och där behålls den vanliga ordningen.
+                 träffa. Där ligger knapparna i stället på var sin rad,
+                 och raderna vänds så att tjänsteknappen hamnar överst
+                 och WhatsApp-knappen närmast tummen. Vändningen sker på
+                 radnivå, inte på knappnivå: koden är orörd, så den
+                 primära åtgärden kommer fortfarande först för
+                 skärmläsare och tangentbord. Från 600 och uppåt ryms
+                 båda på samma rad och då gör vändningen ingenting.
 
                  Vändningen börjar först vid 1024 och inte vid 768. Under
                  den bredden får de två knapparna inte plats på samma rad
                  i vänsterläst text, och en vänd rad som bryts staplar dem
                  högerställda under en vänsterställd text. Uppmätt bröts
                  raden vid 900 men inte vid 1000. */
-              className="flex flex-wrap gap-[14px] lg:ltr:flex-row-reverse"
+              className="flex flex-wrap gap-[14px] max-md:flex-wrap-reverse lg:ltr:flex-row-reverse"
               style={{ animation: "np-rise .5s .33s var(--ease) both" }}
             >
               <a
