@@ -39,27 +39,6 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           Kvarvarande värden står i README. */}
       <div aria-hidden="true" className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
 
-      {/* Riktad slöja bakom texten, utöver det jämna filtret ovan.
-          Den ersätter de tre mörka plattorna som tidigare bar kontrasten.
-          Plattor runt text läser som gränssnitt; typografi direkt på bilden
-          gör inte det, och det är skillnaden i intryck.
-
-          Slöjan håller full styrka genom hela textkolumnen, som slutar vid
-          49 procent, och släpper först därefter. Den är helt borta vid 72
-          procent. Första försöket tonade ut redan vid 52 procent, och då låg
-          textens början i praktiken oskyddad: uppmätt klarade förraden bara
-          3,4 mot kravet 4,5. Det jämna filtret över själva
-          videon är oförändrat på 0,35: det som diskuterades tidigare var att
-          filtret över hela bilden inte fick vara ojämnt, och det är det
-          fortfarande inte. Det här lagret ligger bakom text, inte över motiv. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(0,0,0,.50) 0%, rgba(0,0,0,.46) 35%, rgba(0,0,0,.38) 48%, rgba(0,0,0,.10) 60%, transparent 72%)",
-        }}
-      />
 
       {/* Andande orange glöd uppe till höger */}
       <div
@@ -93,7 +72,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
            Uppmätt låg det på 64 till 96 procent före ändringen. Insteget är
            detsamma på båda språken: det mäts från vänsterkanten oavsett
            riktning. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pl-[clamp(64px,17vw,330px)] rtl:justify-end"
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-[clamp(120px,14.2vh,180px)] md:pl-[clamp(64px,17vw,330px)] rtl:justify-end"
       >
         <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
@@ -120,10 +99,13 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               {t.hero.w1}
             </span>
             <span
-              /* on-dark-muted är satt för mörka sektioner och blir för svag
-                 mot en ljus video. Den här tonen läser fortfarande som dämpad
-                 bredvid raden ovanför, men klarar kontrasten. */
-              className="text-[#cbc4b9]"
+              /* Dämpad men inte svag. #cbc4b9 mätte 2,7 mot videons ljusaste
+                 utsnitt, alltså under kravet 3,0 för stor text, och det var
+                 den redan innan slöjan fanns. Den här tonen läser fortfarande
+                 som en nivå under raden ovanför men klarar mätningen, och
+                 lösningen ligger i färgen i stället för i ett mörkare filter
+                 över videon. */
+              className="text-[#e6dfd4]"
               style={{ animation: "np-rise .5s .12s var(--ease) both" }}
             >
               {t.hero.w2}
@@ -145,7 +127,20 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             </span>
           </h1>
 
-          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7">
+          {/* Bottenmarginalen lyfter knapparna så att de hamnar mitt på
+              tangentbordet i bild.
+
+              Marginalen ensam räcker inte. Hero är bottenförankrad, men
+              innehållet fyller redan hela skärmhöjden, så mer luft under
+              blocket förlänger bara sektionen nedåt medan knappen står still.
+              Uppmätt: marginal 260px gav sektionen 1035px höjd och flyttade
+              knappen tre pixlar. Toppmarginalen minskas därför lika mycket
+              som bottenmarginalen växer, så att hero fortsätter rymmas inom
+              100svh och lyftet faktiskt biter.
+
+              Bara på bred skärm: på mobil är bilden beskuren så hårt att det
+              inte finns något tangentbord att träffa. */}
+          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7 md:mb-[clamp(88px,10.3vw,150px)]">
             <p
               className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise .5s .26s var(--ease) both" }}

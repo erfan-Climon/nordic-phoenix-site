@@ -11,7 +11,6 @@ import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
-  dirFor,
   localePath,
   stripLocale,
 } from "@/lib/i18n";
@@ -128,11 +127,15 @@ export function Header({ locale, t }: Props) {
 
   return (
     <header
-      /* Headern speglas med språket. Den stod tidigare låst till ltr, vilket
-         gav vänsterställd logga och högerställd meny även på persiska. För en
-         persisk läsare stod hela raden bakvänt, och det är den tydligaste
-         signalen av alla att sidan är översatt snarare än gjord för hen. */
-      dir={dirFor(locale)}
+      /* Låst till vänsterläst, alltså samma placering på alla språk:
+         logotyp till vänster, navigering till höger.
+
+         Speglingen var prövad och valdes bort. Rent typografiskt hör en
+         speglad header till en högerläst sida, men kunden vill ha ett
+         igenkännbart huvud oavsett språk, och det väger tyngre här. De
+         persiska etiketterna renderas ändå högerifrån, det sköter
+         bidi-algoritmen på teckennivå. */
+      dir="ltr"
       ref={headerRef}
       className={`fixed inset-x-0 top-0 z-[90] flex items-center justify-between gap-6 border-b px-[var(--pad-x)] py-4 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
         onHero
