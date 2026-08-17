@@ -229,7 +229,7 @@ const ALLA: Article[] = [
       "Enskild firma eller aktiebolag? Jämför ansvar, skatt, lön, utdelning och administration med konkreta exempel för svenska företagare.",
     intro:
       "Frågan om företagsform blir ofta förenklad till en enda sak: vid vilken vinst lönar sig aktiebolag? I verkligheten är svaret större än så. Rätt val beror på risk, kunder, investeringar, hur du vill ta ut pengar och hur snabbt verksamheten ska växa.",
-    image: "/assets/blogg-thumb.webp",
+    image: "/assets/blogg/enskild-firma-eller-aktiebolag-sv.webp",
     imageAlt:
       "Enskild firma eller aktiebolag: välj efter risk och vardag, inte bara skatt",
     metaTitle:
