@@ -10,6 +10,7 @@ import { Services } from "@/components/home/Services";
 import { Sweden } from "@/components/home/Sweden";
 import { WhyUs } from "@/components/home/WhyUs";
 import { getDictionary, type Locale } from "@/lib/i18n";
+import { showsPricing } from "@/lib/pricing-visible";
 import { accountingServiceJsonLd } from "@/lib/metadata";
 
 export function HomePage({ locale }: { locale: Locale }) {
@@ -28,7 +29,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Services t={t} />
       <Reviews t={t} />
       <About t={t} />
-      <Pricing t={t} />
+      {showsPricing(locale) ? <Pricing t={t} /> : null}
       <Languages t={t} />
       <Process t={t} />
       <Sweden t={t} />

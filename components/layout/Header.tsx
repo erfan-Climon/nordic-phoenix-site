@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { nextLocaleForPath } from "@/lib/locales-for-path";
+import { showsPricing } from "@/lib/pricing-visible";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
 import { phone, whatsappUrl } from "@/content/site";
@@ -116,7 +117,11 @@ export function Header({ locale, t }: Props) {
    */
   const links = [
     { href: `${home}#tjanster`, label: t.nav.services },
-    { href: `${home}#priser`, label: t.nav.pricing },
+    /* Prislänken följer sektionen. Finns inga priser på språket ska menyn
+       inte heller peka dit. */
+    ...(showsPricing(locale)
+      ? [{ href: `${home}#priser`, label: t.nav.pricing }]
+      : []),
     { href: `${home}#om`, label: t.nav.about },
     // Artiklarna finns bara på svenska, så bloggen ligger alltid på /blogg.
     { href: "/blogg", label: t.nav.blog },
