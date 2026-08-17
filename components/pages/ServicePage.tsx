@@ -6,6 +6,7 @@ import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
+import { showsPricing } from "@/lib/pricing-visible";
 
 export function ServicePage({
   service,
@@ -298,13 +299,18 @@ export function ServicePage({
               </li>
             ))}
           </ul>
-          <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
-            {s.priceLead}{" "}
-            <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
-              {s.priceLink}
-            </Link>
-            .
-          </p>
+          {/* Prisraden följer prissektionen. Persiskan har ingen sådan
+              sektion, så raden skulle både visa ett pris kunden tagit bort
+              och länka till ett ankare som inte finns på sidan. */}
+          {showsPricing(locale) ? (
+            <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
+              {s.priceLead}{" "}
+              <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
+                {s.priceLink}
+              </Link>
+              .
+            </p>
+          ) : null}
         </div>
       </section>
 

@@ -5,6 +5,7 @@ import { getLocationCopy, type LocationCopy } from "@/content/location-copy";
 import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
+import { showsPricing } from "@/lib/pricing-visible";
 
 export function LocationPage({
   location,
@@ -236,13 +237,16 @@ export function LocationPage({
               </div>
             ))}
           </div>
-          <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
-            {lp.priceLead}{" "}
-            <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
-              {lp.priceLink}
-            </Link>
-            .
-          </p>
+          {/* Se ServicePage: persiskan har ingen prissektion att länka till. */}
+          {showsPricing(locale) ? (
+            <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
+              {lp.priceLead}{" "}
+              <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
+                {lp.priceLink}
+              </Link>
+              .
+            </p>
+          ) : null}
         </div>
       </section>
 
