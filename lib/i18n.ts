@@ -93,6 +93,17 @@ export const localeFlag: Record<Locale, string> = {
 };
 
 /**
+ * Bildflagga för språk vars flagga inte finns som emoji.
+ *
+ * Persiskan visar lejon och sol, som saknar teckenkod i Unicode och därför
+ * måste vara en fil. Finns språket här används bilden i stället för emojin
+ * ovan, som då bara är en reserv.
+ */
+export const localeFlagImage: Partial<Record<Locale, string>> = {
+  fa: "/assets/flagga-lejon-och-sol.svg",
+};
+
+/**
  * Bygger en absolut sökväg för ett språk.
  * `path` anges alltid utan språkprefix, t.ex. "/" eller "/blogg".
  */

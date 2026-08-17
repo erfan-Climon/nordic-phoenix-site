@@ -7,6 +7,7 @@ import {
   type Locale,
   localeButtonLabelShort,
   localeFlag,
+  localeFlagImage,
   localeNativeName,
   localePath,
 } from "@/lib/i18n";
@@ -110,9 +111,26 @@ export function LanguageMenu({
                   : "text-text hover:bg-page hover:text-accent-ink"
               }`}
             >
-              <span aria-hidden="true" className="text-[17px] leading-none">
-                {localeFlag[l]}
-              </span>
+              {/* Bild när språket har en, annars emojin. Persiskans flagga
+                  saknar teckenkod i Unicode och måste vara en fil.
+                  Vanlig img och inte next/image: filen är 17px bred och
+                  behöver ingen storleksoptimering, och SVG kräver extra
+                  konfiguration i next/image utan att ge något tillbaka. */}
+              {localeFlagImage[l] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={localeFlagImage[l]}
+                  alt=""
+                  aria-hidden="true"
+                  width={18}
+                  height={18}
+                  className="block h-[18px] w-[18px] shrink-0 object-contain"
+                />
+              ) : (
+                <span aria-hidden="true" className="text-[17px] leading-none">
+                  {localeFlag[l]}
+                </span>
+              )}
               {localeNativeName[l]}
             </Link>
           );
