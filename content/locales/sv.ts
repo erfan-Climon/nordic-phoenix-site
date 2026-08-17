@@ -50,7 +50,6 @@ export const sv = {
        Svenska och engelska stod här tidigare men är borttagna: sajten är
        redan på de språken, och uppräkningen tog uppmärksamhet från det
        enda som faktiskt säger något nytt. */
-    langs: "حسابداری به زبان فارسی",
   },
 
   clients: {

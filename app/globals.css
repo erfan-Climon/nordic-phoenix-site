@@ -456,6 +456,28 @@ html[data-js="on"] [data-reveal][data-revealed="true"] {
   }
 }
 
+/* Scroll-signalen i hero. Linjen glider nedåt och tonar ut, tillräckligt
+   långsamt för att läsas som en inbjudan och inte som ett larm. Stoppas av
+   den generella reducerad-rörelse-regeln längre ner. */
+.np-scroll-hint {
+  transform-origin: top;
+  animation: np-scroll-hint 2.4s var(--ease) infinite;
+}
+@keyframes np-scroll-hint {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.35);
+  }
+  45% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(1) translateY(60%);
+  }
+}
+
 /* Processteget färgas permanent orange när det scrollats in (threshold .6). */
 [data-step][data-active="true"] [data-step-num] {
   color: var(--color-accent-light);

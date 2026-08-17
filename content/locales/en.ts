@@ -36,7 +36,6 @@ export const en: Dictionary = {
     cta1: "Contact us on WhatsApp",
     cta2: "See our services",
     badge: "Nordic Phoenix · Sthlm",
-    langs: "حسابداری به زبان فارسی",
   },
 
   clients: {

@@ -11,6 +11,7 @@ import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
 import {
   type Locale,
+  dirFor,
   localePath,
   stripLocale,
 } from "@/lib/i18n";
@@ -127,11 +128,11 @@ export function Header({ locale, t }: Props) {
 
   return (
     <header
-      /* Navigeringen speglas inte i RTL. Resten av sidan vänder som den ska,
-         men logotyp och knappar ska ligga kvar där de gör på svenska och
-         engelska. De persiska etiketterna renderas ändå högerifrån, det
-         sköter bidi-algoritmen på teckennivå. */
-      dir="ltr"
+      /* Headern speglas med språket. Den stod tidigare låst till ltr, vilket
+         gav vänsterställd logga och högerställd meny även på persiska. För en
+         persisk läsare stod hela raden bakvänt, och det är den tydligaste
+         signalen av alla att sidan är översatt snarare än gjord för hen. */
+      dir={dirFor(locale)}
       ref={headerRef}
       className={`fixed inset-x-0 top-0 z-[90] flex items-center justify-between gap-6 border-b px-[var(--pad-x)] py-4 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
         onHero
@@ -192,7 +193,10 @@ export function Header({ locale, t }: Props) {
           className={`flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap no-underline transition-colors duration-300 ${inkClass} ${inkHoverClass}`}
         >
           <PhoneGlyph />
-          {phone.display}
+          {/* Siffror är svaga tecken i bidi och byter ordning i högerläst
+              text: 072-008 40 00 blir 00 40 072-008. Numret låses därför
+              till vänsterläst oavsett sidans riktning. */}
+          <span dir="ltr">{phone.display}</span>
         </a>
         <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
         <Link

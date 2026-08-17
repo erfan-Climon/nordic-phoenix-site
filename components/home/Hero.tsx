@@ -39,6 +39,28 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           Kvarvarande värden står i README. */}
       <div aria-hidden="true" className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
 
+      {/* Riktad slöja bakom texten, utöver det jämna filtret ovan.
+          Den ersätter de tre mörka plattorna som tidigare bar kontrasten.
+          Plattor runt text läser som gränssnitt; typografi direkt på bilden
+          gör inte det, och det är skillnaden i intryck.
+
+          Slöjan håller full styrka genom hela textkolumnen, som slutar vid
+          49 procent, och släpper först därefter. Den är helt borta vid 72
+          procent. Första försöket tonade ut redan vid 52 procent, och då låg
+          textens början i praktiken oskyddad: uppmätt klarade förraden bara
+          3,4 mot kravet 4,5. Det jämna filtret över själva
+          videon är oförändrat på 0,35: det som diskuterades tidigare var att
+          filtret över hela bilden inte fick vara ojämnt, och det är det
+          fortfarande inte. Det här lagret ligger bakom text, inte över motiv. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(0,0,0,.50) 0%, rgba(0,0,0,.46) 35%, rgba(0,0,0,.38) 48%, rgba(0,0,0,.10) 60%, transparent 72%)",
+        }}
+      />
+
       {/* Andande orange glöd uppe till höger */}
       <div
         aria-hidden="true"
@@ -80,15 +102,18 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 är ren varumärkestext utan ett enda sökord, och H1 är sidans
                 starkaste rubriksignal. Graden spelar ingen roll för hur
                 Google läser den, bara att den står i H1. */}
-            {/* Egen platta, av samma skäl som språkraden längst ner. Uppmätt
-                över bokstävernas rutor mot videons ljusaste utsnitt gav enbart
-                skugga medianen 3,1 och 2,5 i värsta fallet, mot kravet 4,5 för
-                text under 18px. Raden ligger dessutom högt i hero, där
-                glasväggen bakom är som ljusast. */}
+            {/* Förraden satt tidigare i en mörk ruta som bar kontrasten. Nu
+                bär slöjan den i stället, och raden får vara ren typografi:
+                en kort orange linje och spärrad text. Linjen ger raden en
+                startpunkt utan att rita en låda runt den. */}
             <span
-              className="mb-[clamp(18px,2vw,26px)] w-fit rounded-button bg-[rgba(11,10,9,.55)] px-4 py-2 font-mono text-[clamp(11px,1vw,13px)] leading-[1.4] font-medium tracking-[.2em] text-on-dark uppercase backdrop-blur-[8px]"
+              className="mb-[clamp(18px,2vw,26px)] flex items-center gap-3 font-mono text-[clamp(11px,1vw,13px)] leading-[1.4] font-medium tracking-[.2em] text-on-dark uppercase [text-shadow:0_1px_3px_rgba(0,0,0,.9),0_2px_10px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise .5s var(--ease) both" }}
             >
+              <span
+                aria-hidden="true"
+                className="h-[2px] w-8 shrink-0 rounded-full bg-accent"
+              />
               {t.hero.eyebrow}
             </span>
             <span style={{ animation: "np-rise .5s .05s var(--ease) both" }}>
@@ -149,28 +174,6 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               </Link>
             </div>
 
-            {/* Språkraden. Persiskan står med sin egen skrift och hela frasen,
-                eftersom det är den formen persisktalande företagare söker på,
-                och de är kundens största målgrupp. Raden ligger i hero för att
-                startsidan är sajtens starkaste sida.
-
-                Raden hamnar 82 procent ner i hero, alltså över skrivbordet som
-                är videons ljusaste yta. Enbart skugga räcker inte där: uppmätt
-                över bokstävernas egna rutor blev medianen 8,8 men de ljusaste
-                fem procenten 2,5, alltså under AA. Raden får därför samma
-                mörka platta som etiketten nere till höger redan använder. Det
-                är en avgränsad platta bakom en etikett, inte ännu ett lager
-                över videon, och kontrasten blir densamma oavsett vilken ruta
-                som spelas.
-
-                12px i stället för 11, eftersom persisk skrift behöver något
-                mer storlek för att vara läsbar. */}
-            <p
-              className="m-0 inline-flex w-fit rounded-button bg-[rgba(11,10,9,.55)] px-4 py-2 font-mono text-[12px] tracking-[.16em] text-on-dark backdrop-blur-[8px]"
-              style={{ animation: "np-rise .5s .4s var(--ease) both" }}
-            >
-              {t.hero.langs}
-            </p>
           </div>
         </div>
 
@@ -189,12 +192,30 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         className="pointer-events-none relative z-[2] flex justify-end px-[var(--pad-x)] pr-[clamp(84px,8vw,130px)] pb-[clamp(28px,4vh,56px)] max-md:justify-start max-md:pr-[var(--pad-x)] max-md:pb-[104px]"
         style={{ animation: "np-fade 1.4s 1.1s ease both" }}
       >
-        <div className="flex items-center gap-2 rounded-button bg-[rgba(11,10,9,.55)] px-4 py-2 backdrop-blur-[8px]">
-          <span className="h-[7px] w-[7px] rounded-full bg-accent" />
-          <span className="font-mono text-[10px] font-medium tracking-[.18em] text-on-dark uppercase">
+        {/* Etiketten har tappat sin platta av samma skäl som förraden: en
+            ruta runt text läser som gränssnitt. Pricken och skuggan räcker,
+            och etiketten ligger på videons lugnaste yta. */}
+        <div className="flex items-center gap-[10px]">
+          <span
+            aria-hidden="true"
+            className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent"
+          />
+          <span className="font-mono text-[10px] font-medium tracking-[.18em] text-on-dark uppercase [text-shadow:0_1px_3px_rgba(0,0,0,.9),0_2px_10px_rgba(0,0,0,.7)]">
             {t.hero.badge}
           </span>
         </div>
+      </div>
+
+      {/* Scroll-signal. Hero fyller hela skärmen, och utan den här finns
+          ingenting som säger att sidan fortsätter. Linjen ligger centrerad
+          mot underkanten, alltså på samma plats oavsett skrivriktning, och
+          animeras bara när besökaren inte bett om mindre rörelse. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-center pb-[clamp(14px,2vh,26px)]"
+        style={{ animation: "np-fade 1.4s 1.6s ease both" }}
+      >
+        <span className="np-scroll-hint block h-[46px] w-px bg-[linear-gradient(to_bottom,transparent,rgba(242,236,224,.75))]" />
       </div>
     </section>
   );
