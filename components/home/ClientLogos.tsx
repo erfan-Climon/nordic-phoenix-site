@@ -8,9 +8,6 @@ type Bildmarke = {
   /** Filens verkliga pixelmått, inte den storlek den visas i. */
   width: number;
   height: number;
-  /** Höjd i bältet. Sätts efter proportion så att en bred ordbild och ett
-      kvadratiskt emblem tar ungefär lika stor optisk plats. */
-  visasHöjd: number;
 };
 
 type Ordmarke = {
@@ -46,34 +43,34 @@ const ord = (text: string, i: number): Ordmarke => ({
  * nyhetsremsa.
  */
 const BALTE_ETT: Marke[] = [
-  { typ: "bild", src: "/assets/client-climon.webp", alt: "Climon", width: 794, height: 195, visasHöjd: 34 },
+  { typ: "bild", src: "/assets/client-climon.webp", alt: "Climon", width: 794, height: 195 },
   ord("Anoosha market AB", 0),
-  { typ: "bild", src: "/assets/kunder/anar.webp", alt: "Anar Restaurang & Bar", width: 344, height: 260, visasHöjd: 62 },
+  { typ: "bild", src: "/assets/kunder/anar.webp", alt: "Anar Restaurang & Bar", width: 344, height: 260 },
   ord("Danoma AB", 1),
-  { typ: "bild", src: "/assets/kunder/avfallshjalp.webp", alt: "Avfallshjälp", width: 460, height: 102, visasHöjd: 34 },
+  { typ: "bild", src: "/assets/kunder/avfallshjalp.webp", alt: "Avfallshjälp", width: 460, height: 102 },
   ord("DHS Bygg & Måleri AB", 2),
-  { typ: "bild", src: "/assets/kunder/clc-barbershop.webp", alt: "CLC Barbershop AB", width: 287, height: 260, visasHöjd: 66 },
+  { typ: "bild", src: "/assets/kunder/clc-barbershop.webp", alt: "CLC Barbershop AB", width: 287, height: 260 },
   ord("Ella pita gyros AB", 3),
-  { typ: "bild", src: "/assets/kunder/espad-gold.webp", alt: "Espad Gold AB", width: 460, height: 63, visasHöjd: 30 },
+  { typ: "bild", src: "/assets/kunder/espad-gold.webp", alt: "Espad Gold AB", width: 460, height: 63 },
   ord("ELMA mat AB", 0),
-  { typ: "bild", src: "/assets/kunder/foh-medicin-fotvard.webp", alt: "FOH Medicin Fotvård", width: 460, height: 230, visasHöjd: 50 },
+  { typ: "bild", src: "/assets/kunder/foh-medicin-fotvard.webp", alt: "FOH Medicin Fotvård", width: 460, height: 230 },
   ord("Glans Detailing AB", 1),
-  { typ: "bild", src: "/assets/kunder/goambient.webp", alt: "GoAmbient AB", width: 460, height: 86, visasHöjd: 30 },
+  { typ: "bild", src: "/assets/kunder/goambient.webp", alt: "GoAmbient AB", width: 460, height: 86 },
   ord("Gothia kylteknik AB", 2),
 ];
 
 const BALTE_TVA: Marke[] = [
-  { typ: "bild", src: "/assets/kunder/heracademy.webp", alt: "HerAcademy AB", width: 345, height: 260, visasHöjd: 62 },
+  { typ: "bild", src: "/assets/kunder/heracademy.webp", alt: "HerAcademy AB", width: 345, height: 260 },
   ord("Leo Taxi AB", 3),
-  { typ: "bild", src: "/assets/kunder/pbl.webp", alt: "PBL", width: 460, height: 195, visasHöjd: 42 },
+  { typ: "bild", src: "/assets/kunder/pbl.webp", alt: "PBL", width: 460, height: 195 },
   ord("LumiCab AB", 0),
-  { typ: "bild", src: "/assets/kunder/smart-notes.webp", alt: "Smart Notes", width: 376, height: 260, visasHöjd: 58 },
+  { typ: "bild", src: "/assets/kunder/smart-notes.webp", alt: "Smart Notes", width: 376, height: 260 },
   ord("Motor 360 AB", 1),
-  { typ: "bild", src: "/assets/kunder/vallentuna-grossen.webp", alt: "Vallentuna Grossen", width: 460, height: 243, visasHöjd: 52 },
+  { typ: "bild", src: "/assets/kunder/vallentuna-grossen.webp", alt: "Vallentuna Grossen", width: 460, height: 243 },
   ord("Optimal Bilglas i Stockholm AB", 2),
-  { typ: "bild", src: "/assets/kunder/ari-skincare.webp", alt: "ARI Skincare", width: 458, height: 260, visasHöjd: 52 },
+  { typ: "bild", src: "/assets/kunder/ari-skincare.webp", alt: "ARI Skincare", width: 458, height: 260 },
   ord("Precept Sweden AB", 3),
-  { typ: "bild", src: "/assets/client-tehr.webp", alt: "Tehr Tattoo", width: 360, height: 364, visasHöjd: 64 },
+  { typ: "bild", src: "/assets/client-tehr.webp", alt: "Tehr Tattoo", width: 360, height: 364 },
   ord("Shik Möbler AB", 0),
   ord("Svea Kompetens AB", 1),
 ];
@@ -88,6 +85,17 @@ const BALTE_TVA: Marke[] = [
    dem utan att de mörka märkena blir tunga. */
 const MARK_STYLE =
   "flex-none opacity-90 mix-blend-multiply [filter:grayscale(1)_contrast(1.12)_brightness(.9)]";
+
+/**
+ * Samma ruta åt varje logotyp, med object-contain inuti.
+ *
+ * Höjd per logotyp gav ojämn bredd: ett kvadratiskt emblem och en åtta
+ * gånger bredare ordbild kan inte båda vara 50 px höga utan att den ena
+ * blir tre gånger så bred som den andra. Med en gemensam ruta tar alla
+ * exakt lika stor plats. Breda märken möter bredden och blir lägre, höga
+ * möter höjden och blir smalare, vilket är hur en logotypvägg brukar se ut.
+ */
+const RUTA = "h-[clamp(40px,4.4vw,54px)] w-[clamp(116px,13vw,164px)] object-contain";
 
 function Balte({
   marken,
@@ -119,10 +127,9 @@ function Balte({
                inte konkurrerar med heron. */
             loading="eager"
             fetchPriority="low"
-            className={`${MARK_STYLE} block`}
             /* Båda måtten anges i CSS. Sätts bara det ena varnar next/image,
                eftersom proportionen då kan glida isär från attributen. */
-            style={{ height: `${m.visasHöjd}px`, width: "auto" }}
+            className={`${MARK_STYLE} ${RUTA} block`}
           />
         ) : (
           <span
