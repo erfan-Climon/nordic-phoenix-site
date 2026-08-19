@@ -86,15 +86,23 @@ export function Sweden({ t }: { t: Dictionary }) {
       <div className="flex flex-col gap-[clamp(10px,1.5vw,20px)]">
         <div
           data-marquee
-          className="flex w-max"
-          style={{ animation: "np-marquee 48s linear infinite" }}
+          className="np-belt flex w-max"
+          style={{
+            animationDuration: "48s",
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+          }}
         >
           {renderRow(row1, 3, "cool")}
         </div>
         <div
           data-marquee
-          className="flex w-max"
-          style={{ animation: "np-marquee-rev 56s linear infinite" }}
+          className="np-belt-rev flex w-max"
+          style={{
+            animationDuration: "56s",
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+          }}
         >
           {renderRow(row2, 4, "warm")}
         </div>

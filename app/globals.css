@@ -329,6 +329,42 @@
     transform: translateX(0);
   }
 }
+/* Högerläst text vänder bältets utgångsläge. Innehållet i en flexrad med
+   `w-max` börjar då vid högerkanten och växer åt vänster, så en
+   förflyttning till -50 % drar bort det från fönstret och lämnar en glipa
+   som växer varv för varv. Uppmätt på persiska startsidan låg glipan på
+   230 px efter någon sekund och fortsatte utåt. Samma väg, motsatt tecken. */
+@keyframes np-marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+@keyframes np-marquee-rtl-rev {
+  from {
+    transform: translateX(50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Bältena sätter bara riktningen här. Varaktigheten står kvar i
+   komponenten, eftersom den skiljer sig mellan bältena. */
+.np-belt {
+  animation-name: np-marquee;
+}
+.np-belt-rev {
+  animation-name: np-marquee-rev;
+}
+[dir="rtl"] .np-belt {
+  animation-name: np-marquee-rtl;
+}
+[dir="rtl"] .np-belt-rev {
+  animation-name: np-marquee-rtl-rev;
+}
 @keyframes np-breathe {
   0%,
   100% {
