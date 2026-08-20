@@ -144,7 +144,7 @@ export const servicesEn: Record<string, ServiceCopy> = {
     shortName: "Payroll and VAT",
     metaTitle: "Payroll, VAT & tax returns | Payroll administration and VAT reporting",
     metaDescription:
-      "Payroll administration, VAT reporting, employer declarations and income tax returns for limited companies and sole traders. Right amounts, filed on time, at a fixed price.",
+      "Payroll, VAT reporting, employer declarations and income tax returns for limited companies and sole traders. Right amounts, filed on time.",
     h1Lead: "Payroll, VAT and",
     h1Accent: "tax returns.",
     intro:
@@ -257,7 +257,7 @@ export const servicesEn: Record<string, ServiceCopy> = {
     shortName: "Annual accounts",
     metaTitle: "Annual accounts & annual reports | Preparation, corrections and reviews",
     metaDescription:
-      "We prepare annual accounts and annual reports under K2 or K3, handle requests for correction from Bolagsverket and request reviews when tax has been assessed incorrectly.",
+      "Annual accounts and annual reports under K2 or K3, corrections to Bolagsverket and reviews when tax has been assessed incorrectly.",
     h1Lead: "Annual accounts and",
     h1Accent: "annual reports.",
     intro:
@@ -368,7 +368,7 @@ export const servicesEn: Record<string, ServiceCopy> = {
   "foretagsstart-och-registreringar": {
     name: "Company formation & registrations",
     shortName: "Company formation",
-    metaTitle: "Company formation & registrations | Start a limited company or sole trader business",
+    metaTitle: "Company formation & registrations | Start a business in Sweden",
     metaDescription:
       "We help you choose the right company form, register with Bolagsverket and Skatteverket and get F-skatt, VAT and permits in place. Right from the start.",
     h1Lead: "Company formation and",
@@ -490,7 +490,7 @@ export const servicesEn: Record<string, ServiceCopy> = {
   "myndighetskontakt-och-radgivning": {
     name: "Dealing with authorities & advisory",
     shortName: "Advisory",
-    metaTitle: "Dealing with authorities & advisory | Support with Skatteverket and municipalities",
+    metaTitle: "Dealing with authorities & advisory | Skatteverket support",
     metaDescription:
       "We deal with Skatteverket, Bolagsverket and the municipality, respond to requests and advise on tax matters. In Swedish, English and Persian.",
     h1Lead: "Dealing with authorities and",

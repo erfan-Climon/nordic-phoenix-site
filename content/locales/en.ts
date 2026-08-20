@@ -3,9 +3,9 @@ import type { Dictionary } from "./sv";
 export const en: Dictionary = {
   meta: {
     title:
-      "Nordic Phoenix Accounting | Accounting, bookkeeping & advisory in Stockholm and across Sweden",
+      "Nordic Phoenix Accounting | Bookkeeping across Sweden",
     description:
-      "Nordic Phoenix Redovisningsbyrå AB is a digital accounting firm in Stockholm and Sollentuna. Bookkeeping, payroll, VAT, annual accounts, tax returns and authority contacts. In Swedish, English and Persian, across Sweden.",
+      "Digital accounting firm in Stockholm and Sollentuna. Bookkeeping, payroll, VAT, annual accounts, tax returns and authority contacts in three languages.",
   },
 
   nav: {
@@ -135,7 +135,7 @@ export const en: Dictionary = {
     call: "Call",
     indexTitle: "Our services | Bookkeeping, payroll, annual accounts and advisory",
     indexDescription:
-      "Bookkeeping, payroll and VAT, annual accounts, company formation, dealings with authorities and digitalisation. All at a fixed monthly price, digitally across Sweden.",
+      "Bookkeeping, payroll and VAT, annual accounts, company formation, authority contacts and digitalisation, at a fixed monthly price across Sweden.",
     indexH1a: "Everything your company needs.",
     indexH1b: "In one place.",
     indexIntro:
@@ -356,6 +356,8 @@ export const en: Dictionary = {
     privacy: "Privacy policy",
     seo: "Accounting firm Stockholm · Sollentuna · All of Sweden digitally",
     credit: "Designed and developed by",
+    /* Sidan finns bara på persiska. */
+    persianLanding: undefined,
   },
 
   blog: {

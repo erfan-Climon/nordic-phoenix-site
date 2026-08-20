@@ -312,7 +312,7 @@ export const locations: Location[] = [
     metaTitle:
       "Redovisningsbyrå Västerås | Bokföring för teknik- och industribolag",
     metaDescription:
-      "Digital redovisningsbyrå för företagare i Västerås. Bokföring, lön, bokslut och deklaration till fast pris. Vana vid teknikkonsulter och industriella underleverantörer.",
+      "Digital redovisningsbyrå för företagare i Västerås. Bokföring, lön, bokslut och deklaration till fast pris, vana vid teknik och industri.",
     h1Lead: "Redovisningsbyrå i",
     h1Accent: "Västerås.",
     intro:

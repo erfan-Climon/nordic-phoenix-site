@@ -111,6 +111,19 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             >
               {t.locationPage.locations}
             </Link>
+            {/* Den persiska landningssidan nåddes inte från en enda intern
+                länk. Den ligger i sitemap, men utan interna länkar får den
+                nästan ingen vikt från resten av sajten, och den är en av bara
+                två adresser som var indexerade från den gamla sajten.
+                Länktexten är sidans egen rubrik. */}
+            {t.footer.persianLanding ? (
+              <Link
+                href="/persisk-redovisningsbyra-stockholm"
+                className={linkClass}
+              >
+                {t.footer.persianLanding}
+              </Link>
+            ) : null}
             <Link
               href={localePath(locale, "/integritetspolicy")}
               className={linkClass}

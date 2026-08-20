@@ -109,7 +109,7 @@ const ALLA: Article[] = [
     image: "/assets/blogg/ekonomisk-halsokontroll-foretag-sv.webp",
     imageAlt: "Ge företaget en ekonomisk höststart på 60 minuter",
     metaTitle:
-      "Ekonomisk höststart: 60-minuterskontrollen för småföretag | Nordic Phoenix Redovisningsbyrå",
+      "Ekonomisk höststart: 60-minuterskontrollen för småföretag | Nordic Phoenix",
     metaDescription:
       "Gör en ekonomisk hälsokontroll på 60 minuter. Få kontroll över likviditet, skatter, kundfordringar och kostnader inför hösten.",
     blocks: [
@@ -232,7 +232,7 @@ const ALLA: Article[] = [
     imageAlt:
       "Enskild firma eller aktiebolag: välj efter risk och vardag, inte bara skatt",
     metaTitle:
-      "Enskild firma eller aktiebolag 2026: så väljer du rätt | Nordic Phoenix Redovisningsbyrå",
+      "Enskild firma eller aktiebolag 2026: så väljer du rätt | Nordic Phoenix",
     metaDescription:
       "Enskild firma eller aktiebolag? Jämför ansvar, skatt, lön, utdelning och administration med konkreta exempel för svenska företagare.",
     blocks: [
@@ -346,7 +346,7 @@ const ALLA: Article[] = [
     imageAlt:
       "Nya 3:12-reglerna: det här behöver ägare i fåmansbolag förstå före årsskiftet",
     metaTitle:
-      "Nya 3:12-regler 2026: utdelning och K10 förklarat | Nordic Phoenix Redovisningsbyrå",
+      "Nya 3:12-regler 2026: utdelning och K10 förklarat | Nordic Phoenix",
     metaDescription:
       "Förstå de nya 3:12-reglerna från inkomstår 2026. Vi förklarar grundbelopp, löneutrymme, sparat utdelningsutrymme och K10.",
     blocks: [
@@ -463,7 +463,7 @@ const ALLA: Article[] = [
     imageAlt:
       "Skatteplanering före årsskiftet: åtgärder som fortfarande går att påverka",
     metaTitle:
-      "Skatteplanering inför årsskiftet 2026 för enskild firma och AB | Nordic Phoenix Redovisningsbyrå",
+      "Skatteplanering inför årsskiftet 2026 för enskild firma och AB | Nordic Phoenix",
     metaDescription:
       "Planera skatt och resultat före årsskiftet. Se vad enskild firma och aktiebolag kan göra och vilka vanliga misstag du bör undvika.",
     blocks: [
@@ -585,7 +585,7 @@ const ALLA: Article[] = [
     image: "/assets/blogg-thumb.webp",
     imageAlt: "Bokslut utan panik: underlagen som sparar mest tid och pengar",
     metaTitle:
-      "Bokslut checklista 2026: förbered företaget steg för steg | Nordic Phoenix Redovisningsbyrå",
+      "Bokslut checklista 2026: förbered företaget steg för steg | Nordic Phoenix",
     metaDescription:
       "Förbered bokslutet utan stress. Här är en tydlig checklista för bank, fakturor, lager, periodiseringar, anläggningar och dokumentation.",
     blocks: [
@@ -723,7 +723,7 @@ const ALLA: Article[] = [
     imageAlt:
       "K2 och K3 efter regeländringarna: kontrollera vilket regelverk företaget får använda",
     metaTitle:
-      "K2 och K3 2026: nya regler för årsredovisning förklarade | Nordic Phoenix Redovisningsbyrå",
+      "K2 och K3 2026: nya regler för årsredovisning förklarade | Nordic Phoenix",
     metaDescription:
       "Nya K2- och K3-regler gäller för räkenskapsår som börjar efter 2025. Se vilka företag som påverkas och vad övergången kräver.",
     blocks: [
@@ -833,7 +833,7 @@ const ALLA: Article[] = [
     imageAlt:
       "Anställa första eller andra medarbetaren: räkna på hela kostnaden och sök stödet rätt",
     metaTitle:
-      "Anställa första medarbetaren 2027: kostnad, Växa-stöd och regler | Nordic Phoenix Redovisningsbyrå",
+      "Anställa första medarbetaren 2027: kostnad, Växa-stöd och regler | Nordic Phoenix",
     metaDescription:
       "Ska du anställa? Räkna på totalkostnaden, förstå Växa-stöd och de tillfälligt sänkta arbetsgivaravgifterna för unga till september 2027.",
     blocks: [
@@ -947,7 +947,7 @@ const ALLA: Article[] = [
     imageAlt:
       "Deklaration för enskild firma och aktiebolag: tre dokument som ofta blandas ihop",
     metaTitle:
-      "Deklaration för enskild firma och aktiebolag: skillnaderna | Nordic Phoenix Redovisningsbyrå",
+      "Deklaration för enskild firma och aktiebolag: skillnaderna | Nordic Phoenix",
     metaDescription:
       "Förstå skillnaden mellan NE-bilaga, Inkomstdeklaration 2 och K10. Guide för enskild firma och aktiebolag inför deklarationen.",
     blocks: [
@@ -1063,7 +1063,7 @@ const ALLA: Article[] = [
     image: "/assets/blogg-thumb.webp",
     imageAlt: "Avdrag som företagare ofta missar eller gör fel på",
     metaTitle:
-      "Avdrag för företag 2027: kostnader som ofta blir fel | Nordic Phoenix Redovisningsbyrå",
+      "Avdrag för företag 2027: kostnader som ofta blir fel | Nordic Phoenix",
     metaDescription:
       "Vilka kostnader får företaget dra av? Vi förklarar hemmakontor, telefon, bil, utbildning och representation utan vanliga missförstånd.",
     blocks: [
@@ -1172,7 +1172,7 @@ const ALLA: Article[] = [
     image: "/assets/blogg-thumb.webp",
     imageAlt: "Moms utan gissningar: fem situationer där små fel blir stora",
     metaTitle:
-      "Moms för småföretag: 25, 12 eller 6 procent och vanliga fel | Nordic Phoenix Redovisningsbyrå",
+      "Moms för småföretag: 25, 12 eller 6 procent och vanliga fel | Nordic Phoenix",
     metaDescription:
       "Lär dig när du ska använda 25, 12 eller 6 procent moms, hur momsbefrielse fungerar och vad som gäller vid EU-handel och förskott.",
     blocks: [
@@ -1289,7 +1289,7 @@ const ALLA: Article[] = [
     imageAlt:
       "Resultatet visar om du tjänar pengar. Likviditeten visar om du överlever.",
     metaTitle:
-      "Likviditetsbudget: bygg en 13-veckors prognos för företaget | Nordic Phoenix Redovisningsbyrå",
+      "Likviditetsbudget: bygg en 13-veckors prognos för företaget | Nordic Phoenix",
     metaDescription:
       "Bygg en 13-veckors likviditetsbudget och se kommande betalningsproblem i tid. Praktisk metod för småföretag med ojämna intäkter.",
     blocks: [
@@ -1414,7 +1414,7 @@ const ALLA: Article[] = [
     image: "/assets/blogg-thumb.webp",
     imageAlt: "Digital bokföring är inte samma sak som säker arkivering",
     metaTitle:
-      "Spara bokföring och kvitton: regler för digital arkivering | Nordic Phoenix Redovisningsbyrå",
+      "Spara bokföring och kvitton: regler för digital arkivering | Nordic Phoenix",
     metaDescription:
       "Så sparar du bokföring, fakturor och digitala kvitton korrekt i sju år. Få en enkel rutin för format, backup, åtkomst och ansvar.",
     blocks: [

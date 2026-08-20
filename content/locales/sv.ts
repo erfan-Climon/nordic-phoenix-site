@@ -3,9 +3,9 @@
 export const sv = {
   meta: {
     title:
-      "Nordic Phoenix Redovisningsbyrå | Redovisning, bokföring & rådgivning i Stockholm och hela Sverige",
+      "Nordic Phoenix Redovisningsbyrå | Bokföring i hela Sverige",
     description:
-      "Nordic Phoenix Redovisningsbyrå AB är en digital redovisningsbyrå i Stockholm och Sollentuna. Bokföring, lön, moms, bokslut, deklaration och myndighetskontakter. På svenska, engelska och persiska, i hela Sverige.",
+      "Digital redovisningsbyrå i Stockholm och Sollentuna. Bokföring, lön, moms, bokslut, deklaration och myndighetskontakter på svenska, engelska och persiska.",
   },
 
   nav: {
@@ -365,10 +365,12 @@ export const sv = {
     privacy: "Integritetspolicy",
     seo: "Redovisningsbyrå Stockholm · Sollentuna · Hela Sverige digitalt",
     credit: "Designad och utvecklad av",
+    /* Bara persiskan har den här sidan, så fältet är valfritt. */
+    persianLanding: undefined as string | undefined,
   },
 
   blog: {
-    metaTitle: "Blogg | Nordic Phoenix Redovisningsbyrå",
+    metaTitle: "Blogg | Nordic Phoenix",
     metaDescription:
       "Guider och insikter om bokföring, moms, Skatteverket, bolagsstart och företagsekonomi. Från Nordic Phoenix Redovisningsbyrå.",
     eyebrow: "Blogg · Guider & insikter",
@@ -388,7 +390,7 @@ export const sv = {
   },
 
   privacy: {
-    metaTitle: "Integritetspolicy | Nordic Phoenix Redovisningsbyrå",
+    metaTitle: "Integritetspolicy | Nordic Phoenix",
     metaDescription:
       "Så behandlar Nordic Phoenix Redovisningsbyrå AB personuppgifter.",
     title: "Integritetspolicy",
