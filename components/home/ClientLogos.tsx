@@ -8,6 +8,15 @@ type Bildmarke = {
   /** Filens verkliga pixelmått, inte den storlek den visas i. */
   width: number;
   height: number;
+  /**
+   * Undantag från den gemensamma rutan, som andel av den.
+   *
+   * Rutan ger alla märken lika stor plats, men inte lika stor tyngd.
+   * Ett märke som är feta versaler kant i kant fyller sin ruta helt och
+   * väger mer än ett med tunna streck och luft i sig. Här kan ett sådant
+   * dras ner. Utelämnas fältet gäller hela rutan.
+   */
+  andel?: number;
 };
 
 type Ordmarke = {
@@ -43,7 +52,7 @@ const ord = (text: string, i: number): Ordmarke => ({
  * nyhetsremsa.
  */
 const BALTE_ETT: Marke[] = [
-  { typ: "bild", src: "/assets/client-climon.webp", alt: "Climon", width: 794, height: 195 },
+  { typ: "bild", src: "/assets/client-climon.webp", alt: "Climon", width: 794, height: 195, andel: 0.78 },
   ord("Anoosha market AB", 0),
   { typ: "bild", src: "/assets/kunder/anar.webp", alt: "Anar Restaurang & Bar", width: 344, height: 260 },
   ord("Danoma AB", 1),
@@ -130,6 +139,7 @@ function Balte({
             /* Båda måtten anges i CSS. Sätts bara det ena varnar next/image,
                eftersom proportionen då kan glida isär från attributen. */
             className={`${MARK_STYLE} ${RUTA} block`}
+            style={m.andel ? { scale: String(m.andel) } : undefined}
           />
         ) : (
           <span
