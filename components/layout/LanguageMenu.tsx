@@ -6,8 +6,6 @@ import { localesForPath } from "@/lib/locales-for-path";
 import {
   type Locale,
   localeButtonLabelShort,
-  localeFlag,
-  localeFlagImage,
   localeNativeName,
   localePath,
 } from "@/lib/i18n";
@@ -93,7 +91,7 @@ export function LanguageMenu({
         id={panelId}
         /* Ligger i skrivriktningens startkant, så menyn öppnar inåt sidan
              i stället för utanför skärmen på persiska. */
-        className="absolute top-[calc(100%+6px)] z-[120] min-w-[184px] overflow-hidden rounded-card border border-[rgba(23,19,16,.12)] bg-surface py-2 shadow-[0_18px_44px_rgba(23,19,16,.18)] ltr:right-0 rtl:left-0"
+        className="absolute top-[calc(100%+6px)] z-[120] min-w-[184px] overflow-hidden rounded-none border border-[rgba(23,19,16,.12)] bg-surface py-2 shadow-[0_18px_44px_rgba(23,19,16,.18)] ltr:right-0 rtl:left-0"
       >
         {språk.map((l) => {
           const aktuellt = l === locale;
@@ -111,26 +109,6 @@ export function LanguageMenu({
                   : "text-text hover:bg-page hover:text-accent-ink"
               }`}
             >
-              {/* Bild när språket har en, annars emojin. Persiskans flagga
-                  saknar teckenkod i Unicode och måste vara en fil.
-                  Vanlig img och inte next/image: filen är 17px bred och
-                  behöver ingen storleksoptimering, och SVG kräver extra
-                  konfiguration i next/image utan att ge något tillbaka. */}
-              {localeFlagImage[l] ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={localeFlagImage[l]}
-                  alt=""
-                  aria-hidden="true"
-                  width={18}
-                  height={18}
-                  className="block h-[18px] w-[18px] shrink-0 object-contain"
-                />
-              ) : (
-                <span aria-hidden="true" className="text-[17px] leading-none">
-                  {localeFlag[l]}
-                </span>
-              )}
               {localeNativeName[l]}
             </Link>
           );

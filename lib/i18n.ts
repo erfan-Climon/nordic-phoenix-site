@@ -78,32 +78,6 @@ export const localeNativeName: Record<Locale, string> = {
 };
 
 /**
- * Flagga per språk.
- *
- * Flaggor står för länder och inte för språk, vilket är en känd svaghet.
- * Den syns tydligast på persiskan: en stor del av den iranska diasporan i
- * Sverige lämnade av politiska skäl, och det är samma grupp som är kundens
- * viktigaste målgrupp. Vill kunden hellre visa persiskan utan flagga är det
- * den här raden som ändras.
- */
-export const localeFlag: Record<Locale, string> = {
-  sv: "🇸🇪",
-  en: "🇬🇧",
-  fa: "🇮🇷",
-};
-
-/**
- * Bildflagga för språk vars flagga inte finns som emoji.
- *
- * Persiskan visar lejon och sol, som saknar teckenkod i Unicode och därför
- * måste vara en fil. Finns språket här används bilden i stället för emojin
- * ovan, som då bara är en reserv.
- */
-export const localeFlagImage: Partial<Record<Locale, string>> = {
-  fa: "/assets/flagga-lejon-och-sol.svg",
-};
-
-/**
  * Bygger en absolut sökväg för ett språk.
  * `path` anges alltid utan språkprefix, t.ex. "/" eller "/blogg".
  */

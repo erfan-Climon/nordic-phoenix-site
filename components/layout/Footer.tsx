@@ -114,7 +114,13 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
         </div>
 
         <div className="flex flex-wrap justify-between gap-3 border-t border-[rgba(242,236,224,.06)] py-6 font-mono text-[11px] tracking-[.08em] text-on-dark-faint">
-          <span>
+          {/* Hela raden tvingas vänster-till-höger. Den består av
+              copyrighttecken, ett årsintervall och ett latinskt firmanamn,
+              alltså inget som ska vända med skrivriktningen. I persiskan
+              vände bidi-algoritmen både ordningen och intervallet, så raden
+              lästes "Nordic Phoenix Redovisningsbyrå AB ©2026–2015".
+              Siffror är svaga tecken och tar riktning från omgivningen. */}
+          <span dir="ltr">
             © {company.foundedDisplay} {company.legalName}
           </span>
           <span>{t.footer.seo}</span>
