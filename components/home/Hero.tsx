@@ -81,7 +81,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             en bit till vänster om handen i bild även efter att raden
             vänts. Insteget skjuter in den över tangentbordet.
             Bara från 1024 och uppåt, av samma skäl som vändningen. */}
-        <div className="min-w-0 max-w-[min(640px,58%)] max-md:max-w-full lg:ltr:ml-20">
+        <div className="min-w-0 max-w-[min(640px,58%)] max-md:w-full max-md:max-w-full lg:ltr:ml-20">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
             className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
             {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
@@ -170,20 +170,25 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  Raden vänds därför visuellt på bred skärm, så att knappen
                  landar på samma ställe oavsett språk. På mobil är bilden
                  så hårt beskuren att det inte finns något tangentbord att
-                 träffa. Där ligger knapparna i stället på var sin rad,
-                 och raderna vänds så att tjänsteknappen hamnar överst
-                 och WhatsApp-knappen närmast tummen. Vändningen sker på
-                 radnivå, inte på knappnivå: koden är orörd, så den
-                 primära åtgärden kommer fortfarande först för
-                 skärmläsare och tangentbord. Från 600 och uppåt ryms
-                 båda på samma rad och då gör vändningen ingenting.
+                 träffa med en knapp i halva bredden.
+
+                 Under 768 blir raden en kolumn i omvänd ordning. Knapparna
+                 sträcks då till hela skärmbredden, vilket både gör dem
+                 lättare att träffa med tummen och låter WhatsApp-knappen
+                 täcka tangentbordet i bild i stället för att sluta mitt
+                 över det. Omvänd ordning för att tjänsteknappen ska ligga
+                 överst och WhatsApp-knappen närmast tummen.
+
+                 Vändningen sker på behållaren, inte på knapparna: koden är
+                 orörd, så den primära åtgärden kommer fortfarande först
+                 för skärmläsare och tangentbord.
 
                  Vändningen börjar först vid 1024 och inte vid 768. Under
                  den bredden får de två knapparna inte plats på samma rad
                  i vänsterläst text, och en vänd rad som bryts staplar dem
                  högerställda under en vänsterställd text. Uppmätt bröts
                  raden vid 900 men inte vid 1000. */
-              className="flex flex-wrap gap-[14px] max-md:flex-wrap-reverse lg:ltr:flex-row-reverse"
+              className="flex flex-wrap gap-[14px] max-md:flex-col-reverse lg:ltr:flex-row-reverse"
               style={{ animation: "np-rise .5s .33s var(--ease) both" }}
             >
               <a
