@@ -514,11 +514,6 @@ html[data-js="on"] [data-reveal][data-revealed="true"] {
   }
 }
 
-/* Processteget färgas permanent orange när det scrollats in (threshold .6). */
-[data-step][data-active="true"] [data-step-num] {
-  color: var(--color-accent-light);
-}
-
 /* ==========================================================================
    Reducerad rörelse — allt dekorativt stannar, inget innehåll göms
    ========================================================================== */

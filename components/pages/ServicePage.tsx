@@ -302,7 +302,7 @@ export function ServicePage({
           {/* Prisraden följer prissektionen. Persiskan har ingen sådan
               sektion, så raden skulle både visa ett pris kunden tagit bort
               och länka till ett ankare som inte finns på sidan. */}
-          {showsPricing(locale) ? (
+          {showsPricing() ? (
             <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
               {s.priceLead}{" "}
               <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">

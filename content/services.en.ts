@@ -134,7 +134,7 @@ export const servicesEn: Record<string, ServiceCopy> = {
       {
         question: "What does ongoing bookkeeping cost?",
         answer:
-          "From SEK 1,495 per month in our Bas package. The price is driven by the volume of documents and whether payroll is included, and you get a fixed figure before we start, not a running bill.",
+          "We work with a fixed monthly price. It is driven by the volume of documents and whether payroll is included, and you get a fixed figure before we start, not a running invoice.",
       },
     ],
   },

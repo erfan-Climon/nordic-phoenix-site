@@ -2,8 +2,6 @@ import { PhoenixBird } from "@/components/layout/PhoenixBird";
 import type { Dictionary } from "@/content/locales/sv";
 import { whatsappUrl } from "@/content/site";
 
-const NUMBERS = ["/ 01", "/ 02", "/ 03"];
-
 export function Process({ t }: { t: Dictionary }) {
   return (
     <section
@@ -53,26 +51,18 @@ export function Process({ t }: { t: Dictionary }) {
             som ligger i sektionens högerkant. Bara i tvåkolumnsläget, fågeln
             är dold under nav-brytpunkten. */}
         <div className="flex flex-col nav:pe-[clamp(80px,8vw,140px)]">
-          {t.process.steps.map((step, i) => (
+          {t.process.steps.map((step) => (
             <div
               key={step.title}
               data-step
-              className="flex items-baseline gap-[clamp(20px,3vw,40px)] border-t border-[rgba(242,236,224,.14)] py-[clamp(28px,3vw,40px)] transition-[border-top-color] duration-[.8s] data-[active=true]:border-t-[rgba(255,148,36,.5)]"
+              className="border-t border-[rgba(242,236,224,.14)] py-[clamp(28px,3vw,40px)] transition-[border-top-color] duration-[.8s] data-[active=true]:border-t-[rgba(255,148,36,.5)]"
             >
-              <span
-                data-step-num
-                className="flex-none font-mono text-[clamp(15px,1.2vw,17px)] text-on-dark-dim transition-colors duration-700"
-              >
-                {NUMBERS[i]}
-              </span>
-              <div>
-                <h3 className="np-h3 mb-[10px] text-[length:var(--fs-h3)] leading-[1.3]">
-                  {step.title}
-                </h3>
-                <p className="m-0 max-w-[48ch] font-sans text-[15px] leading-[1.7] text-on-dark-muted">
-                  {step.text}
-                </p>
-              </div>
+              <h3 className="np-h3 mb-[10px] text-[length:var(--fs-h3)] leading-[1.3]">
+                {step.title}
+              </h3>
+              <p className="m-0 max-w-[48ch] font-sans text-[15px] leading-[1.7] text-on-dark-muted">
+                {step.text}
+              </p>
             </div>
           ))}
         </div>

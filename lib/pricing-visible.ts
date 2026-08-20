@@ -1,15 +1,19 @@
-import type { Locale } from "@/lib/i18n";
-
 /**
  * Språk som visar prissektionen.
  *
- * Kunden vill inte ha priser på den persiska varianten. Beslutet gäller bara
- * persiskan: svenska och engelska behåller sina paket.
+ * Kunden tog först bort priserna på persiskan och sedan på svenska och
+ * engelska också. Ingen variant visar dem alltså i dag.
  *
- * Ligger i en egen fil för att både startsidan och headerns navigering ska
- * fråga samma ställe. Annars blir det förr eller senare en meny som länkar
- * till en sektion som inte finns.
+ * Funktionen står kvar i stället för att sektionen rivs ut. Prissektionen,
+ * menylänken och prisraden på tjänste- och ortssidor frågar alla här, så
+ * det är ett ställe att ändra den dagen paketen ska tillbaka. Beloppen i
+ * ordlistorna är kvar av samma skäl; de renderas inte. Språkargumentet är
+ * borttaget eftersom beslutet inte längre beror på språk.
+ *
+ * Texter där beloppen låg inbakade i löpande mening, framför allt
+ * ortssidornas frågor och svar, är däremot omskrivna. Dem går det inte att
+ * slå på och av med en flagga.
  */
-export function showsPricing(locale: Locale): boolean {
-  return locale !== "fa";
+export function showsPricing(): boolean {
+  return false;
 }

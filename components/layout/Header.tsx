@@ -117,7 +117,7 @@ export function Header({ locale, t }: Props) {
     { href: `${home}#tjanster`, label: t.nav.services },
     /* Prislänken följer sektionen. Finns inga priser på språket ska menyn
        inte heller peka dit. */
-    ...(showsPricing(locale)
+    ...(showsPricing()
       ? [{ href: `${home}#priser`, label: t.nav.pricing }]
       : []),
     { href: `${home}#om`, label: t.nav.about },

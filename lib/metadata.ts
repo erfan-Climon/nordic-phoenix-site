@@ -134,6 +134,5 @@ export function accountingServiceJsonLd(locale: Locale) {
     areaServed: { "@type": "Country", name: "Sweden" },
     availableLanguage: ["sv", "en", "fa"],
     sameAs: [social.instagram, social.facebook, social.tiktok],
-    priceRange: "1495–4995 SEK/mån",
   };
 }

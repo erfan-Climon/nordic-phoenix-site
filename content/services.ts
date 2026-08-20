@@ -177,7 +177,7 @@ export const services: Service[] = [
       {
         question: "Vad kostar löpande bokföring?",
         answer:
-          "Från 1 495 kr i månaden i vårt Bas-paket. Priset styrs av volymen underlag och om lön ingår, och du får en fast summa innan vi börjar, inte en löpande räkning.",
+          "Vi arbetar med fast månadspris. Priset styrs av volymen underlag och om lön ingår, och du får en fast summa innan vi börjar, inte en löpande räkning.",
       },
     ],
     related: ["lon-moms-och-deklaration", "bokslut-och-arsredovisning", "digitalisering-och-struktur"],

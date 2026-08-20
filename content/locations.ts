@@ -91,7 +91,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar en redovisningsbyrå i Stockholm?",
         answer:
-          "Timpris är vanligt i Stockholm och gör kostnaden svår att förutse. Vi arbetar med fast månadspris från 1 495 kr för mindre bolag, så att du vet vad det landar på innan månaden börjar.",
+          "Timpris är vanligt i Stockholm och gör kostnaden svår att förutse. Vi arbetar med fast månadspris i stället, och lämnar ett fast belopp efter att ha tittat på ditt bolag, så att du vet vad det landar på innan månaden börjar.",
       },
       {
         question: "Jag har redan en byrå. Hur byter jag?",
@@ -101,7 +101,7 @@ export const locations: Location[] = [
       {
         question: "Kan ni hjälpa till med lön för mina anställda?",
         answer:
-          "Ja. Vi hanterar löneutbetalningar, arbetsgivardeklaration på individnivå och kontrolluppgifter. Det ingår i paketen Standard och Premium.",
+          "Ja. Vi hanterar löneutbetalningar, arbetsgivardeklaration på individnivå och kontrolluppgifter. Har du anställda ryms det i ditt fasta månadspris.",
       },
       {
         question: "Vi är ett nystartat bolag utan omsättning än. Är det för tidigt?",
@@ -170,7 +170,7 @@ export const locations: Location[] = [
       {
         question: "Vad ingår i fast månadspris?",
         answer:
-          "Löpande bokföring, momsredovisning och digital dokumenthantering ingår i alla paket. Lön, bokslut och deklaration ingår från Standard och uppåt.",
+          "Löpande bokföring, momsredovisning och digital dokumenthantering ingår alltid. Lön, bokslut och deklaration läggs till när bolaget behöver dem.",
       },
     ],
     nearby: ["jonkoping", "helsingborg", "malmo"],
@@ -229,7 +229,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar det att starta aktiebolag och få hjälp med bokföringen?",
         answer:
-          "Aktiekapitalet är 25 000 kr och Bolagsverket tar en registreringsavgift. Vår hjälp med registrering och uppstart offereras separat, därefter löper bokföringen på fast månadspris från 1 495 kr.",
+          "Aktiekapitalet är 25 000 kr och Bolagsverket tar en registreringsavgift. Vår hjälp med registrering och uppstart offereras separat, därefter löper bokföringen på fast månadspris.",
       },
       {
         question: "Måste vi träffas i Malmö?",
@@ -293,7 +293,7 @@ export const locations: Location[] = [
       {
         question: "Jag är konsult med några få fakturor i månaden. Vilket paket passar?",
         answer:
-          "Bas räcker oftast. Det täcker upp till 25 verifikat i månaden, momsredovisning och digital dokumenthantering, för 1 495 kr i månaden.",
+          "För en konsult med få verifikat i månaden räcker oftast löpande bokföring, momsredovisning och digital dokumenthantering. Vi tittar på din faktiska volym och lämnar ett fast månadspris.",
       },
       {
         question: "Behöver vi ses på plats i Uppsala?",
@@ -421,7 +421,7 @@ export const locations: Location[] = [
       {
         question: "Vi är ett åkeri med tio anställda. Vilket paket passar?",
         answer:
-          "Premium, som täcker obegränsad löpande bokföring och lön för upp till tio anställda. Har ni fler tar vi fram en offert.",
+          "Löpande bokföring utan tak på antal verifikat, och lön för upp till ett tiotal anställda, ryms i ett fast månadspris. Har ni fler tar vi fram en separat offert.",
       },
       {
         question: "Krävs det att ni finns i Örebro?",
@@ -549,7 +549,7 @@ export const locations: Location[] = [
       {
         question: "Kan ni ta hand om både bokföring och lön?",
         answer:
-          "Ja. Från paketet Standard ingår lön för upp till tre anställda, och Premium täcker upp till tio.",
+          "Ja. Lön för ett par anställda ryms i det fasta månadspriset, och för större team sätts priset efter antalet anställda.",
       },
       {
         question: "Behöver vi träffas fysiskt?",
@@ -677,7 +677,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar det?",
         answer:
-          "Fast månadspris från 1 495 kr för mindre bolag. Standard ligger på 2 995 kr och innehåller lön, bokslut och deklaration.",
+          "Vi arbetar med fast månadspris. Beloppet beror på antal verifikat, antal anställda och om du behöver lön, bokslut och deklaration. Efter en kort och kostnadsfri genomgång får du ett fast belopp.",
       },
       {
         question: "Behöver ni sitta i Norrköping?",
@@ -739,9 +739,9 @@ export const locations: Location[] = [
           "Bidraget periodiseras och tas upp som intäkt i takt med att kostnaderna uppstår. Det som avser nästa år ligger kvar som en skuld i balansräkningen.",
       },
       {
-        question: "Jag driver enskild firma vid sidan av min anställning. Räcker Bas?",
+        question: "Jag driver enskild firma vid sidan av min anställning. Passar ni för det?",
         answer:
-          "Oftast ja. Bas täcker upp till 25 verifikat i månaden och kostar 1 495 kr i månaden.",
+          "Oftast ja. För mindre verksamheter med få verifikat i månaden sköter vi löpande bokföring och periodiska rapporter till ett fast månadspris.",
       },
       {
         question: "Kan vi få rådgivning på engelska?",
@@ -779,7 +779,7 @@ export const locations: Location[] = [
       },
       {
         title: "Samma pris som i storstan",
-        text: "Fast månadspris från 1 495 kr, oavsett var i landet du sitter.",
+        text: "Fast månadspris, oavsett var i landet du sitter. Avståndet påverkar inte beloppet.",
       },
       {
         title: "En kontakt som kan ditt bolag",
@@ -800,7 +800,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar det jämfört med en lokal byrå?",
         answer:
-          "Vi arbetar med fast månadspris från 1 495 kr i stället för timdebitering. Många lokala byråer tar betalt per timme, vilket gör kostnaden svår att förutse.",
+          "Vi arbetar med fast månadspris i stället för timdebitering. Många lokala byråer tar betalt per timme, vilket gör kostnaden svår att förutse.",
       },
       {
         question: "Kan ni hjälpa mig att starta företag?",
@@ -935,7 +935,7 @@ export const locations: Location[] = [
       {
         question: "Vi är ett litet konsultbolag med två delägare. Vilket paket passar?",
         answer:
-          "Standard passar oftast. Det täcker löpande bokföring upp till 75 verifikat i månaden, lön för upp till tre anställda, bokslut och deklaration för 2 995 kr i månaden.",
+          "Oftast löpande bokföring, lön till er båda, bokslut och deklaration. Vi tittar på den faktiska volymen och samlar allt i ett fast månadspris.",
       },
       {
         question: "Måste vi ses på plats i Kista?",
@@ -1041,7 +1041,7 @@ export const locations: Location[] = [
       },
       {
         title: "Litet paket, låg tröskel",
-        text: "Från 1 495 kr i månaden. Du betalar för det som faktiskt händer i bolaget.",
+        text: "Fast månadspris. Du betalar för det som faktiskt händer i bolaget.",
       },
     ],
     faq: [
@@ -1063,7 +1063,7 @@ export const locations: Location[] = [
       {
         question: "Jag har bara några få fakturor i månaden. Är det värt en byrå?",
         answer:
-          "Ofta ja, eftersom tiden du lägger på att göra rätt är värd mer än vad Bas kostar. Tycker vi att du klarar det själv säger vi hellre det.",
+          "Ofta ja, eftersom tiden du lägger på att göra rätt är värd mer än vad månadspriset kostar. Tycker vi att du klarar det själv säger vi hellre det.",
       },
       {
         question: "Behöver vi ses?",
@@ -1132,7 +1132,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar det för ett bolag med lager och import?",
         answer:
-          "Fast månadspris från 1 495 kr. Har ni lager och flera anställda passar oftast Standard eller Premium.",
+          "Beloppet beror på antal verifikat, antal anställda och hur komplex importen är. Löpande bokföring, lön, bokslut och deklaration samlas i ett fast månadspris.",
       },
     ],
     nearby: ["sigtuna", "solna", "stockholm"],
@@ -1181,7 +1181,7 @@ export const locations: Location[] = [
       {
         question: "Vi har många timanställda. Blir lönen dyrare?",
         answer:
-          "Nej, priset utgår från antal anställda och inte från antal timmar. Premium täcker upp till tio anställda, och över det tar vi fram en offert.",
+          "Nej, priset utgår från antal anställda och inte från antal timmar. Upp till ett tiotal anställda ryms i det fasta månadspriset, och över det tar vi fram en separat offert.",
       },
       {
         question: "Måste vi föra personalliggare?",
@@ -1233,7 +1233,7 @@ export const locations: Location[] = [
       },
       {
         title: "Enkelt för enmansbolag",
-        text: "Du fotar underlagen och vi sköter resten. Fast pris från 1 495 kr i månaden.",
+        text: "Du fotar underlagen och vi sköter resten, till ett fast månadspris.",
       },
     ],
     faq: [
@@ -1250,12 +1250,12 @@ export const locations: Location[] = [
       {
         question: "Kan ni hantera lön för anställd personal i mottagningen?",
         answer:
-          "Ja. Lön, arbetsgivardeklaration och kontrolluppgifter ingår från paketet Standard.",
+          "Ja. Lön, arbetsgivardeklaration och kontrolluppgifter ryms i det fasta månadspriset.",
       },
       {
         question: "Jag är konsult med eget aktiebolag. Vilket paket passar?",
         answer:
-          "Bas räcker oftast om du har upp till 25 verifikat i månaden. Behöver du lön till dig själv och bokslut ingår det i Standard.",
+          "Har du få verifikat i månaden räcker oftast löpande bokföring och momsredovisning. Behöver du lön till dig själv och bokslut läggs de till i samma fasta månadspris.",
       },
       {
         question: "Måste jag komma in till er?",
@@ -1324,7 +1324,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar det för en frilansare utan anställda?",
         answer:
-          "Från 1 495 kr i månaden. Byråer med anställda och bokslut hamnar oftast på Standard för 2 995 kr.",
+          "En frilansare utan anställda ligger lägre. Byråer med anställda och bokslut hamnar högre. Efter en genomgång av bolaget lämnar vi ett fast belopp.",
       },
     ],
     nearby: ["vasastan", "sodermalm", "stockholm"],
@@ -1516,7 +1516,7 @@ export const locations: Location[] = [
       {
         question: "Vad kostar det för ett byggbolag med fem anställda?",
         answer:
-          "Standard täcker lön för upp till tre anställda och Premium upp till tio. Med fem anställda hamnar ni på Premium för 4 995 kr i månaden.",
+          "Med fem anställda tar lön och bokslut mer arbete i anspråk. Vi går igenom bolagets förutsättningar och lämnar ett fast månadspris som täcker det.",
       },
     ],
     nearby: ["farsta", "sodertalje", "stockholm"],
@@ -1634,7 +1634,7 @@ export const locations: Location[] = [
       {
         question: "Vi har tre anställda. Vilket paket passar?",
         answer:
-          "Standard, som täcker lön för upp till tre anställda, bokslut och deklaration för 2 995 kr i månaden.",
+          "Löpande bokföring, lön för alla tre, bokslut och deklaration, samlat i ett fast månadspris.",
       },
       {
         question: "Kan ni hantera sjuklön och karensavdrag?",

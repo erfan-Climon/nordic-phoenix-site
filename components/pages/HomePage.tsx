@@ -26,10 +26,10 @@ export function HomePage({ locale }: { locale: Locale }) {
       />
       <Hero t={t} locale={locale} />
       <ClientLogos t={t} />
-      <Services t={t} />
+      <Services t={t} locale={locale} />
       <Reviews t={t} />
       <About t={t} />
-      {showsPricing(locale) ? <Pricing t={t} /> : null}
+      {showsPricing() ? <Pricing t={t} /> : null}
       <Languages t={t} />
       <Process t={t} />
       <Sweden t={t} />

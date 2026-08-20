@@ -32,9 +32,8 @@ export type Author = {
   role: string;
   /**
    * Enbart yrkestiteln, till Person-schemat. Hålls isär från `role`, som är
-   * en visningsrad: schemat ska bära behörigheten ren, utan grundare och
-   * ägare inblandat. Auktoriserad redovisningskonsult är en svensk
-   * behörighet och skrivs likadant på alla språk.
+   * en visningsrad: schemat ska bära titeln ren, utan grundare och ägare
+   * inblandat.
    */
   jobTitle: string;
   bio: string;
@@ -210,8 +209,8 @@ const ALLA: Article[] = [
     cta: "Vill du få en tydlig månadsrapport som visar vad siffrorna betyder och vad du bör göra härnäst? Boka en ekonomisk genomgång med oss.",
     author: {
       name: "Ali Nahroudi",
-      role: "Auktoriserad redovisningskonsult · Grundare och ägare",
-      jobTitle: "Auktoriserad redovisningskonsult",
+      role: "Grundare och ägare",
+      jobTitle: "Redovisningskonsult",
       bio: "Ali grundade Nordic Phoenix med ambitionen att göra redovisning tydlig, trygg och tillgänglig för företagare i Sverige. Han arbetar dagligen med bokföring, bokslut, deklarationer och myndighetskontakter, och möter kunder på svenska, engelska och persiska.",
     },
   },

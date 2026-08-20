@@ -124,11 +124,10 @@ export const articlesFa: Record<string, ArticleCopy> = {
     cta: "می‌خواهید گزارش ماهانه‌ای روشن داشته باشید که بگوید اعداد چه معنایی دارند و قدم بعدی چیست؟ یک جلسه بررسی مالی با ما بگذارید.",
     author: {
       name: "Ali Nahroudi",
-      /* Yrkestiteln står kvar på svenska. Auktorisationen är en svensk
-         behörighet med ett exakt namn, och det är den formen persisktalande
+      role: "بنیان‌گذار و مالک",
+      /* Yrkestiteln står kvar på svenska. Det är den formen persisktalande
          företagare möter hos byråer och myndigheter. */
-      role: "Auktoriserad redovisningskonsult · بنیان‌گذار و مالک",
-      jobTitle: "Auktoriserad redovisningskonsult",
+      jobTitle: "Redovisningskonsult",
       bio: "علی Nordic Phoenix را با این هدف بنیان گذاشت که حسابداری را برای کارآفرینان در سوئد روشن، مطمئن و در دسترس کند. او هر روز با دفترداری، بستن حساب‌ها، اظهارنامه مالیاتی و تماس‌های اداری کار می‌کند و با مشتریان به سوئدی، انگلیسی و فارسی صحبت می‌کند.",
     },
   },

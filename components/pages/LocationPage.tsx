@@ -238,7 +238,7 @@ export function LocationPage({
             ))}
           </div>
           {/* Se ServicePage: persiskan har ingen prissektion att länka till. */}
-          {showsPricing(locale) ? (
+          {showsPricing() ? (
             <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
               {lp.priceLead}{" "}
               <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
