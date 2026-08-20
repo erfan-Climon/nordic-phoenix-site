@@ -2,7 +2,10 @@ import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
 import { localesForArticle, localesWithBlogIndex } from "@/content/blog-copy";
 import { locations } from "@/content/locations";
-import { localesForLocation } from "@/content/location-copy";
+import {
+  localesForLocation,
+  localesWithLocationIndex,
+} from "@/content/location-copy";
 import { services } from "@/content/services";
 import { SITE_URL } from "@/content/site";
 import { htmlLang, locales, localePath } from "@/lib/i18n";
@@ -70,14 +73,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   ];
 
-  // Ortssidorna finns bara på svenska och har inga språkalternativ.
   const orter = [
-    {
-      url: abs("/redovisningsbyra"),
+    /* Ortsöversikten finns på de språk som har någon översatt ort. Den
+       låg tidigare bara som en post på roten, alltså persiskan, medan
+       /sv/redovisningsbyra byggdes men aldrig kom med i sitemap. */
+    ...localesWithLocationIndex().map((locale) => ({
+      url: abs(localePath(locale, "/redovisningsbyra")),
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
-    },
+      alternates: {
+        languages: Object.fromEntries(
+          localesWithLocationIndex().map((alt) => [
+            htmlLang[alt],
+            abs(localePath(alt, "/redovisningsbyra")),
+          ]),
+        ),
+      },
+    })),
     /* En post per språk orten är översatt till, med alternates som listar
        exakt samma uppsättning. En URL som inte finns får inte stå här. */
     ...locations.flatMap((l) => {

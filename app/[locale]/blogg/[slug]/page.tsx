@@ -31,18 +31,20 @@ export async function generateMetadata({
   const copy = getArticleCopy(article, locale);
   if (!copy) return {};
 
+  const bas = buildMetadata({
+    locale,
+    path: `/blogg/${article.slug}`,
+    title: copy.metaTitle,
+    description: copy.metaDescription,
+    availableLocales: localesForArticle(article.slug),
+  });
+
   return {
-    ...buildMetadata({
-      locale,
-      path: `/blogg/${article.slug}`,
-      title: copy.metaTitle,
-      description: copy.metaDescription,
-      availableLocales: localesForArticle(article.slug),
-    }),
+    ...bas,
+    /* Se den persiska rutten: basens openGraph vävs in, inte över. */
     openGraph: {
+      ...bas.openGraph,
       type: "article",
-      title: copy.metaTitle,
-      description: copy.metaDescription,
       publishedTime: article.published,
       images: [{ url: articleImage(article, copy) }],
     },

@@ -28,7 +28,7 @@ export function ServiceIndexPage({ locale }: { locale: Locale }) {
           sidor om samma sak. */}
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
-          <ServiceCards t={t} locale={locale} />
+          <ServiceCards t={t} locale={locale} rubrikNivå="h2" />
         </div>
       </section>
 

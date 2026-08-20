@@ -53,8 +53,26 @@ const SKINS: Skin[] = [dark, cream, dark, cream, dark, gold];
  * MotionRuntime tonar in mini-headern via data-svc-card och data-svc-head,
  * och kör på alla sidor, så stapeln fungerar likadant på båda ställena.
  */
-export function ServiceCards({ t, locale }: { t: Dictionary; locale: Locale }) {
+export function ServiceCards({
+  t,
+  locale,
+  rubrikNivå = "h3",
+}: {
+  t: Dictionary;
+  locale: Locale;
+  /**
+   * Rubriknivå på korttiteln.
+   *
+   * På startsidan ligger stapeln under sektionens h2, så korten är h3. På
+   * tjänsteöversikten är stapeln sidans enda innehåll under h1, och då blir
+   * h3 ett hopp över en nivå. Skärmläsare läser rubriknivåerna som en
+   * innehållsförteckning, och en nivå som saknas ser ut som att något
+   * fattas.
+   */
+  rubrikNivå?: "h2" | "h3";
+}) {
   const base = localePath(locale, "/tjanster");
+  const Rubrik = rubrikNivå;
 
   return (
     <>
@@ -103,10 +121,10 @@ export function ServiceCards({ t, locale }: { t: Dictionary; locale: Locale }) {
 
             <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(24px,4vw,64px)] px-[clamp(24px,3vw,44px)] py-[clamp(24px,3.5vw,52px)]">
               <div>
-                <h3
+                <Rubrik
                   /* Ingen ch-begränsning: rubriken ska rymmas på en rad.
                      Den bryter bara när kolumnen faktiskt är för smal. */
-                  className="np-h3 text-[length:var(--fs-h3)] leading-[1.2] text-pretty"
+                  className="np-h3 m-0 text-[length:var(--fs-h3)] leading-[1.2] text-pretty"
                   style={{ color: skin.fg }}
                 >
                   {/* Adressen byggs med språkprefix. Utan det hamnade
@@ -119,7 +137,7 @@ export function ServiceCards({ t, locale }: { t: Dictionary; locale: Locale }) {
                   >
                     {group.title}
                   </Link>
-                </h3>
+                </Rubrik>
                 <p
                   className="mt-5 mb-0 font-mono text-[12px] tracking-[.14em] uppercase"
                   style={{ color: skin.accent }}

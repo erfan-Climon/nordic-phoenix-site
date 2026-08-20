@@ -5,6 +5,7 @@ import { cities } from "@/content/locations";
 import { services } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, whatsappUrl } from "@/content/site";
+import { localePath } from "@/lib/i18n";
 import { absolutUrl, buildMetadata } from "@/lib/metadata";
 
 /**
@@ -99,7 +100,7 @@ export default function Page() {
               رزرو مشاوره رایگان
             </a>
             <Link
-              href="/fa/tjanster"
+              href={localePath("fa", "/tjanster")}
               className="np-btn np-btn-outline px-[30px] py-[17px] text-[15px]"
             >
               مشاهده تمام خدمات
@@ -124,7 +125,7 @@ export default function Page() {
               return (
                 <Link
                   key={s.slug}
-                  href={`/fa/tjanster/${s.slug}`}
+                  href={`${localePath("fa", "/tjanster")}/${s.slug}`}
                   className="border-b border-l border-[var(--hairline-dark)] p-[clamp(24px,3vw,36px)] text-inherit no-underline transition-colors duration-300 hover:bg-[rgba(255,148,36,.06)]"
                 >
                   <h3 className="np-h3 mb-2 text-[length:var(--fs-h3-sm)] leading-[1.3]">
@@ -154,7 +155,7 @@ export default function Page() {
             {cities.map((c) => (
               <Link
                 key={c.slug}
-                href={`/fa/redovisningsbyra/${c.slug}`}
+                href={`${localePath("fa", "/redovisningsbyra")}/${c.slug}`}
                 className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-text no-underline uppercase transition-colors duration-300 hover:border-accent hover:text-accent-ink"
               >
                 {c.name}
