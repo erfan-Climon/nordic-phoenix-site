@@ -14,7 +14,13 @@ type Bildmarke = {
    * Rutan ger alla märken lika stor plats, men inte lika stor tyngd.
    * Ett märke som är feta versaler kant i kant fyller sin ruta helt och
    * väger mer än ett med tunna streck och luft i sig. Här kan ett sådant
-   * dras ner. Utelämnas fältet gäller hela rutan.
+   * dras ner, och ett tunt märke få gå över kanten. Utelämnas fältet
+   * gäller hela rutan.
+   *
+   * Skalningen ändrar inte layoutrutan, bara det som ritas i den, så ett
+   * värde över ett växer in i mellanrummet utan att flytta grannarna.
+   * Mellanrummet är 48 till 92 pixlar, vilket tål några få pixlars
+   * översteg åt varje håll.
    */
   andel?: number;
 };
@@ -54,7 +60,7 @@ const ord = (text: string, i: number): Ordmarke => ({
 const BALTE_ETT: Marke[] = [
   { typ: "bild", src: "/assets/client-climon.webp", alt: "Climon", width: 794, height: 195, andel: 0.78 },
   ord("Anoosha market AB", 0),
-  { typ: "bild", src: "/assets/kunder/anar.webp", alt: "Anar Restaurang & Bar", width: 344, height: 260 },
+  { typ: "bild", src: "/assets/kunder/anar.webp", alt: "Anar Restaurang & Bar", width: 344, height: 260, andel: 1.16 },
   ord("Danoma AB", 1),
   { typ: "bild", src: "/assets/kunder/avfallshjalp.webp", alt: "Avfallshjälp", width: 460, height: 102 },
   ord("DHS Bygg & Måleri AB", 2),
@@ -71,7 +77,7 @@ const BALTE_ETT: Marke[] = [
 const BALTE_TVA: Marke[] = [
   { typ: "bild", src: "/assets/kunder/heracademy.webp", alt: "HerAcademy AB", width: 345, height: 260 },
   ord("Leo Taxi AB", 3),
-  { typ: "bild", src: "/assets/kunder/pbl.webp", alt: "PBL", width: 460, height: 195 },
+  { typ: "bild", src: "/assets/kunder/pbl.webp", alt: "PBL", width: 460, height: 195, andel: 0.82 },
   ord("LumiCab AB", 0),
   { typ: "bild", src: "/assets/kunder/smart-notes.webp", alt: "Smart Notes", width: 376, height: 260 },
   ord("Motor 360 AB", 1),
@@ -156,7 +162,12 @@ function Balte({
 
   return (
     <div
-      className="overflow-hidden"
+      /* Lodrät luft i fönstret. Klippningen är till för att dölja bältet i
+         sidled, men overflow går inte att begränsa till en axel: sätts den
+         till hidden gäller den båda. Ett märke som skalats över rutan blev
+         därför kapat upptill och nedtill, uppmätt fyra pixlar på Anar.
+         Vaddering ger klippkanten den marginal som behövs. */
+      className="overflow-hidden py-[9px]"
       style={{
         maskImage:
           "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
@@ -196,7 +207,7 @@ export function ClientLogos({ t }: { t: Dictionary }) {
       {/* Olika varaktighet på bältena, inte bara olika riktning. Med samma
           tid möts samma två märken på samma ställe varje varv, och rörelsen
           läser som en enda mekanism i stället för två. */}
-      <div className="flex flex-col gap-[clamp(26px,3vw,44px)]">
+      <div className="flex flex-col gap-[clamp(10px,1.8vw,28px)]">
         <Balte marken={BALTE_ETT} sekunder={54} />
         <Balte marken={BALTE_TVA} sekunder={68} bakat />
       </div>
