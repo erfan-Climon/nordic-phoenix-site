@@ -4,6 +4,7 @@ import type { Article } from "@/content/blog";
 import { type ArticleCopy, articleImage } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
 import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
+import { absolutUrl } from "@/lib/metadata";
 
 /**
  * `article` bär strukturen som är lika på alla språk: slug, datum, bild och
@@ -36,7 +37,7 @@ export function ArticlePage({
         datePublished: article.published,
         dateModified: article.published,
         image: `${SITE_URL}${bild}`,
-        mainEntityOfPage: `${SITE_URL}${blogHref}/${article.slug}`,
+        mainEntityOfPage: absolutUrl(`${blogHref}/${article.slug}`),
         /* Person när artikeln har en skribent, annars byrån. Google
            behandlar namngivet författarskap som en styrka på innehåll om
            pengar och skatt. */

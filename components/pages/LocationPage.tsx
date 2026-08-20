@@ -2,8 +2,9 @@ import Link from "next/link";
 import { CheckMark } from "@/components/ui/icons";
 import { areasOf, getLocation, type Location } from "@/content/locations";
 import { getLocationCopy, type LocationCopy } from "@/content/location-copy";
-import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
+import { company, phone, whatsappUrl } from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
+import { absolutUrl } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { showsPricing } from "@/lib/pricing-visible";
 
@@ -19,7 +20,7 @@ export function LocationPage({
   const t = getDictionary(locale);
   const lp = t.locationPage;
   const base = localePath(locale, "/redovisningsbyra");
-  const url = `${SITE_URL}${base}/${location.slug}`;
+  const url = absolutUrl(`${base}/${location.slug}`);
 
   /**
    * Service, inte LocalBusiness. Byrån har ingen adress på orten, och att
@@ -43,7 +44,7 @@ export function LocationPage({
       name: company.legalName,
       identifier: company.orgNumber,
       telephone: phone.international,
-      url: SITE_URL,
+      url: absolutUrl("/"),
       address: {
         "@type": "PostalAddress",
         streetAddress: company.street,
@@ -71,12 +72,20 @@ export function LocationPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: lp.home, item: SITE_URL },
+      /* Startsidan på besökarens språk. Stod tidigare som roten rakt av,
+         alltså den persiska startsidan, även i brödsmulan på en svensk
+         ortssida. */
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: lp.home,
+        item: absolutUrl(localePath(locale, "/")),
+      },
       {
         "@type": "ListItem",
         position: 2,
         name: lp.locations,
-        item: `${SITE_URL}${base}`,
+        item: absolutUrl(base),
       },
       { "@type": "ListItem", position: 3, name: copy.name, item: url },
     ],

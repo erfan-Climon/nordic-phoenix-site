@@ -3,8 +3,9 @@ import { CheckMark } from "@/components/ui/icons";
 import { cities } from "@/content/locations";
 import { getService, type Service } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
-import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
+import { company, phone, whatsappUrl } from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
+import { absolutUrl } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { showsPricing } from "@/lib/pricing-visible";
 
@@ -20,7 +21,7 @@ export function ServicePage({
   /** Texten på valt språk. Faller tillbaka på svenskan om den saknas. */
   const copy = getServiceCopy(service, locale);
   const base = localePath(locale, "/tjanster");
-  const url = `${SITE_URL}${base}/${service.slug}`;
+  const url = absolutUrl(`${base}/${service.slug}`);
 
   /**
    * Service med hasOfferCatalog, där varje punkt i tjänsten blir en post.
@@ -40,7 +41,7 @@ export function ServicePage({
       name: company.legalName,
       identifier: company.orgNumber,
       telephone: phone.international,
-      url: SITE_URL,
+      url: absolutUrl("/"),
       address: {
         "@type": "PostalAddress",
         streetAddress: company.street,
@@ -84,13 +85,13 @@ export function ServicePage({
         "@type": "ListItem",
         position: 1,
         name: s.home,
-        item: `${SITE_URL}${localePath(locale, "/")}`,
+        item: absolutUrl(localePath(locale, "/")),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: s.services,
-        item: `${SITE_URL}${base}`,
+        item: absolutUrl(base),
       },
       { "@type": "ListItem", position: 3, name: copy.name, item: url },
     ],

@@ -114,7 +114,11 @@ export function Header({ locale, t }: Props) {
    * undersida, eftersom sektionerna bara finns på startsidan.
    */
   const links = [
-    { href: `${home}#tjanster`, label: t.nav.services },
+    /* Navet, inte ankaret på startsidan. Menyn ligger på varje sida och är
+       den starkaste interna länken sajten har. Pekar den på startsidan får
+       tjänsteöversikten bara sidfotens länkar, som viktas ner som
+       boilerplate, och ankartexten "Tjänster" hamnar på fel sida. */
+    { href: localePath(locale, "/tjanster"), label: t.nav.services },
     /* Prislänken följer sektionen. Finns inga priser på språket ska menyn
        inte heller peka dit. */
     ...(showsPricing()

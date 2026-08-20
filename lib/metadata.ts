@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { services } from "@/content/services";
+import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, SITE_URL, social } from "@/content/site";
 import { isPreview } from "@/lib/preview";
 import {
@@ -8,6 +10,19 @@ import {
   locales,
   localePath,
 } from "@/lib/i18n";
+
+/**
+ * Absolut adress med avslutande snedstreck.
+ *
+ * Sajten byggs med `trailingSlash: true`, så canonical och sitemap slutar
+ * med snedstreck. Schemat gjorde inte det, och pekade alltså på en adress
+ * som styr om till den kanoniska. Det försvagar kopplingen mellan
+ * företaget och sidan, vilket är precis den kopplingen schemat finns för.
+ */
+export function absolutUrl(path: string): string {
+  const rensad = path.replace(/\/+$/, "");
+  return `${SITE_URL}${rensad}/`;
+}
 
 /**
  * hreflang för de språk sidan faktiskt finns på, plus x-default.
@@ -112,7 +127,7 @@ export function accountingServiceJsonLd(locale: Locale) {
     name: company.legalName,
     alternateName: company.shortName,
     description: t.meta.description,
-    url: SITE_URL,
+    url: absolutUrl("/"),
     telephone: phone.international,
     identifier: company.orgNumber,
     vatID: `SE${company.orgNumber.replace("-", "")}01`,
@@ -134,5 +149,55 @@ export function accountingServiceJsonLd(locale: Locale) {
     areaServed: { "@type": "Country", name: "Sweden" },
     availableLanguage: ["sv", "en", "fa"],
     sameAs: [social.instagram, social.facebook, social.tiktok],
+    /* De sex tjänsterna knutna till företaget, var och en med sin egen
+       adress. Det binder ihop tjänstesidorna med byrån som enhet i stället
+       för att de ska stå som lösa sidor, och är den form Google läser när
+       den avgör vad ett företag erbjuder.
+
+       Det garanterar ingenting. Länkraderna under ett sökträff kallas
+       sitelinks och plockas fram algoritmiskt; det finns ingen uppmärkning
+       som beställer dem. Det här är förutsättningen, inte knappen. */
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: t.servicePage.services,
+      itemListElement: services.map((service) => {
+        const copy = getServiceCopy(service, locale);
+        return {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: copy.name,
+            description: copy.metaDescription,
+            url: absolutUrl(`${localePath(locale, "/tjanster")}/${service.slug}`),
+            provider: { "@type": "AccountingService", name: company.legalName },
+          },
+        };
+      }),
+    },
+  };
+}
+
+/**
+ * Sidnavigeringen som schema: de sex tjänsterna med namn och adress.
+ *
+ * Skilt från katalogen ovan med flit. Katalogen beskriver vad byrån säljer,
+ * det här beskriver hur sajten är byggd. Google använder det senare när den
+ * avgör vilka undersidor som är huvudingångar.
+ */
+export function siteNavigationJsonLd(locale: Locale) {
+  const base = localePath(locale, "/tjanster");
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: services.map((service, i) => {
+      const copy = getServiceCopy(service, locale);
+      return {
+        "@type": "SiteNavigationElement",
+        position: i + 1,
+        name: copy.name,
+        description: copy.intro.split(". ")[0] + ".",
+        url: absolutUrl(`${base}/${service.slug}`),
+      };
+    }),
   };
 }

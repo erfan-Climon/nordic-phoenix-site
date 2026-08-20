@@ -11,19 +11,22 @@ import { Sweden } from "@/components/home/Sweden";
 import { WhyUs } from "@/components/home/WhyUs";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { showsPricing } from "@/lib/pricing-visible";
-import { accountingServiceJsonLd } from "@/lib/metadata";
+import { accountingServiceJsonLd, siteNavigationJsonLd } from "@/lib/metadata";
 
 export function HomePage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(accountingServiceJsonLd(locale)),
-        }}
-      />
+      {[accountingServiceJsonLd(locale), siteNavigationJsonLd(locale)].map(
+        (schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ),
+      )}
       <Hero t={t} locale={locale} />
       <ClientLogos t={t} />
       <Services t={t} locale={locale} />

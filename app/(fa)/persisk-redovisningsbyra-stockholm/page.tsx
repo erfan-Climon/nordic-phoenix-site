@@ -4,8 +4,8 @@ import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { cities } from "@/content/locations";
 import { services } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
-import { company, phone, SITE_URL, whatsappUrl } from "@/content/site";
-import { buildMetadata } from "@/lib/metadata";
+import { company, phone, whatsappUrl } from "@/content/site";
+import { absolutUrl, buildMetadata } from "@/lib/metadata";
 
 /**
  * Den enda undersida som fanns på den gamla sajten och som rankar i dag.
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   }),
   /* Sidan finns bara i den här versionen, så inga språkalternativ. Den ligger
      dessutom på roten och inte under /fa, vilket är avsiktligt. */
-  alternates: { canonical: `${SITE_URL}${PATH}` },
+  alternates: { canonical: absolutUrl(PATH) },
 };
 
 const jsonLd = {
@@ -39,7 +39,7 @@ const jsonLd = {
   "@type": "AccountingService",
   name: company.legalName,
   identifier: company.orgNumber,
-  url: `${SITE_URL}${PATH}`,
+  url: absolutUrl(PATH),
   telephone: phone.international,
   inLanguage: "fa",
   address: {
