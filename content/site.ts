@@ -50,7 +50,7 @@ export const reviewWidget = {
 export const chatWidget = {
   loader: "https://widgets.leadconnectorhq.com/loader.js",
   resourcesUrl: "https://widgets.leadconnectorhq.com/chat-widget/loader.js",
-  widgetId: "6a802491b7fff8e529825429",
+  widgetId: "6a4f7dcc88718db6dd6ed6a5",
 } as const;
 
 export const video = {
