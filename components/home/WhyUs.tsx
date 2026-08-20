@@ -1,7 +1,5 @@
 import type { Dictionary } from "@/content/locales/sv";
 
-const NUMBERS = ["01", "02", "03", "04", "05", "06", "07", "08"];
-
 export function WhyUs({ t }: { t: Dictionary }) {
   return (
     <section className="bg-ink text-on-dark">
@@ -16,14 +14,21 @@ export function WhyUs({ t }: { t: Dictionary }) {
         {/* Borders på container (top/left) + celler (right/bottom) ger sömlösa
             1px-linjer oavsett hur många kolumner auto-fit landar på. */}
         <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-0 border-t border-l border-[var(--hairline-dark)]">
-          {t.why.reasons.map((reason, i) => (
+          {t.why.reasons.map((reason) => (
             <div
               key={reason.title}
               data-reveal
               className="border-r border-b border-[var(--hairline-dark)] p-[clamp(26px,3vw,40px)] transition-colors duration-[.35s] hover:bg-[rgba(240,103,0,.07)]"
             >
-              <span className="font-mono text-[12px] text-accent-light">
-                {NUMBERS[i]}
+              {/* Samma stjärna som i listorna på tjänstekorten. Siffrorna
+                  som satt här läste som en rangordning, vilket rutorna inte
+                  är. Dekorativ, alltså dold för skärmläsare. Leading
+                  nollställs så glyfen inte gör raden högre än den behöver. */}
+              <span
+                aria-hidden="true"
+                className="block font-mono text-[17px] leading-none text-accent-light"
+              >
+                ✦
               </span>
               <h3 className="np-h3 mt-[14px] mb-[10px] text-[length:var(--fs-h3-sm)] leading-[1.3]">
                 {reason.title}
