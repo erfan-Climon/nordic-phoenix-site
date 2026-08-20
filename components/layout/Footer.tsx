@@ -4,6 +4,7 @@ import type { Dictionary } from "@/content/locales/sv";
 import {
   agencyCredit,
   company,
+  email,
   phone,
   social,
   whatsappUrl,
@@ -47,6 +48,12 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             </span>
             <a href={phone.href} className={linkClass}>
               <PhoneNumber />
+            </a>
+            {/* Den skriftliga vägen in. Adressen skrivs ut i klartext och
+                inte som "mejla oss": den som vill skriva från sin egen
+                klient ska kunna läsa av eller kopiera den direkt. */}
+            <a href={email.href} className={linkClass}>
+              {email.display}
             </a>
           </div>
 

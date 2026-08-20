@@ -22,6 +22,18 @@ export const phone = {
   international: "+46720084000",
 } as const;
 
+/**
+ * Skriftlig väg in för den som varken vill ringa eller chatta.
+ *
+ * Sajten är en statisk export utan server, så något kontaktformulär finns
+ * inte och kan inte finnas utan en mottagare någon annanstans. Adressen är
+ * alternativet till WhatsApp och telefon, och står i sidfoten på alla sidor.
+ */
+export const email = {
+  display: "info@nordicphoenix.se",
+  href: "mailto:info@nordicphoenix.se",
+} as const;
+
 const WHATSAPP_MESSAGE =
   "Hej! Jag kommer från er hemsida och önskar gärna ta kontakt med er.";
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { services } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
-import { company, phone, SITE_URL, social } from "@/content/site";
+import { company, email, phone, SITE_URL, social } from "@/content/site";
 import { isPreview } from "@/lib/preview";
 import {
   getDictionary,
@@ -129,6 +129,7 @@ export function accountingServiceJsonLd(locale: Locale) {
     description: t.meta.description,
     url: absolutUrl("/"),
     telephone: phone.international,
+    email: email.display,
     identifier: company.orgNumber,
     vatID: `SE${company.orgNumber.replace("-", "")}01`,
     image: `${SITE_URL}/assets/phoenix-logo.png`,
