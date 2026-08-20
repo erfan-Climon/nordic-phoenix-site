@@ -31,7 +31,15 @@ export function forceMutedPlayback(el: HTMLVideoElement | null): void {
   }
 }
 
-/** Kör om uppspelningsförsöket några gånger för att täcka sen laddning. */
+/**
+ * Kör om uppspelningsförsöket några gånger för att täcka sen laddning.
+ *
+ * Utöver tidsfönstren görs ett försök vid besökarens första gest. Safari på
+ * iPhone blockerar autoplay helt i strömsparläge och i datasparläge, oavsett
+ * hur ljudlös videon är, och då hjälper ingen timer. En vidrörning räknas
+ * däremot som ett medgivande, så videon startar vid första svepet i stället
+ * för att bli stående på posterbilden.
+ */
 export function retryPlayback(
   getEl: () => HTMLVideoElement | null,
   delays: number[] = [0, 300, 1200],
@@ -39,5 +47,15 @@ export function retryPlayback(
   const timers = delays.map((delay) =>
     window.setTimeout(() => forceMutedPlayback(getEl()), delay),
   );
-  return () => timers.forEach(window.clearTimeout);
+
+  const GESTER = ["pointerdown", "touchstart", "scroll", "keydown"] as const;
+  const påGest = () => forceMutedPlayback(getEl());
+  GESTER.forEach((g) =>
+    window.addEventListener(g, påGest, { once: true, passive: true }),
+  );
+
+  return () => {
+    timers.forEach(window.clearTimeout);
+    GESTER.forEach((g) => window.removeEventListener(g, påGest));
+  };
 }

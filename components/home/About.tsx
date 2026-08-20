@@ -39,7 +39,6 @@ export function About({ t }: { t: Dictionary }) {
               src={video.about}
               webmSrc={video.aboutWebm}
               poster={video.aboutPoster}
-              controls
               playWhenVisible
               width={720}
               height={1280}

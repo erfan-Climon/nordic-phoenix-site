@@ -58,7 +58,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
               rel="noopener"
               className={linkClass}
             >
-              Instagram ↗
+              Instagram
             </a>
             <a
               href={social.facebook}
@@ -66,7 +66,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
               rel="noopener"
               className={linkClass}
             >
-              Facebook ↗
+              Facebook
             </a>
             <a
               href={social.tiktok}
@@ -74,7 +74,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
               rel="noopener"
               className={linkClass}
             >
-              TikTok ↗
+              TikTok
             </a>
           </div>
 

@@ -9,8 +9,6 @@ type Props = {
   webmSrc?: string;
   className?: string;
   style?: React.CSSProperties;
-  /** Videokontroller visas på Om-videon, inte på hero. */
-  controls?: boolean;
   /** Startar uppspelning först när elementet syns (Om-sektionen). */
   playWhenVisible?: boolean;
   poster?: string;
@@ -35,7 +33,6 @@ export function AutoVideo({
   webmSrc,
   className,
   style,
-  controls = false,
   playWhenVisible = false,
   poster,
   title,
@@ -82,7 +79,6 @@ export function AutoVideo({
       muted
       loop
       playsInline
-      controls={controls}
       width={width}
       height={height}
       preload="metadata"
