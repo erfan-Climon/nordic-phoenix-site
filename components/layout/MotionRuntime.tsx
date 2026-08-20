@@ -112,10 +112,7 @@ export function MotionRuntime() {
     );
 
     if (serviceCards.length || parallaxEls.length) {
-      let ticking = false;
-
       const apply = () => {
-        ticking = false;
         const vh = window.innerHeight;
 
         // Mini-headern tonar in när nästa kort närmar sig ovanifrån.
@@ -141,19 +138,47 @@ export function MotionRuntime() {
         });
       };
 
-      const onScroll = () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(apply);
+      /**
+       * Effekterna räknades tidigare om en gång per scrollhändelse.
+       *
+       * Det räcker på dator, där händelserna kommer tätt. På telefon kommer
+       * de i skurar, särskilt under tröghetsscroll, och mellan skurarna stod
+       * värdet stilla. Mini-headern hoppade därför fram i steg i stället för
+       * att tona in, vilket lästes som blinkningar.
+       *
+       * Nu körs en bildruteslinga som håller igång en stund efter senaste
+       * händelsen. Den täcker glappen mellan skurarna, och stannar av sig
+       * själv när scrollen lugnat sig så att inaktiva sidor inte ritar om i
+       * onödan.
+       */
+      const EFTERSLÄPNING_MS = 500;
+      let aktivTill = 0;
+      let körs = false;
+
+      const bildruta = () => {
+        apply();
+        if (Date.now() < aktivTill) {
+          requestAnimationFrame(bildruta);
+        } else {
+          körs = false;
+        }
       };
 
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
+      const väck = () => {
+        aktivTill = Date.now() + EFTERSLÄPNING_MS;
+        if (körs) return;
+        körs = true;
+        requestAnimationFrame(bildruta);
+      };
+
+      window.addEventListener("scroll", väck, { passive: true });
+      window.addEventListener("resize", väck, { passive: true });
       apply();
 
       cleanups.push(() => {
-        window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
+        aktivTill = 0;
+        window.removeEventListener("scroll", väck);
+        window.removeEventListener("resize", väck);
       });
     }
 

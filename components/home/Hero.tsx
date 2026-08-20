@@ -81,7 +81,11 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             en bit till vänster om handen i bild även efter att raden
             vänts. Insteget skjuter in den över tangentbordet.
             Bara från 1024 och uppåt, av samma skäl som vändningen. */}
-        <div className="min-w-0 max-w-[min(640px,58%)] max-md:w-full max-md:max-w-full lg:ltr:ml-20">
+        {/* Blocket är bredare från 1024 så att den större WhatsApp-knappen
+            och tjänsteknappen ryms på samma rad. Ingressen har sin egen
+            radlängdsgräns och rubriken bryter på egna rader, så det är i
+            praktiken bara knappraden som får mer plats. */}
+        <div className="min-w-0 max-w-[min(640px,58%)] max-md:w-full max-md:max-w-full lg:max-w-[min(760px,66%)] lg:ltr:ml-20">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
             className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
             {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
@@ -147,7 +151,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
               Bara på bred skärm: på mobil är bilden beskuren så hårt att det
               inte finns något tangentbord att träffa. */}
-          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(40px,5vw,72px)] flex flex-col gap-7 md:mb-[clamp(88px,10.3vw,150px)]">
+          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(10px,1.5vw,28px)] flex flex-col gap-7 md:mb-[clamp(88px,10.3vw,150px)]">
             <p
               /* Fem rader oavsett språk på bred skärm. Ingressen är olika
                  lång på svenska, engelska och persiska, och eftersom
@@ -195,7 +199,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener"
-                className="np-btn np-btn-primary px-9 py-[18px] text-[15px]"
+                className="np-btn np-btn-primary px-9 py-[18px] text-[15px] md:px-[52px] md:py-[22px] md:text-[17px]"
               >
                 {t.hero.cta1}
               </a>

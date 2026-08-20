@@ -77,10 +77,19 @@ export function ServiceCards({ t, locale }: { t: Dictionary; locale: Locale }) {
             }}
           >
             {/* Mini-headern tonas in av MotionRuntime när nästa kort närmar
-                sig. Bara titeln, inget nummer. */}
+                sig. Bara titeln, inget nummer.
+
+                Ingen CSS-övergång på opaciteten. Värdet räknas ut ur
+                scrollpositionen och skrivs varje bildruta, så en övergång
+                startar om mot ett nytt mål hela tiden. På dator märks det
+                inte, där kommer bildrutorna tätt. På telefon kommer
+                scrollhändelserna i skurar, och varje skur blev ett eget
+                litet toningssteg: det såg ut som blinkningar i stället för
+                en jämn intoning. Utan övergång följer opaciteten scrollen
+                exakt. */}
             <div
               data-svc-head
-              className="flex items-center gap-[14px] px-[clamp(24px,3vw,44px)] py-[14px] opacity-0 transition-opacity duration-[.35s]"
+              className="flex items-center gap-[14px] px-[clamp(24px,3vw,44px)] py-[14px] opacity-0"
               style={{ borderBottom: `1px solid ${skin.hairline}` }}
               aria-hidden="true"
             >
