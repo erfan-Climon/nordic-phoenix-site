@@ -4,6 +4,22 @@
 # egen kopia av hela sajten i Googles ögon.
 https://www.nordicphoenix.se/* https://nordicphoenix.se/:splat 301
 
+# Den gamla sajten var en ensidesapp: varje adress svarade 200 med exakt
+# samma HTML, och den HTML:en pekade alltid canonical på roten. Uppmätt på
+# den live sajten svarade även /finns-inte-alls-xyz med samma 4 661 byte.
+# I praktiken finns alltså bara en indexerad adress, roten, men de fyra
+# vägar den gamla appen hade egna vyer för kan ligga som inlänkar någon
+# annanstans. De pekas om till sina motsvarigheter i stället för att bli
+# 404 vid bytet.
+#
+# Bloggsidorna var svenska på den gamla sajten, vilket syns på deras
+# titlar, så de pekas om till /sv och inte till roten som numera är
+# persisk.
+/index.html                          /                                          301
+/blogg.html                          /sv/blogg/                                 301
+/enskild-firma-eller-aktiebolag      /sv/blogg/enskild-firma-eller-aktiebolag/  301
+/enskild-firma-eller-aktiebolag.html /sv/blogg/enskild-firma-eller-aktiebolag/  301
+
 # Vanliga varianter av den bevarade persiska sidan, som kan finnas som
 # inlänkar. Själva sidan ligger kvar på sin ursprungliga URL.
 /persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm 301
