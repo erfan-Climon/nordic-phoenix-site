@@ -1,8 +1,13 @@
 # Cloudflare Pages. Ordningen spelar roll, första träffen vinner.
 #
-# Den gamla sajten låg på både apex och www. Utan den här raden blir www en
-# egen kopia av hela sajten i Googles ögon.
-https://www.nordicphoenix.se/* https://nordicphoenix.se/:splat 301
+# www hanteras INTE här. Här stod tidigare en rad med fullständig adress som
+# källa, alltså https://www.nordicphoenix.se/*, och den gjorde ingenting:
+# Pages matchar bara sökvägar i den här filen, inte värdnamn. Felet syntes
+# inte förrän www kopplades som egen domän vid lanseringen, då www började
+# svara 200 med en kopia av hela sajten i stället för att peka om.
+#
+# Omdirigeringen ligger nu som en Redirect Rule på zonen i Cloudflare,
+# "Redirect from WWW to root", 301 med bevarad frågesträng.
 
 # Den gamla sajten var en ensidesapp: varje adress svarade 200 med exakt
 # samma HTML, och den HTML:en pekade alltid canonical på roten. Uppmätt på
