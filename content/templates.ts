@@ -55,31 +55,38 @@ export const mallar: Mall[] = [
      om en mall byggs om. */
   {
     sort: "egen",
-    slug: "korjournal",
-    fil: "korjournal.pdf",
+    slug: "kvitto",
+    fil: "kvitto.pdf",
     format: "PDF",
-    kb: 127,
+    kb: 74,
   },
   {
     sort: "egen",
-    slug: "kundfaktura-och-kvitto",
-    fil: "kundfaktura-och-kvitto.pdf",
+    slug: "kundfaktura",
+    fil: "kundfaktura.pdf",
     format: "PDF",
-    kb: 154,
+    kb: 71,
+  },
+  {
+    sort: "egen",
+    slug: "tidrapport",
+    fil: "tidrapport.pdf",
+    format: "PDF",
+    kb: 69,
   },
   {
     sort: "egen",
     slug: "anstallningsavtal",
     fil: "anstallningsavtal.pdf",
     format: "PDF",
-    kb: 141,
+    kb: 70,
   },
   {
     sort: "egen",
     slug: "aktiebok",
     fil: "aktiebok.pdf",
     format: "PDF",
-    kb: 137,
+    kb: 67,
   },
   {
     sort: "officiell",
@@ -110,15 +117,20 @@ type MallText = { titel: string; beskrivning: string };
  */
 const texter: Record<Locale, Record<string, MallText>> = {
   sv: {
-    korjournal: {
-      titel: "Körjournal",
+    kvitto: {
+      titel: "Kvitto att fylla i för hand",
       beskrivning:
-        "För dig som gör tjänsteresor med egen bil eller har förmånsbil. Skatteverket kräver att journalen förs löpande med mätarställning, resmål, syfte och motpart. Brister i dokumentationen kan underkänna samtliga avdrag, inte bara de resor som saknar uppgifter.",
+        "För dig som säljer utan kassaregister. Kvittot har plats för säljarens uppgifter, specifikation, momssats och kvittering. Tänk på att ett certifierat kassaregister som huvudregel krävs vid kontant- och kortförsäljning, och att mallen är till för dig som omfattas av ett undantag.",
     },
-    "kundfaktura-och-kvitto": {
-      titel: "Kundfaktura och kvitto",
+    kundfaktura: {
+      titel: "Kundfaktura",
       beskrivning:
-        "Två mallar i samma fil. Fakturan innehåller alla uppgifter som mervärdesskattelagen kräver, bland annat löpnummer, momsregistreringsnummer, beskattningsunderlag per skattesats och momsbelopp. Kvittot används vid direktbetalning.",
+        "En faktura med alla uppgifter mervärdesskattelagen kräver: löpnummer, momsregistreringsnummer, säljarens och köparens uppgifter, leveransdatum, beskattningsunderlag per skattesats och momsbelopp.",
+    },
+    tidrapport: {
+      titel: "Tidrapport",
+      beskrivning:
+        "En rad per dag i månaden med tid in, tid ut, rast, arbetade timmar och övertid. Underlag för löneberäkningen. Observera att detta inte är en personalliggare, som krävs i vissa branscher och har egna regler hos Skatteverket.",
     },
     anstallningsavtal: {
       titel: "Anställningsavtal",
@@ -142,15 +154,20 @@ const texter: Record<Locale, Record<string, MallText>> = {
     },
   },
   en: {
-    korjournal: {
-      titel: "Körjournal (mileage log)",
+    kvitto: {
+      titel: "Handwritten receipt",
       beskrivning:
-        "For business travel in your own car or in a company car. The Swedish Tax Agency requires the log to be kept continuously, with odometer readings, destination, purpose and counterparty. Gaps in the documentation can invalidate every mileage deduction, not only the trips that are missing details.",
+        "For selling without a cash register. Room for the seller's details, the items, the VAT rate and a signature. Note that a certified cash register is the general rule for cash and card sales in Sweden, and that this template is for those covered by an exemption.",
     },
-    "kundfaktura-och-kvitto": {
-      titel: "Sales invoice and receipt",
+    kundfaktura: {
+      titel: "Sales invoice",
       beskrivning:
-        "Two templates in one file. The invoice carries every detail Swedish VAT law requires, including a sequential number, the VAT registration number, the taxable amount per rate and the VAT amount. The receipt is for payment on the spot.",
+        "An invoice carrying every detail Swedish VAT law requires: a sequential number, the VAT registration number, seller and buyer details, delivery date, the taxable amount per rate and the VAT amount.",
+    },
+    tidrapport: {
+      titel: "Timesheet",
+      beskrivning:
+        "One row per day of the month with clock-in, clock-out, break, hours worked and overtime. The basis for the payroll run. Note that this is not a personalliggare, the staff ledger required in certain Swedish industries under separate rules.",
     },
     anstallningsavtal: {
       titel: "Employment contract",
@@ -174,15 +191,20 @@ const texter: Record<Locale, Record<string, MallText>> = {
     },
   },
   fa: {
-    korjournal: {
-      titel: "Körjournal (دفترچه ثبت سفرهای کاری)",
+    kvitto: {
+      titel: "رسید دستی",
       beskrivning:
-        "برای سفرهای کاری با خودروی شخصی یا خودروی شرکت. اداره مالیات سوئد الزام می‌کند که این دفترچه به‌طور مستمر با کیلومترشمار، مقصد، هدف سفر و طرف مقابل تکمیل شود. نقص در مستندسازی می‌تواند تمام کسورات را باطل کند، نه فقط سفرهایی که اطلاعاتشان ناقص است.",
+        "برای فروش بدون صندوق فروش دیجیتال. جا برای مشخصات فروشنده، شرح کالا یا خدمات، نرخ مالیات و امضا دارد. توجه کنید که در فروش نقدی و کارتی، داشتن صندوق فروش تأییدشده قاعده اصلی است و این قالب برای کسانی است که مشمول استثنا هستند.",
     },
-    "kundfaktura-och-kvitto": {
-      titel: "فاکتور فروش و رسید",
+    kundfaktura: {
+      titel: "فاکتور فروش",
       beskrivning:
-        "دو قالب در یک فایل. فاکتور تمام اطلاعاتی را دارد که قانون مالیات بر ارزش افزوده لازم می‌داند، از جمله شماره سریال، شماره ثبت مالیات بر ارزش افزوده، مبنای مالیات به تفکیک نرخ و مبلغ مالیات. رسید برای پرداخت نقدی و درجا استفاده می‌شود.",
+        "فاکتوری با تمام اطلاعاتی که قانون مالیات بر ارزش افزوده لازم می‌داند: شماره سریال، شماره ثبت مالیات بر ارزش افزوده، مشخصات فروشنده و خریدار، تاریخ تحویل، مبنای مالیات به تفکیک نرخ و مبلغ مالیات.",
+    },
+    tidrapport: {
+      titel: "گزارش ساعات کاری",
+      beskrivning:
+        "یک ردیف برای هر روز ماه با ساعت ورود، ساعت خروج، استراحت، ساعات کارکرد و اضافه‌کاری. مبنای محاسبه حقوق است. توجه کنید که این قالب personalliggare نیست؛ آن دفتر حضور کارکنان است که در برخی صنایع الزامی است و قوانین جداگانه‌ای دارد.",
     },
     anstallningsavtal: {
       titel: "قرارداد کار",

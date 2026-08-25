@@ -31,7 +31,14 @@ const FÖRETAG = {
   webb: "nordicphoenix.se",
 };
 
-const logo = fs.readFileSync("public/assets/phoenix-logo.png").toString("base64");
+/**
+ * Mallarna bär ingen logotyp. Ali ville inte att byråns märke skulle stå på
+ * dokument som kundens egna kunder och anställda får i handen, utan bara en
+ * rad om vem som tagit fram mallen. Krediteringen ligger därför i foten och
+ * sidhuvudet innehåller enbart dokumentets namn.
+ */
+const KREDIT =
+  "Denna mall är designad och framtagen av Nordic Phoenix Redovisningsbyrå";
 
 /** Delad stilmall. Måtten är i millimeter eftersom allt här ska skrivas ut. */
 const CSS = `
@@ -61,14 +68,8 @@ const CSS = `
   .liggande .sida { min-height: 184mm; }
   .kropp { flex: 1; }
 
-  header { display: flex; align-items: flex-start; justify-content: space-between;
-           border-bottom: 1.6pt solid #0a0908; padding-bottom: 2.5mm; margin-bottom: 4.5mm; }
-  .marke { display: flex; align-items: center; gap: 3mm; }
-  .marke img { width: 13mm; height: auto; }
-  .marke b { font-size: 9pt; letter-spacing: .04em; text-transform: uppercase; }
-  .marke span { display: block; font-size: 7pt; color: #6a6155; letter-spacing: .06em;
-                text-transform: uppercase; font-weight: 400; margin-top: .6mm; }
-  h1 { margin: 0; font-size: 16pt; line-height: 1.05; text-align: right; letter-spacing: -.01em; }
+  header { border-bottom: 1.6pt solid #0a0908; padding-bottom: 2.5mm; margin-bottom: 4.5mm; }
+  h1 { margin: 0; font-size: 16pt; line-height: 1.05; letter-spacing: -.01em; }
   h1 em { display: block; font-style: normal; font-size: 7.5pt; font-weight: 400;
           letter-spacing: .12em; text-transform: uppercase; color: #d66000; margin-bottom: 1.4mm; }
 
@@ -82,6 +83,9 @@ const CSS = `
        font-weight: 600; color: #3e3830; }
   /* Tomma rader ska vara skrivbara med penna, alltså höga nog. */
   td.rad { height: 7.2mm; }
+  /* Tidrapporten behöver en rad per dag i månaden och får inte plats med
+     7,2 mm. Fem millimeter räcker för en handskriven siffra. */
+  td.tat { height: 4.2mm; padding: .5mm 1.6mm; }
   td.smal { width: 22mm; }
 
   /* Fält att fylla i: etikett över en linje, samma mönster överallt. */
@@ -101,6 +105,9 @@ const CSS = `
               background: transparent; font-weight: 400; color: #3e3830; }
   .summa td { width: 32mm; height: 6.4mm; }
   .summa tr:last-child th { font-weight: 700; color: #171310; }
+  /* Summeringen ligger högerställd. Utan luft hamnar underskriftsraden på
+     nästan samma höjd till vänster och de två läses som en rad. */
+  .summa + .falt { margin-top: 5mm; }
 
   .kryss { display: flex; flex-wrap: wrap; gap: 2mm 6mm; margin-top: 1mm; }
   .kryss span { display: flex; align-items: center; gap: 1.6mm; font-size: 8.2pt; }
@@ -120,17 +127,11 @@ const CSS = `
 `;
 
 function huvud(titel, etikett) {
-  return `<header>
-    <div class="marke">
-      <img src="data:image/png;base64,${logo}" alt="">
-      <b>Nordic Phoenix<span>Redovisningsbyrå</span></b>
-    </div>
-    <h1><em>${etikett}</em>${titel}</h1>
-  </header>`;
+  return `<header><h1><em>${etikett}</em>${titel}</h1></header>`;
 }
 
 const SIDFOT = `<div class="sidfot">
-  <span>${FÖRETAG.namn} · Org.nr ${FÖRETAG.orgnr} · ${FÖRETAG.telefon} · ${FÖRETAG.epost}</span>
+  <span>${KREDIT}</span>
   <span>${FÖRETAG.webb}</span>
 </div>`;
 
@@ -165,64 +166,119 @@ function summering(rader) {
     .join("")}</table>`;
 }
 
-function tomraderTabell(kolumner, antal) {
+/**
+ * Tabell med tomma rader att fylla i.
+ *
+ * `radklass` finns för tidrapporten, som behöver en rad per dag i månaden och
+ * därför inte får plats med den vanliga radhöjden.
+ */
+function tomraderTabell(kolumner, antal, radklass = "rad") {
   const th = kolumner.map((k) => `<th${k[1] ? ` style="width:${k[1]}"` : ""}>${k[0]}</th>`).join("");
-  const rad = `<tr>${kolumner.map(() => '<td class="rad"></td>').join("")}</tr>`;
+  const rad = `<tr>${kolumner.map(() => `<td class="${radklass}"></td>`).join("")}</tr>`;
   return `<table><thead><tr>${th}</tr></thead><tbody>${rad.repeat(antal)}</tbody></table>`;
 }
 
-// ───────────────────────────────────────────────────────────── körjournal
-/* Fälten följer Skatteverkets anvisning för körjournal: mätarställning vid
-   årets början och slut, samt datum, mätarställning, resmål, syfte och
-   motpart för varje resa. */
-const körjournal = dokument(
-  [
-    sida(
-      "Körjournal",
-      "Mall · Tjänsteresor",
-      `${fält(
+// ──────────────────────────────────────────────────────────── tidrapport
+/* Tidsedel att fylla i för hand, en per anställd och månad. Det finns ingen
+   lagstadgad blankett för detta; underlaget behövs för löneberäkningen och
+   för att kunna visa hur arbetstiden är förlagd.
+
+   Detta är alltså inte en personalliggare. Den är en annan sak, krävs bara i
+   vissa branscher och har egna regler hos Skatteverket om hur och var den
+   ska föras. Blandas de ihop tror kunden att kravet är uppfyllt. */
+const tidrapport = dokument([
+  sida(
+    "Tidrapport",
+    "Mall · Arbetad tid per månad",
+    `${fält(
     [
       ["Företag", 2],
       ["Org.nr"],
-      ["Förare"],
-      ["Fordonets registreringsnummer"],
+      ["Anställd", 2],
+      ["Personnummer"],
+      ["Befattning"],
+      ["Månad"],
       ["År"],
-      ["Mätarställning vid årets början"],
-      ["Mätarställning vid årets slut"],
     ],
     "tre",
   )}
-  <h2>Resor</h2>
+  <h2>Arbetad tid</h2>
   ${tomraderTabell(
     [
-      ["Datum", "20mm"],
-      ["Mätarställning start", "24mm"],
-      ["Mätarställning slut", "24mm"],
-      ["Antal km", "18mm"],
-      ["Från och till"],
-      ["Ärende och syfte"],
-      ["Kund eller motpart"],
-      ["Signatur", "22mm"],
+      ["Datum", "18mm"],
+      ["Dag", "16mm"],
+      ["Tid in", "18mm"],
+      ["Tid ut", "18mm"],
+      ["Rast, min", "18mm"],
+      ["Arbetade timmar", "24mm"],
+      ["Varav övertid", "22mm"],
+      ["Signatur"],
     ],
-    11,
+    31,
+    "tat",
   )}
+  ${summering(["Summa arbetade timmar", "Varav övertid", "Frånvaro, timmar"])}
+  ${fält([["Anställd, underskrift och datum"], ["Arbetsgivare, underskrift och datum"]], "tva")}
   <p class="notis">
-    Körjournalen ska föras löpande och vara aktuell. <span class="lagrum">Skatteverket anger
-    att den bör innehålla mätarställning vid årets början, datum och mätarställning vid
-    resans start, vart resan gick, syfte och kund, datum och mätarställning vid resans slut
-    samt mätarställning vid årets slut.</span> Journalen sparas i minst sju år enligt
-    bokföringslagen. Brister i dokumentationen kan göra att samtliga avdrag underkänns,
-    inte bara de resor som saknar uppgifter.
+    Underlag för löneberäkningen, sparas med lönematerialet. Fyll i tid in och tid ut
+    för varje arbetad dag och dra av rasten. <span class="lagrum">Mallen är inte en
+    personalliggare. Personalliggare krävs i vissa branscher, bland annat restaurang,
+    frisör, tvätteri, bygg samt kropps- och skönhetsvård, och har egna regler hos
+    Skatteverket.</span>
   </p>`,
-    ),
-  ],
-  { liggande: true },
-);
+  ),
+]);
 
-// ─────────────────────────────────────────────────────── faktura och kvitto
-/* Obligatoriska uppgifter enligt mervärdesskattelagen 11 kap. Fakturan och
-   kvittot ligger i samma fil eftersom de hör ihop i vardagen: fakturan
-   skickas, kvittot lämnas vid direktbetalning. */
+// ────────────────────────────────────────────────────────────── kvitto
+/* Ett handskrivet kvitto för den som inte har kassaregister. Kravet på
+   certifierat kassaregister gäller vid försäljning mot kontant eller kort,
+   men det finns undantag, bland annat vid liten omsättning. Mallen är till
+   för dem som omfattas av ett undantag; den ersätter inte ett kassaregister
+   för den som är skyldig att ha ett, och notisen säger det rakt ut. */
+const kvitto = dokument([
+  sida(
+    "Kvitto",
+    "Mall · Kvitto att fylla i för hand",
+    `<h2>Säljare</h2>
+  ${fält([["Företagsnamn", 2], ["Org.nr"], ["Momsregistreringsnummer"], ["Adress"], ["Telefon"]], "tva")}
+  <h2>Köpare, fylls i vid försäljning till företag</h2>
+  ${fält([["Namn eller företagsnamn", 2], ["Org.nr eller personnummer"], ["Adress"]], "tva")}
+  <h2>Kvittouppgifter</h2>
+  ${fält([["Kvittonummer"], ["Datum"], ["Klockslag"]], "tre")}
+  <div class="kryss">
+    <span><i></i> Kontant</span>
+    <span><i></i> Kort</span>
+    <span><i></i> Swish</span>
+    <span><i></i> Faktura</span>
+  </div>
+  <h2>Specifikation</h2>
+  ${tomraderTabell(
+    [
+      ["Beskrivning av vara eller tjänst"],
+      ["Antal", "18mm"],
+      ["À-pris", "22mm"],
+      ["Momssats", "20mm"],
+      ["Belopp", "24mm"],
+    ],
+    7,
+  )}
+  ${summering(["Summa exkl. moms", "Varav moms", "Totalt betalt"])}
+  <h2>Kvittering</h2>
+  ${fält([["Ort och datum"], ["Underskrift säljare"], ["Namnförtydligande", 2]], "tva")}
+  <p class="notis">
+    Kvittot är köparens underlag för sin bokföring och ska visa säljarens namn och
+    organisationsnummer, vad som sålts, beloppet och hur mycket av det som är moms.
+    Numrera kvittona i löpande följd, skriv två exemplar och spara ditt eget i sju år.
+    <span class="lagrum">Vid försäljning mot kontant betalning eller kort krävs som
+    huvudregel ett certifierat kassaregister. Undantag finns, bland annat vid obetydlig
+    omfattning. Mallen är till för dig som omfattas av ett undantag och ersätter inte ett
+    kassaregister för dig som är skyldig att ha ett.</span>
+  </p>`,
+  ),
+]);
+
+// ────────────────────────────────────────────────────────────── faktura
+/* Obligatoriska uppgifter enligt mervärdesskattelagen 11 kap. */
 const faktura = dokument([
   sida(
     "Kundfaktura",
@@ -254,32 +310,6 @@ const faktura = dokument([
     leveransdatum, beskattningsunderlag per skattesats, tillämpad momssats och momsbeloppet.
     Är omsättningen undantagen från moms ska fakturan hänvisa till den bestämmelse som gäller,
     till exempel omvänd betalningsskyldighet. Ange också om företaget är godkänt för F-skatt.
-  </p>`,
-  ),
-  sida(
-    "Kvitto",
-    "Mall · Direktbetalning",
-    `<h2>Säljare</h2>
-  ${fält([["Företagsnamn", 2], ["Org.nr"], ["Momsregistreringsnummer"], ["Adress", 2]], "tva")}
-  <h2>Köp</h2>
-  ${fält([["Kvittonummer"], ["Datum"], ["Betalsätt"]], "tre")}
-  ${tomraderTabell(
-    [
-      ["Beskrivning av vara eller tjänst"],
-      ["Antal", "18mm"],
-      ["À-pris", "22mm"],
-      ["Momssats", "20mm"],
-      ["Belopp", "24mm"],
-    ],
-    7,
-  )}
-  ${summering(["Summa exkl. moms", "Varav moms", "Totalt betalt"])}
-  <h2>Kvittering</h2>
-  ${fält([["Ort och datum"], ["Underskrift säljare"], ["Namnförtydligande", 2]], "tva")}
-  <p class="notis">
-    Kvittot är köparens underlag för sin bokföring och ska visa säljarens namn och
-    organisationsnummer, vad som sålts, beloppet och hur mycket av det som är moms.
-    Sparas i minst sju år enligt bokföringslagen.
   </p>`,
   ),
 ]);
@@ -420,10 +450,11 @@ const anställningsavtal = dokument([
 
 // ────────────────────────────────────────────────────────────────── körning
 const mallar = [
-  ["korjournal", körjournal],
-  ["kundfaktura-och-kvitto", faktura],
-  ["aktiebok", aktiebok],
+  ["kvitto", kvitto],
+  ["kundfaktura", faktura],
+  ["tidrapport", tidrapport],
   ["anstallningsavtal", anställningsavtal],
+  ["aktiebok", aktiebok],
 ];
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "np-mallar-"));
