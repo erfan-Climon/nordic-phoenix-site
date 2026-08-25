@@ -111,6 +111,12 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             >
               {t.locationPage.locations}
             </Link>
+            {/* Mallsidan finns på alla tre språk. Den ligger i footern och
+                inte i huvudmenyn: den söks upp när man har ett ärende, den
+                är inget man browsar till. */}
+            <Link href={localePath(locale, "/mallar")} className={linkClass}>
+              {t.templates.nav}
+            </Link>
             {/* Den persiska landningssidan nåddes inte från en enda intern
                 länk. Den ligger i sitemap, men utan interna länkar får den
                 nästan ingen vikt från resten av sajten, och den är en av bara

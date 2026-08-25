@@ -422,6 +422,27 @@ export const sv = {
       },
     ],
   },
+
+  templates: {
+    metaTitle: "Mallar och blanketter för företagare | Nordic Phoenix",
+    metaDescription:
+      "Ladda ner mallar och blanketter du behöver som företagare i Sverige. Kostnadsfritt och utan registrering, från Nordic Phoenix Redovisningsbyrå.",
+    eyebrow: "Mallar · Blanketter",
+    h1a: "Dokumenten du behöver,",
+    h1b: "färdiga att fylla i.",
+    intro:
+      "Blanketter och mallar som återkommer i vardagen för dig som driver företag. Utan registrering och utan att du behöver lämna några uppgifter.",
+    download: "Ladda ner",
+    toIssuer: "Till blanketten",
+    officialBadge: "Officiell blankett",
+    publishedBy: "Utgiven av",
+    disclaimer:
+      "Mallarna är ett stöd och inte juridisk rådgivning. Officiella blanketter länkar vi till hos utgivaren i stället för att spara en kopia här, eftersom det alltid är utgivarens senaste version som gäller. Är du osäker på hur en blankett ska fyllas i, hör av dig så går vi igenom den tillsammans.",
+    ctaHeading: "Hittar du inte den mall du söker?",
+    ctaText:
+      "Hör av dig så tar vi fram den åt dig. Vi hjälper också till med att fylla i blanketterna rätt första gången.",
+    nav: "Mallar",
+  },
 };
 
 /**

@@ -413,4 +413,25 @@ export const en: Dictionary = {
       },
     ],
   },
+
+  templates: {
+    metaTitle: "Templates and forms for business owners | Nordic Phoenix",
+    metaDescription:
+      "Download the templates and official forms you need as a business owner in Sweden. Free, with no sign-up, from Nordic Phoenix Accounting.",
+    eyebrow: "Templates · Forms",
+    h1a: "The documents you need,",
+    h1b: "ready to fill in.",
+    intro:
+      "Forms and templates that keep coming up in everyday business life in Sweden. No sign-up, and without leaving any details.",
+    download: "Download",
+    toIssuer: "Go to the form",
+    officialBadge: "Official form",
+    publishedBy: "Published by",
+    disclaimer:
+      "These templates are a practical aid, not legal advice. Official forms are linked at the issuer rather than copied here, because it is always the issuer's most recent version that applies. If you are unsure how to complete a form, get in touch and we will go through it with you.",
+    ctaHeading: "Can't find the template you need?",
+    ctaText:
+      "Get in touch and we will put it together for you. We also help you fill the forms in correctly the first time.",
+    nav: "Templates",
+  },
 };

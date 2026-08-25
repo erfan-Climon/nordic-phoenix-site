@@ -21,7 +21,7 @@ const abs = (path: string) =>
   new URL(path.endsWith("/") ? path : `${path}/`, SITE_URL).toString();
 
 /** Sidor som finns på alla tre språk. */
-const TRANSLATED_PATHS = ["/", "/integritetspolicy"];
+const TRANSLATED_PATHS = ["/", "/mallar", "/integritetspolicy"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -31,7 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: abs(localePath(locale, path)),
       lastModified,
       changeFrequency: "monthly" as const,
-      priority: path === "/" ? 1 : 0.3,
+      /* Mallsidan är en innehållssida som ska hittas på egen hand, till
+         skillnad från integritetspolicyn som bara finns för att den måste. */
+      priority: path === "/" ? 1 : path === "/mallar" ? 0.7 : 0.3,
       alternates: {
         languages: Object.fromEntries(
           locales.map((alt) => [htmlLang[alt], abs(localePath(alt, path))]),

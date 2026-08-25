@@ -35,24 +35,81 @@ export const metadata: Metadata = {
   alternates: { canonical: absolutUrl(PATH) },
 };
 
+/**
+ * Vanliga frågor på persiska.
+ *
+ * Sidan rankar redan etta på "حسابداری فارسی sweden", men AI-översikten för
+ * samma sökning citerar en konkurrent och inte oss. Den översikten är byggd
+ * av utdragna fråga-svar-passager, och den här sidan hade inga. Frågorna
+ * nedan är valda efter vad översikten faktiskt lyfter fram: bolagsformerna,
+ * att man kan starta utan att bo i Sverige, F-skatt, ROT och RUT samt
+ * deklarationerna.
+ *
+ * Inga belopp och inga procentsatser. De ändras varje år, och en siffra som
+ * blivit gammal är sämre än ingen siffra alls på en sida som ska stå kvar.
+ */
+const fragor = [
+  {
+    q: "آیا برای ثبت شرکت در سوئد باید مقیم سوئد باشم؟",
+    a: "خیر. شما می‌توانید بدون اقامت در سوئد شرکت ثبت کنید. برای aktiebolag قانون تعیین می‌کند که بخشی از اعضای هیئت مدیره باید مقیم منطقه اقتصادی اروپا باشند، و اگر هیچ عضوی در سوئد ساکن نباشد شرکت باید یک گیرنده رسمی ابلاغیه در سوئد معرفی کند. در صورت لزوم می‌توان از Bolagsverket معافیت گرفت. ما این مسیر را از ابتدا تا پایان همراه شما هستیم.",
+  },
+  {
+    q: "F-skatt چیست و چرا به آن نیاز دارم؟",
+    a: "F-skatt تأییدیه‌ای از اداره مالیات است که نشان می‌دهد شما خودتان مسئول پرداخت مالیات مقدماتی و حق بیمه‌های اجتماعی خود هستید. بدون آن، مشتری شما موظف است از فاکتورتان مالیات کسر کند، به همین دلیل بیشتر شرکت‌ها فقط با پیمانکاران دارای F-skatt کار می‌کنند. ما درخواست را برای شما تنظیم و ارسال می‌کنیم.",
+  },
+  {
+    q: "تفاوت enskild firma و aktiebolag در چیست؟",
+    a: "در enskild firma شما و شرکت از نظر حقوقی یک شخص هستید و با دارایی شخصی خود مسئولیت بدهی‌ها را بر عهده دارید. ثبت آن ساده و کم‌هزینه است. aktiebolag یک شخصیت حقوقی مستقل است، سرمایه اولیه لازم دارد و مسئولیت شما محدود می‌شود، اما الزامات حسابداری و گزارش‌دهی بیشتری دارد. انتخاب درست به میزان درآمد، ریسک و برنامه شما برای رشد بستگی دارد.",
+  },
+  {
+    q: "ROT و RUT چیست و چه کسی می‌تواند از آن استفاده کند؟",
+    a: "ROT و RUT کسورات مالیاتی هستند که برای بخش دستمزد کار در خانه اعمال می‌شوند، ROT برای بازسازی و تعمیرات و RUT برای خدمات خانگی مانند نظافت. مشتری خصوصی کسر را دریافت می‌کند و شرکت مبلغ باقی‌مانده را از اداره مالیات درخواست می‌کند. اگر کسب‌وکار شما در ساختمان، نظافت یا خدمات خانگی فعال است، ما این درخواست‌ها را برایتان مدیریت می‌کنیم.",
+  },
+  {
+    q: "اظهارنامه‌ها را چه زمانی باید ارسال کنم؟",
+    a: "اظهارنامه مالیات بر ارزش افزوده بسته به گردش مالی شرکت ماهانه، فصلی یا سالانه ارسال می‌شود. اظهارنامه کارفرما در صورت داشتن کارمند هر ماه ارسال می‌شود. اظهارنامه درآمد یک بار در سال و بر اساس پایان سال مالی شرکت تنظیم می‌گردد. ما مهلت‌ها را پیگیری می‌کنیم تا جریمه تأخیر پیش نیاید.",
+  },
+  {
+    q: "آیا می‌توانم همه کارها را از راه دور انجام دهم؟",
+    a: "بله. حسابداری ما کاملاً دیجیتال است و شما فاکتورها و رسیدها را با عکس یا فایل ارسال می‌کنید. ما در استکهلم مستقر هستیم و به شرکت‌ها در سراسر سوئد خدمات می‌دهیم، و جلسات به زبان فارسی از طریق تلفن یا ویدیو برگزار می‌شود.",
+  },
+];
+
+/* AccountingService och FAQPage i samma graf. Två separata script-taggar
+   fungerar också, men en graf gör kopplingen mellan företaget och frågorna
+   explicit i stället för att lämna den åt Google att gissa. */
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "AccountingService",
-  name: company.legalName,
-  identifier: company.orgNumber,
-  url: absolutUrl(PATH),
-  telephone: phone.international,
-  inLanguage: "fa",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: company.street,
-    postalCode: company.postalCode,
-    addressLocality: company.city,
-    addressRegion: company.region,
-    addressCountry: company.country,
-  },
-  availableLanguage: ["fa", "sv", "en"],
-  areaServed: { "@type": "Country", name: "Sverige" },
+  "@graph": [
+    {
+      "@type": "AccountingService",
+      name: company.legalName,
+      identifier: company.orgNumber,
+      url: absolutUrl(PATH),
+      telephone: phone.international,
+      inLanguage: "fa",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: company.street,
+        postalCode: company.postalCode,
+        addressLocality: company.city,
+        addressRegion: company.region,
+        addressCountry: company.country,
+      },
+      availableLanguage: ["fa", "sv", "en"],
+      areaServed: { "@type": "Country", name: "Sverige" },
+    },
+    {
+      "@type": "FAQPage",
+      inLanguage: "fa",
+      url: absolutUrl(PATH),
+      mainEntity: fragor.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
 };
 
 export default function Page() {
@@ -84,10 +141,21 @@ export default function Page() {
               enskild firma، aktiebolag و کسب‌وکارهای کوچک کمک می‌کنیم تا امور
               مالی و مالیاتی خود را مطابق قوانین سوئد انجام دهند.
             </p>
-            <p className="m-0">
+            <p className="m-0 mb-5">
               همچنین با تهیه طرح توجیهی، طرح تجاری یا affärsplan به مهاجرت شما
               به سوئد کمک می‌کنیم، برای ارائه به اداره مهاجرت Migrationsverket،
               بانک‌ها و آژانس کاریابی Arbetsförmedlingen.
+            </p>
+            {/* Tre saker byrån faktiskt hjälper till med och som sidan inte
+                nämnde med ett ord: att man kan starta bolag utan att bo i
+                Sverige, F-skatt, och ROT/RUT. Alla tre är sådant en
+                persisktalande företagare söker på, och de två första är just
+                det AI-översikten lyfter fram om konkurrenterna. */}
+            <p className="m-0">
+              برای ثبت شرکت لازم نیست مقیم سوئد باشید. ما به افراد غیرمقیم هم
+              در ثبت enskild firma و aktiebolag کمک می‌کنیم، درخواست F-skatt و
+              ثبت moms را انجام می‌دهیم و برای کسب‌وکارهای فعال در ساختمان و
+              خدمات خانگی درخواست‌های ROT و RUT را مدیریت می‌کنیم.
             </p>
           </div>
           <div className="mt-[clamp(32px,4vw,48px)] flex flex-wrap gap-[14px]">
@@ -162,6 +230,32 @@ export default function Page() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Frågor och svar. Ligger före den svenska sektionen så att en
+          persisktalande besökare möter dem medan sidan fortfarande är på
+          hens språk. */}
+      <section className="bg-surface text-text">
+        <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] py-[var(--pad-y-light)]">
+          <h2 className="np-h2 mb-[clamp(28px,3.5vw,44px)] text-[length:var(--fs-h2-sm)] leading-[1.25]">
+            سؤالات متداول
+          </h2>
+          <dl className="m-0 max-w-[74ch]">
+            {fragor.map((f) => (
+              <div
+                key={f.q}
+                className="border-t border-[var(--hairline-light)] py-[clamp(20px,2.4vw,28px)] last:border-b"
+              >
+                <dt className="np-h3 mb-3 text-[length:var(--fs-h3-sm)] leading-[1.35]">
+                  {f.q}
+                </dt>
+                <dd className="m-0 font-sans text-[16px] leading-[1.85] text-text-muted">
+                  {f.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
