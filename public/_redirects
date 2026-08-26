@@ -27,5 +27,11 @@
 
 # Vanliga varianter av den bevarade persiska sidan, som kan finnas som
 # inlänkar. Själva sidan ligger kvar på sin ursprungliga URL.
-/persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm 301
-/persisk-redovisningsbyra-i-stockholm /persisk-redovisningsbyra-stockholm 301
+#
+# Målet skrivs med avslutande snedstreck. Utan det blev det två hopp:
+# först 301 hit, sedan 308 från Pages egen normalisering för att lägga till
+# snedstrecket. Uppmätt på den live sajten. En kedja fungerar, men varje
+# extra hopp är en plats där länkvärde kan tappas, och det gäller just de
+# adresser som kan ligga som inlänkar någon annanstans.
+/persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm/ 301
+/persisk-redovisningsbyra-i-stockholm /persisk-redovisningsbyra-stockholm/ 301
