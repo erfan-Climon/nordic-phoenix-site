@@ -77,9 +77,25 @@ export function buildMetadata({
     description: resolvedDescription,
     // Statiska filer i public/ — dynamiska bildrutter (ImageResponse) skrivs
     // ut utan filändelse i `output: export` och får fel Content-Type.
+    /**
+     * Ikonerna byggs av `scripts/ikoner.mjs` ur `public/icon.png`.
+     *
+     * Tidigare länkades bara 512-punktersbilden. Den fungerar, men Google
+     * anger att den länkade ikonen bör vara kvadratisk med en sida som är en
+     * multipel av 48, och 512 är det inte. Därför 96 och 192.
+     *
+     * `/favicon.ico` fanns inte alls utan svarade 404. Google läser i första
+     * hand den här listan, men webbläsare och en del robotar hämtar filen på
+     * sin fasta plats i roten oavsett vad som står i huvudet.
+     */
     icons: {
-      icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
-      apple: "/icon.png",
+      icon: [
+        { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
+        { url: "/icon-96.png", type: "image/png", sizes: "96x96" },
+        { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      ],
+      shortcut: "/favicon.ico",
+      apple: { url: "/apple-icon.png", sizes: "180x180" },
     },
     alternates: {
       canonical: url,
