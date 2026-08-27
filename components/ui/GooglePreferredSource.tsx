@@ -1,4 +1,5 @@
 import type { Dictionary } from "@/content/locales/sv";
+import { preferredSourceAktiv } from "@/content/site";
 
 /**
  * Uppmaning att lägga till sajten som föredragen källa hos Google.
@@ -19,6 +20,10 @@ export function GooglePreferredSource({
   t: Dictionary;
   kompakt?: boolean;
 }) {
+  /* Hela rutan utgår när knappen är avstängd. Att låta rubrik och text stå
+     kvar utan knapp vore en uppmaning utan åtgärd. */
+  if (!preferredSourceAktiv) return null;
+
   const p = t.preferredSource;
 
   return (

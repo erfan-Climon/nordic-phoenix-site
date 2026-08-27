@@ -92,3 +92,22 @@ export const persianAlwaysLine = "ما در کنار شما هستیم، به ز
 
 /** Städer i logobältet/marquee delas i två rader som roterar åt olika håll. */
 export const cityRowSplit = 7;
+
+/**
+ * Om Googles Preferred Sources-knapp ska visas.
+ *
+ * Avstängd sedan 2026-08-27. Knappen renderade korrekt, men klick gav
+ * "Nordic Phoenix är inte kvalificerad som önskad källa just nu" och därefter
+ * tog Googles iframe bort sig själv. Samma svar kom på en helt annan sajt med
+ * en egen implementation, så spärren ligger hos Google och inte i vår kod.
+ *
+ * Funktionen kräver att Google känner igen avsändaren som en källa som
+ * publicerar löpande. Sajten lanserades 2026-08-24 och hade två sidor
+ * indexerade när det här testades, så det villkoret är inte uppfyllt än.
+ *
+ * En knapp som misslyckas för varje besökare är sämre än ingen knapp, därför
+ * är den avstängd tills villkoret är uppfyllt. Allt är kvar i koden: sätt
+ * flaggan till true, så kommer både skriptet och rutan tillbaka. Prova igen
+ * när Search Console visar att guiderna är indexerade.
+ */
+export const preferredSourceAktiv = false;

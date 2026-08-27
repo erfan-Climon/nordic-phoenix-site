@@ -1,3 +1,5 @@
+import { preferredSourceAktiv } from "@/content/site";
+
 /**
  * Googles publisher.js, som ritar knappen för Preferred Sources.
  *
@@ -24,5 +26,9 @@
  * ett element att hydrera, så det lägger inget till.
  */
 export function GoogleSwgScript() {
+  /* Samma flagga som styr rutan. Är knappen avstängd ska filen inte hämtas
+     heller: det är ett tredjepartsanrop på varje sidvisning som annars inte
+     gör någon nytta. */
+  if (!preferredSourceAktiv) return null;
   return <script async src="https://news.google.com/swg/js/v1/publisher.js" />;
 }
