@@ -363,6 +363,7 @@ export const sv = {
     follow: "Följ oss",
     ready: "Redo att börja?",
     privacy: "Integritetspolicy",
+    consentSettings: "Inställningar för mätning",
     seo: "Redovisningsbyrå Stockholm · Sollentuna · Hela Sverige digitalt",
     credit: "Designad och utvecklad av",
     /* Bara persiskan har den här sidan, så fältet är valfritt. */
@@ -414,13 +415,25 @@ export const sv = {
       },
       {
         heading: "Mottagare",
-        text: "Vi delar inte dina uppgifter med tredje part för marknadsföring. Vi använder leverantörer för chattfunktion och drift av webbplatsen, vilka behandlar uppgifter för vår räkning enligt personuppgiftsbiträdesavtal.",
+        text: "Vi använder leverantörer för chattfunktion och drift av webbplatsen, vilka behandlar uppgifter för vår räkning enligt personuppgiftsbiträdesavtal. Har du samtyckt till mätning delas uppgifter dessutom med Google och Meta enligt avsnittet nedan. Vi säljer aldrig dina uppgifter vidare.",
+      },
+      {
+        heading: "Mätning och cookies",
+        text: "Med ditt samtycke använder vi Google Analytics för att se hur webbplatsen används, och Meta Pixel för att kunna visa relevanta annonser på Facebook och Instagram. Båda lagrar uppgifter i din webbläsare och för över uppgifter till Google respektive Meta, som kan behandla dem utanför EU. Den rättsliga grunden är ditt samtycke. Säger du nej laddas ingen av dem över huvud taget, och webbplatsen fungerar likadant. Du kan ändra dig när som helst via Inställningar för mätning längst ner på sidan.",
       },
       {
         heading: "Dina rättigheter",
         text: "Du har rätt att begära utdrag, rättelse eller radering av dina uppgifter, samt att invända mot behandlingen. Kontakta oss på 072-008 40 00. Du kan också vända dig till Integritetsskyddsmyndigheten med klagomål.",
       },
     ],
+  },
+
+  consent: {
+    title: "Om mätning på webbplatsen",
+    text: "Vi vill gärna mäta hur webbplatsen används och visa relevanta annonser i sociala medier. Det kräver ditt samtycke. Väljer du nej fungerar sajten precis som vanligt.",
+    readMore: "Läs mer i integritetspolicyn",
+    accept: "Jag godkänner",
+    decline: "Nej tack",
   },
 
   preferredSource: {

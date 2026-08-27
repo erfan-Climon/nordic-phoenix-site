@@ -111,3 +111,22 @@ export const cityRowSplit = 7;
  * när Search Console visar att guiderna är indexerade.
  */
 export const preferredSourceAktiv = false;
+
+/**
+ * Mätning och spårning.
+ *
+ * Båda är tomma tills Erfan lämnar id:na. Ingenting laddas när ett id är tomt,
+ * så sajten fungerar oförändrat under tiden och det går att sätta på en i
+ * taget.
+ *
+ * Ingen av dem laddas heller utan besökarens samtycke. Se lib/samtycke.ts.
+ * Det är inte en försiktighetsåtgärd utan ett krav: både Google Analytics och
+ * Meta Pixel lagrar uppgifter i besökarens webbläsare för andra ändamål än
+ * att sajten ska fungera, och sådant kräver aktivt samtycke i förväg.
+ */
+export const matning = {
+  /** Mät-id från Google Analytics 4, formen G-XXXXXXXXXX. */
+  ga4: "",
+  /** Pixel-id från Meta Events Manager, en lång sifferserie. */
+  metaPixel: "",
+} as const;

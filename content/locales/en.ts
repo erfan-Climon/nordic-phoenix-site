@@ -354,6 +354,7 @@ export const en: Dictionary = {
     follow: "Follow us",
     ready: "Ready to start?",
     privacy: "Privacy policy",
+    consentSettings: "Measurement settings",
     seo: "Accounting firm Stockholm · Sollentuna · All of Sweden digitally",
     credit: "Designed and developed by",
     /* Sidan finns bara på persiska. */
@@ -405,13 +406,25 @@ export const en: Dictionary = {
       },
       {
         heading: "Recipients",
-        text: "We do not share your data with third parties for marketing purposes. We use suppliers for the chat function and website operations, who process data on our behalf under data processing agreements.",
+        text: "We use suppliers for the chat function and website operations, who process data on our behalf under data processing agreements. If you have consented to measurement, data is also shared with Google and Meta as described in the section below. We never sell your data.",
+      },
+      {
+        heading: "Measurement and cookies",
+        text: "With your consent we use Google Analytics to see how the site is used, and Meta Pixel so that we can show relevant ads on Facebook and Instagram. Both store data in your browser and transfer data to Google and Meta respectively, who may process it outside the EU. The legal basis is your consent. If you decline, neither is loaded at all and the site works exactly the same. You can change your mind at any time through Measurement settings at the bottom of the page.",
       },
       {
         heading: "Your rights",
         text: "You have the right to request access, rectification or erasure of your data, and to object to the processing. Contact us on +46 72 008 40 00. You may also lodge a complaint with the Swedish Authority for Privacy Protection.",
       },
     ],
+  },
+
+  consent: {
+    title: "About measurement on this site",
+    text: "We would like to measure how the site is used and show relevant ads on social media. That requires your consent. If you decline, the site works exactly as before.",
+    readMore: "Read more in the privacy policy",
+    accept: "I accept",
+    decline: "No thanks",
   },
 
   preferredSource: {

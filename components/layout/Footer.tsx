@@ -12,6 +12,7 @@ import {
 import { hasTranslatedLocations } from "@/content/location-copy";
 import { type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
+import { SamtyckeLank } from "@/components/layout/SamtyckeLank";
 
 const textClass = "font-sans text-[14px] leading-[1.7] text-on-dark-muted";
 const linkClass = `${textClass} no-underline transition-colors duration-300 hover:text-accent-light`;
@@ -136,6 +137,9 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             >
               {t.footer.privacy}
             </Link>
+            {/* Samtycket måste gå att ta tillbaka lika enkelt som det gavs.
+                Knappen döljer sig själv när ingenting mäts. */}
+            <SamtyckeLank etikett={t.footer.consentSettings} />
           </div>
         </div>
 
