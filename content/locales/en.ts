@@ -420,11 +420,11 @@ export const en: Dictionary = {
   },
 
   consent: {
-    title: "About measurement on this site",
-    text: "We would like to measure how the site is used and show relevant ads on social media. That requires your consent. If you decline, the site works exactly as before.",
-    readMore: "Read more in the privacy policy",
-    accept: "I accept",
-    decline: "No thanks",
+    title: "Cookies",
+    text: "We use cookies for website analytics and social media marketing.",
+    readMore: "Privacy policy",
+    accept: "Accept",
+    decline: "Decline",
   },
 
   preferredSource: {

@@ -429,11 +429,13 @@ export const sv = {
   },
 
   consent: {
-    title: "Om mätning på webbplatsen",
-    text: "Vi vill gärna mäta hur webbplatsen används och visa relevanta annonser i sociala medier. Det kräver ditt samtycke. Väljer du nej fungerar sajten precis som vanligt.",
-    readMore: "Läs mer i integritetspolicyn",
-    accept: "Jag godkänner",
-    decline: "Nej tack",
+    title: "Cookies",
+    /* En mening. Rutan ska gå att läsa på ett ögonkast, och detaljerna hör
+       hemma i integritetspolicyn som ändå länkas intill. */
+    text: "Vi använder cookies för besöksstatistik och marknadsföring i sociala medier.",
+    readMore: "Integritetspolicy",
+    accept: "Godkänn",
+    decline: "Avböj",
   },
 
   preferredSource: {
