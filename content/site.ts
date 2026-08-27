@@ -126,7 +126,7 @@ export const preferredSourceAktiv = false;
  */
 export const matning = {
   /** Mät-id från Google Analytics 4, formen G-XXXXXXXXXX. */
-  ga4: "",
+  ga4: "G-P7Q5FTV2NR",
   /** Pixel-id från Meta Events Manager, en lång sifferserie. */
   metaPixel: "",
 } as const;
