@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import { GoogleSwgScript } from "@/components/layout/GoogleSwgScript";
 import { MotionBoot } from "@/components/layout/MotionBoot";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { fontVariables } from "@/lib/fonts";
@@ -27,6 +28,7 @@ export default function SwedishRootLayout({
     >
       <head>
         <MotionBoot />
+        <GoogleSwgScript />
       </head>
       <body>
         <SiteShell locale="fa">{children}</SiteShell>

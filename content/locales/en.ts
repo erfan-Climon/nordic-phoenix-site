@@ -414,6 +414,14 @@ export const en: Dictionary = {
     ],
   },
 
+  preferredSource: {
+    heading: "Want to see more of our guides on Google?",
+    text: "Add us as a preferred source on Google and our new guides and articles become easier to find.",
+    archiveHeading: "Follow our guides through Google",
+    archiveText:
+      "Add us as a preferred source and Google can prioritise our guides when you search within our subject areas.",
+  },
+
   templates: {
     metaTitle: "Templates and forms for business owners | Nordic Phoenix",
     metaDescription:

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
 import type { Article } from "@/content/blog";
 import { type ArticleCopy, articleImage } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
@@ -238,6 +239,11 @@ export function ArticlePage({
             </p>
           </section>
         ) : null}
+
+        {/* Ligger efter skribenten men före den kommersiella uppmaningen.
+            Att lägga den sist hade skjutit "kontakta oss" uppåt och gjort en
+            sekundär åtgärd till artikelns sista intryck. */}
+        <GooglePreferredSource t={t} />
 
         <div className="mt-[clamp(48px,6vw,72px)] flex flex-wrap items-center justify-between gap-5 border-t border-[rgba(23,19,16,.14)] pt-9">
           <div className="flex max-w-[52ch] flex-col gap-[6px]">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import { GoogleSwgScript } from "@/components/layout/GoogleSwgScript";
 import { MotionBoot } from "@/components/layout/MotionBoot";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { fontVariables } from "@/lib/fonts";
@@ -50,6 +51,7 @@ export default async function LocalisedRootLayout({
     >
       <head>
         <MotionBoot />
+        <GoogleSwgScript />
       </head>
       <body>
         <SiteShell locale={locale}>{children}</SiteShell>

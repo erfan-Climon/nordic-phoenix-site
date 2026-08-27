@@ -423,6 +423,14 @@ export const sv = {
     ],
   },
 
+  preferredSource: {
+    heading: "Vill du se fler guider från oss på Google?",
+    text: "Lägg till oss som en föredragen källa på Google så blir det enklare att hitta våra nya guider och artiklar.",
+    archiveHeading: "Följ våra guider via Google",
+    archiveText:
+      "Lägg till oss som en föredragen källa så kan Google prioritera våra guider när du söker inom våra ämnesområden.",
+  },
+
   templates: {
     metaTitle: "Mallar och blanketter för företagare | Nordic Phoenix",
     metaDescription:

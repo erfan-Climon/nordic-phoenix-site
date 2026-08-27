@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
 import { articleImage, articlesForLocale } from "@/content/blog-copy";
 import { type Locale, getDictionary, localePath } from "@/lib/i18n";
 
@@ -62,6 +63,13 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
             </div>
           </Link>
         ) : null}
+
+        {/* Efter den utvalda artikeln och före rutnätet. Läsaren har då sett
+            vad sajten skriver om, vilket är det som gör uppmaningen begriplig,
+            men har ännu inte klickat sig vidare. */}
+        <div className="mb-[clamp(24px,3vw,40px)]">
+          <GooglePreferredSource t={t} kompakt />
+        </div>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(24px,3vw,40px)]">
           {rest.map(({ article, copy }) => (
