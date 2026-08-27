@@ -54,12 +54,54 @@ async function ruta(storlek) {
 }
 
 /**
- * Packar färdiga PNG:er i en ICO-behållare.
+ * Bygger en DIB-bild, alltså den klassiska formen inuti en ICO.
  *
- * ICO tillåter att varje bild lagras som en hel PNG, vilket alla webbläsare
- * som är aktuella i dag läser. Alternativet är den gamla DIB-formen med egen
- * masktabell, och den behövs inte längre.
+ * Filen innehöll först hela PNG:er, vilket ICO tillåter och vilket Chrome
+ * läser utan problem. Safari visade ändå ingen ikon. PNG inuti ICO har
+ * ojämnt stöd där, medan DIB fungerar i allt, så den här formen används nu
+ * för samtliga storlekar.
+ *
+ * Egenheter i formatet som är lätta att missa: höjden i huvudet anges
+ * dubbelt, eftersom en ICO historiskt bär både färgdata och en genomskinlig-
+ * hetsmask. Raderna ligger nedifrån och upp, och färgerna i ordningen blå,
+ * grön, röd, alfa. Masken lämnas nollställd; med 32 bitar per bildpunkt är
+ * det alfakanalen som gäller, men fältet måste ändå finnas.
  */
+function dib(storlek, rgba) {
+  const HUVUD = 40;
+  const rader = storlek;
+  const bildData = Buffer.alloc(storlek * rader * 4);
+
+  for (let y = 0; y < rader; y++) {
+    const kallrad = rader - 1 - y; // nedifrån och upp
+    for (let x = 0; x < storlek; x++) {
+      const i = (kallrad * storlek + x) * 4;
+      const j = (y * storlek + x) * 4;
+      bildData[j] = rgba[i + 2]; // blå
+      bildData[j + 1] = rgba[i + 1]; // grön
+      bildData[j + 2] = rgba[i]; // röd
+      bildData[j + 3] = rgba[i + 3]; // alfa
+    }
+  }
+
+  /* Masken är en bit per bildpunkt, med varje rad utfylld till jämna fyra
+     byte. Nollor betyder ogenomskinligt. */
+  const maskRadBytes = Math.ceil(storlek / 32) * 4;
+  const mask = Buffer.alloc(maskRadBytes * rader);
+
+  const huvud = Buffer.alloc(HUVUD);
+  huvud.writeUInt32LE(HUVUD, 0);
+  huvud.writeInt32LE(storlek, 4);
+  huvud.writeInt32LE(storlek * 2, 8); // dubbel höjd, se kommentaren ovan
+  huvud.writeUInt16LE(1, 12); // färgplan
+  huvud.writeUInt16LE(32, 14); // bitar per bildpunkt
+  huvud.writeUInt32LE(0, 16); // ingen komprimering
+  huvud.writeUInt32LE(bildData.length + mask.length, 20);
+
+  return Buffer.concat([huvud, bildData, mask]);
+}
+
+/** Packar färdiga bilddelar i en ICO-behållare. */
 function ico(bilder) {
   const HUVUD = 6;
   const POST = 16;
@@ -103,7 +145,12 @@ console.log(`apple-icon.png  ${Math.round(apple.length / 1024)} kB`);
 
 const ikoner = [];
 for (const storlek of [16, 32, 48]) {
-  ikoner.push({ storlek, data: await ruta(storlek) });
+  /* Råa bildpunkter, inte PNG: ICO-delarna kodas som DIB. */
+  const { data } = await sharp(await ruta(storlek))
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  ikoner.push({ storlek, data: dib(storlek, data) });
 }
 const behållare = ico(ikoner);
 fs.writeFileSync(`${UT}/favicon.ico`, behållare);
