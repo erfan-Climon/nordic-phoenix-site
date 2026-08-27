@@ -48,10 +48,14 @@ export function GooglePreferredSource({
 
       {/* Höjden reserveras innan Googles skript hunnit rita knappen. Utan den
           växer rutan när knappen dyker upp, och det är precis en sådan
-          förskjutning som mäts som CLS. 40 px är knappens ritade höjd. */}
+          förskjutning som mäts som CLS.
+
+          60 px är uppmätt på den live sajten: Google lägger in en iframe från
+          news.google.com i behållaren, och den blir 60 hög. Här stod först 40,
+          vilket var en gissning och lämnade kvar ett hopp på tjugo punkter. */}
       <div
         className={
-          kompakt ? "min-h-[40px] shrink-0" : "mt-6 min-h-[40px]"
+          kompakt ? "min-h-[60px] shrink-0" : "mt-6 min-h-[60px]"
         }
       >
         <div google-add-preferred-source-btn="" />
