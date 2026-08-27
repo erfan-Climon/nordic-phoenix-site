@@ -431,9 +431,14 @@ export const sv = {
   consent: {
     title: "Cookies",
     /* En mening. Rutan ska gå att läsa på ett ögonkast, och detaljerna hör
-       hemma i integritetspolicyn som ändå länkas intill. */
-    text: "Vi använder cookies för besöksstatistik och marknadsföring i sociala medier.",
-    readMore: "Integritetspolicy",
+       hemma i integritetspolicyn som ändå länkas intill.
+
+       Marknadsföring måste nämnas. Vi laddar Meta Pixel, som är en annonspixel
+       och inte ett analysverktyg. Ett samtycke gäller bara det besökaren
+       faktiskt fått veta, så en text som bara säger "analysera" hade gjort
+       samtycket ogiltigt för just den delen. */
+    text: "Vi använder kakor för att analysera hur sajten används och för marknadsföring.",
+    readMore: "Läs vår integritetspolicy.",
     accept: "Godkänn",
     decline: "Avböj",
   },

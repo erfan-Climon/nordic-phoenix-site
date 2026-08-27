@@ -421,8 +421,8 @@ export const en: Dictionary = {
 
   consent: {
     title: "Cookies",
-    text: "We use cookies for website analytics and social media marketing.",
-    readMore: "Privacy policy",
+    text: "We use cookies to analyse how the site is used and for marketing.",
+    readMore: "Read our privacy policy.",
     accept: "Accept",
     decline: "Decline",
   },
