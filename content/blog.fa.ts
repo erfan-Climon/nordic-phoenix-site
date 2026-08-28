@@ -128,7 +128,6 @@ export const articlesFa: Record<string, ArticleCopy> = {
       /* Yrkestiteln står kvar på svenska. Det är den formen persisktalande
          företagare möter hos byråer och myndigheter. */
       jobTitle: "Redovisningskonsult",
-      bio: "Redovisningskonsult و بنیان‌گذار Nordic Phoenix Redovisningsbyrå. هر روز با دفترداری جاری، بستن حساب‌ها، اظهارنامه‌های مالیاتی و تماس با ادارات برای کارآفرینان در سراسر سوئد کار می‌کند، به زبان‌های سوئدی، انگلیسی و فارسی.",
     },
   },
 

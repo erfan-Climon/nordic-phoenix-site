@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
 import type { Article } from "@/content/blog";
-import { type ArticleCopy, articleImage } from "@/content/blog-copy";
+import { type ArticleCopy, articleAuthor, articleImage } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
 import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
 import { absolutUrl } from "@/lib/metadata";
@@ -24,6 +24,7 @@ export function ArticlePage({
   const t = getDictionary(locale);
   const blogHref = localePath(locale, "/blogg");
   const bild = articleImage(article, copy);
+  const forfattare = articleAuthor(copy, locale);
 
   /* Två scheman i en graf. FAQPage är det som ger utfällbara frågor direkt i
      sökresultatet, och kräver att frågorna också syns på sidan: Google
@@ -39,17 +40,16 @@ export function ArticlePage({
         dateModified: article.published,
         image: `${SITE_URL}${bild}`,
         mainEntityOfPage: absolutUrl(`${blogHref}/${article.slug}`),
-        /* Person när artikeln har en skribent, annars byrån. Google
-           behandlar namngivet författarskap som en styrka på innehåll om
-           pengar och skatt. */
-        author: copy.author
-          ? {
-              "@type": "Person",
-              name: copy.author.name,
-              jobTitle: copy.author.jobTitle,
-              worksFor: { "@type": "Organization", name: company.legalName },
-            }
-          : { "@type": "Organization", name: company.legalName },
+        /* Alltid en namngiven person, aldrig bara byrån. Google behandlar
+           namngivet författarskap som en styrka på innehåll om pengar och
+           skatt, och saknar artikeln egen skribent faller den tillbaka på
+           byråns standardförfattare. */
+        author: {
+          "@type": "Person",
+          name: forfattare.name,
+          jobTitle: forfattare.jobTitle,
+          worksFor: { "@type": "Organization", name: company.legalName },
+        },
         publisher: {
           "@type": "Organization",
           name: company.legalName,
@@ -223,7 +223,10 @@ export function ArticlePage({
         {/* Skribenten står efter frågorna och före uppmaningen: läsaren
             möter avsändaren när argumenten är klara, precis innan hen ombeds
             höra av sig. */}
-        {copy.author ? (
+        {/* Alltid en skribent. Villkoret som fanns här gjorde att rutan
+            saknades på alla artiklar utom en, och en guide om skatt utan
+            avsändare är svagare både för läsaren och i Googles bedömning. */}
+        {(
           <section className="mt-[clamp(48px,6vw,72px)] rounded-media border border-[rgba(23,19,16,.12)] bg-page p-[clamp(28px,3.5vw,44px)]">
             <p className="np-mono m-0 mb-5 font-mono text-[11px] tracking-[.24em] text-text-meta uppercase">
               {t.blog.authorLabel}
@@ -231,17 +234,18 @@ export function ArticlePage({
             <div className="flex items-baseline gap-3">
               <span className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent" />
               <p className="np-h3 m-0 font-heading text-[22px] leading-[1.2]">
-                {copy.author.name}
+                {forfattare.name}
               </p>
             </div>
+            {/* Bara namn och roll. Här stod tidigare en presentation på tre
+                rader, men rutan ska säga vem som skrivit, inte berätta en
+                historia. Fältet är borttaget ur innehållet också, det syns
+                inte i strukturerad data och hade bara blivit död text. */}
             <p className="m-0 mt-1 ms-[19px] font-sans text-[14px] tracking-[.02em] text-text-meta">
-              {copy.author.role}
-            </p>
-            <p className="m-0 mt-5 max-w-[62ch] font-sans text-[16px] leading-[1.75] text-text-muted">
-              {copy.author.bio}
+              {forfattare.role}
             </p>
           </section>
-        ) : null}
+        )}
 
         {/* Ligger efter skribenten men före den kommersiella uppmaningen.
             Att lägga den sist hade skjutit "kontakta oss" uppåt och gjort en

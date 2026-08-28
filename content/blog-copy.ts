@@ -1,4 +1,4 @@
-import { type Article, articles } from "@/content/blog";
+import { type Article, type Author, articles } from "@/content/blog";
 import { articlesFa } from "@/content/blog.fa";
 import { type Locale, locales } from "@/lib/i18n";
 
@@ -93,4 +93,43 @@ export function hasTranslatedArticles(locale: Locale): boolean {
 /** Språk där blogglistningen finns, alltså har något att visa. */
 export function localesWithBlogIndex(): Locale[] {
   return locales.filter(hasTranslatedArticles);
+}
+
+/**
+ * Skribenten som gäller när artikeln inte pekar ut någon.
+ *
+ * Varje guide ska ha en namngiven avsändare. Google väger E-E-A-T tyngst på
+ * innehåll som rör pengar och skatt, och ett skatteråd utan person bakom sig
+ * bedöms hårdare än samma text med en. Namnet går dessutom in i
+ * BlogPosting-schemat som Person i stället för Organization.
+ *
+ * Ligger som en gemensam standard och inte som ett block per artikel. Ali
+ * skriver allt i dag, så tolv kopior hade bara varit tolv ställen att glömma
+ * vid nästa ändring. Artikelns eget `author` vinner när det finns, vilket är
+ * vägen in för en gästskribent.
+ *
+ * Namnet översätts inte. Rollen gör det, och yrkestiteln står kvar på
+ * svenska även i persiskan: det är den formen persisktalande företagare
+ * möter hos byråer och myndigheter.
+ */
+const STANDARD_FORFATTARE: Record<Locale, Author> = {
+  sv: {
+    name: "Ali Nahroudi",
+    role: "Grundare och ägare",
+    jobTitle: "Redovisningskonsult",
+  },
+  en: {
+    name: "Ali Nahroudi",
+    role: "Founder and owner",
+    jobTitle: "Redovisningskonsult",
+  },
+  fa: {
+    name: "Ali Nahroudi",
+    role: "بنیان‌گذار و مالک",
+    jobTitle: "Redovisningskonsult",
+  },
+};
+
+export function articleAuthor(copy: ArticleCopy, locale: Locale): Author {
+  return copy.author ?? STANDARD_FORFATTARE[locale];
 }

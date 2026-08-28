@@ -23,8 +23,9 @@ export type FaqPost = { q: string; a: string };
  * bedöms hårdare än samma text med en person bakom. Namnet går också in i
  * BlogPosting-schemat som Person i stället för Organization.
  *
- * Valfri på artikeln: bara de artiklar som faktiskt har en skribent ska visa
- * ett block. Rollen och presentationen översätts, namnet gör det inte.
+ * Valfri på artikeln, men aldrig frånvarande i visningen: saknas den faller
+ * sidan tillbaka på `standardForfattare` i blog-copy.ts. Fältet finns kvar
+ * för den dag en gästskribent skriver något. Rollen översätts, namnet inte.
  */
 export type Author = {
   name: string;
@@ -36,7 +37,6 @@ export type Author = {
    * inblandat.
    */
   jobTitle: string;
-  bio: string;
 };
 
 export type ArticleBlock =
@@ -211,7 +211,6 @@ const ALLA: Article[] = [
       name: "Ali Nahroudi",
       role: "Grundare och ägare",
       jobTitle: "Redovisningskonsult",
-      bio: "Redovisningskonsult och grundare av Nordic Phoenix Redovisningsbyrå. Arbetar dagligen med löpande bokföring, bokslut, deklarationer och myndighetskontakter för företagare i hela Sverige, på svenska, engelska och persiska.",
     },
   },
   {
