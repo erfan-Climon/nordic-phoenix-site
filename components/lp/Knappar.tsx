@@ -86,7 +86,7 @@ export function FastMobilrad() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[rgba(23,19,16,.1)] bg-page/95 px-4 pt-3 pb-[calc(12px+env(safe-area-inset-bottom))] backdrop-blur-[10px] md:hidden">
       <div className="flex gap-3">
-        <BokaKnapp plats="mobilrad" etikett="رزرو بررسی مالی" bred />
+        <BokaKnapp plats="mobilrad" etikett={halsokontroll.cta} bred />
         <WhatsAppKnapp plats="mobilrad" etikett="واتساپ" />
       </div>
     </div>

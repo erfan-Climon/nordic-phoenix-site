@@ -57,3 +57,16 @@ export function leadSkickad(varde: number, valuta: string): void {
   meta()?.("track", "Lead", { value: varde, currency: valuta });
   tiktok()?.track("SubmitForm", { value: varde, currency: valuta });
 }
+
+/**
+ * Besökaren började fylla i formuläret.
+ *
+ * Avfyras en gång per sidvisning, vid första fokus i ett fält. Skillnaden
+ * mellan den här och `leadSkickad` är det enda sättet att se om formuläret
+ * tappar folk mitt i, vilket är en annan sak än att de aldrig börjar.
+ */
+export function formularStartat(): void {
+  ga()?.("event", "form_start", { formular: "ekonomisk-halsokontroll" });
+  meta()?.("trackCustom", "FormStart");
+  tiktok()?.track("ClickButton", { content_name: "form_start" });
+}

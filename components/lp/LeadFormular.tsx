@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ghl, halsokontroll } from "@/content/site";
-import { leadSkickad, whatsappklick } from "@/lib/handelser";
+import { formularStartat, leadSkickad, whatsappklick } from "@/lib/handelser";
 import { fangaUtm, lasUtm } from "@/lib/utm";
 
 /**
@@ -27,6 +27,15 @@ const ETIKETT = "mb-2 block font-sans text-[14px] text-text-muted";
 export function LeadFormular() {
   const [lage, setLage] = useState<Lage>("redo");
   const id = useId();
+  /* Rapporteras en gång, vid första fokus. En ref och inte state: värdet ska
+     inte orsaka en omrendering mitt i att någon skriver. */
+  const harBorjat = useRef(false);
+
+  function borjat() {
+    if (harBorjat.current) return;
+    harBorjat.current = true;
+    formularStartat();
+  }
 
   /* Kampanjparametrarna sparas vid första sidvisningen, inte vid inskickning:
      besökaren hinner ofta ladda om eller scrolla länge innan hen fyller i. */
@@ -83,7 +92,12 @@ export function LeadFormular() {
   }
 
   return (
-    <form onSubmit={skicka} noValidate={false} className="relative flex flex-col gap-5">
+    <form
+      onSubmit={skicka}
+      onFocusCapture={borjat}
+      noValidate={false}
+      className="relative flex flex-col gap-5"
+    >
       <div>
         <label htmlFor={`${id}-namn`} className={ETIKETT}>
           نام و نام خانوادگی
@@ -135,12 +149,11 @@ export function LeadFormular() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor={`${id}-foretag`} className={ETIKETT}>
-            نام شرکت
+            نام شرکت <span className="text-text-meta">(اختیاری)</span>
           </label>
           <input
             id={`${id}-foretag`}
             name="foretag"
-            required
             autoComplete="organization"
             className={FALT}
           />
@@ -185,8 +198,15 @@ export function LeadFormular() {
         disabled={lage === "skickar"}
         className="np-btn np-btn-primary mt-1 w-full cursor-pointer px-8 py-[18px] text-[17px] disabled:cursor-wait disabled:opacity-70"
       >
-        {lage === "skickar" ? "در حال ارسال…" : "درخواست بررسی مالی"}
+        {lage === "skickar" ? "در حال ارسال…" : halsokontroll.cta}
       </button>
+
+      {/* Vad som händer härnäst, direkt under knappen. Den vanligaste tysta
+          invändningen på ett leadformulär är "vad händer nu", och svaret ska
+          stå där tummen redan är. */}
+      <p className="m-0 -mt-2 text-center font-sans text-[14px] leading-[1.7] text-text-muted">
+        پس از ارسال درخواست، برای هماهنگی زمان با شما تماس می‌گیریم.
+      </p>
 
       {lage === "fel" ? (
         <p

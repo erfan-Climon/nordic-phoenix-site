@@ -153,6 +153,47 @@ export const halsokontroll = {
   whatsappUrl: `https://wa.me/46720084000?text=${encodeURIComponent(
     "سلام، درباره بررسی مالی ۱۲۰۰ کرونی ققنوس شمالی اطلاعات بیشتری می‌خواهم.",
   )}`,
+
+  /**
+   * Rubrikvarianter för framtida A/B-test.
+   *
+   * Ingen trafikdelning sker. Sajten är en statisk export utan
+   * experimentplattform, och en delning byggd på slumptal i webbläsaren hade
+   * gett ojämna grupper och otillförlitliga siffror. Varianterna ligger här
+   * för att bytet ska vara en rad när ett riktigt test ska köras, till
+   * exempel genom att låta annonserna peka på två olika adresser.
+   */
+  rubrikVariant: "a" as "a" | "b",
+  rubriker: {
+    a: {
+      lead: "در ۶۰ دقیقه، تصویر روشن‌تری از",
+      accent: "وضعیت مالی شرکت خود به دست آورید",
+    },
+    b: {
+      lead: "وضعیت مالی شرکت شما واقعاً چطور است؟",
+      accent: "در ۶۰ دقیقه آن را مرور کنید",
+    },
+  },
+
+  /**
+   * Uppmaningens lydelse.
+   *
+   * "درخواست" och inte "رزرو". Besökaren bokar ingen tid själv, utan skickar
+   * en förfrågan som byrån hör av sig på. Att skriva boka hade lovat något
+   * flödet inte gör, och den sortens glapp märks direkt när återkopplingen
+   * dröjer till nästa dag.
+   *
+   * Byt till "شروع بررسی مالی" för att testa den lydelsen i stället.
+   */
+  cta: "درخواست بررسی مالی",
+
+  /**
+   * MOMS ÄR INTE FASTSTÄLLD för den här tjänsten och står därför ingenstans
+   * på sidan. Prislistan i ordlistorna säger "exkl. moms", men den gäller
+   * månadspaketen, inte ett rådgivningstillfälle. Fyll i när Ali bekräftat,
+   * så skrivs det ut vid priset och i frågorna.
+   */
+  momsBesked: "",
 } as const;
 
 /**
