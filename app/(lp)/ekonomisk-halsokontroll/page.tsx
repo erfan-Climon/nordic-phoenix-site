@@ -247,9 +247,11 @@ export default function Page() {
       <section className="border-y border-[rgba(23,19,16,.1)] bg-surface text-text">
         <div className="mx-auto flex max-w-[var(--content-max)] flex-wrap justify-between gap-x-8 gap-y-4 px-[var(--pad-x)] py-6 font-sans text-[14px] text-text-muted">
           <span>{company.legalName}</span>
-          <span>
-            {company.city} · سراسر سوئد
-          </span>
+          {/* Ingen ort här. Raden ska säga att byrån täcker hela landet, och
+              ett ortnamn bredvid det får en besökare från en annan del av
+              Sverige att undra om tjänsten gäller hen. Postadressen står kvar
+              i sidfoten, där den hör hemma. */}
+          <span>سراسر سوئد</span>
           <span>فارسی، سوئدی و انگلیسی</span>
           <span dir="ltr">Org.nr {company.orgNumber}</span>
         </div>
