@@ -35,8 +35,18 @@ export function Sweden({ t }: { t: Dictionary }) {
     repeat(row, times).map(({ item, run }, i) => {
       const färg = tone === "cool" ? "text-city" : "text-city-warm italic";
       const separator = tone === "cool" ? "text-city-warm italic" : "text-city";
-      // Bara första varvet är riktiga länkar. Kopiorna finns för loopen och
-      // döljs för skärmläsare, annars läses varje stad upp tre till fyra gånger.
+      /* Kopiorna finns bara för att loopen ska gå ihop, och döljs för
+         skärmläsare så att varje stad inte läses upp tre till fyra gånger.
+
+         De var tidigare vanliga span och inte länkar, vilket tog bort
+         klickytan på köpet. Uppmätt på startsidan: 7 länkar mot 14 döda
+         namn i första raden, 6 mot 18 i andra. Eftersom bältet rullar
+         hamnade ibland ett riktigt namn under pekaren och ibland en kopia,
+         och för besökaren såg det ut som att klicken slumpmässigt inte tog.
+
+         Nu är även kopiorna länkar. aria-hidden döljer dem fortfarande, och
+         tabIndex -1 håller dem utanför tabbordningen: ett fokuserbart
+         element inuti aria-hidden är i sig ett tillgänglighetsfel. */
       const duplicate = run > 0;
 
       const inner = (
@@ -48,13 +58,10 @@ export function Sweden({ t }: { t: Dictionary }) {
         </>
       );
 
-      if (!item.slug || duplicate) {
+      /* Utan slug finns ingen ortssida att peka på, då blir det ren text. */
+      if (!item.slug) {
         return (
-          <span
-            key={`${item.name}-${i}`}
-            aria-hidden={duplicate || undefined}
-            className={`${cityClass} ${färg}`}
-          >
+          <span key={`${item.name}-${i}`} className={`${cityClass} ${färg}`}>
             {inner}
           </span>
         );
@@ -64,6 +71,8 @@ export function Sweden({ t }: { t: Dictionary }) {
         <Link
           key={`${item.name}-${i}`}
           href={`/redovisningsbyra/${item.slug}`}
+          aria-hidden={duplicate || undefined}
+          tabIndex={duplicate ? -1 : undefined}
           className={`${cityClass} ${färg}`}
         >
           {inner}

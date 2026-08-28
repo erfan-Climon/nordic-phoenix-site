@@ -365,6 +365,23 @@
 [dir="rtl"] .np-belt-rev {
   animation-name: np-marquee-rtl-rev;
 }
+/* Bältet stannar när pekaren är över det.
+
+   Utan pausen gick städerna bara ibland att klicka på. Ett klick kräver att
+   musknappen både trycks ner och släpps på samma element, och bältet flyttar
+   sig några bildpunkter under den tiden. Står pekaren nära gränsen mellan två
+   ortsnamn hinner gränsen passera, och webbläsaren ser en nedtryckning på ett
+   element och ett släpp på ett annat. Alltså inget klick alls, utan
+   felmeddelande och utan mönster som går att förstå för besökaren.
+
+   focus-within finns för den som tabbar sig igenom länkarna: ett bälte som
+   rör sig under tangentbordsfokus är omöjligt att följa med blicken. */
+.np-belt:hover,
+.np-belt-rev:hover,
+.np-belt:focus-within,
+.np-belt-rev:focus-within {
+  animation-play-state: paused;
+}
 @keyframes np-breathe {
   0%,
   100% {
