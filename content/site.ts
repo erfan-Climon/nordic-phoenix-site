@@ -158,8 +158,14 @@ export const halsokontroll = {
 /**
  * GoHighLevel, kallat Climon System kundvänt.
  *
- * `leadWebhook` är adressen till ett inkommande webhook-steg i ett
- * GHL-arbetsflöde. Den är TOM tills Erfan skapar flödet och lämnar adressen.
+ * `leadWebhook` pekar på Inbound Webhook-triggern i arbetsflödet
+ * "Ekonomisk hälsokontroll - landningssida" på Nordic Phoenix underkonto,
+ * location 66iE5ekAVPU5F03G3zJk. Samma location som recensionswidgeten ovan.
+ *
+ * Adressen är INTE hemlig och kan inte vara det: formuläret postar från
+ * besökarens webbläsare, så den ligger i klientkoden oavsett vad vi gör. Den
+ * ger heller ingen läsåtkomst, bara rätten att utlösa flödet. Skyddet mot
+ * skräp ligger därför i formuläret, se honungsfällan i LeadFormular.
  *
  * Sajten byggs som statisk export, så det finns ingen egen server att posta
  * till. Formuläret skickar därför direkt från webbläsaren till GHL. Ett
@@ -172,5 +178,6 @@ export const halsokontroll = {
  * förrän värdet är satt.
  */
 export const ghl = {
-  leadWebhook: "",
+  leadWebhook:
+    "https://services.leadconnectorhq.com/hooks/66iE5ekAVPU5F03G3zJk/webhook-trigger/b1dac5fe-c47d-4f16-a6ab-b26de450665b",
 } as const;

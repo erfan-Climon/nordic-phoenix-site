@@ -41,6 +41,16 @@ export function LeadFormular() {
     if (lage === "skickar") return;
 
     const data = new FormData(e.currentTarget);
+
+    /* Honungsfällan är ifylld, alltså en robot. Vi visar samma kvitto som vid
+       en riktig inskickning: en bot som får ett felmeddelande försöker igen
+       med en annan taktik, en som tror sig ha lyckats gör det inte. Ingen
+       lead skickas och ingen konvertering rapporteras. */
+    if (data.get("webbplats")) {
+      setLage("klart");
+      return;
+    }
+
     setLage("skickar");
 
     try {
@@ -73,7 +83,7 @@ export function LeadFormular() {
   }
 
   return (
-    <form onSubmit={skicka} noValidate={false} className="flex flex-col gap-5">
+    <form onSubmit={skicka} noValidate={false} className="relative flex flex-col gap-5">
       <div>
         <label htmlFor={`${id}-namn`} className={ETIKETT}>
           نام و نام خانوادگی
@@ -146,6 +156,28 @@ export function LeadFormular() {
             <option value="Annat">سایر</option>
           </select>
         </div>
+      </div>
+
+      {/* Honungsfälla mot skräprobotar.
+
+          Webhookadressen ligger i klientkoden och kan inte döljas, så vem som
+          helst kan posta till den. En robot som fyller i alla fält den hittar
+          fastnar här: fältet är dolt för människor men syns i HTML:en, och ett
+          ifyllt värde gör att vi låtsas lyckas utan att skicka något vidare.
+
+          Dolt med position och inte med display:none eller hidden, eftersom
+          en del robotar hoppar över fält som är helt bortkopplade. tabIndex
+          -1 och aria-hidden håller det borta från tangentbord och
+          skärmläsare. autoComplete off så att webbläsaren inte fyller i det. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor={`${id}-webb`}>Webbplats</label>
+        <input
+          id={`${id}-webb`}
+          name="webbplats"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <button
