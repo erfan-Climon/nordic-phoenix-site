@@ -211,7 +211,7 @@ const ALLA: Article[] = [
       name: "Ali Nahroudi",
       role: "Grundare och ägare",
       jobTitle: "Redovisningskonsult",
-      bio: "Ali grundade Nordic Phoenix med ambitionen att göra redovisning tydlig, trygg och tillgänglig för företagare i Sverige. Han arbetar dagligen med bokföring, bokslut, deklarationer och myndighetskontakter, och möter kunder på svenska, engelska och persiska.",
+      bio: "Redovisningskonsult och grundare av Nordic Phoenix Redovisningsbyrå. Arbetar dagligen med löpande bokföring, bokslut, deklarationer och myndighetskontakter för företagare i hela Sverige, på svenska, engelska och persiska.",
     },
   },
   {

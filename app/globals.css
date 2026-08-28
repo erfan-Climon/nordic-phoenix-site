@@ -365,6 +365,28 @@
 [dir="rtl"] .np-belt-rev {
   animation-name: np-marquee-rtl-rev;
 }
+/* Rak högerkant i brödtext, alltså samma start och slut på varje rad.
+   Motsvarar justeringsknappen längst till höger i Word.
+
+   `hyphens: auto` är inte en finess utan en förutsättning. Utan avstavning
+   sträcker webbläsaren ut mellanrummen mellan orden för att fylla raden, och
+   svenskans långa sammansättningar ger då vita floder rakt genom stycket.
+   Effekten blir värst på telefon, där raden är kort och ett enda långt ord
+   kan lämna halva raden tom.
+
+   Avstavningen förutsätter i sin tur att `lang` är satt på html-elementet,
+   annars vet webbläsaren inte vilka regler den ska avstava efter. Det gör
+   rotlayouterna redan, sv-SE, en och fa.
+
+   Persiskan påverkas knappt: arabisk skrift justeras genom att bokstäver
+   sträcks, inte genom att mellanrum växer, så flodproblemet finns inte där. */
+.np-justerad {
+  text-align: justify;
+  hyphens: auto;
+  /* Ett ensamt långt ord ska hellre brytas än spränga raden. */
+  overflow-wrap: break-word;
+}
+
 /* Bältet stannar när pekaren är över det.
 
    Utan pausen gick städerna bara ibland att klicka på. Ett klick kräver att

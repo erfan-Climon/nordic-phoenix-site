@@ -134,7 +134,10 @@ export function ArticlePage({
             return (
               <p
                 key={i}
-                className={`font-sans text-[17px] leading-[1.8] text-text-article ${
+                /* np-justerad ger rak högerkant, alltså samma start och slut
+                   på varje rad. Avstavningen som följer med är inte valfri,
+                   se kommentaren vid klassen i globals.css. */
+                className={`np-justerad font-sans text-[17px] leading-[1.8] text-text-article ${
                   nextIsHeading ? "mt-0 mb-10" : "mt-0 mb-[18px]"
                 }`}
               >
