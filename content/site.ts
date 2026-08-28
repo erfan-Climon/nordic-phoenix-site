@@ -129,4 +129,48 @@ export const matning = {
   ga4: "G-P7Q5FTV2NR",
   /** Pixel-id från Meta Events Manager, en lång sifferserie. */
   metaPixel: "1755833888899039",
+  /**
+   * Pixel-id från TikTok Events Manager. Tomt tills annonskontot finns.
+   * Laddas, precis som de andra, först efter samtycke.
+   */
+  tiktokPixel: "",
+} as const;
+
+/**
+ * Landningssidan för den ekonomiska hälsokontrollen.
+ *
+ * Egen konfiguration eftersom sidan är en annonsdestination med eget pris och
+ * egen konverteringspunkt, inte en del av tjänsteutbudet på sajten.
+ */
+export const halsokontroll = {
+  /** Persiska siffror i marknadsföringstext, latinska i tekniska fält. */
+  prisPersiska: "۱۲۰۰",
+  prisSiffra: 1200,
+  valuta: "SEK",
+  minuterPersiska: "۶۰",
+  minuter: 60,
+  /** Förifyllt meddelande när besökaren väljer WhatsApp i stället för formuläret. */
+  whatsappUrl: `https://wa.me/46720084000?text=${encodeURIComponent(
+    "سلام، درباره بررسی مالی ۱۲۰۰ کرونی ققنوس شمالی اطلاعات بیشتری می‌خواهم.",
+  )}`,
+} as const;
+
+/**
+ * GoHighLevel, kallat Climon System kundvänt.
+ *
+ * `leadWebhook` är adressen till ett inkommande webhook-steg i ett
+ * GHL-arbetsflöde. Den är TOM tills Erfan skapar flödet och lämnar adressen.
+ *
+ * Sajten byggs som statisk export, så det finns ingen egen server att posta
+ * till. Formuläret skickar därför direkt från webbläsaren till GHL. Ett
+ * inbäddat GHL-formulär i iframe var alternativet, men då går det varken att
+ * styra utseendet, att skicka med UTM-parametrar, eller att avfyra
+ * konverteringshändelsen först vid lyckad inskickning.
+ *
+ * Utan adress renderas formuläret men inskickning misslyckas med ett
+ * meddelande som hänvisar till WhatsApp. Sidan ska inte användas för annonser
+ * förrän värdet är satt.
+ */
+export const ghl = {
+  leadWebhook: "",
 } as const;

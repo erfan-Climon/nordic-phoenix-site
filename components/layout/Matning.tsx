@@ -32,6 +32,7 @@ export function Matning() {
 
     if (matning.ga4) startaGa4(matning.ga4);
     if (matning.metaPixel) startaMetaPixel(matning.metaPixel);
+    if (matning.tiktokPixel) startaTikTok(matning.tiktokPixel);
   }, [samtycke]);
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export function Matning() {
     const url = window.location.pathname + window.location.search;
     window.gtag?.("event", "page_view", { page_path: url });
     window.fbq?.("track", "PageView");
+    window.ttq?.page();
   }, [pathname, samtycke]);
 
   return null;
@@ -90,4 +92,61 @@ function startaMetaPixel(pixelId: string) {
 
   fbq("init", pixelId);
   fbq("track", "PageView");
+}
+
+/**
+ * TikToks pixel.
+ *
+ * Trogen TikToks egen kodsnutt, bara utskriven i läsbar form. Det som ser
+ * märkligt ut är avsiktligt: `ttq` är en ARRAY, inte ett objekt. Varje metod
+ * skjuter in sitt anrop i arrayen, och deras SDK tömmer den när den laddat.
+ *
+ * Första försöket här byggde en egen kö i en lokal variabel. Den hade SDK:n
+ * aldrig läst, så allt som anropades innan filen hunnit laddas hade
+ * försvunnit tyst. En pixel som tappar händelser utan att säga till är värre
+ * än ingen pixel alls, eftersom siffrorna då ser rimliga ut men är fel.
+ */
+function startaTikTok(pixelId: string) {
+  if (window.ttq) return;
+
+  window.TiktokAnalyticsObject = "ttq";
+  const ttq = ([] as unknown) as TikTokPixel;
+  window.ttq = ttq;
+
+  ttq.methods = [
+    "page", "track", "identify", "instances", "debug", "on", "off", "once",
+    "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent",
+    "revokeConsent", "grantConsent",
+  ];
+
+  ttq.setAndDefer = (mal: unknown, metod: string) => {
+    (mal as Record<string, unknown>)[metod] = (...args: unknown[]) => {
+      (mal as unknown[]).push([metod, ...args]);
+    };
+  };
+  for (const metod of ttq.methods) ttq.setAndDefer(ttq, metod);
+
+  ttq.instance = (id: string) => {
+    const inst = (ttq._i?.[id] ?? []) as unknown[];
+    for (const metod of ttq.methods ?? []) ttq.setAndDefer?.(inst, metod);
+    return inst;
+  };
+
+  ttq.load = (id: string) => {
+    const url = "https://analytics.tiktok.com/i18n/pixel/events.js";
+    ttq._i = ttq._i || {};
+    ttq._i[id] = [];
+    (ttq._i[id] as unknown as { _u: string })._u = url;
+    ttq._t = ttq._t || {};
+    ttq._t[id] = Date.now();
+    ttq._o = ttq._o || {};
+    ttq._o[id] = {};
+    const skript = document.createElement("script");
+    skript.async = true;
+    skript.src = `${url}?sdkid=${id}&lib=ttq`;
+    document.head.appendChild(skript);
+  };
+
+  ttq.load(pixelId);
+  ttq.page();
 }

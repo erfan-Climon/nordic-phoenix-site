@@ -15,6 +15,22 @@ interface Window {
   fbq?: MetaPixel;
   /** Metas interna alias till samma funktion. */
   _fbq?: MetaPixel;
+  /** TikToks objekt. Byggs av deras egen kodsnutt och har en egen kö. */
+  ttq?: TikTokPixel;
+  TiktokAnalyticsObject?: string;
+}
+
+interface TikTokPixel {
+  (...args: unknown[]): void;
+  track: (namn: string, data?: Record<string, unknown>) => void;
+  page: () => void;
+  load: (pixelId: string) => void;
+  methods?: string[];
+  setAndDefer?: (obj: unknown, metod: string) => void;
+  instance?: (id: string) => unknown;
+  _i?: Record<string, unknown>;
+  _t?: Record<string, number>;
+  _o?: Record<string, unknown>;
 }
 
 interface MetaPixel {
