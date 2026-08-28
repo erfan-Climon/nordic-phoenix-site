@@ -116,18 +116,34 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Hero-bilden laddas med priority: den är sidans största element
-              ovanför vikningen och ska inte fördröjas av lazy loading. */}
-          <div className="relative mx-auto w-full max-w-[420px]">
+          {/* Märkesplatta i stället för foto.
+
+              Logotypen är 431 gånger 338 och genomskinlig, alltså en bred
+              märkesbild. Sträckt till porträttformat hade den blivit
+              förvriden, så den ligger centrerad på en egen platta med gott om
+              luft omkring. Plattan är låg på telefon: där är varje punkt
+              ovanför vikningen värd mer än en stor bild.
+
+              priority eftersom plattan står ovanför vikningen. Filen är 11 kB,
+              så det kostar nästan ingenting. */}
+          <div className="mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-6 rounded-media bg-ink px-10 py-[clamp(40px,8vw,72px)] shadow-[0_24px_64px_rgba(23,19,16,.18)]">
             <Image
-              src="/assets/ali-portratt.webp"
-              alt="Ali Nahroudi, بنیان‌گذار ققنوس شمالی"
-              width={840}
-              height={1003}
+              src="/assets/phoenix-logo.webp"
+              alt="Nordic Phoenix Redovisningsbyrå"
+              width={431}
+              height={338}
               priority
-              sizes="(max-width: 768px) 80vw, 420px"
-              className="h-auto w-full rounded-media shadow-[0_24px_64px_rgba(23,19,16,.18)]"
+              sizes="(max-width: 768px) 140px, 180px"
+              className="h-auto w-[clamp(120px,26vw,180px)]"
             />
+            <div className="flex flex-col items-center gap-2 text-center">
+              <span className="font-heading text-[clamp(19px,2.4vw,24px)] tracking-[.04em] text-on-dark">
+                NORDIC PHOENIX
+              </span>
+              <span className="font-mono text-[11px] tracking-[.22em] text-on-dark-dim uppercase">
+                Redovisningsbyrå
+              </span>
+            </div>
           </div>
         </div>
       </section>
