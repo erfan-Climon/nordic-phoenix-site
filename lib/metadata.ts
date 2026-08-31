@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import { services } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
-import { company, email, phone, SITE_URL, social } from "@/content/site";
+import {
+  company,
+  email,
+  metaDomanverifiering,
+  phone,
+  SITE_URL,
+  social,
+} from "@/content/site";
 import { isPreview } from "@/lib/preview";
 import {
   getDictionary,
@@ -96,6 +103,11 @@ export function buildMetadata({
       ],
       shortcut: "/favicon.ico",
       apple: { url: "/apple-icon.png", sizes: "180x180" },
+    },
+    /* Metas domänverifiering. Ligger på alla sidor, men det Meta faktiskt
+       läser är startsidan. */
+    other: {
+      "facebook-domain-verification": metaDomanverifiering,
     },
     alternates: {
       canonical: url,

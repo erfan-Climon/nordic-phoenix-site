@@ -218,6 +218,21 @@ export const halsokontroll = {
  * meddelande som hänvisar till WhatsApp. Sidan ska inte användas för annonser
  * förrän värdet är satt.
  */
+/**
+ * Metas domänverifiering.
+ *
+ * Bevisar för Meta att vi råder över nordicphoenix.se. Krävs för att kunna
+ * styra vem som får annonsera mot domänen och för att aggregerad
+ * händelsemätning ska gå att konfigurera.
+ *
+ * Taggen är ingen hemlighet, den är gjord för att stå i publik HTML. Meta
+ * kräver att den ligger i head på STARTSIDAN, inte bara på landningssidan,
+ * och att den finns i den levererade HTML:en och inte skjuts in av
+ * JavaScript i efterhand. Därför sätts den i buildMetadata, som varje sida
+ * går igenom.
+ */
+export const metaDomanverifiering = "yq8uht61nwtk5xy9nz12jhnfdekevs";
+
 export const ghl = {
   leadWebhook:
     "https://services.leadconnectorhq.com/hooks/66iE5ekAVPU5F03G3zJk/webhook-trigger/b1dac5fe-c47d-4f16-a6ab-b26de450665b",
