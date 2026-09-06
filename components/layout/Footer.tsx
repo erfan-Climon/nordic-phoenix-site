@@ -17,6 +17,47 @@ import { SamtyckeLank } from "@/components/layout/SamtyckeLank";
 const textClass = "font-sans text-[14px] leading-[1.7] text-on-dark-muted";
 const linkClass = `${textClass} no-underline transition-colors duration-300 hover:text-accent-light`;
 
+/**
+ * E-postadressen i sidfoten, undantagen från Cloudflares adressmaskering.
+ *
+ * Cloudflare har en funktion i Scrape Shield som heter Email Address
+ * Obfuscation. Den skriver om varje mailto-länk i svaret: adressen byts mot
+ * texten "[email protected]" och länkmålet mot /cdn-cgi/l/email-protection
+ * följt av adressen krypterad i hex, som ett litet skript avkodar i
+ * webbläsaren. Två saker gick sönder av det.
+ *
+ * Dels svarar /cdn-cgi/l/email-protection 404 utan hexdelen, och Googlebot
+ * följer länken utan att köra skriptet. Det är den enda 404:an Search Console
+ * rapporterar för sajten.
+ *
+ * Dels är adressen inte längre läsbar för någon som inte kör JavaScript.
+ * Kontaktuppgifter i sidfoten är en av signalerna Google väger in när den
+ * avgör att ett företag är verkligt, och den signalen fanns alltså inte på
+ * någon av sajtens sidor.
+ *
+ * Maskeringen skyddade heller ingenting: samma adress står i klartext i
+ * AccountingService-schemat på varje sida, så den som skördar adresser har
+ * den redan.
+ *
+ * `<!--email_off-->` är Cloudflares dokumenterade sätt att undanta ett
+ * avsnitt. Kommentarerna måste ligga i den levererade HTML:en, och JSX
+ * skriver inte ut kommentarer, därför dangerouslySetInnerHTML. Ingenting
+ * här kommer utifrån: både adressen och klassnamnet är våra egna konstanter.
+ *
+ * `contents` på omslaget gör att länken förblir det som ligger i
+ * flex-kolumnen, precis som innan omslaget fanns.
+ */
+function Epostlank() {
+  return (
+    <span
+      className="contents"
+      dangerouslySetInnerHTML={{
+        __html: `<!--email_off--><a href="${email.href}" class="${linkClass}">${email.display}</a><!--email_on-->`,
+      }}
+    />
+  );
+}
+
 export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <footer className="overflow-hidden border-t border-[rgba(242,236,224,.06)] bg-ink text-on-dark">
@@ -53,9 +94,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             {/* Den skriftliga vägen in. Adressen skrivs ut i klartext och
                 inte som "mejla oss": den som vill skriva från sin egen
                 klient ska kunna läsa av eller kopiera den direkt. */}
-            <a href={email.href} className={linkClass}>
-              {email.display}
-            </a>
+            <Epostlank />
           </div>
 
           <div className="flex flex-col gap-3">
