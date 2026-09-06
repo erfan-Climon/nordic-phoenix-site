@@ -8,7 +8,8 @@ import {
 } from "@/components/lp/Knappar";
 import { LeadFormular } from "@/components/lp/LeadFormular";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
-import { company, email, halsokontroll, phone, SITE_URL } from "@/content/site";
+import { company, halsokontroll, phone, SITE_URL } from "@/content/site";
+import { Epostlank } from "@/components/ui/Epostlank";
 import { getDictionary } from "@/lib/i18n";
 import { absolutUrl, buildMetadata } from "@/lib/metadata";
 
@@ -478,9 +479,7 @@ export default function Page() {
               <a href={phone.href} className="text-text no-underline">
                 <PhoneNumber />
               </a>
-              <a href={email.href} className="text-text no-underline">
-                {email.display}
-              </a>
+              <Epostlank className="text-text no-underline" />
             </div>
           </div>
         </div>

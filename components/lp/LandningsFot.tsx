@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { company, email, phone } from "@/content/site";
+import { company, phone } from "@/content/site";
+import { Epostlank } from "@/components/ui/Epostlank";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
 /**
@@ -29,12 +30,7 @@ export function LandningsFot() {
           >
             <PhoneNumber />
           </a>
-          <a
-            href={email.href}
-            className="text-on-dark-muted no-underline transition-colors duration-300 hover:text-accent-light"
-          >
-            {email.display}
-          </a>
+          <Epostlank className="text-on-dark-muted no-underline transition-colors duration-300 hover:text-accent-light" />
           <Link
             href="/integritetspolicy"
             className="text-on-dark-muted underline transition-colors duration-300 hover:text-accent-light"
