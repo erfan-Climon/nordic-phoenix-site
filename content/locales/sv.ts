@@ -366,8 +366,9 @@ export const sv = {
     consentSettings: "Inställningar för mätning",
     seo: "Redovisningsbyrå Stockholm · Sollentuna · Hela Sverige digitalt",
     credit: "Designad och utvecklad av",
-    /* Bara persiskan har den här sidan, så fältet är valfritt. */
-    persianLanding: undefined as string | undefined,
+    /* Sidan om persisk redovisning finns på svenska och persiska men inte
+       på engelska, därför är fältet valfritt. */
+    persianLanding: "Persisk redovisningsbyrå" as string | undefined,
   },
 
   blog: {

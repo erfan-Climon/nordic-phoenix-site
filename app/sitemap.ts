@@ -129,16 +129,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   /**
-   * Den enda undersidan från den gamla sajten. URL:en behålls oförändrad,
-   * eftersom den är indexerad och rankar på persiska sökord. Se sidans egen
-   * kommentar innan den flyttas eller tas bort.
+   * Sidan om persisk redovisning, i sina två språkversioner.
+   *
+   * Persiskan ligger kvar på den gamla sajtens adress, som är indexerad och
+   * rankar på persiska sökord. Svenskan ligger under /sv som alla andra
+   * svenska sidor. De är samma sida på två språk, därför pekar de ut varandra
+   * som alternates trots att sökvägarna inte följer samma mönster.
+   *
+   * Se sidornas egna kommentarer innan någon av adresserna ändras.
    */
+  const persiskaSprak = {
+    [htmlLang.fa]: abs("/persisk-redovisningsbyra-stockholm"),
+    [htmlLang.sv]: abs(localePath("sv", "/persisk-redovisningsbyra")),
+  };
   const bevarade = [
     {
       url: abs("/persisk-redovisningsbyra-stockholm"),
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.9,
+      alternates: { languages: persiskaSprak },
+    },
+    {
+      url: abs(localePath("sv", "/persisk-redovisningsbyra")),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+      alternates: { languages: persiskaSprak },
     },
   ];
 

@@ -5,7 +5,7 @@ import { cities } from "@/content/locations";
 import { services } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, whatsappUrl } from "@/content/site";
-import { localePath } from "@/lib/i18n";
+import { htmlLang, localePath } from "@/lib/i18n";
 import { absolutUrl, buildMetadata } from "@/lib/metadata";
 
 /**
@@ -20,6 +20,8 @@ import { absolutUrl, buildMetadata } from "@/lib/metadata";
  * Console vad den drar in.
  */
 const PATH = "/persisk-redovisningsbyra-stockholm";
+/** Samma sida på svenska. Se den filens kommentar om varför den finns. */
+const SVENSK_PATH = "/persisk-redovisningsbyra";
 
 export const metadata: Metadata = {
   ...buildMetadata({
@@ -30,9 +32,22 @@ export const metadata: Metadata = {
     description:
       "حسابدار ایرانی و فارسی‌زبان در سوئد. Nordic Phoenix Redovisningsbyrå در استکهلم خدمات bokföring، moms، lön، bokslut، årsredovisning و deklaration برای شرکت‌های ایرانی و فارسی‌زبان ارائه می‌دهد.",
   }),
-  /* Sidan finns bara i den här versionen, så inga språkalternativ. Den ligger
-     dessutom på roten och inte under /fa, vilket är avsiktligt. */
-  alternates: { canonical: absolutUrl(PATH) },
+  /* Sidan ligger på roten och inte under /fa, vilket är avsiktligt: adressen
+     är den gamla sajtens och bär både sökordet och auktoriteten.
+
+     Den svenska motsvarigheten ligger däremot under /sv som alla andra
+     svenska sidor, så språkversionerna delar inte sökväg. Därför skrivs
+     alternates ut för hand i stället för med languageAlternates, som utgår
+     från att bara prefixet skiljer. hreflang måste peka åt båda hållen för
+     att Google ska godta paret, se den svenska sidans metadata. */
+  alternates: {
+    canonical: absolutUrl(PATH),
+    languages: {
+      [htmlLang.fa]: absolutUrl(PATH),
+      [htmlLang.sv]: absolutUrl(localePath("sv", SVENSK_PATH)),
+      "x-default": absolutUrl(localePath("sv", SVENSK_PATH)),
+    },
+  },
 };
 
 /**
@@ -174,6 +189,22 @@ export default function Page() {
               مشاهده تمام خدمات
             </Link>
           </div>
+
+          {/* Vägen till den svenska versionen. Språkmenyn i sidhuvudet kan
+              inte visa den, eftersom de två versionerna inte delar sökväg,
+              se lib/locales-for-path. Länken står därför i texten, och den
+              behövs åt båda hållen för att hreflang ska ha täckning i det
+              besökaren faktiskt kan klicka på. */}
+          <p className="mt-[clamp(24px,3vw,32px)] mb-0" dir="ltr">
+            <Link
+              href={localePath("sv", SVENSK_PATH)}
+              lang="sv"
+              hrefLang="sv"
+              className="font-sans text-[15px] leading-[1.7] text-text-muted underline transition-colors duration-300 hover:text-accent-ink"
+            >
+              Samma sida på svenska
+            </Link>
+          </p>
         </div>
       </section>
 

@@ -116,14 +116,23 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             <Link href={localePath(locale, "/mallar")} className={linkClass}>
               {t.templates.nav}
             </Link>
-            {/* Den persiska landningssidan nåddes inte från en enda intern
+            {/* Sidan om persisk redovisning nåddes inte från en enda intern
                 länk. Den ligger i sitemap, men utan interna länkar får den
-                nästan ingen vikt från resten av sajten, och den är en av bara
-                två adresser som var indexerade från den gamla sajten.
-                Länktexten är sidans egen rubrik. */}
+                nästan ingen vikt från resten av sajten, och den persiska
+                versionen är en av bara två adresser som var indexerade från
+                den gamla sajten.
+
+                Adressen skiljer sig åt mellan språken: persiskan ligger kvar
+                på den gamla sajtens rot-URL, svenskan under /sv som allt
+                annat svenskt. Engelskan saknar sidan och får ingen länk.
+                Länktexten är sidans egen rubrik på respektive språk. */}
             {t.footer.persianLanding ? (
               <Link
-                href="/persisk-redovisningsbyra-stockholm"
+                href={
+                  locale === "fa"
+                    ? "/persisk-redovisningsbyra-stockholm"
+                    : localePath(locale, "/persisk-redovisningsbyra")
+                }
                 className={linkClass}
               >
                 {t.footer.persianLanding}

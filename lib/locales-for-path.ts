@@ -40,10 +40,22 @@ export function localesForPath(path: string): Locale[] {
   }
 
   /**
-   * Den enda undersidan från den gamla sajten. Den finns bara på svenska och
-   * ska inte få språkalternativ, se sidans egen kommentar.
+   * Sidan om persisk redovisning finns på svenska och persiska, men de två
+   * versionerna delar inte sökväg: persiskan ligger kvar på den gamla sajtens
+   * adress utan språkprefix, se sidornas egna kommentarer.
+   *
+   * Språkmenyn bygger sina adresser genom att byta prefix på den sökväg den
+   * får in, och kan därför inte uttrycka det paret. Lämnades det åt den
+   * pekade menyn på /persisk-redovisningsbyra och /en/persisk-redovisningsbyra,
+   * som båda är 404. Ett språk var alltså rätt svar tills menyn kan ta emot
+   * en egen adress per språk: då döljer den sig, och besökaren byter språk på
+   * knappen som står i sidans egen text i stället.
+   *
+   * Kopplingen mellan versionerna finns kvar där den betyder något för
+   * sökmotorn, alltså i hreflang och i sitemap.
    */
-  if (rent === "/persisk-redovisningsbyra-stockholm") return ["sv"];
+  if (rent === "/persisk-redovisningsbyra-stockholm") return ["fa"];
+  if (rent === "/persisk-redovisningsbyra") return ["sv"];
 
   // Startsidan, tjänsterna och integritetspolicyn finns på alla tre.
   return [...locales];
