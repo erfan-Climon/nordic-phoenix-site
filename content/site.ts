@@ -11,8 +11,22 @@ export const company = {
   city: "Sollentuna",
   region: "Stockholms län",
   country: "SE",
-  /** Sollentuna centrum, används i LocalBusiness-schemat. */
-  geo: { lat: 59.4281, lng: 17.9508 },
+  /**
+   * Kontorets faktiska läge, används i LocalBusiness-schemat.
+   *
+   * Stod tidigare på Sollentuna centrum, alltså 59.4281 / 17.9508. Det är
+   * knappt sju kilometer söder om Bollstanäsvägen, som ligger i Rotsunda Gård
+   * vid Rotebro. Schemat påstod alltså två olika platser samtidigt: rätt
+   * gatuadress i `address` och fel punkt i `geo`.
+   *
+   * Det spelar roll just nu. Google väger ihop adress, telefonnummer och
+   * position när den avgör om en sajt och en företagsprofil hör ihop, och en
+   * punkt som ligger sju kilometer fel drar åt fel håll i den bedömningen.
+   *
+   * Koordinaterna är uppslagna på gatuadressen i OpenStreetMaps
+   * adressregister, inte avlästa på en karta.
+   */
+  geo: { lat: 59.4847, lng: 17.9218 },
   foundedDisplay: "2015–2026",
 } as const;
 
