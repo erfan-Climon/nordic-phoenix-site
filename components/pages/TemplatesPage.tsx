@@ -1,7 +1,7 @@
 import { getMallText, mallar, mallUrl } from "@/content/templates";
 import { company, phone, whatsappUrl } from "@/content/site";
 import { getDictionary, type Locale, localePath } from "@/lib/i18n";
-import { absolutUrl } from "@/lib/metadata";
+import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
 /**
@@ -54,12 +54,19 @@ export function TemplatesPage({ locale }: { locale: Locale }) {
     },
   };
 
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: m.nav, path: localePath(locale, "/mallar") },
+  ]);
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      {[schema, brodsmulor].map((s, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
+        />
+      ))}
 
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)] pb-[clamp(48px,6vw,80px)]">

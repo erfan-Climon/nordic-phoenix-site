@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
 import { articleImage, articlesForLocale } from "@/content/blog-copy";
 import { type Locale, getDictionary, localePath } from "@/lib/i18n";
+import { breadcrumbJsonLd } from "@/lib/metadata";
 
 const cardBase =
   "flex flex-col overflow-hidden rounded-card border border-[rgba(23,19,16,.1)] bg-surface";
@@ -16,8 +17,17 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
   const blogHref = localePath(locale, "/blogg");
   const [featured, ...rest] = articlesForLocale(locale);
 
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: t.nav.blog, path: blogHref },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brodsmulor) }}
+      />
+
       <section className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(160px,20vh,240px)] pb-[clamp(56px,7vw,88px)]">
         <p className="np-meta m-0 mb-7 tracking-[.24em] text-text-meta">
           {t.blog.eyebrow}

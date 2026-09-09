@@ -5,7 +5,7 @@ import type { Article } from "@/content/blog";
 import { type ArticleCopy, articleAuthor, articleImage } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
 import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
-import { absolutUrl } from "@/lib/metadata";
+import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
 
 /**
  * `article` bär strukturen som är lika på alla språk: slug, datum, bild och
@@ -71,12 +71,23 @@ export function ArticlePage({
     ],
   };
 
+  /* Egen tagg och inte en post i grafen ovan: brödsmulan beskriver var
+     sidan sitter i sajten, inte vad artikeln handlar om. Google läser båda
+     lika bra var för sig. */
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: t.nav.blog, path: blogHref },
+    { name: copy.title, path: `${blogHref}/${article.slug}` },
+  ]);
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {[jsonLd, brodsmulor].map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
 
       <section className="mx-auto max-w-[900px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
         <Link

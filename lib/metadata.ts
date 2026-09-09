@@ -144,6 +144,47 @@ export function buildMetadata({
 }
 
 /**
+ * Brödsmulor som schema.
+ *
+ * Fanns bara på tjänste- och ortssidorna, alltså på två av sajtens nio
+ * sidtyper. Resten låg som lösa adresser utan uppåtriktning, och Google hade
+ * ingenting som band ihop en artikel med bloggen eller en mall med mallsidan.
+ *
+ * Det är den uppmärkningen Google läser när den avgör hur en sajt hänger
+ * ihop, och den bilden är i sin tur förutsättningen för länkraderna under ett
+ * sökträff. De raderna kallas sitelinks och plockas fram algoritmiskt. Det
+ * går inte att beställa dem, men det går att sluta dölja strukturen.
+ *
+ * `path` skickas färdig, alltså redan med språkprefix där sådant ska finnas.
+ * Den persiska landningssidan ligger på roten utan prefix, och en hjälpare
+ * som själv la på prefix hade gett fel adress just där.
+ */
+export function breadcrumbJsonLd(
+  locale: Locale,
+  steg: readonly { name: string; path: string }[],
+) {
+  const t = getDictionary(locale);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: t.servicePage.home,
+        item: absolutUrl(localePath(locale, "/")),
+      },
+      ...steg.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 2,
+        name: s.name,
+        item: absolutUrl(s.path),
+      })),
+    ],
+  };
+}
+
+/**
  * AccountingService-schema. Byrån tar emot kunder i hela Sverige digitalt,
  * därför både adress och areaServed.
  */

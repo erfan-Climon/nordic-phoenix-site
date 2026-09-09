@@ -4,7 +4,7 @@ import { areasOf, getLocation, type Location } from "@/content/locations";
 import { getLocationCopy, type LocationCopy } from "@/content/location-copy";
 import { company, phone, whatsappUrl } from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
-import { absolutUrl } from "@/lib/metadata";
+import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { showsPricing } from "@/lib/pricing-visible";
 
@@ -68,28 +68,13 @@ export function LocationPage({
     })),
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      /* Startsidan på besökarens språk. Stod tidigare som roten rakt av,
-         alltså den persiska startsidan, även i brödsmulan på en svensk
-         ortssida. */
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: lp.home,
-        item: absolutUrl(localePath(locale, "/")),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: lp.locations,
-        item: absolutUrl(base),
-      },
-      { "@type": "ListItem", position: 3, name: copy.name, item: url },
-    ],
-  };
+  /* Startsidan på besökarens språk. Stod tidigare som roten rakt av,
+     alltså den persiska startsidan, även i brödsmulan på en svensk
+     ortssida. Den regeln bor numera i hjälparen. */
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: lp.locations, path: base },
+    { name: copy.name, path: `${base}/${location.slug}` },
+  ]);
 
   /* Bara orter som finns på samma språk. En länk till en sida som inte
      existerar på /fa hade gett 404, och en som pekar tillbaka till svenskan
@@ -104,7 +89,7 @@ export function LocationPage({
 
   return (
     <>
-      {[serviceJsonLd, faqJsonLd, breadcrumbJsonLd].map((schema, i) => (
+      {[serviceJsonLd, faqJsonLd, brodsmulor].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"

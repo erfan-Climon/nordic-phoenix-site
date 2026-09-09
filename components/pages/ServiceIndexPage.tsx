@@ -1,6 +1,7 @@
 import { ServiceCards } from "@/components/home/ServiceCards";
 import { phone, whatsappUrl } from "@/content/site";
-import { getDictionary, type Locale } from "@/lib/i18n";
+import { getDictionary, type Locale, localePath } from "@/lib/i18n";
+import { breadcrumbJsonLd } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 
 /** Översikten över tjänsterna. Delas av den svenska roten och /en och /fa. */
@@ -8,8 +9,17 @@ export function ServiceIndexPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const s = t.servicePage;
 
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: s.services, path: localePath(locale, "/tjanster") },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brodsmulor) }}
+      />
+
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)] pb-[clamp(48px,6vw,80px)]">
           <p className="np-label mb-7 text-accent-ink">{s.services}</p>

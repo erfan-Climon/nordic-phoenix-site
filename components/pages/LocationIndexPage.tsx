@@ -4,6 +4,7 @@ import { areasOf, cities } from "@/content/locations";
 import { getLocationCopy } from "@/content/location-copy";
 import { phone, whatsappUrl } from "@/content/site";
 import { getDictionary, type Locale, localePath } from "@/lib/i18n";
+import { breadcrumbJsonLd } from "@/lib/metadata";
 
 /**
  * Ortsöversikten. Listar bara orter som finns på språket i fråga, så att
@@ -17,8 +18,17 @@ export function LocationIndexPage({ locale }: { locale: Locale }) {
   const orter = cities.filter((c) => getLocationCopy(c, locale));
   const omraden = areasOf("stockholm").filter((a) => getLocationCopy(a, locale));
 
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: lp.locations, path: base },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brodsmulor) }}
+      />
+
       <section className="bg-page text-text">
         <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)] pb-[clamp(48px,6vw,80px)]">
           <p className="np-label mb-7 text-accent-ink">{lp.locations}</p>

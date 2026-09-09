@@ -5,7 +5,7 @@ import { getService, type Service } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, whatsappUrl } from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
-import { absolutUrl } from "@/lib/metadata";
+import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { showsPricing } from "@/lib/pricing-visible";
 
@@ -77,25 +77,10 @@ export function ServicePage({
     })),
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: s.home,
-        item: absolutUrl(localePath(locale, "/")),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: s.services,
-        item: absolutUrl(base),
-      },
-      { "@type": "ListItem", position: 3, name: copy.name, item: url },
-    ],
-  };
+  const brodsmulor = breadcrumbJsonLd(locale, [
+    { name: s.services, path: base },
+    { name: copy.name, path: `${base}/${service.slug}` },
+  ]);
 
   const related = service.related
     .map((slug) => getService(slug))
@@ -106,7 +91,7 @@ export function ServicePage({
 
   return (
     <>
-      {[serviceJsonLd, faqJsonLd, breadcrumbJsonLd].map((schema, i) => (
+      {[serviceJsonLd, faqJsonLd, brodsmulor].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"
