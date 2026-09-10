@@ -341,9 +341,13 @@ const ALLA: Article[] = [
       "Förstå de nya 3:12-reglerna från inkomstår 2026. Vi förklarar grundbelopp, löneutrymme, sparat utdelningsutrymme och K10.",
     intro:
       "Från inkomstår 2026 beräknas gränsbeloppet för kvalificerade aktier på ett nytt sätt. Förändringen påverkar den K10-blankett som lämnas i deklarationen 2027. Reglerna har förenklats på vissa punkter, men det betyder inte att planeringen kan vänta till deklarationsdagen.",
-    image: "/assets/blogg-thumb.webp",
+    image: "/assets/blogg/nya-3-12-regler-2026-sv.webp",
+    /* Alt-texten beskriver vad som står tryckt i bilden, inte artikelns
+       rubrik. Rubriken står redan som h1 direkt under bilden, och en
+       skärmläsare som får den två gånger i rad läser upp samma mening
+       dubbelt. */
     imageAlt:
-      "Nya 3:12-reglerna: det här behöver ägare i fåmansbolag förstå före årsskiftet",
+      "Nya 3:12-reglerna 2026: se över löneuttag, gränsbelopp, utdelning och K10 före årsskiftet",
     metaTitle:
       "Nya 3:12-regler 2026: utdelning och K10 förklarat | Nordic Phoenix",
     metaDescription:
