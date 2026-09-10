@@ -387,6 +387,8 @@ export const sv = {
     checklistTitle: "Handlingschecklista",
     authorLabel: "Skribent",
     faqTitle: "Vanliga frågor",
+    /* Rubriken över källraden sist i artikeln. */
+    sourcesTitle: "Källor",
     ctaTitle: "Vill du ha hjälp med det här?",
     ctaButton: "Kontakta oss",
   },

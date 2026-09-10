@@ -231,6 +231,42 @@ export function ArticlePage({
           </dl>
         </section>
 
+        {/* Källorna står mellan frågorna och skribenten: först vad som
+            påstås, sedan varifrån det kommer, sist vem som svarar för det.
+
+            Bara myndigheter och normgivare, och varje adress är läst igenom
+            innan den lades in. Fyra av artiklarna saknar kontrollerbara
+            sakuppgifter och får då inget block alls.
+
+            rel noopener på länkar som öppnas i ny flik, och en synlig
+            understrykning: en källhänvisning som inte ser ut som en länk
+            fyller ingen funktion. */}
+        {article.kallor?.length ? (
+          <section className="mt-[clamp(48px,6vw,72px)] border-t border-[rgba(23,19,16,.14)] pt-8">
+            <h2 className="np-mono m-0 mb-4 font-mono text-[11px] tracking-[.24em] text-text-meta uppercase">
+              {t.blog.sourcesTitle}
+            </h2>
+            <ul className="m-0 flex list-none flex-col gap-3 p-0">
+              {article.kallor.map((kalla) => (
+                <li key={kalla.url} className="flex gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full bg-accent"
+                  />
+                  <a
+                    href={kalla.url}
+                    target="_blank"
+                    rel="noopener"
+                    className="font-sans text-[15px] leading-[1.65] text-text-muted underline decoration-[rgba(23,19,16,.25)] underline-offset-[3px] transition-colors duration-300 hover:text-accent-ink"
+                  >
+                    {kalla.titel}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         {/* Skribenten står efter frågorna och före uppmaningen: läsaren
             möter avsändaren när argumenten är klara, precis innan hen ombeds
             höra av sig. */}

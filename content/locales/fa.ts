@@ -379,6 +379,7 @@ export const fa: Dictionary = {
     checklistTitle: "فهرست اقدامات",
     authorLabel: "نویسنده",
     faqTitle: "پرسش‌های متداول",
+    sourcesTitle: "منابع",
     ctaTitle: "در این زمینه به کمک نیاز دارید؟",
     ctaButton: "تماس با ما",
   },

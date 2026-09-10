@@ -377,6 +377,7 @@ export const en: Dictionary = {
     checklistTitle: "Action checklist",
     authorLabel: "Written by",
     faqTitle: "Frequently asked questions",
+    sourcesTitle: "Sources",
     ctaTitle: "Want help with this?",
     ctaButton: "Contact us",
   },

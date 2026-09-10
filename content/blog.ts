@@ -74,6 +74,26 @@ export type Article = {
   cta: string;
   /** Visas efter frågorna, före uppmaningen. Saknas den visas inget block. */
   author?: Author;
+  /**
+   * Var uppgifterna kommer ifrån.
+   *
+   * Artiklarna påstod belopp, procentsatser och regeländringar utan att säga
+   * varifrån. På texter om skatt är det svagt på två sätt: läsaren kan inte
+   * kontrollera något, och Google väger namngiven källhänvisning tungt på
+   * innehåll om pengar. Samma resonemang som bakom namngiven författare.
+   *
+   * Bara myndigheter och normgivare, alltså Skatteverket, Bolagsverket och
+   * Bokföringsnämnden. En redovisningsbyrå som hänvisar till en annan
+   * redovisningsbyrås blogg har inte styrkt någonting.
+   *
+   * Varje adress är hämtad och lästs igenom, inte bara statuskontrollerad.
+   * Länkarna ligger utanför språkversionerna eftersom sidorna de pekar på är
+   * svenska oavsett vilket språk läsaren valt.
+   *
+   * Saknas fältet visas inget block. Fyra av tolv artiklar har inga
+   * kontrollerbara sakuppgifter och ska då inte ha någon källrad heller.
+   */
+  kallor?: { titel: string; url: string }[];
 };
 
 /**
@@ -325,6 +345,9 @@ const ALLA: Article[] = [
         a: "Ja, i bolagets verksamhet. Det får inte behandlas som privata pengar, och styrelsen måste följa reglerna om kapitalbrist.",
       },
     ],
+    kallor: [
+      { titel: "Skatteverket, Aktiebolag", url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html" },
+    ],
     cta: "Osäker på vad som passar din verksamhet? Vi kan jämföra företagsformer utifrån risk, skatt och dina planer de kommande åren.",
   },
   {
@@ -444,6 +467,13 @@ const ALLA: Article[] = [
       {
         q: "Ska jag lämna K10 även utan utdelning?",
         a: "Skatteverket rekommenderar normalt att K10 lämnas varje år för att hålla reda på sparat utdelningsutrymme.",
+      },
+    ],
+    kallor: [
+      {
+        titel:
+          "Skatteverket, Ändrade regler för delägare i fåmansföretag inför inkomstdeklarationen 2027",
+        url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/famansforetag/andradereglerinforinkomstdeklarationen2027.4.4a54dc8b19aa6175a152359.html",
       },
     ],
     cta: "Äger du ett fåmansbolag? Låt oss göra en 3:12-beräkning före årsskiftet så att lön, utdelning och dokumentation hänger ihop.",
@@ -816,6 +846,13 @@ const ALLA: Article[] = [
         a: "Normalt inte av ändringarna i K2 Årsredovisning, eftersom enskilda firmor vanligtvis använder K1 eller reglerna för årsbokslut.",
       },
     ],
+    kallor: [
+      {
+        titel:
+          "Bokföringsnämnden, Frågor och svar om ändringar i K2 och K3 från 2026",
+        url: "https://www.bfn.se/fragor-och-svar-om-andringar-i-k2-och-k3-fran-2026/",
+      },
+    ],
     cta: "Osäker på om ditt företag fortfarande får använda K2? Vi gör en regelverksbedömning och en konkret övergångsplan där det behövs.",
   },
   {
@@ -876,7 +913,7 @@ const ALLA: Article[] = [
       { type: "heading", text: "Tillfälligt lägre arbetsgivaravgift för unga" },
       {
         type: "paragraph",
-        text: "Under perioden 1 april 2026 till 30 september 2027 gäller tillfälligt nedsatta arbetsgivaravgifter för 19 till 23-åringar. Under 2026 var avgiften 20,81 procent på ersättning upp till 25 000 kronor per månad för de födelseår som omfattades. Vilka födelseår som gäller 2027 följer åldersintervallet och ska kontrolleras vid lönekörningen.",
+        text: "Under perioden 1 april 2026 till 30 september 2027 gäller tillfälligt nedsatta arbetsgivaravgifter för 19 till 23-åringar. Under 2026 är avgiften 20,81 procent på ersättning upp till 25 000 kronor per månad för anställda födda 2003 till 2007. På lönedelar över taket betalas full avgift. Vilka födelseår som gäller 2027 följer åldersintervallet och ska kontrolleras vid lönekörningen.",
       },
       {
         type: "paragraph",
@@ -928,6 +965,14 @@ const ALLA: Article[] = [
       {
         q: "Hur länge gäller den sänkta avgiften för unga?",
         a: "Den tillfälliga nedsättningen gäller för ersättning som betalas ut till och med den 30 september 2027, för personer som omfattas av åldersvillkoren.",
+      },
+    ],
+    kallor: [
+      { titel: "Skatteverket, Regler för växa-stöd", url: "https://www.skatteverket.se/foretag/arbetsgivare/arbetsgivaravgifterochskatteavdrag/vaxastod/reglerforvaxastod.4.361dc8c15312eff6fd37447.html" },
+      {
+        titel:
+          "Skatteverket, Lägre arbetsgivaravgifter för ungdomar",
+        url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/lagrearbetsgivaravgifterforungdomar.5.70685bee19c85dd5dd02b10.html",
       },
     ],
     cta: "Låt oss räkna på den verkliga kostnaden och kontrollera stödvillkoren innan anställningsavtalet skrivs.",
@@ -1048,6 +1093,9 @@ const ALLA: Article[] = [
         a: "Du kan få svårare att visa korrekt sparat utdelningsutrymme. Skatteverket rekommenderar normalt att K10 lämnas varje år för kvalificerade aktier.",
       },
     ],
+    kallor: [
+      { titel: "Skatteverket, Aktiebolag", url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html" },
+    ],
     cta: "Behöver du hjälp att få bokslut, deklaration och K10 att stämma ihop? Vi tar ansvar för hela kedjan och förklarar resultatet på vanlig svenska.",
   },
   {
@@ -1113,7 +1161,7 @@ const ALLA: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Från den 1 april 2026 är momsen på livsmedel 6 procent medan restaurangtjänster fortsatt har 12 procent. Det kan påverka momsberäkningen när inköpet är mat utan restaurangtjänst, exempelvis viss hämtmat.",
+        text: "Från den 1 april 2026 är momsen på livsmedel 6 procent medan restaurangtjänster fortsatt har 12 procent. Sänkningen är tillfällig och gäller till och med den 31 december 2027. Det kan påverka momsberäkningen när inköpet är mat utan restaurangtjänst, exempelvis viss hämtmat.",
       },
       { type: "heading", text: "Arbetskläder" },
       {
@@ -1155,6 +1203,18 @@ const ALLA: Article[] = [
       {
         q: "Kan samma kostnad vara avdragsgill men utan momsavdrag?",
         a: "Ja. Reglerna för inkomstskatt och moms är separata, och utfallet kan därför skilja sig.",
+      },
+    ],
+    kallor: [
+      {
+        titel:
+          "Skatteverket, Resor mellan bostaden och verksamhetslokalen",
+        url: "https://www.skatteverket.se/foretag/skatterochavdrag/avdragforforetag/resorochbilkostnader/resormellanbostadenochverksamhetslokalen.4.3152d9ac158968eb8fd47cf.html",
+      },
+      {
+        titel:
+          "Skatteverket, Livsmedelsmomsen sänks till 6 procent",
+        url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/livsmedelsmomsensankstill6procent.5.70685bee19c85dd5dd0a3f.html",
       },
     ],
     cta: "Har du återkommande kostnader som känns osäkra? Vi kan skapa en avdragspolicy för företaget så att besluten blir konsekventa och underlagen kompletta.",
@@ -1270,6 +1330,18 @@ const ALLA: Article[] = [
       {
         q: "Måste jag kontrollera kundens VAT-nummer?",
         a: "Ja, vid vissa EU-försäljningar är ett giltigt VAT-nummer och korrekt dokumentation centralt för att fakturera utan svensk moms.",
+      },
+    ],
+    kallor: [
+      {
+        titel:
+          "Skatteverket, I vissa fall behöver du inte registrera ditt företag för moms",
+        url: "https://www.skatteverket.se/foretag/moms/momsregistrering/ivissafallbehoverduinteregistreradittforetagformoms.4.3152d9ac158968eb8fd1efe.html",
+      },
+      {
+        titel:
+          "Skatteverket, Livsmedelsmomsen sänks till 6 procent",
+        url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/livsmedelsmomsensankstill6procent.5.70685bee19c85dd5dd0a3f.html",
       },
     ],
     cta: "Har företaget flera momssatser eller handel över gränserna? Vi kan göra en momsgenomgång och bygga en rutin som minskar manuella rättelser.",
@@ -1519,6 +1591,9 @@ const ALLA: Article[] = [
         q: "Är redovisningsbyrån ansvarig för arkiveringen?",
         a: "Byrån kan sköta praktiska delar enligt avtal, men företaget och dess företrädare behåller ett eget ansvar för att bokföringslagen följs.",
       },
+    ],
+    kallor: [
+      { titel: "Skatteverket, Bokföring, vad kräver lagen?", url: "https://www.skatteverket.se/foretag/drivaforetag/bokforingochbokslut/bokforingvadkraverlagen.4.18e1b10334ebe8bc80005195.html" },
     ],
     cta: "Vi kan hjälpa dig att dokumentera en enkel arkiveringspolicy och säkerställa att allt går att exportera innan du byter system eller redovisningsbyrå.",
   },
