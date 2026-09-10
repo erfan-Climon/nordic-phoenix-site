@@ -76,6 +76,32 @@ export const whatsappUrl = `https://wa.me/46720084000?text=${encodeURIComponent(
 export const googleForetagsprofil =
   "https://maps.google.com/maps?cid=1410908658291703125";
 
+/**
+ * Öppettider, avlästa i företagsprofilen på Google.
+ *
+ * Samma tider alla sju dagar, därför en enda post med hela veckan i stället
+ * för sju identiska. Schemat tillåter båda formerna och Google läser dem
+ * likadant.
+ *
+ * Tiderna ska hållas i takt med profilen. Ändras de på ett ställe och inte på
+ * det andra säger sajten och profilen olika saker om samma företag, och det
+ * är precis den sortens motsägelse den här uppmärkningen finns för att undvika.
+ * Klockslagen skrivs i 24-timmarsform, som schemat kräver.
+ */
+export const oppettider = {
+  dagar: [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ],
+  oppnar: "08:00",
+  stanger: "19:00",
+} as const;
+
 export const social = {
   instagram: "https://www.instagram.com/nordic.phoenix.redovisning",
   facebook: "https://www.facebook.com/profile.php?id=61563109874406",

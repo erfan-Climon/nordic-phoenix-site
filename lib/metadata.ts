@@ -6,6 +6,7 @@ import {
   email,
   googleForetagsprofil,
   metaDomanverifiering,
+  oppettider,
   phone,
   SITE_URL,
   social,
@@ -219,6 +220,17 @@ export function accountingServiceJsonLd(locale: Locale) {
     },
     areaServed: { "@type": "Country", name: "Sweden" },
     availableLanguage: ["sv", "en", "fa"],
+    /* Öppettiderna som de står i företagsprofilen. Profilen visar dem redan,
+       sajten sa ingenting, och två källor där bara den ena uttalar sig är en
+       svagare koppling än två som säger samma sak. */
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [...oppettider.dagar],
+        opens: oppettider.oppnar,
+        closes: oppettider.stanger,
+      },
+    ],
     /* Kartan över kontoret är företagsprofilen på Google. Tillsammans med
        raden i sameAs nedan är det den uttryckliga kopplingen mellan sajten
        och profilen. Utan den fick Google avgöra saken på egen hand, utifrån
