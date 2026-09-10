@@ -23,10 +23,12 @@ export const company = {
    * position när den avgör om en sajt och en företagsprofil hör ihop, och en
    * punkt som ligger sju kilometer fel drar åt fel håll i den bedömningen.
    *
-   * Koordinaterna är uppslagna på gatuadressen i OpenStreetMaps
-   * adressregister, inte avlästa på en karta.
+   * Koordinaterna är numera profilens egna, hämtade ur Maps-adressen till
+   * företagsprofilen. De slogs först upp i OpenStreetMaps adressregister och
+   * hamnade då 22 meter bort, vilket inte spelar någon roll i sak men gör att
+   * schemat och profilen säger exakt samma sak i stället för nästan samma.
    */
-  geo: { lat: 59.4847, lng: 17.9218 },
+  geo: { lat: 59.4844722, lng: 17.9218188 },
   foundedDisplay: "2015–2026",
 } as const;
 
@@ -54,6 +56,25 @@ const WHATSAPP_MESSAGE =
 export const whatsappUrl = `https://wa.me/46720084000?text=${encodeURIComponent(
   WHATSAPP_MESSAGE,
 )}`;
+
+/**
+ * Företagsprofilen på Google.
+ *
+ * Adressen är byggd på profilens cid, alltså dess id i Googles kartdata.
+ * Formen svarar 200 direkt utan omdirigering, till skillnad från
+ * maps.google.com/?cid=... som gör ett extra hopp.
+ *
+ * En delad kortlänk (maps.app.goo.gl eller share.google) duger inte här.
+ * Den vecklas ut med JavaScript, pekar inte på resursen och kan sluta
+ * fungera. Strukturerad data ska peka rakt på saken.
+ *
+ * Profilens id och koordinater lästes ur den fullständiga Maps-adressen:
+ * funktions-id 0x4b5fca377cf23119:0x13948df30bfffd55, kategori
+ * accounting_firm. Kategorin motsvarar AccountingService i schemat, vilket
+ * är samma sak sagd på två ställen och det är meningen.
+ */
+export const googleForetagsprofil =
+  "https://maps.google.com/maps?cid=1410908658291703125";
 
 export const social = {
   instagram: "https://www.instagram.com/nordic.phoenix.redovisning",

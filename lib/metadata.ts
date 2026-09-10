@@ -4,6 +4,7 @@ import { getServiceCopy } from "@/content/service-copy";
 import {
   company,
   email,
+  googleForetagsprofil,
   metaDomanverifiering,
   phone,
   SITE_URL,
@@ -218,7 +219,20 @@ export function accountingServiceJsonLd(locale: Locale) {
     },
     areaServed: { "@type": "Country", name: "Sweden" },
     availableLanguage: ["sv", "en", "fa"],
-    sameAs: [social.instagram, social.facebook, social.tiktok],
+    /* Kartan över kontoret är företagsprofilen på Google. Tillsammans med
+       raden i sameAs nedan är det den uttryckliga kopplingen mellan sajten
+       och profilen. Utan den fick Google avgöra saken på egen hand, utifrån
+       att adress, telefonnummer och namn råkade stämma överens. */
+    hasMap: googleForetagsprofil,
+    /* Företagsprofilen står först. sameAs listar adresser som pekar ut samma
+       företag, och profilen är den enda av dem som Google själv äger och
+       därmed litar mest på. */
+    sameAs: [
+      googleForetagsprofil,
+      social.instagram,
+      social.facebook,
+      social.tiktok,
+    ],
     /* De sex tjänsterna knutna till företaget, var och en med sin egen
        adress. Det binder ihop tjänstesidorna med byrån som enhet i stället
        för att de ska stå som lösa sidor, och är den form Google läser när
