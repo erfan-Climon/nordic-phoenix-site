@@ -134,10 +134,13 @@ const ALLA: Article[] = [
       "Vad innebär regeringsskiftet för företag? Vi går igenom 3:12, arbetsgivaravgifter, sjuklön, skatter och regler som kan förändras inför 2027.",
     intro:
       "Valet är över, men för svenska företagare är det fortfarande för tidigt att veta exakt vilka ekonomiska regler som kommer att förändras.",
-    /* Platshållare tills den egna bilden finns, se docs/bildprompter-blogg.md. */
-    image: "/assets/blogg-thumb.webp",
+    /* 16:9 och inte 3:2 som de andra. Artikelns hjälte skalas utan
+       beskärning, så bilden blir bara något lägre, och i listningens kort
+       beskärs den till samma remsa som de andra. Rubriken i motivet sitter
+       mitt i höjdled och klarar beskärningen. */
+    image: "/assets/blogg/regeringsskifte-2026-foretag-skatt-regler-2027-sv.webp",
     imageAlt:
-      "Regeringsskifte efter valet 2026: vad företagare behöver hålla koll på inför 2027",
+      "Regeringsskifte efter valet 2026: skrivbord vid ett fönster med utsikt över Stockholm och en svensk flagga i kvällsljus",
     metaTitle: "Regeringsskifte 2026: Så kan svenska företag påverkas 2027",
     metaDescription:
       "Vad innebär regeringsskiftet för företag? Vi går igenom 3:12, arbetsgivaravgifter, sjuklön, skatter och regler som kan förändras inför 2027.",
