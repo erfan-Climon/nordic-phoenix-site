@@ -42,6 +42,10 @@ export type Author = {
 export type ArticleBlock =
   | { type: "heading"; text: string }
   | { type: "paragraph"; text: string }
+  /* Lista inne i brödtexten. Tidigare fanns bara rubrik, stycke och
+     faktaruta, så en uppräkning fick antingen skrivas om till löptext eller
+     flyttas till checklistan sist, bort från stycket som introducerar den. */
+  | { type: "list"; items: string[]; ordered?: boolean }
   | {
       type: "callout";
       label: string;
@@ -83,8 +87,10 @@ export type Article = {
    * innehåll om pengar. Samma resonemang som bakom namngiven författare.
    *
    * Bara myndigheter och normgivare, alltså Skatteverket, Bolagsverket och
-   * Bokföringsnämnden. En redovisningsbyrå som hänvisar till en annan
-   * redovisningsbyrås blogg har inte styrkt någonting.
+   * Bokföringsnämnden, samt Valmyndigheten, regeringen och riksdagen för
+   * uppgifter om val och budget. Påstås något om ett partis politik är
+   * källan partiets eget dokument. En redovisningsbyrå som hänvisar till en
+   * annan redovisningsbyrås blogg har inte styrkt någonting.
    *
    * Varje adress är hämtad och lästs igenom, inte bara statuskontrollerad.
    * Länkarna ligger utanför språkversionerna eftersom sidorna de pekar på är
@@ -113,6 +119,345 @@ export type Article = {
 const IDAG = new Date().toISOString().slice(0, 10);
 
 const ALLA: Article[] = [
+  {
+    slug: "regeringsskifte-2026-foretag-skatt-regler-2027",
+    tag: "Regelverk",
+    date: "September 2026",
+    published: "2026-09-18",
+    readingMinutes: 8,
+    title:
+      "Regeringsskifte efter valet 2026: 7 frågor företagare behöver hålla koll på inför 2027",
+    titleLead:
+      "Regeringsskifte efter valet 2026: 7 frågor företagare behöver hålla koll på",
+    titleAccent: "inför 2027",
+    excerpt:
+      "Vad innebär regeringsskiftet för företag? Vi går igenom 3:12, arbetsgivaravgifter, sjuklön, skatter och regler som kan förändras inför 2027.",
+    intro:
+      "Valet är över, men för svenska företagare är det fortfarande för tidigt att veta exakt vilka ekonomiska regler som kommer att förändras.",
+    /* Platshållare tills den egna bilden finns, se docs/bildprompter-blogg.md. */
+    image: "/assets/blogg-thumb.webp",
+    imageAlt:
+      "Regeringsskifte efter valet 2026: vad företagare behöver hålla koll på inför 2027",
+    metaTitle: "Regeringsskifte 2026: Så kan svenska företag påverkas 2027",
+    metaDescription:
+      "Vad innebär regeringsskiftet för företag? Vi går igenom 3:12, arbetsgivaravgifter, sjuklön, skatter och regler som kan förändras inför 2027.",
+    blocks: [
+      {
+        type: "paragraph",
+        text: "Efter den preliminära rösträkningen har Socialdemokraterna, Centerpartiet, Vänsterpartiet och Miljöpartiet tillsammans 176 mandat, medan Moderaterna, Sverigedemokraterna, Kristdemokraterna och Liberalerna har 173. Valmyndigheten betonar samtidigt att det slutliga valresultatet ännu inte är fastställt.",
+      },
+      {
+        type: "paragraph",
+        text: "Ulf Kristersson har lämnat in sin avgångsansökan och regeringsförhandlingarna har påbörjats. Samtidigt finns tydliga skillnader mellan framför allt Centerpartiet och Vänsterpartiet kring hur en ny regering ska se ut. Det betyder att man ännu inte kan säga vilken kombination av partier som kommer att styra eller exakt vilken ekonomisk politik som blir resultatet av förhandlingarna.",
+      },
+      {
+        type: "paragraph",
+        text: "För företagare är därför den viktigaste frågan just nu inte vilket parti som ”vann”, utan något betydligt mer konkret: vilka regler gäller redan, vilka förslag kan ändras och vilka kostnader behöver företag bevaka inför 2027?",
+      },
+      {
+        type: "paragraph",
+        text: "Här går vi igenom det vi faktiskt vet.",
+      },
+      {
+        type: "heading",
+        text: "Först: ett regeringsskifte ändrar inte lagen över en natt",
+      },
+      {
+        type: "paragraph",
+        text: "Det är en viktig skillnad mellan ett vallöfte, ett regeringsförslag och en lag.",
+      },
+      {
+        type: "paragraph",
+        text: "En ny regering kan föreslå nya skatter eller ändrade regler, men det är riksdagen som beslutar om lagar och lagändringar. Befintliga regler fortsätter därför att gälla tills riksdagen beslutar något annat.",
+      },
+      {
+        type: "paragraph",
+        text: "Det innebär exempelvis att ett företag inte bör ändra sin utdelningsplanering, lönehantering eller preliminära skatt enbart på grund av rubriker om vad olika partier vill göra. Utgå från dagens regler tills ett nytt beslut faktiskt finns.",
+      },
+      {
+        type: "heading",
+        text: "1. De nya 3:12-reglerna gäller redan",
+      },
+      {
+        type: "paragraph",
+        text: "En fråga som är särskilt viktig för ägare av fåmansföretag är de nya 3:12-reglerna.",
+      },
+      {
+        type: "paragraph",
+        text: "De flesta förändringarna gäller redan från inkomstår 2026, vilket innebär att de påverkar den K10-blankett som lämnas tillsammans med deklarationen 2027.",
+      },
+      {
+        type: "paragraph",
+        text: "Den tidigare förenklingsregeln och huvudregeln har ersatts av en gemensam beräkningsmodell. Gränsbeloppet består bland annat av grundbelopp, lönebaserat utrymme, viss ränta på omkostnadsbelopp och sparat utdelningsutrymme. Grundbeloppet för inkomstår 2026 är 322 400 kronor innan det fördelas utifrån ägandet.",
+      },
+      {
+        type: "paragraph",
+        text: "Ett regeringsskifte upphäver inte dessa regler. För att 3:12-systemet ska ändras igen krävs nya lagförslag och nya riksdagsbeslut.",
+      },
+      {
+        type: "paragraph",
+        text: "Däremot finns politiska skillnader. Centerpartiet har sagt att man vill fortsätta förenkla 3:12-reglerna, medan Miljöpartiet motsatte sig den 3:12-reform som infördes genom budgeten för 2026.",
+      },
+      {
+        type: "paragraph",
+        text: "Vad bör du som företagare göra? Planera utdelning och lön utifrån de regler som gäller för 2026. Vänta inte med K10-planering bara för att det har varit val. Har bolaget flera delägare, flera fåmansföretag eller stora lönekostnader är det särskilt viktigt att räkna på effekten innan året är slut.",
+      },
+      {
+        type: "heading",
+        text: "2. Arbetsgivaravgifterna kan bli en stor förhandlingsfråga",
+      },
+      {
+        type: "paragraph",
+        text: "Arbetsgivaravgiften är i normalfallet 31,42 procent.",
+      },
+      {
+        type: "paragraph",
+        text: "Sedan den 1 april 2026 gäller dock en tillfällig nedsättning för vissa anställda mellan 19 och 23 år. För de personer som omfattas är avgiften 20,81 procent på ersättning upp till 25 000 kronor per månad. Regeln är beslutad att gälla till och med den 30 september 2027. Den upphör alltså inte automatiskt vid regeringsskiftet.",
+      },
+      {
+        type: "paragraph",
+        text: "Däremot finns stora politiska skillnader kring hur arbetsgivaravgifterna bör utvecklas framöver.",
+      },
+      {
+        type: "paragraph",
+        text: "Centerpartiet vill bland annat sänka arbetsgivaravgifterna för unga, personer med lägre löner och långtidsarbetslösa samt ta bort avgiften för de första tio anställda i växande småföretag.",
+      },
+      {
+        type: "paragraph",
+        text: "Miljöpartiet motsatte sig den nuvarande tillfälliga ungdomsnedsättningen i sin budgetmotion för 2026 och ville prioritera andra arbetsmarknadsåtgärder.",
+      },
+      {
+        type: "paragraph",
+        text: "Det betyder inte att någon förändring är beslutad. Det visar däremot att kostnaden för att anställa blir en fråga att följa noggrant när regeringsprogrammet och budgeten för 2027 presenteras.",
+      },
+      {
+        type: "heading",
+        text: "3. Sjuklön och karens kan bli särskilt viktigt för småföretag",
+      },
+      {
+        type: "paragraph",
+        text: "Här finns ett område där flera av partierna som nu förhandlar vill minska risken för mindre arbetsgivare, även om lösningarna skiljer sig åt.",
+      },
+      {
+        type: "paragraph",
+        text: "Socialdemokraterna vill avskaffa karensavdraget och samtidigt införa ett högkostnadsskydd för små och medelstora företag.",
+      },
+      {
+        type: "paragraph",
+        text: "Centerpartiet vill återinföra ett högkostnadsskydd för småföretagens sjuklönekostnader men har motsatt sig en modell där ett slopat karensavdrag innebär högre kostnader för arbetsgivarna.",
+      },
+      {
+        type: "paragraph",
+        text: "Vänsterpartiet vill gå längre och helt slopa sjuklöneansvaret under de första 14 dagarna för företag med högst tio anställda.",
+      },
+      {
+        type: "paragraph",
+        text: "Miljöpartiet vill också minska sjuklöneansvaret för mindre företag och samtidigt avskaffa karensavdraget.",
+      },
+      {
+        type: "paragraph",
+        text: "Det finns alltså gemensamma beröringspunkter, men ingen färdig modell. För dig som har anställda är det därför klokt att följa både reglerna om karens och hur ett eventuellt nytt högkostnadsskydd utformas.",
+      },
+      {
+        type: "heading",
+        text: "4. Flera planerade skatteförändringar för 2027 är fortfarande bara förslag",
+      },
+      {
+        type: "paragraph",
+        text: "Det här är kanske den viktigaste detaljen för företag som redan arbetar med budget 2027.",
+      },
+      {
+        type: "paragraph",
+        text: "Den avgående regeringen har skickat flera skatteförslag på remiss inför nästa års budget. Regeringen skriver själv uttryckligen att det beror på bland annat valutgången och budgetförhandlingarna om förslagen faktiskt kommer att presenteras. Bland förslagen finns:",
+      },
+      {
+        type: "list",
+        items: [
+          "fortsatt utökad skattenedsättning för jordbruksdiesel under 2027",
+          "indexering av taket för FoU-avdraget",
+          "slopad årlig indexering av energiskatten på el och en föreslagen nivå på 36 öre per kWh under 2027",
+          "skattefrihet för vissa former av kompetensstöd.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "De här punkterna ska alltså inte behandlas som beslutade regler i företagets budget ännu. Det gäller särskilt företag med hög elförbrukning, forskning och utveckling eller verksamhet inom jordbruk och skogsbruk.",
+      },
+      {
+        type: "heading",
+        text: "5. Kortare betaltider och mindre regelkrångel kan hamna högt på företagsagendan",
+      },
+      {
+        type: "paragraph",
+        text: "Det finns också flera områden där Socialdemokraterna och Centerpartiet har olika lösningar men liknande problemformulering.",
+      },
+      {
+        type: "paragraph",
+        text: "Socialdemokraterna vill bland annat korta företagens betaltider, förenkla kontakten mellan företag och myndigheter och göra tillståndsprocesserna snabbare och mer förutsägbara.",
+      },
+      {
+        type: "paragraph",
+        text: "Centerpartiet vill bland annat slopa eller reformera minst 100 företagsregler och skapa en särskild regelförenklingsfunktion med uppdrag att granska regelbördan för företag.",
+      },
+      {
+        type: "paragraph",
+        text: "Det är framför allt relevant för mindre företag där administration tar en oproportionerligt stor del av arbetstiden. Någon konkret ny regel finns ännu inte, men regelförenkling och snabbare myndighetsprocesser är ett område att bevaka när en ny regeringsplattform presenteras.",
+      },
+      {
+        type: "heading",
+        text: "6. Företag inom bygg, transport, energi och offentlig upphandling kan märka större förändringar",
+      },
+      {
+        type: "paragraph",
+        text: "En annan möjlig förändring gäller hur staten använder klimatpolitik, investeringar och offentlig upphandling.",
+      },
+      {
+        type: "paragraph",
+        text: "Socialdemokraterna vill bland annat bygga ut Industri- och Klimatklivet och använda högre krav på klimatnytta i offentlig upphandling. Miljöpartiet går längre och vill bland annat öka investeringarna i järnväg, förnybar energi och grön industri, samtidigt som fossila alternativ ska bli relativt dyrare.",
+      },
+      {
+        type: "paragraph",
+        text: "Vilka delar som hamnar i en eventuell regeringsöverenskommelse är ännu inte känt. Men företag som arbetar med exempelvis entreprenad, fastigheter, transporter, energi och offentliga upphandlingar har anledning att följa området, eftersom ändrade stöd, skatter och upphandlingskrav kan påverka både kostnader och affärsmöjligheter.",
+      },
+      {
+        type: "heading",
+        text: "7. Kontroller av arbetsgivare och leverantörskedjor kan skärpas",
+      },
+      {
+        type: "paragraph",
+        text: "Socialdemokraterna gick inför valet fram med flera förslag mot arbetslivskriminalitet. Bland annat vill partiet öka antalet arbetsplatsinspektioner, skapa fler grunder för att utesluta oseriösa företag från offentliga affärer, införa hårdare sanktioner mot återkommande regelbrott och stärka kontrollen i branscher med hög risk för arbetslivskriminalitet.",
+      },
+      {
+        type: "paragraph",
+        text: "Det är framför allt relevant för företag inom bygg, transport, service, bemanning och andra verksamheter med omfattande underleverantörsled. För seriösa företag innebär eventuella förändringar framför allt ett behov av att ha ordning på anställningsavtal, löneunderlag, arbetsmiljödokumentation och vilka leverantörer man anlitar.",
+      },
+      {
+        type: "heading",
+        text: "När får företagen veta mer?",
+      },
+      {
+        type: "paragraph",
+        text: "Den viktigaste hållpunkten blir budgetpropositionen för 2027. Eftersom 2026 är ett valår gäller särskilda regler. Budgeten lämnas tre veckor efter statsministeromröstningen eller ett regeringsskifte och ska i år lämnas senast den 12 november 2026.",
+      },
+      {
+        type: "paragraph",
+        text: "Det är först när regeringsförhandlingarna är klara och budgetförslaget presenteras som företag får en betydligt tydligare bild av vad som faktiskt kan förändras från den 1 januari 2027. Även då är det viktigt att komma ihåg att budgetförslaget inte alltid är sista steget. Riksdagen måste besluta om de lagändringar som krävs.",
+      },
+      {
+        type: "heading",
+        text: "Vad bör företag göra redan nu?",
+      },
+      {
+        type: "paragraph",
+        text: "Det finns ingen anledning att lägga ekonomiska beslut på is i väntan på regeringsförhandlingarna. Däremot är det klokt att skilja mellan beslutade regler och politiska förslag. Inför årets sista månader är det framför allt fem saker som är värda att göra:",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Planera lön och utdelning enligt de 3:12-regler som faktiskt gäller för 2026.",
+          "Använder ni den nedsatta arbetsgivaravgiften för unga, budgetera enligt nuvarande regler men följ budgeten för 2027.",
+          "Har ni anställda, följ utvecklingen kring sjuklön, karens och eventuellt högkostnadsskydd.",
+          "Gör inte 2027-budgeten beroende av skatteförslag som ännu bara är på remiss.",
+          "Uppdatera företagets skatte- och likviditetsbudget när budgetpropositionen för 2027 har presenterats.",
+        ],
+      },
+      {
+        type: "heading",
+        text: "Det viktigaste att ta med sig",
+      },
+      {
+        type: "paragraph",
+        text: "Valet innebär ett möjligt stort politiskt skifte, men för företag sker förändringarna betydligt mer stegvis.",
+      },
+      {
+        type: "paragraph",
+        text: "3:12-reglerna har redan ändrats. Arbetsgivaravgifterna för unga är redan beslutade. Bolagsskatten är fortfarande 20,6 procent.",
+      },
+      {
+        type: "paragraph",
+        text: "Det som fortfarande är öppet är framför allt hur en ny regering utformar budgeten för 2027, arbetsgivaravgifter, sjuklönekostnader, energiskatter, företagsstöd, regelförenklingar och andra reformer.",
+      },
+      {
+        type: "paragraph",
+        text: "För företagaren är därför den bästa strategin just nu inte att försöka gissa vilken politik som vinner en förhandling. Det är att veta vad som gäller i dag, vad som fortfarande bara är ett förslag och vilka beslut som behöver bevakas under hösten.",
+      },
+    ],
+    /* Tom med flit. Artikelns åtgärdslista står i brödtexten under "Vad bör
+       företag göra redan nu?", där stycket före den presenterar den. Samma
+       fem punkter en gång till i en checklista sist hade varit en upprepning. */
+    checklist: [],
+    faq: [
+      {
+        q: "Har 3:12-reglerna ändrats på grund av valet?",
+        a: "Nej. De nya 3:12-reglerna gäller redan från inkomstår 2026. Ett framtida regeringsskifte ändrar inte reglerna automatiskt.",
+      },
+      {
+        q: "Kan arbetsgivaravgifterna ändras 2027?",
+        a: "Ja, nya förslag kan läggas fram. Men dagens tillfälliga nedsättning för vissa 19 till 23-åringar är beslutad till den 30 september 2027 om inte riksdagen senare ändrar lagen.",
+      },
+      {
+        q: "Kommer karensavdraget att försvinna?",
+        a: "Socialdemokraterna och Miljöpartiet vill avskaffa det, medan Centerpartiet har motsatt sig en förändring som ökar företagens kostnader. Ingen ny lag är beslutad.",
+      },
+      {
+        q: "När vet vi vilka skatter som gäller 2027?",
+        a: "En betydligt tydligare bild kommer när budgetpropositionen för 2027 presenteras. Under valåret 2026 ska den lämnas senast den 12 november. Därefter behandlar riksdagen budgeten och tillhörande lagförslag.",
+      },
+      {
+        q: "Behöver företag ändra sin planering redan nu?",
+        a: "Planera utifrån nuvarande lagstiftning men bygg gärna in marginal för möjliga förändringar i 2027 års budget. Undvik att behandla partiförslag eller remisser som beslutade regler.",
+      },
+    ],
+    cta: "Osäker på vad valet betyder för ditt företag? Vi går igenom lön, utdelning och budget för 2027 utifrån de regler som faktiskt gäller.",
+    kallor: [
+      {
+        titel:
+          "Valmyndigheten, Preliminärt resultat i riksdagsvalet klart",
+        url: "https://www.val.se/servicelankar/servicelankar/pressrum/nyheter--pressmeddelanden/pressmeddelande-nya/2026-09-17-preliminart-resultat-i-riksdagsvalet-klart",
+      },
+      {
+        titel:
+          "Regeringen, Om budgetprocessen",
+        url: "https://www.regeringen.se/sveriges-regering/finansdepartementet/statens-budget/om-budgetprocessen/",
+      },
+      {
+        titel:
+          "Regeringen, Skatteförslag som remitterats inför höstbudgeten 2027",
+        url: "https://www.regeringen.se/regeringens-politik/skatt-och-tull/skatteforslag-som-remitterats-infor-hostbudgeten-2027/",
+      },
+      {
+        titel:
+          "Skatteverket, Ändrade regler för delägare i fåmansföretag inför inkomstdeklarationen 2027",
+        url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/famansforetag/andradereglerinforinkomstdeklarationen2027.4.4a54dc8b19aa6175a152359.html",
+      },
+      {
+        titel:
+          "Skatteverket, Lägre arbetsgivaravgifter för ungdomar",
+        url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/lagrearbetsgivaravgifterforungdomar.5.70685bee19c85dd5dd02b10.html",
+      },
+      {
+        titel:
+          "Skatteverket, Aktiebolag",
+        url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html",
+      },
+      {
+        titel:
+          "Riksdagen, Miljöpartiets budgetmotion för 2026 (motion 2025/26:3770)",
+        url: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/motion/sverige-fortjanar-battre-miljopartiets_hd023770/html/",
+      },
+      {
+        titel:
+          "Socialdemokraterna, Karensavdrag",
+        url: "https://www.socialdemokraterna.se/var-politik/a-till-o/karensavdrag",
+      },
+      {
+        titel:
+          "Centerpartiet, Valmanifest 2026",
+        url: "https://www.centerpartiet.se/centerpartiets-politik/valmanifest-2026",
+      },
+    ],
+  },
   {
     slug: "ekonomisk-halsokontroll-foretag",
     tag: "Ekonomistyrning",
@@ -1600,9 +1945,13 @@ const ALLA: Article[] = [
 ];
 
 /** Artiklar som är släppta. Allt användarvänt ska gå genom den här. */
+/* Nyast först. Listningen visar den första artikeln som utvald, och den
+   stod tidigare i den ordning artiklarna skrevs in, alltså äldst först. En
+   nyhetsartikel om valet hade då hamnat under en guide från augusti. Sorten
+   är stabil, så artiklar med samma datum behåller sin inbördes ordning. */
 export const articles: Article[] = ALLA.filter(
   (article) => article.published <= IDAG,
-);
+).sort((a, b) => b.published.localeCompare(a.published));
 
 /** Hela listan, även det som ligger och väntar. Endast för verktyg. */
 export const allArticles: Article[] = ALLA;

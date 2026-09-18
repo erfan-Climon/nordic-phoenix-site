@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
 import type { Article } from "@/content/blog";
-import { type ArticleCopy, articleAuthor, articleImage } from "@/content/blog-copy";
+import {
+  type ArticleCopy,
+  articleAuthor,
+  articleImage,
+} from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
 import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
 import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
@@ -140,8 +144,11 @@ export function ArticlePage({
           }
 
           if (block.type === "paragraph") {
-            const nextIsHeading =
-              copy.blocks[i + 1]?.type !== "paragraph";
+            /* Stort avstånd bara före en ny rubrik eller faktaruta. Ett
+               stycke som leder in en lista hör ihop med den och får samma
+               korta avstånd som mellan två stycken. */
+            const nasta = copy.blocks[i + 1]?.type;
+            const nextIsHeading = nasta !== "paragraph" && nasta !== "list";
             return (
               <p
                 key={i}
@@ -154,6 +161,43 @@ export function ArticlePage({
               >
                 {block.text}
               </p>
+            );
+          }
+
+          if (block.type === "list") {
+            /* Samma orange prick som checklistan, så att en uppräkning i
+               texten och sammanfattningen sist ser ut att höra ihop. En
+               numrerad lista får orange siffror i stället för prickar. */
+            const Lista = block.ordered ? "ol" : "ul";
+            const nastaArStycke = copy.blocks[i + 1]?.type === "paragraph";
+            return (
+              <Lista
+                key={i}
+                className={`m-0 flex list-none flex-col gap-3 p-0 ${
+                  nastaArStycke ? "mb-[18px]" : "mb-10"
+                }`}
+              >
+                {block.items.map((item, n) => (
+                  <li key={item} className="flex gap-4">
+                    {block.ordered ? (
+                      <span
+                        aria-hidden="true"
+                        className="w-5 shrink-0 font-mono text-[15px] leading-[1.8] font-medium text-accent-ink"
+                      >
+                        {n + 1}.
+                      </span>
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="mt-[12px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent"
+                      />
+                    )}
+                    <span className="font-sans text-[17px] leading-[1.8] text-text-article">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </Lista>
             );
           }
 
@@ -187,25 +231,28 @@ export function ArticlePage({
 
         {/* Handlingschecklistan ligger på mörk platta, samma grepp som
             callout-blocken, så att den läser som en sammanfattning och inte
-            som ännu ett stycke. */}
-        <div className="mt-[clamp(40px,5vw,64px)] rounded-media bg-ink p-[clamp(32px,4vw,48px)] text-on-dark">
-          <h2 className="np-mono m-0 mb-6 font-mono text-[11px] tracking-[.24em] text-text-meta uppercase">
-            {t.blog.checklistTitle}
-          </h2>
-          <ul className="m-0 flex list-none flex-col gap-4 p-0">
-            {copy.checklist.map((item) => (
-              <li key={item} className="flex gap-4">
-                <span
-                  aria-hidden="true"
-                  className="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent"
-                />
-                <span className="font-sans text-[16px] leading-[1.65] text-on-dark">
-                  {item}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+            som ännu ett stycke. En artikel som har sin åtgärdslista i
+            brödtexten lämnar den tom, och då visas ingen platta. */}
+        {copy.checklist.length > 0 ? (
+          <div className="mt-[clamp(40px,5vw,64px)] rounded-media bg-ink p-[clamp(32px,4vw,48px)] text-on-dark">
+            <h2 className="np-mono m-0 mb-6 font-mono text-[11px] tracking-[.24em] text-text-meta uppercase">
+              {t.blog.checklistTitle}
+            </h2>
+            <ul className="m-0 flex list-none flex-col gap-4 p-0">
+              {copy.checklist.map((item) => (
+                <li key={item} className="flex gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent"
+                  />
+                  <span className="font-sans text-[16px] leading-[1.65] text-on-dark">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         {/* Frågorna måste stå som läsbar text på sidan. FAQPage-schemat i
             huvudet beskriver just de här frågorna, och Google underkänner
@@ -273,7 +320,7 @@ export function ArticlePage({
         {/* Alltid en skribent. Villkoret som fanns här gjorde att rutan
             saknades på alla artiklar utom en, och en guide om skatt utan
             avsändare är svagare både för läsaren och i Googles bedömning. */}
-        {(
+        {
           <section className="mt-[clamp(48px,6vw,72px)] rounded-media border border-[rgba(23,19,16,.12)] bg-page p-[clamp(28px,3.5vw,44px)]">
             <p className="np-mono m-0 mb-5 font-mono text-[11px] tracking-[.24em] text-text-meta uppercase">
               {t.blog.authorLabel}
@@ -292,7 +339,7 @@ export function ArticlePage({
               {forfattare.role}
             </p>
           </section>
-        )}
+        }
 
         {/* Ligger efter skribenten men före den kommersiella uppmaningen.
             Att lägga den sist hade skjutit "kontakta oss" uppåt och gjort en
