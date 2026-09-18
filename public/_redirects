@@ -35,8 +35,3 @@
 # adresser som kan ligga som inlänkar någon annanstans.
 /persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm/ 301
 /persisk-redovisningsbyra-i-stockholm /persisk-redovisningsbyra-stockholm/ 301
-
-# Valartikeln finns bara på svenska. Adressen i SEO-underlaget saknade
-# språkprefixet /sv, och utan prefix hamnar man i den persiska bloggen där
-# artikeln inte finns. Delas den adressen ska den leda rätt i stället för 404.
-/blogg/regeringsskifte-2026-foretag-skatt-regler-2027  /sv/blogg/regeringsskifte-2026-foretag-skatt-regler-2027/  301

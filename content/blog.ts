@@ -89,8 +89,10 @@ export type Article = {
    * Bara myndigheter och normgivare, alltså Skatteverket, Bolagsverket och
    * Bokföringsnämnden, samt Valmyndigheten, regeringen och riksdagen för
    * uppgifter om val och budget. Påstås något om ett partis politik är
-   * källan partiets eget dokument. En redovisningsbyrå som hänvisar till en
-   * annan redovisningsbyrås blogg har inte styrkt någonting.
+   * källan i första hand partiets motion i riksdagen, i andra hand SVT:s
+   * granskning, och partiets eget valprogram bara där inget av de andra
+   * finns. En redovisningsbyrå som hänvisar till en annan redovisningsbyrås
+   * blogg har inte styrkt någonting.
    *
    * Varje adress är hämtad och lästs igenom, inte bara statuskontrollerad.
    * Länkarna ligger utanför språkversionerna eftersom sidorna de pekar på är
@@ -100,6 +102,15 @@ export type Article = {
    * kontrollerbara sakuppgifter och ska då inte ha någon källrad heller.
    */
   kallor?: { titel: string; url: string }[];
+  /**
+   * Ruta överst i artikeln som talar om när texten gäller.
+   *
+   * För artiklar om ett läge som fortfarande rör sig, som en
+   * regeringsbildning. Läsaren ska veta innan första stycket att det som
+   * står är en lägesbild och inte ett besked. Ligger per språk, eftersom
+   * texten är det.
+   */
+  notis?: { etikett: string; text: string };
 };
 
 /**
@@ -223,7 +234,7 @@ const ALLA: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Centerpartiet vill bland annat sänka arbetsgivaravgifterna för unga, personer med lägre löner och långtidsarbetslösa samt ta bort avgiften för de första tio anställda i växande småföretag.",
+        text: "Centerpartiet vill bland annat slopa arbetsgivaravgifterna för unga, vid anställning till ingångslön och för långtidsarbetslösa, samt för de första tio anställda i små företag.",
       },
       {
         type: "paragraph",
@@ -247,7 +258,7 @@ const ALLA: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Centerpartiet vill återinföra ett högkostnadsskydd för småföretagens sjuklönekostnader men har motsatt sig en modell där ett slopat karensavdrag innebär högre kostnader för arbetsgivarna.",
+        text: "Centerpartiet vill återinföra ett högkostnadsskydd för småföretagens sjuklönekostnader. Partiet ville inför valet behålla karensavdraget, men har sagt att ett slopande kan diskuteras om det inte ökar kostnaderna för företagen.",
       },
       {
         type: "paragraph",
@@ -255,7 +266,7 @@ const ALLA: Article[] = [
       },
       {
         type: "paragraph",
-        text: "Miljöpartiet vill också minska sjuklöneansvaret för mindre företag och samtidigt avskaffa karensavdraget.",
+        text: "Miljöpartiet vill också avskaffa karensavdraget och har i sin budgetmotion avsatt pengar till ersättning för arbetsgivare med höga sjuklönekostnader.",
       },
       {
         type: "paragraph",
@@ -401,7 +412,7 @@ const ALLA: Article[] = [
       },
       {
         q: "Kommer karensavdraget att försvinna?",
-        a: "Socialdemokraterna och Miljöpartiet vill avskaffa det, medan Centerpartiet har motsatt sig en förändring som ökar företagens kostnader. Ingen ny lag är beslutad.",
+        a: "Socialdemokraterna, Vänsterpartiet och Miljöpartiet vill avskaffa det. Centerpartiet har sagt att ett slopande inte får öka företagens kostnader. Ingen ny lag är beslutad.",
       },
       {
         q: "När vet vi vilka skatter som gäller 2027?",
@@ -416,8 +427,13 @@ const ALLA: Article[] = [
     kallor: [
       {
         titel:
-          "Valmyndigheten, Preliminärt resultat i riksdagsvalet klart",
+          "Valmyndigheten, Preliminärt resultat i riksdagsvalet klart (17 september 2026)",
         url: "https://www.val.se/servicelankar/servicelankar/pressrum/nyheter--pressmeddelanden/pressmeddelande-nya/2026-09-17-preliminart-resultat-i-riksdagsvalet-klart",
+      },
+      {
+        titel:
+          "Riksdagen, Talmannen inleder process för regeringsbildning (17 september 2026)",
+        url: "https://www.riksdagen.se/sv/aktuellt/aktuelltnotiser/2026/sep/17/talmannen-inleder-process-for-regeringsbildning_cms6291f93c-a728-4498-a0b9-e30f36627e3fsv/",
       },
       {
         titel:
@@ -441,8 +457,23 @@ const ALLA: Article[] = [
       },
       {
         titel:
+          "Skatteverket, Regler för växa-stöd",
+        url: "https://www.skatteverket.se/foretag/arbetsgivare/arbetsgivaravgifterochskatteavdrag/vaxastod/reglerforvaxastod.4.361dc8c15312eff6fd37447.html",
+      },
+      {
+        titel:
           "Skatteverket, Aktiebolag",
         url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html",
+      },
+      {
+        titel:
+          "Riksdagen, Socialdemokraternas budgetmotion för 2026 (motion 2025/26:3551)",
+        url: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/motion/ny-riktning-for-sverige_hd023551/html/",
+      },
+      {
+        titel:
+          "Riksdagen, Centerpartiets budgetmotion för 2026 (motion 2025/26:3811)",
+        url: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/motion/en-budget-for-framtiden-fler-jobb-och-lagre_hd023811/html/",
       },
       {
         titel:
@@ -451,15 +482,39 @@ const ALLA: Article[] = [
       },
       {
         titel:
-          "Socialdemokraterna, Karensavdrag",
-        url: "https://www.socialdemokraterna.se/var-politik/a-till-o/karensavdrag",
+          "Riksdagen, Vänsterpartiets motion En hållbar småföretagarpolitik (motion 2024/25:553)",
+        url: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/motion/en-hallbar-smaforetagarpolitik_hc02553/html/",
       },
       {
         titel:
-          "Centerpartiet, Valmanifest 2026",
+          "SVT Nyheter, Centerpartiet om karensavdraget (14 augusti 2026)",
+        url: "https://www.svt.se/nyheter/inrikes/senaste-nytt-om-val-2026?inlagg=dd245a5aa43457bfdd0fa44cc8a253ff",
+      },
+      {
+        titel:
+          "SVT Valkompass 2026, Centerpartiet",
+        url: "https://valkompass.svt.se/2026/parti/centerpartiet/",
+      },
+      {
+        titel:
+          "SVT Valkompass 2026, Miljöpartiet",
+        url: "https://valkompass.svt.se/2026/parti/miljopartiet/",
+      },
+      {
+        titel:
+          "Partiets eget program: Centerpartiet, Valmanifest 2026",
         url: "https://www.centerpartiet.se/centerpartiets-politik/valmanifest-2026",
       },
+      {
+        titel:
+          "Partiets eget program: Socialdemokraterna, Valprogram 2026",
+        url: "https://www.socialdemokraterna.se/download/18.40fb56b21a04255a9803c1e/1788259051237/Soc%20Valprogram%202026.pdf",
+      },
     ],
+    notis: {
+      etikett: "Lägesbild den 18 september 2026",
+      text: "Artikeln beskriver läget efter den preliminära rösträkningen, innan en ny regering har bildats. Valresultatet är ännu inte fastställt, och vilken regering som tillträder och vad den föreslår i budgeten för 2027 kan ändra bilden. Läs därför det som står om partiernas förslag som en lägesbild och inte som besked om vad som kommer att gälla. Det som står om gällande regler, som 3:12, arbetsgivaravgifterna för unga och bolagsskatten, gäller tills riksdagen beslutar något annat.",
+    },
   },
   {
     slug: "ekonomisk-halsokontroll-foretag",

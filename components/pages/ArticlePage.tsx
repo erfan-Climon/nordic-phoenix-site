@@ -131,6 +131,26 @@ export function ArticlePage({
       </section>
 
       <article className="mx-auto max-w-[720px] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)]">
+        {/* Lägesbilden står före första stycket. En artikel om ett läge som
+            fortfarande rör sig, som en regeringsbildning, ska säga det innan
+            läsaren hunnit ta något som besked. Den orange listen i
+            startkanten är designsystemets markering för det viktigaste på
+            sidan, och border-s följer skrivriktningen så att den hamnar till
+            höger på persiska. */}
+        {copy.notis ? (
+          <aside
+            role="note"
+            className="mb-10 border-s-4 border-accent bg-surface p-[clamp(20px,3vw,28px)] shadow-[0_10px_30px_rgba(23,19,16,.08)]"
+          >
+            <p className="m-0 mb-2 font-mono text-[11px] font-medium tracking-[.2em] text-accent-ink uppercase">
+              {copy.notis.etikett}
+            </p>
+            <p className="np-justerad m-0 font-sans text-[16px] leading-[1.75] text-text-article">
+              {copy.notis.text}
+            </p>
+          </aside>
+        ) : null}
+
         {copy.blocks.map((block, i) => {
           if (block.type === "heading") {
             return (
