@@ -128,7 +128,13 @@ function Balte({
       {marken.map((m) =>
         m.typ === "bild" ? (
           <Image
-            key={`${m.src}-${kopia}`}
+            /* Nyckeln får inte innehålla sökvägen. React-nycklar hamnar i
+               den serialiserade sidkällan, och "/assets/kunder/anar.webp-false"
+               ser ut som en adress: Googlebot plockar upp strängen och
+               försöker hämta den. Det gav 25 sidor med 404 i Search Console,
+               två per logotyp. Alt-texten är unik per märke och duger lika
+               bra som nyckel utan att likna en adress. */
+            key={`${kopia ? "kopia" : "original"}-${m.alt}`}
             src={m.src}
             alt={kopia ? "" : m.alt}
             aria-hidden={kopia || undefined}
