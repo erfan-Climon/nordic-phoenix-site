@@ -365,6 +365,9 @@ export const sv = {
     privacy: "Integritetspolicy",
     consentSettings: "Inställningar för mätning",
     seo: "Redovisningsbyrå Stockholm · Sollentuna · Hela Sverige digitalt",
+    /* {från} och {till} fylls med klockslagen ur content/site.ts, så att
+       sidfoten och företagsschemat aldrig kan säga olika. */
+    hours: "Öppet alla dagar {från} till {till}",
     credit: "Designad och utvecklad av",
     /* Sidan om persisk redovisning finns på svenska och persiska men inte
        på engelska, därför är fältet valfritt. */

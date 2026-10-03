@@ -4,6 +4,7 @@ import type { Dictionary } from "@/content/locales/sv";
 import {
   agencyCredit,
   company,
+  oppettider,
   phone,
   social,
   whatsappUrl,
@@ -46,6 +47,19 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             </span>
             <span className={textClass}>
               {company.street}, {company.postalCode} {company.city}
+            </span>
+            {/* Öppettiderna står nu både här och i företagsschemat, och båda
+                läser samma konstant. Google jämför uppgifterna på sajten med
+                företagsprofilen, och en tid som bara finns i schemat syns
+                inte för besökaren som kommit för att veta om det är öppet.
+
+                Klockslagen i latinska siffror även på persiska, som
+                telefonnumret: det är en teknisk uppgift och inte löptext.
+                dir ltr så att tiderna inte vänder i höger-till-vänster. */}
+            <span className={textClass} dir="ltr">
+              {t.footer.hours
+                .replace("{från}", oppettider.oppnar)
+                .replace("{till}", oppettider.stanger)}
             </span>
             <a href={phone.href} className={linkClass}>
               <PhoneNumber />

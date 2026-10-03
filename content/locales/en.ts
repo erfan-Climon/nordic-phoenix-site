@@ -356,6 +356,7 @@ export const en: Dictionary = {
     privacy: "Privacy policy",
     consentSettings: "Measurement settings",
     seo: "Accounting firm Stockholm · Sollentuna · All of Sweden digitally",
+    hours: "Open every day {från} to {till}",
     credit: "Designed and developed by",
     /* Sidan finns bara på persiska. */
     persianLanding: undefined,

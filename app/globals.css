@@ -146,6 +146,15 @@
     overflow-x: hidden;
   }
 
+  /* Inga ensamma ord sist i ett stycke. Webbläsaren får flytta ett ord ner
+     för att undvika en sista rad med ett enda ord. Påverkar bara radbrytning,
+     inte storlek eller placering. */
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
   ::selection {
     background: rgba(240, 103, 0, 0.2);
     color: var(--color-text);
@@ -156,6 +165,33 @@
   }
   a:hover {
     color: var(--color-accent-light);
+  }
+
+  /* Synligt tangentbordsfokus, i varumärkets orange.
+
+     Sajten hade ingenting: webbläsarens egen ring ritas i blått där den
+     ritas alls, och på knapparna med egen bakgrund syntes den knappt. Den
+     som navigerar med tangentbord visste alltså inte var hen var.
+
+     :focus-visible och inte :focus, så att ringen bara dyker upp vid
+     tangentbord och inte vid musklick. Formulärfälten har redan en egen
+     ring och är undantagna, annars ritas två. */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* På mörk botten syns den mörka accenten dåligt. */
+  .bg-ink a:focus-visible,
+  .bg-ink button:focus-visible,
+  .bg-ink summary:focus-visible,
+  footer a:focus-visible,
+  footer button:focus-visible {
+    outline-color: var(--color-accent-light);
   }
 
   /* Fixed header ~66px — ankarlänkar ska inte hamna under den. */
@@ -253,16 +289,32 @@
       color var(--dur-hover);
   }
 
+  /* Texten är mörk och inte gräddvit. Grädde på accenten mäter 2,99 mot
+     WCAG-kravet 4,5, alltså underkänt även för stor text. Samma mörka ton
+     som redan används i de stora uppmaningsrutorna mäter 5,9 mot den
+     mörkare änden av övertoningen. Knappen ser varmare och dyrare ut med
+     mörk text på orange, och är dessutom läsbar i solljus.
+
+     Hovringen ligger bakom @media (hover: hover). På pekskärm fastnar
+     annars den upplyfta hovringen kvar efter ett tryck, vilket får knappen
+     att se trasig ut tills man rör något annat. */
   .np-btn-primary {
     background: var(--gradient-accent);
-    color: var(--color-on-accent);
+    color: var(--color-banner-ink);
     font-weight: 600;
     box-shadow: var(--shadow-button);
   }
-  .np-btn-primary:hover {
-    color: var(--color-on-accent);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: var(--shadow-button-hover);
+  @media (hover: hover) {
+    .np-btn-primary:hover {
+      color: var(--color-banner-ink);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: var(--shadow-button-hover);
+    }
+  }
+  /* Nedtryckt läge. En knapp utan återkoppling vid tryck känns långsam även
+     när den inte är det. */
+  .np-btn:active {
+    transform: translateY(-1px) scale(0.995);
   }
 
   .np-btn-outline {
@@ -270,10 +322,12 @@
     color: var(--color-text);
     font-weight: 500;
   }
-  .np-btn-outline:hover {
-    color: var(--color-text);
-    border-color: rgba(240, 103, 0, 0.6);
-    background: rgba(240, 103, 0, 0.07);
+  @media (hover: hover) {
+    .np-btn-outline:hover {
+      color: var(--color-text);
+      border-color: rgba(240, 103, 0, 0.6);
+      background: rgba(240, 103, 0, 0.07);
+    }
   }
 
   /* Gradient-clippad text (hero-rad 3, språkrubrik) */

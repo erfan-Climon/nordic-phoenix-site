@@ -357,6 +357,7 @@ export const fa: Dictionary = {
     privacy: "سیاست حفظ حریم خصوصی",
     consentSettings: "تنظیمات اندازه‌گیری",
     seo: "دفتر حسابداری استکهلم · سولنتونا · سراسر سوئد، دیجیتال",
+    hours: "همه روزه {från} تا {till}",
     credit: "طراحی و توسعه توسط",
     /* Länktext till den persiska landningssidan, hämtad ur sidans egen
        rubrik. Ingen ny text är uppfunnen. */
