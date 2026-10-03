@@ -50,7 +50,10 @@ export function getArticleCopy(
  * avgör vilken fil som ska visas. Saknas den språkegna faller den tillbaka
  * på artikelns svenska bild.
  */
-export function articleImage(article: Article, copy: ArticleCopy): string {
+export function articleImage(
+  article: Article,
+  copy: ArticleCopy,
+): string | undefined {
   return copy.image ?? article.image;
 }
 

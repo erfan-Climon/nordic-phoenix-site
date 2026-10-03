@@ -46,14 +46,18 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
             href={`${blogHref}/${featured.article.slug}`}
             className="mb-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center overflow-hidden rounded-media border border-[rgba(23,19,16,.1)] bg-surface text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]"
           >
-            <Image
-              src={articleImage(featured.article, featured.copy)}
-              alt={featured.copy.imageAlt}
-              width={840}
-              height={560}
-              priority
-              className="block h-full min-h-[280px] w-full object-cover"
-            />
+            {articleImage(featured.article, featured.copy) ? (
+              <Image
+                src={articleImage(featured.article, featured.copy)!}
+                alt={featured.copy.imageAlt}
+                width={840}
+                height={560}
+                priority
+                className="block h-full min-h-[280px] w-full object-cover"
+              />
+            ) : (
+              <Amnesplatta tag={featured.copy.tag} hog />
+            )}
             <div className="flex flex-col gap-4 p-[clamp(28px,4vw,56px)]">
               <div className="flex justify-between gap-3 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
                 <span>
@@ -88,13 +92,17 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
               href={`${blogHref}/${article.slug}`}
               className={`${cardBase} text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]`}
             >
-              <Image
-                src={articleImage(article, copy)}
-                alt={copy.imageAlt}
-                width={600}
-                height={220}
-                className="block h-[220px] w-full object-cover"
-              />
+              {articleImage(article, copy) ? (
+                <Image
+                  src={articleImage(article, copy)!}
+                  alt={copy.imageAlt}
+                  width={600}
+                  height={220}
+                  className="block h-[220px] w-full object-cover"
+                />
+              ) : (
+                <Amnesplatta tag={copy.tag} />
+              )}
               <CardBody
                 tag={copy.tag}
                 date={copy.date}
@@ -108,6 +116,29 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
         </div>
       </section>
     </>
+  );
+}
+
+/**
+ * Ersätter bilden på kort vars artikel inte har någon egen.
+ *
+ * Ett kort utan bild hade blivit lägre än grannarna och brutit raden. Plattan
+ * håller samma höjd och använder designens egna grepp, alltså mörk botten och
+ * ämnet i versal monospace, så att den läser som ett val och inte som en bild
+ * som inte laddats.
+ */
+function Amnesplatta({ tag, hog = false }: { tag: string; hog?: boolean }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`flex items-center justify-center bg-ink px-6 ${
+        hog ? "h-full min-h-[280px]" : "h-[220px]"
+      }`}
+    >
+      <span className="font-mono text-[12px] tracking-[.24em] text-accent-light uppercase">
+        {tag}
+      </span>
+    </div>
   );
 }
 

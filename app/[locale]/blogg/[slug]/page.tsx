@@ -39,6 +39,7 @@ export async function generateMetadata({
     availableLocales: localesForArticle(article.slug),
   });
 
+    const bild = articleImage(article, copy);
   return {
     ...bas,
     /* Se den persiska rutten: basens openGraph vävs in, inte över. */
@@ -46,7 +47,9 @@ export async function generateMetadata({
       ...bas.openGraph,
       type: "article",
       publishedTime: article.published,
-      images: [{ url: articleImage(article, copy) }],
+      /* Saknar artikeln egen bild faller delningsbilden tillbaka på
+         sajtens gemensamma, som buildMetadata redan sätter. */
+      ...(bild ? { images: [{ url: bild }] } : {}),
     },
   };
 }

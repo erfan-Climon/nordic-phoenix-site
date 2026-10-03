@@ -42,7 +42,7 @@ export function ArticlePage({
         description: copy.excerpt,
         datePublished: article.published,
         dateModified: article.published,
-        image: `${SITE_URL}${bild}`,
+        ...(bild ? { image: `${SITE_URL}${bild}` } : {}),
         mainEntityOfPage: absolutUrl(`${blogHref}/${article.slug}`),
         /* Alltid en namngiven person, aldrig bara byrån. Google behandlar
            namngivet författarskap som en styrka på innehåll om pengar och
@@ -120,14 +120,19 @@ export function ArticlePage({
           {copy.intro}
         </p>
 
-        <Image
-          src={bild}
-          alt={copy.imageAlt}
-          width={900}
-          height={600}
-          priority
-          className="block h-auto w-full rounded-media shadow-[0_24px_64px_rgba(23,19,16,.16)]"
-        />
+        {/* Bilden är valfri. Artiklar utan egen bild visar ingen alls, i
+            stället för en gemensam platshållare: samma bild på nio artiklar
+            säger ingenting om någon av dem. */}
+        {bild ? (
+          <Image
+            src={bild}
+            alt={copy.imageAlt}
+            width={900}
+            height={600}
+            priority
+            className="block h-auto w-full rounded-media shadow-[0_24px_64px_rgba(23,19,16,.16)]"
+          />
+        ) : null}
       </section>
 
       <article className="mx-auto max-w-[720px] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)]">
