@@ -7,6 +7,7 @@ import {
   localesWithLocationIndex,
 } from "@/content/location-copy";
 import { services } from "@/content/services";
+import { mallar } from "@/content/templates";
 import { SITE_URL } from "@/content/site";
 import { htmlLang, locales, localePath } from "@/lib/i18n";
 
@@ -159,5 +160,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  return [...translated, ...bevarade, ...tjanster, ...orter, ...blog];
+  /**
+   * Landningssidan för den ekonomiska hälsokontrollen.
+   *
+   * Den är indexerbar och svarar 200, men saknades här, så Google fick hitta
+   * den på egen hand. Den finns bara på persiska och har därför inga
+   * språkalternativ. Prioriteten är hög: det är sidan annonserna pekar på,
+   * och den enda sidan på sajten med ett eget pris.
+   */
+  const landningssidor = [
+    {
+      url: abs("/ekonomisk-halsokontroll"),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+  ];
+
+  /**
+   * Mallarna som PDF.
+   *
+   * Filerna låg utanför sitemapen och nåddes bara via länkarna på mallsidan.
+   * En PDF indexeras som en egen sida hos Google, och de här fem är det enda
+   * innehåll på sajten som någon söker upp med ett ärende i handen, till
+   * exempel "kvittomall pdf". Bara byråns egna filer: de officiella
+   * blanketterna länkar vi till hos utgivaren och de hör hemma i utgivarens
+   * sitemap, inte i vår.
+   *
+   * Språkneutrala, en fil per mall oavsett vilket språk sidan visas på.
+   */
+  const mallfiler = mallar
+    .filter((mall) => mall.sort === "egen")
+    .map((mall) => ({
+      url: new URL(`/mallar/${mall.fil}`, SITE_URL).toString(),
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    }));
+
+  return [
+    ...translated,
+    ...bevarade,
+    ...landningssidor,
+    ...tjanster,
+    ...orter,
+    ...blog,
+    ...mallfiler,
+  ];
 }
