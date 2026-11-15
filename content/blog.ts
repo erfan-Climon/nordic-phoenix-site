@@ -157,7 +157,7 @@ const ALLA: Article[] = [
        beskärning, så bilden blir bara något lägre, och i listningens kort
        beskärs den till samma remsa som de andra. Rubriken i motivet sitter
        mitt i höjdled och klarar beskärningen. */
-    image: "/assets/blogg/regeringsskifte-2026-foretag-skatt-regler-2027-sv.webp",
+    image: "/assets/blogg/regeringsskifte-2026-foretag-skatt-regler-2027.webp",
     imageAlt:
       "Regeringsskifte efter valet 2026: skrivbord vid ett fönster med utsikt över Stockholm och en svensk flagga i kvällsljus",
     metaTitle: "Regeringsskifte 2026: Så kan svenska företag påverkas 2027",
@@ -537,7 +537,7 @@ const ALLA: Article[] = [
       "Gör en ekonomisk hälsokontroll på 60 minuter. Få kontroll över likviditet, skatter, kundfordringar och kostnader inför hösten.",
     intro:
       "Efter sommaren är det lätt att gå direkt in i leveranser, kundmöten och nya projekt. Men en timmes ekonomisk genomgång i augusti kan vara mer värd än flera dagars brandsläckning senare under hösten. Här är en enkel kontroll som fungerar för både enskild firma och aktiebolag.",
-    image: "/assets/blogg/ekonomisk-halsokontroll-foretag-sv.webp",
+    image: "/assets/blogg/ekonomisk-halsokontroll-foretag.webp",
     imageAlt: "Ge företaget en ekonomisk höststart på 60 minuter",
     metaTitle:
       "Ekonomisk höststart: 60-minuterskontrollen för småföretag | Nordic Phoenix",
@@ -658,7 +658,7 @@ const ALLA: Article[] = [
       "Enskild firma eller aktiebolag? Jämför ansvar, skatt, lön, utdelning och administration med konkreta exempel för svenska företagare.",
     intro:
       "Frågan om företagsform blir ofta förenklad till en enda sak: vid vilken vinst lönar sig aktiebolag? I verkligheten är svaret större än så. Rätt val beror på risk, kunder, investeringar, hur du vill ta ut pengar och hur snabbt verksamheten ska växa.",
-    image: "/assets/blogg/enskild-firma-eller-aktiebolag-sv.webp",
+    image: "/assets/blogg/enskild-firma-eller-aktiebolag.webp",
     imageAlt:
       "Enskild firma eller aktiebolag: välj efter risk och vardag, inte bara skatt",
     metaTitle:
@@ -775,7 +775,7 @@ const ALLA: Article[] = [
       "Förstå de nya 3:12-reglerna från inkomstår 2026. Vi förklarar grundbelopp, löneutrymme, sparat utdelningsutrymme och K10.",
     intro:
       "Från inkomstår 2026 beräknas gränsbeloppet för kvalificerade aktier på ett nytt sätt. Förändringen påverkar den K10-blankett som lämnas i deklarationen 2027. Reglerna har förenklats på vissa punkter, men det betyder inte att planeringen kan vänta till deklarationsdagen.",
-    image: "/assets/blogg/nya-3-12-regler-2026-sv.webp",
+    image: "/assets/blogg/nya-3-12-regler-2026.webp",
     /* Alt-texten beskriver vad som står tryckt i bilden, inte artikelns
        rubrik. Rubriken står redan som h1 direkt under bilden, och en
        skärmläsare som får den två gånger i rad läser upp samma mening
