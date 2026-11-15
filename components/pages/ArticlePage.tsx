@@ -2,11 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
 import type { Article } from "@/content/blog";
-import {
-  type ArticleCopy,
-  articleAuthor,
-  articleImage,
-} from "@/content/blog-copy";
+import { type ArticleCopy, articleAuthor } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
 import { type Locale, getDictionary, htmlLang, localePath } from "@/lib/i18n";
 import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
@@ -27,7 +23,7 @@ export function ArticlePage({
 }) {
   const t = getDictionary(locale);
   const blogHref = localePath(locale, "/blogg");
-  const bild = articleImage(article, copy);
+  const bild = article.image;
   const forfattare = articleAuthor(copy, locale);
 
   /* Två scheman i en graf. FAQPage är det som ger utfällbara frågor direkt i

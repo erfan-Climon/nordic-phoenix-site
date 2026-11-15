@@ -903,6 +903,7 @@ const ALLA: Article[] = [
       "Planera skatt och resultat före årsskiftet. Se vad enskild firma och aktiebolag kan göra och vilka vanliga misstag du bör undvika.",
     intro:
       "Bra skatteplanering handlar inte om att köpa saker du inte behöver. Den handlar om rätt period, rätt företagsform och rätt beslut innan året stängs. I november finns fortfarande tid att påverka både skatt, likviditet och kvaliteten i bokslutet.",
+    image: "/assets/blogg/skatteplanering-infor-arsskiftet.webp",
     imageAlt:
       "Skatteplanering före årsskiftet: åtgärder som fortfarande går att påverka",
     metaTitle:
@@ -1025,6 +1026,7 @@ const ALLA: Article[] = [
       "Förbered bokslutet utan stress. Här är en tydlig checklista för bank, fakturor, lager, periodiseringar, anläggningar och dokumentation.",
     intro:
       "Ett smidigt bokslut börjar inte när redovisningskonsulten öppnar bokslutsprogrammet. Det börjar när underlagen är kompletta, avstämda och möjliga att förstå. Den här checklistan hjälper dig att lämna över rätt material från början.",
+    image: "/assets/blogg/bokslut-checklista.webp",
     imageAlt: "Bokslut utan panik: underlagen som sparar mest tid och pengar",
     metaTitle:
       "Bokslut checklista 2026: förbered företaget steg för steg | Nordic Phoenix",
@@ -1161,6 +1163,7 @@ const ALLA: Article[] = [
       "Nya K2- och K3-regler gäller för räkenskapsår som börjar efter 2025. Se vilka företag som påverkas och vad övergången kräver.",
     intro:
       "För räkenskapsår som inleds efter den 31 december 2025 gäller ändringar i K2 och K3. För många små aktiebolag handlar det om förtydliganden. För vissa företag innebär ändringarna att K2 inte längre får användas och att övergången till K3 kräver arbete långt före årsredovisningen.",
+    image: "/assets/blogg/k2-k3-nya-regler-2026.webp",
     imageAlt:
       "K2 och K3 efter regeländringarna: kontrollera vilket regelverk företaget får använda",
     metaTitle:
@@ -1277,6 +1280,7 @@ const ALLA: Article[] = [
       "Ska du anställa? Räkna på totalkostnaden, förstå Växa-stöd och de tillfälligt sänkta arbetsgivaravgifterna för unga till september 2027.",
     intro:
       "Den första anställningen är ofta ett större ekonomiskt beslut än den första stora kunden. Lönen är bara en del av kostnaden. Samtidigt finns stöd som kan minska arbetsgivaravgifterna om företaget och anställningen uppfyller villkoren.",
+    image: "/assets/blogg/anstalla-forsta-medarbetaren-vaxa-stod.webp",
     imageAlt:
       "Anställa första eller andra medarbetaren: räkna på hela kostnaden och sök stödet rätt",
     metaTitle:
@@ -1398,6 +1402,7 @@ const ALLA: Article[] = [
       "Förstå skillnaden mellan NE-bilaga, Inkomstdeklaration 2 och K10. Guide för enskild firma och aktiebolag inför deklarationen.",
     intro:
       "Många företagare säger att de ska lämna företagets deklaration, men menar olika saker. Enskild firma redovisas i ägarens privata deklaration. Aktiebolaget lämnar en egen deklaration. Delägaren kan dessutom behöva lämna K10. Här reder vi ut vem som lämnar vad.",
+    image: "/assets/blogg/deklaration-enskild-firma-aktiebolag.webp",
     imageAlt:
       "Deklaration för enskild firma och aktiebolag: tre dokument som ofta blandas ihop",
     metaTitle:
@@ -1517,6 +1522,7 @@ const ALLA: Article[] = [
       "Vilka kostnader får företaget dra av? Vi förklarar hemmakontor, telefon, bil, utbildning och representation utan vanliga missförstånd.",
     intro:
       "Grundregeln låter enkel: en kostnad ska ha samband med verksamheten för att vara avdragsgill. Det svåra är gränsen mellan företagets behov och privat nytta. Här är fem områden där kvittot i sig inte alltid räcker.",
+    image: "/assets/blogg/avdrag-foretag-vanliga-fel.webp",
     imageAlt: "Avdrag som företagare ofta missar eller gör fel på",
     metaTitle:
       "Avdrag för företag 2027: kostnader som ofta blir fel | Nordic Phoenix",
@@ -1637,6 +1643,7 @@ const ALLA: Article[] = [
       "Lär dig när du ska använda 25, 12 eller 6 procent moms, hur momsbefrielse fungerar och vad som gäller vid EU-handel och förskott.",
     intro:
       "Moms är inte företagets intäkt eller kostnad i normalfallet. Företaget samlar in utgående moms och får dra av ingående moms när villkoren är uppfyllda. Problemet är att fel momssats eller fel period kan påverka många transaktioner innan någon upptäcker det.",
+    image: "/assets/blogg/moms-for-smaforetag.webp",
     imageAlt: "Moms utan gissningar: fem situationer där små fel blir stora",
     metaTitle:
       "Moms för småföretag: 25, 12 eller 6 procent och vanliga fel | Nordic Phoenix",
@@ -1764,6 +1771,7 @@ const ALLA: Article[] = [
       "Bygg en 13-veckors likviditetsbudget och se kommande betalningsproblem i tid. Praktisk metod för småföretag med ojämna intäkter.",
     intro:
       "Många företag följer omsättning och resultat varje månad men tittar på bankkontot först när en stor betalning närmar sig. En rullande 13-veckorsprognos gör kassaflödet synligt tillräckligt tidigt för att du ska kunna agera.",
+    image: "/assets/blogg/likviditetsbudget-13-veckor.webp",
     imageAlt:
       "Resultatet visar om du tjänar pengar. Likviditeten visar om du överlever.",
     metaTitle:
@@ -1889,6 +1897,7 @@ const ALLA: Article[] = [
       "Så sparar du bokföring, fakturor och digitala kvitton korrekt i sju år. Få en enkel rutin för format, backup, åtkomst och ansvar.",
     intro:
       "Att ett kvitto finns i inkorgen eller att fakturan ligger i ett bokföringsprogram betyder inte automatiskt att företagets arkivering är trygg. Räkenskapsinformation ska vara läsbar, åtkomlig och skyddad under hela bevarandetiden, även om system eller redovisningsbyrå byts.",
+    image: "/assets/blogg/spara-bokforing-kvitton-digitalt.webp",
     imageAlt: "Digital bokföring är inte samma sak som säker arkivering",
     metaTitle:
       "Spara bokföring och kvitton: regler för digital arkivering | Nordic Phoenix",

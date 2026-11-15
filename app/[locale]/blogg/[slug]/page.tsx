@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { ArticlePage } from "@/components/pages/ArticlePage";
 import { getArticle } from "@/content/blog";
 import {
-  articleImage,
   getArticleCopy,
   localesForArticle,
   translatedArticleSlugs,
@@ -39,7 +38,7 @@ export async function generateMetadata({
     availableLocales: localesForArticle(article.slug),
   });
 
-    const bild = articleImage(article, copy);
+  const bild = article.image;
   return {
     ...bas,
     /* Se den persiska rutten: basens openGraph vävs in, inte över. */

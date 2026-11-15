@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
-import { articleImage, articlesForLocale } from "@/content/blog-copy";
+import { articlesForLocale } from "@/content/blog-copy";
 import { type Locale, getDictionary, localePath } from "@/lib/i18n";
 import { breadcrumbJsonLd } from "@/lib/metadata";
 
@@ -46,9 +46,9 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
             href={`${blogHref}/${featured.article.slug}`}
             className="mb-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center overflow-hidden rounded-media border border-[rgba(23,19,16,.1)] bg-surface text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]"
           >
-            {articleImage(featured.article, featured.copy) ? (
+            {featured.article.image ? (
               <Image
-                src={articleImage(featured.article, featured.copy)!}
+                src={featured.article.image}
                 alt={featured.copy.imageAlt}
                 width={840}
                 height={560}
@@ -92,9 +92,9 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
               href={`${blogHref}/${article.slug}`}
               className={`${cardBase} text-inherit no-underline transition-[transform,box-shadow] duration-[.35s] ease-[var(--ease)] hover:-translate-y-[6px] hover:shadow-[0_24px_56px_rgba(23,19,16,.12)]`}
             >
-              {articleImage(article, copy) ? (
+              {article.image ? (
                 <Image
-                  src={articleImage(article, copy)!}
+                  src={article.image}
                   alt={copy.imageAlt}
                   width={600}
                   height={220}
