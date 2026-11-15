@@ -168,6 +168,10 @@ export const en: Dictionary = {
     areasHeadingTail: "and nearby",
     areasText:
       "We work with business owners across the region. Read more about how we work where you are based.",
+    officeLabel: "Office",
+    addressLabel: "Address",
+    hoursLabel: "Opening hours",
+    mapLink: "Directions in Google Maps",
     nearbyHeading: "We also work in other locations",
     allLocations: "All locations",
     ctaHeading: "Ready to hand over the bookkeeping?",
@@ -383,6 +387,29 @@ export const en: Dictionary = {
     ctaButton: "Contact us",
   },
 
+  kontakt: {
+    label: "Contact",
+    heading: "Write to us",
+    text: "Tell us briefly what you need help with and we will get back to you. You will get a confirmation by email right away.",
+    namn: "Name",
+    epost: "Email",
+    telefon: "Phone",
+    valfritt: "(optional)",
+    meddelande: "What do you need help with?",
+    sprak: "Contact me in",
+    sprakSv: "Swedish",
+    sprakFa: "Persian",
+    sprakEn: "English",
+    skicka: "Send",
+    skickar: "Sending…",
+    integritet: "Your details are only used to reply to your enquiry.",
+    integritetLank: "Read our privacy policy",
+    fel: "We could not send your message right now. Please try again shortly, or message us on WhatsApp.",
+    felWhatsapp: "Message us on WhatsApp",
+    tackRubrik: "Thank you, we have received your enquiry",
+    tackText: "We will get back to you as soon as we can. A confirmation is on its way to your email.",
+  },
+
   privacy: {
     metaTitle: "Privacy policy | Nordic Phoenix Accounting",
     metaDescription:
@@ -396,7 +423,7 @@ export const en: Dictionary = {
       },
       {
         heading: "What data we collect",
-        text: "We collect the information you provide yourself when contacting us via chat, WhatsApp, phone or email. That can be your name, phone number, email address and the matter you describe.",
+        text: "We collect the information you provide yourself when contacting us via the contact form, chat, WhatsApp, phone or email. That can be your name, phone number, email address and the matter you describe.",
       },
       {
         heading: "Why we process it",
@@ -408,7 +435,7 @@ export const en: Dictionary = {
       },
       {
         heading: "Recipients",
-        text: "We use suppliers for the chat function and website operations, who process data on our behalf under data processing agreements. If you have consented to measurement, data is also shared with Google and Meta as described in the section below. We never sell your data.",
+        text: "We use suppliers for the chat function, customer records, sending email and website operations, who process data on our behalf under data processing agreements. If you have consented to measurement, data is also shared with Google and Meta as described in the section below. We never sell your data.",
       },
       {
         heading: "Measurement and cookies",

@@ -9,6 +9,7 @@ import { Reviews } from "@/components/home/Reviews";
 import { Services } from "@/components/home/Services";
 import { Sweden } from "@/components/home/Sweden";
 import { WhyUs } from "@/components/home/WhyUs";
+import { KontaktSektion } from "@/components/kontakt/KontaktSektion";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { showsPricing } from "@/lib/pricing-visible";
 import { accountingServiceJsonLd, siteNavigationJsonLd } from "@/lib/metadata";
@@ -37,6 +38,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Process t={t} />
       <Sweden t={t} />
       <WhyUs t={t} />
+      <KontaktSektion locale={locale} />
       <CtaBanner t={t} />
     </>
   );

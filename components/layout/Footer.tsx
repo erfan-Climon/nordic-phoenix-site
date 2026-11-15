@@ -9,7 +9,10 @@ import {
   social,
   whatsappUrl,
 } from "@/content/site";
-import { hasTranslatedLocations } from "@/content/location-copy";
+import {
+  hasTranslatedLocations,
+  localesForLocation,
+} from "@/content/location-copy";
 import { type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { SamtyckeLank } from "@/components/layout/SamtyckeLank";
@@ -45,9 +48,21 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             <span className={textClass}>
               Org.nr {company.orgNumber}
             </span>
-            <span className={textClass}>
-              {company.street}, {company.postalCode} {company.city}
-            </span>
+            {/* Adressen leder till kontorsortens sida, på de språk där den
+                finns. Det är den enda länken till sidan som står på varje
+                sida av sajten, och ankartexten är just adressen. */}
+            {localesForLocation("sollentuna").includes(locale) ? (
+              <Link
+                href={localePath(locale, "/redovisningsbyra/sollentuna")}
+                className={linkClass}
+              >
+                {company.street}, {company.postalCode} {company.city}
+              </Link>
+            ) : (
+              <span className={textClass}>
+                {company.street}, {company.postalCode} {company.city}
+              </span>
+            )}
             {/* Öppettiderna står nu både här och i företagsschemat, och båda
                 läser samma konstant. Google jämför uppgifterna på sajten med
                 företagsprofilen, och en tid som bara finns i schemat syns

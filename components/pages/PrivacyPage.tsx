@@ -9,7 +9,7 @@ export function PrivacyPage({ locale }: { locale: Locale }) {
         {t.privacy.title}
       </h1>
       <p className="np-meta m-0 mb-[clamp(40px,5vw,64px)] text-text-meta">
-        {t.privacy.updated} 2026-07-27
+        {t.privacy.updated} 2026-10-13
       </p>
 
       {t.privacy.body.map((section) => (

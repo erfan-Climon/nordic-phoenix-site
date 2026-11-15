@@ -45,6 +45,14 @@ export type Location = {
    * felaktig och gett längre URL:er utan vinst.
    */
   partOf?: string;
+  /**
+   * Satt bara på orten där kontoret faktiskt ligger, alltså Sollentuna.
+   * Undantaget från regel 1 ovan: här finns en riktig besöksadress, och
+   * sidan visar den tillsammans med öppettider och kartlänk. Adressen läses
+   * ur `company` i site.ts och skrivs aldrig in här, så att sidan och
+   * företagsprofilen inte kan glida isär.
+   */
+  kontor?: { heading: string; text: string };
 };
 
 export const locations: Location[] = [
@@ -943,7 +951,7 @@ export const locations: Location[] = [
           "Nej. Allt sköts digitalt. Vill ni ändå ses ligger vi i Sollentuna, ett par stationer bort.",
       },
     ],
-    nearby: ["stockholm", "solna", "sundbyberg"],
+    nearby: ["sollentuna", "solna", "sundbyberg"],
   },
 
   {
@@ -1074,6 +1082,84 @@ export const locations: Location[] = [
     nearby: ["solna", "stockholm", "kista"],
   },
 
+  /* Kontorets egen ort. Sökfraserna med Sollentuna rankade redan på plats
+     2 till 6 innan sidan fanns, mot startsidan, så efterfrågan är bevisad.
+     FAQ:n svarar på de fraser som faktiskt syns i Search Console, bland
+     annat "revisionsbyrå sollentuna", där ärligheten är själva svaret. */
+  {
+    slug: "sollentuna",
+    name: "Sollentuna",
+    inName: "Sollentuna",
+    region: "Stockholms län",
+    partOf: "stockholm",
+    metaTitle: "Redovisningsbyrå Sollentuna | Kontor i Rotebro, fast pris",
+    metaDescription:
+      "Redovisningsbyrå med kontor i Sollentuna. Bokföring, lön, moms, bokslut och deklaration till fast månadspris. Vi pratar svenska, engelska och persiska.",
+    h1Lead: "Redovisningsbyrå i",
+    h1Accent: "Sollentuna.",
+    intro:
+      "Det här är vår hemmaplan. Kontoret ligger på Bollstanäsvägen i Rotebro, och härifrån sköter vi bokföring, lön och bokslut åt företagare i Sollentuna och i resten av landet. Vill du hellre ses än ta allt digitalt kommer du hit.",
+    context: {
+      heading: "Så ser företagandet i Sollentuna ut",
+      paragraphs: [
+        "Sollentuna ligger mitt i stråket mellan Stockholm och Arlanda, med E4:an och pendeltåget genom hela kommunen. De flesta bolagen här är små: konsulter som arbetar mot Kista och innerstan, hantverkare och byggföretag som tar uppdrag i hela norra Stockholm, och butiker, restauranger och vårdföretag som lever på dem som bor här.",
+        "Därför passar samma bokföring sällan alla. Konsulten behöver koll på utdelning och 3:12, byggföretaget på omvänd byggmoms och personalliggare, och restaurangen på kassaregister och dricks. Vi arbetar med alla tre, och vi sitter i samma kommun som du.",
+        "Många av våra kunder har persiska som modersmål. Hos oss kan du gå igenom bokslutet, ett brev från Skatteverket eller ett avtal på persiska, och få det förklarat på svenska när det behövs.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Kontor på plats",
+        text: "Bollstanäsvägen 3 i Rotebro. Boka en tid och kom förbi, eller låt oss ta allt digitalt. Du väljer.",
+      },
+      {
+        title: "Svenska, engelska och persiska",
+        text: "Du får förklaringen på det språk du tänker på. Myndighetsbrev och bokslut går vi igenom på persiska om du vill.",
+      },
+      {
+        title: "Fast månadspris",
+        text: "Bokföring, lön, moms, bokslut och deklaration i ett pris som är bestämt i förväg. Inga timmar som tickar.",
+      },
+    ],
+    faq: [
+      {
+        question: "Var ligger ert kontor i Sollentuna?",
+        answer:
+          "På Bollstanäsvägen 3 i Rotebro, i norra Sollentuna. Ring eller skriv innan du kommer, så ser vi till att rätt person är på plats.",
+      },
+      {
+        question: "Är ni en revisionsbyrå?",
+        answer:
+          "Nej, vi är en redovisningsbyrå. Vi sköter bokföring, lön, moms, bokslut, årsredovisning och deklaration. Revision görs av en auktoriserad eller godkänd revisor, och de flesta små aktiebolag behöver ingen revisor alls. Kravet uppstår först när bolaget passerar gränsvärden för antal anställda, balansomslutning och omsättning. Vi tittar gärna på om ditt bolag berörs.",
+      },
+      {
+        question: "Kan jag få hjälp på persiska?",
+        answer:
+          "Ja. Vi går igenom bokföringen, bokslutet och brev från Skatteverket eller Bolagsverket på persiska, svenska eller engelska. Det som lämnas in till myndigheterna blir på svenska, men du vet vad det står innan du skriver under.",
+      },
+      {
+        question: "Vad kostar en redovisningsbyrå i Sollentuna?",
+        answer:
+          "Vi arbetar med fast månadspris i stället för timpris. Beloppet beror på hur många verifikat du har, om du har anställda och vilken bolagsform du driver. Du får ett fast belopp efter en kostnadsfri genomgång, innan du bestämmer dig.",
+      },
+      {
+        question: "Jag har byggföretag. Klarar ni omvänd byggmoms och personalliggare?",
+        answer:
+          "Ja. Vi bokför med omvänd skattskyldighet där den gäller, kontrollerar att dina fakturor har rätt uppgifter och hjälper dig få rutinerna kring personalliggaren på plats inför en kontroll.",
+      },
+      {
+        question: "Jag är konsult och jobbar i Kista. Behöver jag aktiebolag?",
+        answer:
+          "Inte nödvändigtvis. Enskild firma är enklare att starta, medan aktiebolag ger lägre skatt när vinsten växer och begränsar ditt personliga ansvar. Vi räknar på båda för din situation och sköter övergången om det blir aktiebolag.",
+      },
+    ],
+    nearby: ["upplands-vasby", "kista", "solna"],
+    kontor: {
+      heading: "Kom förbi kontoret",
+      text: "Vi sitter på Bollstanäsvägen i Rotebro, norra Sollentuna. Ring eller skriv innan du kommer så tar vi emot dig.",
+    },
+  },
+
   {
     slug: "upplands-vasby",
     name: "Upplands Väsby",
@@ -1135,7 +1221,7 @@ export const locations: Location[] = [
           "Beloppet beror på antal verifikat, antal anställda och hur komplex importen är. Löpande bokföring, lön, bokslut och deklaration samlas i ett fast månadspris.",
       },
     ],
-    nearby: ["sigtuna", "solna", "stockholm"],
+    nearby: ["sollentuna", "sigtuna", "stockholm"],
   },
 
   {
@@ -1199,7 +1285,7 @@ export const locations: Location[] = [
           "Nej. Underlagen laddas upp digitalt och vi stämmer av på telefon eller video.",
       },
     ],
-    nearby: ["upplands-vasby", "stockholm", "uppsala"],
+    nearby: ["upplands-vasby", "sollentuna", "uppsala"],
   },
 
   {

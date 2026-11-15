@@ -177,6 +177,10 @@ export const sv = {
     areasHeadingTail: "med omnejd",
     areasText:
       "Vi arbetar med företagare i hela regionen. Läs mer om hur vi arbetar där du håller till.",
+    officeLabel: "Kontoret",
+    addressLabel: "Adress",
+    hoursLabel: "Öppettider",
+    mapLink: "Vägbeskrivning i Google Maps",
     nearbyHeading: "Vi finns även på andra orter",
     allLocations: "Alla orter",
     ctaHeading: "Redo att lämna över bokföringen?",
@@ -396,6 +400,29 @@ export const sv = {
     ctaButton: "Kontakta oss",
   },
 
+  kontakt: {
+    label: "Kontakt",
+    heading: "Skriv till oss",
+    text: "Berätta kort vad du behöver hjälp med så hör vi av oss. Du får en bekräftelse på mejlen direkt.",
+    namn: "Namn",
+    epost: "E-post",
+    telefon: "Telefon",
+    valfritt: "(valfritt)",
+    meddelande: "Vad behöver du hjälp med?",
+    sprak: "Vi kontaktar dig på",
+    sprakSv: "Svenska",
+    sprakFa: "Persiska",
+    sprakEn: "Engelska",
+    skicka: "Skicka",
+    skickar: "Skickar…",
+    integritet: "Uppgifterna används bara för att svara på din förfrågan.",
+    integritetLank: "Läs vår integritetspolicy",
+    fel: "Det gick inte att skicka just nu. Försök igen om en stund, eller skriv till oss på WhatsApp.",
+    felWhatsapp: "Skriv på WhatsApp",
+    tackRubrik: "Tack, vi har fått din förfrågan",
+    tackText: "Vi hör av oss så snart vi kan. En bekräftelse är på väg till din e-post.",
+  },
+
   privacy: {
     metaTitle: "Integritetspolicy | Nordic Phoenix",
     metaDescription:
@@ -409,7 +436,7 @@ export const sv = {
       },
       {
         heading: "Vilka uppgifter vi samlar in",
-        text: "Vi samlar in de uppgifter du själv lämnar när du kontaktar oss via chatt, WhatsApp, telefon eller mejl. Det kan vara namn, telefonnummer, e-postadress och det ärende du beskriver.",
+        text: "Vi samlar in de uppgifter du själv lämnar när du kontaktar oss via kontaktformuläret, chatt, WhatsApp, telefon eller mejl. Det kan vara namn, telefonnummer, e-postadress och det ärende du beskriver.",
       },
       {
         heading: "Varför vi behandlar uppgifterna",
@@ -421,7 +448,7 @@ export const sv = {
       },
       {
         heading: "Mottagare",
-        text: "Vi använder leverantörer för chattfunktion och drift av webbplatsen, vilka behandlar uppgifter för vår räkning enligt personuppgiftsbiträdesavtal. Har du samtyckt till mätning delas uppgifter dessutom med Google och Meta enligt avsnittet nedan. Vi säljer aldrig dina uppgifter vidare.",
+        text: "Vi använder leverantörer för chattfunktion, kundregister, utskick av e-post och drift av webbplatsen, vilka behandlar uppgifter för vår räkning enligt personuppgiftsbiträdesavtal. Har du samtyckt till mätning delas uppgifter dessutom med Google och Meta enligt avsnittet nedan. Vi säljer aldrig dina uppgifter vidare.",
       },
       {
         heading: "Mätning och cookies",

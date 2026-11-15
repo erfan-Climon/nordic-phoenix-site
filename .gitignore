@@ -5,3 +5,6 @@ next-env.d.ts
 *.tsbuildinfo
 .DS_Store
 .env*.local
+
+# Lokal körning av Pages Functions med wrangler
+.wrangler/

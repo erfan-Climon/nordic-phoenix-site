@@ -2,10 +2,17 @@ import Link from "next/link";
 import { CheckMark } from "@/components/ui/icons";
 import { areasOf, getLocation, type Location } from "@/content/locations";
 import { getLocationCopy, type LocationCopy } from "@/content/location-copy";
-import { company, phone, whatsappUrl } from "@/content/site";
+import {
+  company,
+  googleForetagsprofil,
+  oppettider,
+  phone,
+  whatsappUrl,
+} from "@/content/site";
 import { getDictionary, htmlLang, type Locale, localePath } from "@/lib/i18n";
 import { absolutUrl, breadcrumbJsonLd } from "@/lib/metadata";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
+import { KontaktSektion } from "@/components/kontakt/KontaktSektion";
 import { showsPricing } from "@/lib/pricing-visible";
 
 export function LocationPage({
@@ -53,6 +60,27 @@ export function LocationPage({
         addressRegion: company.region,
         addressCountry: company.country,
       },
+      /* Bara på kontorsorten. Där är adressen sidans ämne, och samma
+         position, öppettider och kartlänk som i företagsprofilen gör att
+         Google kan knyta sidan till profilen och till kartresultaten. */
+      ...(copy.kontor
+        ? {
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: company.geo.lat,
+              longitude: company.geo.lng,
+            },
+            hasMap: googleForetagsprofil,
+            openingHoursSpecification: [
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [...oppettider.dagar],
+                opens: oppettider.oppnar,
+                closes: oppettider.stanger,
+              },
+            ],
+          }
+        : {}),
     },
     availableLanguage: ["sv", "en", "fa"],
     inLanguage: htmlLang[locale],
@@ -156,6 +184,51 @@ export function LocationPage({
           </div>
         </div>
       </section>
+
+      {/* --- Kontoret, bara på orten där det finns ---------------------- */}
+      {copy.kontor ? (
+        <section className="bg-page text-text">
+          <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(32px,5vw,80px)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
+            <div>
+              <p className="np-label mb-5 text-accent-ink">{lp.officeLabel}</p>
+              <h2 className="np-h2 mb-5 text-[length:var(--fs-h2-sm)] leading-[1.2]">
+                {copy.kontor.heading}
+              </h2>
+              <p className="m-0 max-w-[52ch] font-sans text-[16px] leading-[1.75] text-text-muted">
+                {copy.kontor.text}
+              </p>
+            </div>
+            <dl className="m-0 flex flex-col gap-6 border-t border-[var(--hairline-light)] pt-6">
+              <div>
+                <dt className="np-label mb-2 text-text-meta">{lp.addressLabel}</dt>
+                {/* Adressen i latinska bokstäver även på persiska: det är
+                    den form som står på skylten och i kartan. */}
+                <dd className="m-0 font-sans text-[17px] leading-[1.6]" dir="ltr">
+                  {company.street}, {company.postalCode} {company.city}
+                </dd>
+              </div>
+              <div>
+                <dt className="np-label mb-2 text-text-meta">{lp.hoursLabel}</dt>
+                <dd className="m-0 font-sans text-[17px] leading-[1.6]" dir="ltr">
+                  {t.footer.hours
+                    .replace("{från}", oppettider.oppnar)
+                    .replace("{till}", oppettider.stanger)}
+                </dd>
+              </div>
+              <div>
+                <a
+                  href={googleForetagsprofil}
+                  target="_blank"
+                  rel="noopener"
+                  className="font-sans text-[16px] text-accent-ink"
+                >
+                  {lp.mapLink}
+                </a>
+              </div>
+            </dl>
+          </div>
+        </section>
+      ) : null}
 
       {/* --- Lokal kontext ---------------------------------------------- */}
       <section className="bg-ink text-on-dark">
@@ -328,6 +401,8 @@ export function LocationPage({
           </div>
         </div>
       </section>
+
+      <KontaktSektion locale={locale} />
 
       {/* --- Avslutande CTA ---------------------------------------------- */}
       <section className="bg-page px-[var(--pad-x)] pb-[var(--pad-y-light)]">

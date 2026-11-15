@@ -65,8 +65,20 @@ export function leadSkickad(varde: number, valuta: string): void {
  * mellan den här och `leadSkickad` är det enda sättet att se om formuläret
  * tappar folk mitt i, vilket är en annan sak än att de aldrig börjar.
  */
-export function formularStartat(): void {
-  ga()?.("event", "form_start", { formular: "ekonomisk-halsokontroll" });
+export function formularStartat(formular = "ekonomisk-halsokontroll"): void {
+  ga()?.("event", "form_start", { formular });
   meta()?.("trackCustom", "FormStart");
   tiktok()?.track("ClickButton", { content_name: "form_start" });
+}
+
+/**
+ * Kontaktformuläret gick fram.
+ *
+ * Samma regel som `leadSkickad`: bara efter att servern svarat att förfrågan
+ * landat. Inget värde, eftersom en allmän förfrågan inte har något pris.
+ */
+export function kontaktSkickad(): void {
+  ga()?.("event", "generate_lead", { formular: "kontakt" });
+  meta()?.("track", "Lead", { content_name: "kontakt" });
+  tiktok()?.track("SubmitForm", { content_name: "kontakt" });
 }
