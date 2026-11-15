@@ -2,6 +2,7 @@ import { About } from "@/components/home/About";
 import { ClientLogos } from "@/components/home/ClientLogos";
 import { CtaBanner } from "@/components/home/CtaBanner";
 import { Hero } from "@/components/home/Hero";
+import { Klipp } from "@/components/home/Klipp";
 import { Languages } from "@/components/home/Languages";
 import { Pricing } from "@/components/home/Pricing";
 import { Process } from "@/components/home/Process";
@@ -33,6 +34,9 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Services t={t} locale={locale} />
       <Reviews t={t} />
       <About t={t} />
+      {/* Står direkt efter Om-sektionen: där har besökaren just fått veta
+          vilka vi är, och klippen är Ali själv. Ljus botten mot Oms mörka. */}
+      <Klipp t={t} locale={locale} />
       {showsPricing() ? <Pricing t={t} /> : null}
       <Languages t={t} />
       <Process t={t} />

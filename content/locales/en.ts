@@ -196,6 +196,16 @@ export const en: Dictionary = {
     videoTitle: "About Nordic Phoenix",
   },
 
+  klipp: {
+    label: "Short clips",
+    h2a: "One question,",
+    h2b: "one minute.",
+    sub: "Ali takes one thing at a time, the questions business owners ask most. A new clip every Monday.",
+    folj: "Follow on Instagram",
+    spela: "Play clip",
+    seInlagg: "View the post",
+  },
+
   pricing: {
     label: "Pricing",
     h2a: "Clear packages.",

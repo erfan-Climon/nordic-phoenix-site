@@ -205,6 +205,16 @@ export const sv = {
     videoTitle: "Om Nordic Phoenix",
   },
 
+  klipp: {
+    label: "Korta klipp",
+    h2a: "En fråga,",
+    h2b: "en minut.",
+    sub: "Ali tar en sak i taget, de frågor företagare ställer oftast. Nytt klipp varje måndag.",
+    folj: "Följ på Instagram",
+    spela: "Spela klippet",
+    seInlagg: "Se inlägget",
+  },
+
   pricing: {
     label: "Priser",
     h2a: "Tydliga paket.",
