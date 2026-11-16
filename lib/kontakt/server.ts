@@ -40,7 +40,28 @@ function svar(status: number, data: Record<string, unknown>): Response {
   });
 }
 
+/**
+ * Yttersta skyddsnätet.
+ *
+ * Allt inuti svarar redan med JSON, men ett oväntat undantag någonstans på
+ * vägen gör att Cloudflare svarar med sin egen felsida i klartext. Då ser
+ * felet utifrån ut som ett infrastrukturfel fast det är vår kod, och
+ * besökaren får en sida som inte liknar sajten. Hellre ett läsbart svar och
+ * en rad i loggen.
+ */
 export async function hanteraKontakt(
+  request: Request,
+  miljo: KontaktMiljo,
+): Promise<Response> {
+  try {
+    return await hanteraKontaktInre(request, miljo);
+  } catch (fel) {
+    console.error("kontakt: oväntat fel", String(fel));
+    return svar(500, { ok: false, fel: "ovantat" });
+  }
+}
+
+async function hanteraKontaktInre(
   request: Request,
   miljo: KontaktMiljo,
 ): Promise<Response> {
@@ -74,13 +95,35 @@ export async function hanteraKontakt(
   const k = tolkaKontakt(radata);
   if (!k) return svar(400, { ok: false, fel: "ogiltig" });
 
-  if (!miljo.GHL_KONTAKT_WEBHOOK) {
-    console.error("kontakt: GHL_KONTAKT_WEBHOOK saknas");
-    return svar(502, { ok: false });
+  /* Miljön läses defensivt, och det är inte överdrift.
+   *
+   * Raden som läste `miljo.GHL_KONTAKT_WEBHOOK` låg tidigare utanför try.
+   * Var `miljo` inte den form funktionen väntade sig kastades ett TypeError
+   * som ingen fångade, och Cloudflare svarade då med sitt eget 502 i
+   * klartext i stället för vår JSON. Utifrån gick det inte att skilja från
+   * ett handlagt fel: samma statuskod, men ingen rad i loggen som sa varför.
+   *
+   * Kontrollen av https är inte heller kosmetisk. En adress utan protokoll
+   * får fetch att kasta, och det felet hade tidigare sett ut precis som ett
+   * nätverksfel mot en adress som fanns.
+   */
+  const webhook =
+    miljo && typeof miljo === "object" ? miljo.GHL_KONTAKT_WEBHOOK : undefined;
+
+  if (typeof webhook !== "string" || !webhook.startsWith("https://")) {
+    console.error("kontakt: GHL_KONTAKT_WEBHOOK saknas eller är ogiltig", {
+      miljoFinns: Boolean(miljo),
+      typ: typeof webhook,
+      borjarMedHttps:
+        typeof webhook === "string" ? webhook.startsWith("https://") : null,
+    });
+    /* Säger att servern är felkonfigurerad, inte vilken variabel det gäller.
+       Räcker för att se skillnad utifrån utan att beskriva uppsättningen. */
+    return svar(502, { ok: false, fel: "konfiguration" });
   }
 
   try {
-    const res = await fetch(miljo.GHL_KONTAKT_WEBHOOK, {
+    const res = await fetch(webhook, {
       method: "POST",
       headers: { "content-type": "application/json" },
       /* Samma fältnamn som landningssidans formulär, så att samma
