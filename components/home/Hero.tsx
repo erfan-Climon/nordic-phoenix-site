@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HeroBackgroundVideo } from "@/components/home/HeroBackgroundVideo";
 import type { Dictionary } from "@/content/locales/sv";
@@ -11,33 +12,54 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink"
+      /* Bottenförankrad på mobil, där texten ligger över bilden som förut.
+         På bred skärm centreras den i stället: texten ska rymmas på den
+         mörka kilen, och kilen är bredast upptill. Lägst ner är den bara
+         tjugo procent, och dit når ingen text längre. */
+      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink md:justify-center"
     >
-      {/* Posterbilden ligger alltid kvar. Den är hela bakgrunden på mobil och
-          vid reducerad rörelse, och det som syns innan videon börjar spela. */}
-      {/* På mobil beskärs bilden hårt på bredden. Centrerat hamnar den ljusa
-          skjortan bakom texten, så utsnittet flyttas åt vänster till glasväggen
-          skjutet något åt vänster så att både ansiktet och händerna kommer med.
-          På bred skärm ligger utsnittet kvar centrerat, annars hoppar bilden
-          när videon tar över. */}
+      {/* Bilden täcker inte hela sektionen på bred skärm utan drygt sjuttio
+          procent, med en sned kant mot sektionens mörka botten. Kanten går
+          från fyrtio procent uppe till tjugo nere, alltså lutad åt vänster
+          nedtill: rubriken får en ren mörk yta att börja på, och bilden
+          öppnar sig ner mot knappraden.
+
+          Beskärningen ligger på behållaren och inte på videon, så att
+          posterbilden, videon och slöjan klipps likadant. Utan den
+          gemensamma behållaren hade de tre lagren behövt varsin clip-path
+          och glidit isär vid omritning.
+
+          Bara från 768 och uppåt. På mobil finns ingen bredd att ge bort,
+          där fyller bilden hela sektionen som förut. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-[position:48%_center] md:bg-center"
-        style={{ backgroundImage: `url(${video.heroPoster})` }}
-      />
+        className="absolute inset-0 md:[clip-path:polygon(40%_0,100%_0,100%_100%,20%_100%)]"
+      >
+        {/* Posterbilden ligger alltid kvar. Den är hela bakgrunden på mobil och
+            vid reducerad rörelse, och det som syns innan videon börjar spela. */}
+        {/* På mobil beskärs bilden hårt på bredden. Centrerat hamnar den ljusa
+            skjortan bakom texten, så utsnittet flyttas åt vänster till glasväggen
+            skjutet något åt vänster så att både ansiktet och händerna kommer med.
+            På bred skärm ligger utsnittet kvar centrerat, annars hoppar bilden
+            när videon tar över. */}
+        <div
+          className="absolute inset-0 bg-cover bg-[position:48%_center] md:bg-center"
+          style={{ backgroundImage: `url(${video.heroPoster})` }}
+        />
 
-      <HeroBackgroundVideo />
+        <HeroBackgroundVideo />
 
-      {/* Ett enda jämnt filter över hela videon. Inga gradienter, ingen
-          kudde bakom texten: sådana lager gör bilden ljusare på vissa ställen
-          och mörkare på andra, vilket syns.
+        {/* Ett enda jämnt filter över hela videon. Inga gradienter, ingen
+            kudde bakom texten: sådana lager gör bilden ljusare på vissa ställen
+            och mörkare på andra, vilket syns.
 
-          Priset är att styrkan blir en avvägning. Uppmätt mot videons ljusaste
-          rutor krävs 0,88 för att varje element ska nå WCAG med ett jämnt
-          filter, och då är videon i praktiken borta. 0,50 är vald som
-          mellanläge: bilden syns, och texten bärs av sin egen skugga.
-          Kvarvarande värden står i README. */}
-      <div aria-hidden="true" className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
+            Priset är att styrkan blir en avvägning. Uppmätt mot videons ljusaste
+            rutor krävs 0,88 för att varje element ska nå WCAG med ett jämnt
+            filter, och då är videon i praktiken borta. 0,50 är vald som
+            mellanläge: bilden syns, och texten bärs av sin egen skugga.
+            Kvarvarande värden står i README. */}
+        <div className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
+      </div>
 
 
       {/* Andande orange glöd uppe till höger */}
@@ -72,7 +94,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
            Uppmätt låg det på 64 till 96 procent före ändringen. Insteget är
            detsamma på båda språken: det mäts från vänsterkanten oavsett
            riktning. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-[clamp(120px,14.2vh,180px)] md:pl-[clamp(64px,17vw,330px)] rtl:justify-end"
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-0 rtl:justify-end"
       >
         {/* Extra insteg i vänsterläst text. Insteget från vänsterkanten är
             detsamma på alla språk, men texten fyller ytan åt olika håll:
@@ -85,9 +107,17 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             och tjänsteknappen ryms på samma rad. Ingressen har sin egen
             radlängdsgräns och rubriken bryter på egna rader, så det är i
             praktiken bara knappraden som får mer plats. */}
-        <div className="min-w-0 max-w-[min(640px,58%)] max-md:w-full max-md:max-w-full lg:max-w-[min(760px,66%)] lg:ltr:ml-20">
+        {/* Bredden sitter på rubriken och ingressen var för sig, inte på
+            blocket. Knappraden ska få sticka ut åt höger, ut på videon och
+            ner på tangentbordet i bild, medan läsningen hålls kvar på den
+            mörka kilen. */}
+        <div className="min-w-0 max-md:w-full max-md:max-w-full md:w-full">
           <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
-            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
+            /* Mindre grad från 768 än tokenens 5,8vw. Rubriken ska rymmas på
+               den mörka kilen, och "Kontroll." mätte 390 px mot kilens dryga
+               330 px användbara vid textens nedre kant. Mobilen rör vi inte:
+               där ligger texten kvar över hela bilden. */
+            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:max-w-[min(360px,21vw)] md:text-[clamp(34px,4.3vw,74px)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
             {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
                 är ren varumärkestext utan ett enda sökord, och H1 är sidans
                 starkaste rubriksignal. Graden spelar ingen roll för hur
@@ -151,7 +181,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
               Bara på bred skärm: på mobil är bilden beskuren så hårt att det
               inte finns något tangentbord att träffa. */}
-          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(10px,1.5vw,28px)] flex flex-col gap-7 md:mb-[clamp(88px,10.3vw,150px)]">
+          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(10px,1.5vw,28px)] flex flex-col gap-7">
             <p
               /* Fem rader oavsett språk på bred skärm. Ingressen är olika
                  lång på svenska, engelska och persiska, och eftersom
@@ -159,11 +189,25 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  höjder: uppmätt 700, 671 och 642 pixlar. Bara persiskan
                  landade då på tangentbordet i bild. Minsta höjden är den
                  längsta ingressens, så ingen text trängs ihop. */
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:min-h-[8.25em] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
+              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise .5s .26s var(--ease) both" }}
             >
               {t.hero.sub}
             </p>
+
+            {/* Fågeln står under brödtexten, på den mörka kilen. Den bär
+                ingen information, därför aria-hidden: namnet står redan i
+                sidhuvudet och i rubriken. Bara från 768, på mobil ligger
+                texten över hela bilden och det finns ingen lugn yta. */}
+            <Image
+              aria-hidden="true"
+              src="/assets/phoenix-logo.webp"
+              alt=""
+              width={132}
+              height={132}
+              className="hidden h-auto w-[clamp(64px,7vw,104px)] opacity-90 md:block"
+              style={{ animation: "np-fade 1.2s .5s ease both" }}
+            />
             <div
               /* WhatsApp-knappen ligger först i koden, så att den primära
                  åtgärden kommer först för skärmläsare och tangentbord.
@@ -192,7 +236,15 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  i vänsterläst text, och en vänd rad som bryts staplar dem
                  högerställda under en vänsterställd text. Uppmätt bröts
                  raden vid 900 men inte vid 1000. */
-              className="flex flex-wrap gap-[14px] max-md:flex-col-reverse lg:ltr:flex-row-reverse"
+              /* Knappraden är det enda som lämnar den mörka kilen. Den skjuts
+                 ut åt höger så att den landar på tangentbordet i bild, som
+                 ligger på 29 till 54 procent av bredden. Knapparna är fyllda
+                 plattor och bär sin egen kontrast, till skillnad från texten,
+                 så de klarar att ligga på videon.
+
+                 På mobil staplas de i omvänd ordning, så att
+                 WhatsApp-knappen hamnar närmast tummen. */
+              className="flex gap-[14px] max-md:flex-col-reverse md:ml-[clamp(24px,25vw,380px)] md:w-max"
               style={{ animation: "np-rise .5s .33s var(--ease) both" }}
             >
               <a
