@@ -87,6 +87,21 @@ export function articlesForLocale(
   });
 }
 
+/**
+ * Artiklarna som hör hemma i blogglistningen.
+ *
+ * Klippartiklarna står för sig på vloggsidan, med filmen bredvid texten.
+ * Samma artikel på båda ställena gjorde Insikter rörig: den som klickar där
+ * vill läsa guiderna, och den som vill se klippen går via undermenyn.
+ * Artiklarnas egna sidor finns kvar precis som förut, det är bara ingången
+ * som skiljs åt.
+ */
+export function bloggArtiklarForLocale(
+  locale: Locale,
+): { article: Article; copy: ArticleCopy }[] {
+  return articlesForLocale(locale).filter(({ article }) => !article.klipp);
+}
+
 /** Sant om språket har minst en översatt artikel, alltså en blogg att visa. */
 export function hasTranslatedArticles(locale: Locale): boolean {
   return articlesForLocale(locale).length > 0;
