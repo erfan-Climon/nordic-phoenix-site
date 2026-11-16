@@ -1,5 +1,6 @@
 import { type Article, type Author, articles } from "@/content/blog";
 import { articlesFa } from "@/content/blog.fa";
+import { publiceradeKlipp } from "@/content/klipp";
 import { type Locale, locales } from "@/lib/i18n";
 
 /**
@@ -36,6 +37,21 @@ export function getArticleCopy(
   }
   if (locale === "sv") return article;
   return TABELLER[locale]?.[article.slug];
+}
+
+/**
+ * Sant när minst ett publicerat klipp har en artikel på språket.
+ *
+ * Videoguidesidan lovar filmen och den skrivna versionen bredvid. Finns
+ * ingen text på språket håller sidan inte vad den säger, och då ska den
+ * varken finnas eller stå i menyn. Samma regel som blogglistningen följer
+ * via `hasTranslatedArticles`.
+ */
+export function harVideoguider(locale: Locale): boolean {
+  return publiceradeKlipp.some((klipp) => {
+    const artikel = articles.find((a) => a.klipp === klipp.slug);
+    return artikel ? Boolean(getArticleCopy(artikel, locale)) : false;
+  });
 }
 
 /** Språk artikeln finns på. Svenskan finns alltid, utom på enspråkiga. */

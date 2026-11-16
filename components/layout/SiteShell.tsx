@@ -5,7 +5,7 @@ import { Matning } from "@/components/layout/Matning";
 import { MotionRuntime } from "@/components/layout/MotionRuntime";
 import { Samtycke } from "@/components/layout/Samtycke";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
-import { hasTranslatedArticles } from "@/content/blog-copy";
+import { harVideoguider, hasTranslatedArticles } from "@/content/blog-copy";
 import { getDictionary, type Locale, localePath } from "@/lib/i18n";
 
 /** Allt som ligger runt sidinnehållet — delas av alla rotlayouter. */
@@ -32,9 +32,21 @@ export function SiteShell({
     ? localePath(locale, "/blogg")
     : localePath("sv", "/blogg");
 
+  /* Null när språket saknar klipptexter. Räknas ut här av samma skäl som
+     bloggadressen: Header är en klientkomponent och ska inte läsa
+     artikellistan. */
+  const videoguiderHref = harVideoguider(locale)
+    ? localePath(locale, "/videoguider")
+    : null;
+
   return (
     <>
-      <Header locale={locale} t={t} bloggHref={bloggHref} />
+      <Header
+        locale={locale}
+        t={t}
+        bloggHref={bloggHref}
+        videoguiderHref={videoguiderHref}
+      />
       <main>{children}</main>
       <Footer locale={locale} t={t} />
       <ScrollToTop href={`${localePath(locale, "/")}#top`} label={t.a11y.toTop} />

@@ -1,6 +1,10 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
-import { localesForArticle, localesWithBlogIndex } from "@/content/blog-copy";
+import {
+  harVideoguider,
+  localesForArticle,
+  localesWithBlogIndex,
+} from "@/content/blog-copy";
 import { locations } from "@/content/locations";
 import {
   localesForLocation,
@@ -26,6 +30,24 @@ const TRANSLATED_PATHS = ["/", "/mallar", "/integritetspolicy"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
+
+  /* Videoguiderna finns bara på de språk som har klipptexter. Alternates
+     listar exakt den uppsättningen, aldrig en adress som pekas om. */
+  const videoguidSprak = locales.filter(harVideoguider);
+  const videoguider = videoguidSprak.map((locale) => ({
+    url: abs(localePath(locale, "/videoguider")),
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+    alternates: {
+      languages: Object.fromEntries(
+        videoguidSprak.map((alt) => [
+          htmlLang[alt],
+          abs(localePath(alt, "/videoguider")),
+        ]),
+      ),
+    },
+  }));
 
   const translated = TRANSLATED_PATHS.flatMap((path) =>
     locales.map((locale) => ({
@@ -205,6 +227,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...tjanster,
     ...orter,
     ...blog,
+    ...videoguider,
     ...mallfiler,
   ];
 }

@@ -35,3 +35,18 @@
 # adresser som kan ligga som inlänkar någon annanstans.
 /persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm/ 301
 /persisk-redovisningsbyra-i-stockholm /persisk-redovisningsbyra-stockholm/ 301
+
+# Videoguiderna finns bara på persiska, eftersom klipptexterna är skrivna
+# på persiska. Rutten byggs ändå för /sv och /en: språkparametrarna kommer
+# från layouten i app/[locale], så sidans egen filtrering biter inte, och
+# exporten skrev en fil med tom kropp som ändå svarade 200. En sida som
+# svarar men inte innehåller något är sämre än ingen sida alls.
+#
+# Menyn länkar inte dit på de språken, men adressen kan ändå nås. Den pekas
+# därför om till bloggen, som är det närmaste som faktiskt finns.
+# Engelskan har ingen egen blogg och går till den svenska, samma regel som
+# menylänken följer.
+/sv/videoguider   /sv/blogg/ 301
+/sv/videoguider/* /sv/blogg/ 301
+/en/videoguider   /sv/blogg/ 301
+/en/videoguider/* /sv/blogg/ 301

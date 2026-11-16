@@ -20,9 +20,11 @@ type Props = {
   t: Dictionary;
   /** Bloggen på besökarens språk. Räknas ut i SiteShell, se kommentaren där. */
   bloggHref: string;
+  /** Videoguiderna, eller null när språket saknar klipptexter. */
+  videoguiderHref: string | null;
 };
 
-export function Header({ locale, t, bloggHref }: Props) {
+export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -134,13 +136,15 @@ export function Header({ locale, t, bloggHref }: Props) {
     {
       href: bloggHref,
       label: t.nav.blog,
-      barn: [
-        { href: bloggHref, label: t.nav.insikterArtiklar },
-        {
-          href: localePath(locale, "/videoguider"),
-          label: t.nav.insikterVideo,
-        },
-      ],
+      /* Undermenyn finns bara när det finns två ställen att gå till. Saknar
+         språket klipptexter blir Insikter en vanlig länk till bloggen, i
+         stället för en meny med ett enda val. */
+      barn: videoguiderHref
+        ? [
+            { href: bloggHref, label: t.nav.insikterArtiklar },
+            { href: videoguiderHref, label: t.nav.insikterVideo },
+          ]
+        : undefined,
     },
   ];
 
