@@ -14,7 +14,7 @@ export const en: Dictionary = {
     services: "Services",
     pricing: "Pricing",
     about: "About",
-    blog: "Blog",
+    blog: "Insights",
     cta: "Contact us",
   },
 
@@ -377,10 +377,10 @@ export const en: Dictionary = {
   },
 
   blog: {
-    metaTitle: "Blog | Nordic Phoenix Accounting",
+    metaTitle: "Insights | Nordic Phoenix Accounting",
     metaDescription:
       "Guides and insights on bookkeeping, VAT, the Swedish Tax Agency, company formation and business finance. From Nordic Phoenix Accounting.",
-    eyebrow: "Blog · Guides & insights",
+    eyebrow: "Insights · Guides for business owners",
     h1a: "We make finance",
     h1b: "make sense.",
     intro:

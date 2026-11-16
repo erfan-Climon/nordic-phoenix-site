@@ -14,7 +14,7 @@ export const sv = {
     services: "Tjänster",
     pricing: "Priser",
     about: "Om",
-    blog: "Blogg",
+    blog: "Insikter",
     cta: "Kontakta oss",
   },
 
@@ -389,10 +389,10 @@ export const sv = {
   },
 
   blog: {
-    metaTitle: "Blogg | Nordic Phoenix",
+    metaTitle: "Insikter | Nordic Phoenix",
     metaDescription:
       "Guider och insikter om bokföring, moms, Skatteverket, bolagsstart och företagsekonomi. Från Nordic Phoenix Redovisningsbyrå.",
-    eyebrow: "Blogg · Guider & insikter",
+    eyebrow: "Insikter · Guider för företagare",
     h1a: "Vi gör ekonomi",
     h1b: "begripligt.",
     intro:

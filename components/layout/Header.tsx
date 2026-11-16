@@ -18,9 +18,11 @@ import {
 type Props = {
   locale: Locale;
   t: Dictionary;
+  /** Bloggen på besökarens språk. Räknas ut i SiteShell, se kommentaren där. */
+  bloggHref: string;
 };
 
-export function Header({ locale, t }: Props) {
+export function Header({ locale, t, bloggHref }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -125,8 +127,7 @@ export function Header({ locale, t }: Props) {
       ? [{ href: `${home}#priser`, label: t.nav.pricing }]
       : []),
     { href: `${home}#om`, label: t.nav.about },
-    // Artiklarna finns bara på svenska, så bloggen ligger alltid på /blogg.
-    { href: "/blogg", label: t.nav.blog },
+    { href: bloggHref, label: t.nav.blog },
   ];
 
   return (

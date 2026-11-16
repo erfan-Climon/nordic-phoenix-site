@@ -5,6 +5,7 @@ import { Matning } from "@/components/layout/Matning";
 import { MotionRuntime } from "@/components/layout/MotionRuntime";
 import { Samtycke } from "@/components/layout/Samtycke";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { hasTranslatedArticles } from "@/content/blog-copy";
 import { getDictionary, type Locale, localePath } from "@/lib/i18n";
 
 /** Allt som ligger runt sidinnehållet — delas av alla rotlayouter. */
@@ -17,9 +18,23 @@ export function SiteShell({
 }) {
   const t = getDictionary(locale);
 
+  /**
+   * Bloggen finns bara på de språk som har översatta artiklar. Engelskan har
+   * inga, så `/en/blogg` byggs inte alls och en länk dit hade gett 404.
+   *
+   * Adressen räknas ut här och inte i Header av två skäl. Header är en
+   * klientkomponent, och att läsa artikellistan där hade dragit in hela
+   * `blog.ts` i klientpaketet. Dessutom låg adressen tidigare hårdkodad till
+   * `/blogg`, som är rotens språk, alltså persiska. Svenska besökare som
+   * klickade på Blogg hamnade därför på den persiska bloggen.
+   */
+  const bloggHref = hasTranslatedArticles(locale)
+    ? localePath(locale, "/blogg")
+    : localePath("sv", "/blogg");
+
   return (
     <>
-      <Header locale={locale} t={t} />
+      <Header locale={locale} t={t} bloggHref={bloggHref} />
       <main>{children}</main>
       <Footer locale={locale} t={t} />
       <ScrollToTop href={`${localePath(locale, "/")}#top`} label={t.a11y.toTop} />
