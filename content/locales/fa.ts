@@ -15,6 +15,8 @@ export const fa: Dictionary = {
     pricing: "قیمت‌ها",
     about: "درباره ما",
     blog: "بلاگ",
+    insikterArtiklar: "مقاله‌ها",
+    insikterVideo: "راهنماهای ویدیویی",
     cta: "تماس با ما",
   },
 
@@ -376,6 +378,19 @@ export const fa: Dictionary = {
     /* Länktext till den persiska landningssidan, hämtad ur sidans egen
        rubrik. Ingen ny text är uppfunnen. */
     persianLanding: "حسابدار ایرانی و فارسی‌زبان در سوئد",
+  },
+
+  videoguider: {
+    metaTitle: "راهنماهای ویدیویی | Nordic Phoenix",
+    metaDescription:
+      "راهنماهای کوتاه ویدیویی درباره حسابداری، مالیات و کسب‌وکار، همراه با نسخه نوشتاری هر ویدیو.",
+    label: "راهنماهای ویدیویی",
+    h1a: "اول ببینید،",
+    h1b: "بعد بخوانید.",
+    intro:
+      "هر ویدیو یکی از پرسش‌های رایج صاحبان کسب‌وکار را برمی‌دارد. زیر هر فیلم همان مطلب به صورت نوشته هست، برای کسی که ترجیح می‌دهد بخواند یا بخواهد در متن جستجو کند.",
+    lasArtikeln: "خواندن مقاله",
+    foljText: "هر هفته ویدیوی تازه در اینستاگرام.",
   },
 
   blog: {

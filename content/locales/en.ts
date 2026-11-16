@@ -15,6 +15,8 @@ export const en: Dictionary = {
     pricing: "Pricing",
     about: "About",
     blog: "Insights",
+    insikterArtiklar: "Articles",
+    insikterVideo: "Video guides",
     cta: "Contact us",
   },
 
@@ -374,6 +376,19 @@ export const en: Dictionary = {
     credit: "Designed and developed by",
     /* Sidan finns bara på persiska. */
     persianLanding: undefined,
+  },
+
+  videoguider: {
+    metaTitle: "Video guides | Nordic Phoenix Accounting",
+    metaDescription:
+      "Short video guides on bookkeeping, tax and running a business, with the written version of every clip.",
+    label: "Video guides",
+    h1a: "Watch first,",
+    h1b: "read after.",
+    intro:
+      "Each clip takes a question business owners ask often. Below the film you find the same thing in writing, for anyone who would rather read or search the text.",
+    lasArtikeln: "Read the article",
+    foljText: "New clips every week on Instagram.",
   },
 
   blog: {

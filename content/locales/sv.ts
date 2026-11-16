@@ -15,6 +15,8 @@ export const sv = {
     pricing: "Priser",
     about: "Om",
     blog: "Insikter",
+    insikterArtiklar: "Artiklar",
+    insikterVideo: "Videoguider",
     cta: "Kontakta oss",
   },
 
@@ -386,6 +388,19 @@ export const sv = {
     /* Sidan om persisk redovisning finns på svenska och persiska men inte
        på engelska, därför är fältet valfritt. */
     persianLanding: "Persisk redovisningsbyrå" as string | undefined,
+  },
+
+  videoguider: {
+    metaTitle: "Videoguider | Nordic Phoenix",
+    metaDescription:
+      "Korta videoguider om bokföring, skatt och företagande, med den skrivna versionen till varje klipp.",
+    label: "Videoguider",
+    h1a: "Se först,",
+    h1b: "läs sedan.",
+    intro:
+      "Varje klipp tar en fråga som företagare ställer ofta. Under filmen finns samma sak i skrift, för den som hellre läser eller vill kunna söka i texten.",
+    lasArtikeln: "Läs artikeln",
+    foljText: "Nya klipp varje vecka på Instagram.",
   },
 
   blog: {

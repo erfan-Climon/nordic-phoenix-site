@@ -127,7 +127,21 @@ export function Header({ locale, t, bloggHref }: Props) {
       ? [{ href: `${home}#priser`, label: t.nav.pricing }]
       : []),
     { href: `${home}#om`, label: t.nav.about },
-    { href: bloggHref, label: t.nav.blog },
+    /* Insikter samlar två sidor: artiklarna och videoguiderna. Toppnivån
+       är fortfarande en riktig länk till bloggen och inte bara en etikett,
+       så att den som klickar i stället för att peka kommer någonstans, och
+       så att länkkraften går vidare till en sida som finns. */
+    {
+      href: bloggHref,
+      label: t.nav.blog,
+      barn: [
+        { href: bloggHref, label: t.nav.insikterArtiklar },
+        {
+          href: localePath(locale, "/videoguider"),
+          label: t.nav.insikterVideo,
+        },
+      ],
+    },
   ];
 
   return (
@@ -185,15 +199,46 @@ export function Header({ locale, t, bloggHref }: Props) {
 
       {/* --- Full nav ---------------------------------------------------- */}
       <nav className="hidden items-center gap-[clamp(14px,2.5vw,32px)] nav:flex">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`np-mono-link ${inkClass} ${inkHoverClass}`}
-          >
-            {link.label}
-          </Link>
-        ))}
+        {links.map((link) =>
+          link.barn ? (
+            /* Undermenyn öppnas på hover och på tangentbordsfokus, utan
+               eget tillstånd i React. focus-within gör att den som tabbar
+               får samma meny som den som pekar.
+
+               Panelen har toppstoppning i stället för marginal. Med en
+               marginal blir det en glipa mellan länken och panelen, och
+               muspekaren tappar hovern på vägen ner. */
+            <div key={link.href} className="group relative">
+              <Link
+                href={link.href}
+                className={`np-mono-link ${inkClass} ${inkHoverClass}`}
+              >
+                {link.label}
+              </Link>
+              <div className="invisible absolute start-1/2 top-full z-20 -translate-x-1/2 pt-4 opacity-0 transition-opacity duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                <div className="flex min-w-[200px] flex-col rounded-media border border-[var(--hairline-light)] bg-surface p-2 shadow-[var(--shadow-card-light)]">
+                  {link.barn.map((barn) => (
+                    <Link
+                      key={barn.href}
+                      href={barn.href}
+                      className="np-mono-link rounded-[6px] px-3 py-[10px] text-text hover:bg-page hover:text-accent-ink"
+                    >
+                      {barn.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`np-mono-link ${inkClass} ${inkHoverClass}`}
+            >
+              {link.label}
+            </Link>
+          ),
+        )}
         {/* Telefonnumret är för långt för att versaliseras med .12em spärr som
             nav-länkarna — det får normal siffersättning i stället. */}
         <a
@@ -281,14 +326,28 @@ export function Header({ locale, t, bloggHref }: Props) {
           className="absolute inset-x-0 top-full flex flex-col gap-1 border-b border-[var(--hairline-light)] bg-surface px-[var(--pad-x)] pt-4 pb-7 shadow-[var(--shadow-card-light)] nav:hidden"
         >
           {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="np-mono-link border-b border-[var(--hairline-light)] py-4 text-text hover:text-accent-ink"
-            >
-              {link.label}
-            </Link>
+            /* I mobilmenyn finns ingen hover att öppna med, så barnen
+               ligger utskrivna under sin rubrik i stället. Rubriken är
+               fortfarande klickbar, precis som på bred skärm. */
+            <div key={link.href} className="flex flex-col">
+              <Link
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="np-mono-link border-b border-[var(--hairline-light)] py-4 text-text hover:text-accent-ink"
+              >
+                {link.label}
+              </Link>
+              {link.barn?.map((barn) => (
+                <Link
+                  key={barn.href}
+                  href={barn.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="np-mono-link border-b border-[var(--hairline-light)] py-[14px] ps-5 text-[11px] text-text-muted hover:text-accent-ink"
+                >
+                  {barn.label}
+                </Link>
+              ))}
+            </div>
           ))}
           <a
             href={phone.href}
