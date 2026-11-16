@@ -117,7 +117,7 @@ export function ArticlePage({
         />
       ))}
 
-      <section className="mx-auto max-w-[1100px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
+      <section className="mx-auto max-w-[1320px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
         <Link
           href={blogHref}
           className="np-mono-link text-[12px] tracking-[.16em] text-text-meta hover:text-accent-ink"
@@ -136,7 +136,7 @@ export function ArticlePage({
           <em className="np-gradient-text">{copy.titleAccent}</em>
         </h1>
 
-        <p className="m-0 mb-[clamp(28px,3.5vw,40px)] max-w-[60ch] font-sans text-[clamp(16px,1.5vw,20px)] leading-[1.65] text-text-muted">
+        <p className="m-0 mb-[clamp(28px,3.5vw,40px)] max-w-[68ch] font-sans text-[clamp(16px,1.5vw,20px)] leading-[1.65] text-text-muted">
           {copy.intro}
         </p>
 
@@ -175,8 +175,8 @@ export function ArticlePage({
           <Image
             src={bild}
             alt={copy.imageAlt}
-            width={1100}
-            height={733}
+            width={1320}
+            height={880}
             priority
             className="block h-auto w-full rounded-media shadow-[0_24px_64px_rgba(23,19,16,.16)]"
           />
@@ -216,12 +216,12 @@ export function ArticlePage({
           stället för en enda smal spalt mitt på sidan. Under 1024 faller
           förteckningen ovanför texten, där den fungerar som en vanlig
           ingångslista. */}
-      <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-x-[clamp(32px,5vw,72px)] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)] lg:grid-cols-[minmax(0,1fr)_240px]">
+      <div className="mx-auto grid max-w-[1320px] grid-cols-1 gap-x-[clamp(32px,5vw,80px)] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)] lg:grid-cols-[minmax(0,1fr)_300px]">
         <aside className="mb-10 lg:order-2 lg:mb-0">
           <Innehallsforteckning avsnitt={avsnitt} rubrik={t.blog.tocTitle} />
         </aside>
 
-      <article className="min-w-0 max-w-[760px] lg:order-1">
+      <article className="min-w-0 max-w-[860px] lg:order-1">
         {/* Lägesbilden står före första stycket. En artikel om ett läge som
             fortfarande rör sig, som en regeringsbildning, ska säga det innan
             läsaren hunnit ta något som besked. Den orange listen i
@@ -236,7 +236,7 @@ export function ArticlePage({
             <p className="m-0 mb-2 font-mono text-[11px] font-medium tracking-[.2em] text-accent-ink uppercase">
               {copy.notis.etikett}
             </p>
-            <p className="np-justerad m-0 font-sans text-[16px] leading-[1.75] text-text-article">
+            <p className="np-justerad m-0 font-sans text-[17px] leading-[1.75] text-text-article">
               {copy.notis.text}
             </p>
           </aside>
@@ -270,7 +270,7 @@ export function ArticlePage({
                 /* np-justerad ger rak högerkant, alltså samma start och slut
                    på varje rad. Avstavningen som följer med är inte valfri,
                    se kommentaren vid klassen i globals.css. */
-                className={`np-justerad font-sans text-[17px] leading-[1.8] text-text-article ${
+                className={`np-justerad font-sans text-[18px] leading-[1.85] text-text-article ${
                   nextIsHeading ? "mt-0 mb-10" : "mt-0 mb-[18px]"
                 }`}
               >
@@ -297,7 +297,7 @@ export function ArticlePage({
                     {block.ordered ? (
                       <span
                         aria-hidden="true"
-                        className="w-5 shrink-0 font-mono text-[15px] leading-[1.8] font-medium text-accent-ink"
+                        className="w-5 shrink-0 font-mono text-[16px] leading-[1.85] font-medium text-accent-ink"
                       >
                         {n + 1}.
                       </span>
@@ -307,7 +307,7 @@ export function ArticlePage({
                         className="mt-[12px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent"
                       />
                     )}
-                    <span className="font-sans text-[17px] leading-[1.8] text-text-article">
+                    <span className="font-sans text-[18px] leading-[1.85] text-text-article">
                       {item}
                     </span>
                   </li>

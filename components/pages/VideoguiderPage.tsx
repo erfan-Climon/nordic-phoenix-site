@@ -37,7 +37,7 @@ export function VideoguiderPage({ locale }: { locale: Locale }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brodsmulor) }}
       />
 
-      <section className="mx-auto max-w-[1100px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
+      <section className="mx-auto max-w-[1320px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
         <p className="np-label mb-7 text-accent-ink">{t.videoguider.label}</p>
         <h1 className="np-h2 mb-6 text-[length:var(--fs-h1)] leading-[1.05]">
           {t.videoguider.h1a}{" "}
@@ -48,16 +48,34 @@ export function VideoguiderPage({ locale }: { locale: Locale }) {
         </p>
       </section>
 
-      <div className="mx-auto max-w-[1100px] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)]">
+      <div className="mx-auto max-w-[1320px] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)]">
         <ul className="m-0 flex list-none flex-col gap-[clamp(40px,5vw,72px)] p-0">
-          {poster.map(({ klipp, artikel, copy }) => (
+          {poster.map(({ klipp, artikel, copy }, i) => (
             <li
               key={klipp.slug}
               /* Filmen i en smal spalt och texten bredvid. Klippen är 9:16,
                  så full bredd hade gett en orimligt hög video. Under 768
-                 läggs de på varandra med filmen överst. */
-              className="grid grid-cols-1 items-start gap-[clamp(20px,3vw,40px)] border-t border-[rgba(23,19,16,.14)] pt-[clamp(28px,3.5vw,48px)] first:border-t-0 first:pt-0 md:grid-cols-[260px_minmax(0,1fr)]"
+                 läggs de på varandra med filmen överst.
+
+                 Varje klipp inleds med ett hårstreck över hela spaltbredden.
+                 Listan är i praktiken en rad självständiga avsnitt, och utan
+                 linjen rann de ihop: ögat hittade ingen kant mellan en films
+                 sista rad och nästa films rubrik. Linjen ligger även över
+                 det första klippet, så att listan får en tydlig början mot
+                 ingressen ovanför.
+
+                 Relativ positionering behövs för det orange segmentet, som
+                 ligger ovanpå strecket. */
+              className="relative grid grid-cols-1 items-start gap-[clamp(20px,3vw,40px)] border-t border-[rgba(23,19,16,.12)] pt-[clamp(32px,4vw,56px)] md:grid-cols-[260px_minmax(0,1fr)]"
             >
+              {/* Kort orange segment i startkanten av hårstrecket. Samma
+                  markering som artiklarnas lägesruta använder: designsystemets
+                  sätt att peka ut var något nytt börjar. `start-0` följer
+                  skrivriktningen, så segmentet hamnar till höger på persiska. */}
+              <span
+                aria-hidden="true"
+                className="absolute start-0 top-[-1px] h-[2px] w-14 bg-accent"
+              />
               <video
                 src={klipp.fil}
                 poster={klipp.affisch}
@@ -69,6 +87,24 @@ export function VideoguiderPage({ locale }: { locale: Locale }) {
               />
 
               <div className="min-w-0">
+                {/* Löpnummer och etikett ovanför rubriken. Numret gör att
+                    läsaren kan säga vilket avsnitt hen menar, och etiketten
+                    säger vad klippet handlar om innan rubriken hunnit läsas.
+                    Etiketten finns bara när klippet har en artikel. */}
+                <div className="mb-3 flex items-center gap-3 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
+                  <span className="text-accent-ink">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {copy ? (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <span>{copy.tag}</span>
+                      <span aria-hidden="true">·</span>
+                      <time dateTime={klipp.publicerad}>{copy.date}</time>
+                    </>
+                  ) : null}
+                </div>
+
                 <h2 className="np-h2 mt-0 mb-4 text-[length:var(--fs-h3)] leading-[1.25] tracking-[-.01em]">
                   {copy ? copy.title : klipp.titel[locale]}
                 </h2>
