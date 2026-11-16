@@ -209,7 +209,7 @@ export const sv = {
     label: "Korta klipp",
     h2a: "En fråga,",
     h2b: "en minut.",
-    sub: "Vi besvarar de frågor vi oftast får, en i taget. Klippen är på persiska och kommer varje vecka.",
+    sub: "Varje vecka tar vi en fråga som företagare ställer ofta och svarar kort och konkret. Inga självklarheter, utan det som brukar bli fel. Klippen är på persiska.",
     folj: "Följ på Instagram",
     spela: "Spela klippet",
     seInlagg: "Se inlägget",

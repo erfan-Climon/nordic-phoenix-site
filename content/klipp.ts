@@ -55,6 +55,19 @@ export type Klipp = {
  */
 export const klipp: Klipp[] = [
   {
+    slug: "kop-med-foretagskort",
+    fil: "/video/klipp/kop-med-foretagskort.mp4",
+    affisch: "/video/klipp/kop-med-foretagskort.jpg",
+    permalank:
+      "https://www.instagram.com/nordic.phoenix.redovisning/reel/Dfy_q3jiZUw/",
+    publicerad: "2026-11-16",
+    titel: {
+      sv: "Företagskortet gör inte köpet till en företagskostnad",
+      en: "The company card does not make a purchase a business expense",
+      fa: "کارت شرکت خرید را به هزینه شرکت تبدیل نمی‌کند",
+    },
+  },
+  {
     slug: "ta-ut-pengar-ur-ab",
     fil: "/video/klipp/ta-ut-pengar-ur-ab.mp4",
     affisch: "/video/klipp/ta-ut-pengar-ur-ab.jpg",
