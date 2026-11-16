@@ -116,8 +116,10 @@ export const social = {
  * kräver en rad här och en bana där, inget annat.
  *
  * Byrån har även en LinkedIn-sida och en YouTube-kanal uppkopplade i Climon
- * System, men deras publika adresser står inte där och är därför inte med
- * här ännu. [FRÅGA ERFAN]
+ * System. De står med flit inte här: Social Planner visar bara kontonamnen
+ * och inte de publika adresserna, och Erfan valde 2026-11-16 att lämna dem
+ * utanför hellre än att leta rätt på dem. Märkena finns ritade i
+ * SocialGlyph, så det är en rad var den dag adresserna dyker upp.
  */
 export const socialaKanaler = [
   { namn: "instagram", etikett: "Instagram", href: social.instagram },
