@@ -1,3 +1,4 @@
+import { persiskaGuider } from "@/content/blog.guider-fa";
 import { klippartiklar } from "@/content/blog.klipp";
 import type { Locale } from "@/lib/i18n";
 
@@ -469,8 +470,7 @@ const ALLA: Article[] = [
         url: "https://www.riksdagen.se/sv/aktuellt/aktuelltnotiser/2026/sep/17/talmannen-inleder-process-for-regeringsbildning_cms6291f93c-a728-4498-a0b9-e30f36627e3fsv/",
       },
       {
-        titel:
-          "Regeringen, Om budgetprocessen",
+        titel: "Regeringen, Om budgetprocessen",
         url: "https://www.regeringen.se/sveriges-regering/finansdepartementet/statens-budget/om-budgetprocessen/",
       },
       {
@@ -484,18 +484,15 @@ const ALLA: Article[] = [
         url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/famansforetag/andradereglerinforinkomstdeklarationen2027.4.4a54dc8b19aa6175a152359.html",
       },
       {
-        titel:
-          "Skatteverket, Lägre arbetsgivaravgifter för ungdomar",
+        titel: "Skatteverket, Lägre arbetsgivaravgifter för ungdomar",
         url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/lagrearbetsgivaravgifterforungdomar.5.70685bee19c85dd5dd02b10.html",
       },
       {
-        titel:
-          "Skatteverket, Regler för växa-stöd",
+        titel: "Skatteverket, Regler för växa-stöd",
         url: "https://www.skatteverket.se/foretag/arbetsgivare/arbetsgivaravgifterochskatteavdrag/vaxastod/reglerforvaxastod.4.361dc8c15312eff6fd37447.html",
       },
       {
-        titel:
-          "Skatteverket, Aktiebolag",
+        titel: "Skatteverket, Aktiebolag",
         url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html",
       },
       {
@@ -519,28 +516,23 @@ const ALLA: Article[] = [
         url: "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/motion/en-hallbar-smaforetagarpolitik_hc02553/html/",
       },
       {
-        titel:
-          "SVT Nyheter, Centerpartiet om karensavdraget (14 augusti 2026)",
+        titel: "SVT Nyheter, Centerpartiet om karensavdraget (14 augusti 2026)",
         url: "https://www.svt.se/nyheter/inrikes/senaste-nytt-om-val-2026?inlagg=dd245a5aa43457bfdd0fa44cc8a253ff",
       },
       {
-        titel:
-          "SVT Valkompass 2026, Centerpartiet",
+        titel: "SVT Valkompass 2026, Centerpartiet",
         url: "https://valkompass.svt.se/2026/parti/centerpartiet/",
       },
       {
-        titel:
-          "SVT Valkompass 2026, Miljöpartiet",
+        titel: "SVT Valkompass 2026, Miljöpartiet",
         url: "https://valkompass.svt.se/2026/parti/miljopartiet/",
       },
       {
-        titel:
-          "Partiets eget program: Centerpartiet, Valmanifest 2026",
+        titel: "Partiets eget program: Centerpartiet, Valmanifest 2026",
         url: "https://www.centerpartiet.se/centerpartiets-politik/valmanifest-2026",
       },
       {
-        titel:
-          "Partiets eget program: Socialdemokraterna, Valprogram 2026",
+        titel: "Partiets eget program: Socialdemokraterna, Valprogram 2026",
         url: "https://www.socialdemokraterna.se/download/18.40fb56b21a04255a9803c1e/1788259051237/Soc%20Valprogram%202026.pdf",
       },
     ],
@@ -782,7 +774,10 @@ const ALLA: Article[] = [
       },
     ],
     kallor: [
-      { titel: "Skatteverket, Aktiebolag", url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html" },
+      {
+        titel: "Skatteverket, Aktiebolag",
+        url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html",
+      },
     ],
     cta: "Osäker på vad som passar din verksamhet? Vi kan jämföra företagsformer utifrån risk, skatt och dina planer de kommande åren.",
   },
@@ -1404,10 +1399,12 @@ const ALLA: Article[] = [
       },
     ],
     kallor: [
-      { titel: "Skatteverket, Regler för växa-stöd", url: "https://www.skatteverket.se/foretag/arbetsgivare/arbetsgivaravgifterochskatteavdrag/vaxastod/reglerforvaxastod.4.361dc8c15312eff6fd37447.html" },
       {
-        titel:
-          "Skatteverket, Lägre arbetsgivaravgifter för ungdomar",
+        titel: "Skatteverket, Regler för växa-stöd",
+        url: "https://www.skatteverket.se/foretag/arbetsgivare/arbetsgivaravgifterochskatteavdrag/vaxastod/reglerforvaxastod.4.361dc8c15312eff6fd37447.html",
+      },
+      {
+        titel: "Skatteverket, Lägre arbetsgivaravgifter för ungdomar",
         url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/lagrearbetsgivaravgifterforungdomar.5.70685bee19c85dd5dd02b10.html",
       },
     ],
@@ -1530,7 +1527,10 @@ const ALLA: Article[] = [
       },
     ],
     kallor: [
-      { titel: "Skatteverket, Aktiebolag", url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html" },
+      {
+        titel: "Skatteverket, Aktiebolag",
+        url: "https://www.skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag.4.5c13cb6b1198121ee8580002546.html",
+      },
     ],
     cta: "Behöver du hjälp att få bokslut, deklaration och K10 att stämma ihop? Vi tar ansvar för hela kedjan och förklarar resultatet på vanlig svenska.",
   },
@@ -1643,13 +1643,11 @@ const ALLA: Article[] = [
     ],
     kallor: [
       {
-        titel:
-          "Skatteverket, Resor mellan bostaden och verksamhetslokalen",
+        titel: "Skatteverket, Resor mellan bostaden och verksamhetslokalen",
         url: "https://www.skatteverket.se/foretag/skatterochavdrag/avdragforforetag/resorochbilkostnader/resormellanbostadenochverksamhetslokalen.4.3152d9ac158968eb8fd47cf.html",
       },
       {
-        titel:
-          "Skatteverket, Livsmedelsmomsen sänks till 6 procent",
+        titel: "Skatteverket, Livsmedelsmomsen sänks till 6 procent",
         url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/livsmedelsmomsensankstill6procent.5.70685bee19c85dd5dd0a3f.html",
       },
     ],
@@ -1775,8 +1773,7 @@ const ALLA: Article[] = [
         url: "https://www.skatteverket.se/foretag/moms/momsregistrering/ivissafallbehoverduinteregistreradittforetagformoms.4.3152d9ac158968eb8fd1efe.html",
       },
       {
-        titel:
-          "Skatteverket, Livsmedelsmomsen sänks till 6 procent",
+        titel: "Skatteverket, Livsmedelsmomsen sänks till 6 procent",
         url: "https://www.skatteverket.se/omoss/pressochmedia/nyheter/2026/nyheter/livsmedelsmomsensankstill6procent.5.70685bee19c85dd5dd0a3f.html",
       },
     ],
@@ -2029,7 +2026,10 @@ const ALLA: Article[] = [
       },
     ],
     kallor: [
-      { titel: "Skatteverket, Bokföring, vad kräver lagen?", url: "https://www.skatteverket.se/foretag/drivaforetag/bokforingochbokslut/bokforingvadkraverlagen.4.18e1b10334ebe8bc80005195.html" },
+      {
+        titel: "Skatteverket, Bokföring, vad kräver lagen?",
+        url: "https://www.skatteverket.se/foretag/drivaforetag/bokforingochbokslut/bokforingvadkraverlagen.4.18e1b10334ebe8bc80005195.html",
+      },
     ],
     cta: "Vi kan hjälpa dig att dokumentera en enkel arkiveringspolicy och säkerställa att allt går att exportera innan du byter system eller redovisningsbyrå.",
   },
@@ -2043,7 +2043,7 @@ const ALLA: Article[] = [
 /* Guiderna plus texterna till de korta klippen. Klipptexterna ligger i en
    egen fil: de är skrivna på persiska, hör ihop med en film var och växer i
    takt med att klippen publiceras, medan guiderna är en planerad serie. */
-const ALLT = [...ALLA, ...klippartiklar];
+const ALLT = [...ALLA, ...klippartiklar, ...persiskaGuider];
 
 export const articles: Article[] = ALLT.filter(
   (article) => article.published <= IDAG,
