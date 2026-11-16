@@ -56,6 +56,10 @@ export function localesForPath(path: string): Locale[] {
    */
   if (rent === "/persisk-redovisningsbyra-stockholm") return ["fa"];
   if (rent === "/persisk-redovisningsbyra") return ["sv"];
+  /* Stadssidorna under den svenska sidan finns bara på svenska. Utan raden
+     pekade språkmenyn på /en/persisk-redovisningsbyra/goteborg och på en
+     persisk adress utan prefix, och ingen av dem finns. */
+  if (/^\/persisk-redovisningsbyra\/[^/]+$/.test(rent)) return ["sv"];
 
   // Startsidan, tjänsterna och integritetspolicyn finns på alla tre.
   return [...locales];

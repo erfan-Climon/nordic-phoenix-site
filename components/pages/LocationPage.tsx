@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CheckMark } from "@/components/ui/icons";
 import { areasOf, getLocation, type Location } from "@/content/locations";
 import { getLocationCopy, type LocationCopy } from "@/content/location-copy";
+import { getPersiskOrt } from "@/content/persisk-orter";
 import {
   company,
   googleForetagsprofil,
@@ -110,6 +111,7 @@ export function LocationPage({
   const finns = (l: Location) => Boolean(getLocationCopy(l, locale));
   const areas = areasOf(location.slug).filter(finns);
 
+  const persiskOrt = getPersiskOrt(location.slug);
   const nearby = location.nearby
     .map((slug) => getLocation(slug))
     .filter((l): l is Location => Boolean(l))
@@ -139,7 +141,10 @@ export function LocationPage({
           <nav aria-label={lp.breadcrumbLabel} className="mb-8">
             <ol className="m-0 flex list-none flex-wrap gap-2 p-0 font-mono text-[11px] tracking-[.16em] text-text-meta uppercase">
               <li>
-                <Link href="/" className="text-text-meta no-underline hover:text-accent-ink">
+                <Link
+                  href="/"
+                  className="text-text-meta no-underline hover:text-accent-ink"
+                >
                   {lp.home}
                 </Link>
               </li>
@@ -158,8 +163,7 @@ export function LocationPage({
           </nav>
 
           <h1 className="np-h2 mb-7 text-[length:var(--fs-h1)] leading-[1.05]">
-            {copy.h1Lead}{" "}
-            <em className="np-gradient-text">{copy.h1Accent}</em>
+            {copy.h1Lead} <em className="np-gradient-text">{copy.h1Accent}</em>
           </h1>
 
           <p className="m-0 mb-[clamp(36px,4vw,56px)] max-w-[60ch] font-sans text-[clamp(16px,1.4vw,19px)] leading-[1.7] text-text-muted">
@@ -200,16 +204,26 @@ export function LocationPage({
             </div>
             <dl className="m-0 flex flex-col gap-6 border-t border-[var(--hairline-light)] pt-6">
               <div>
-                <dt className="np-label mb-2 text-text-meta">{lp.addressLabel}</dt>
+                <dt className="np-label mb-2 text-text-meta">
+                  {lp.addressLabel}
+                </dt>
                 {/* Adressen i latinska bokstäver även på persiska: det är
                     den form som står på skylten och i kartan. */}
-                <dd className="m-0 font-sans text-[17px] leading-[1.6]" dir="ltr">
+                <dd
+                  className="m-0 font-sans text-[17px] leading-[1.6]"
+                  dir="ltr"
+                >
                   {company.street}, {company.postalCode} {company.city}
                 </dd>
               </div>
               <div>
-                <dt className="np-label mb-2 text-text-meta">{lp.hoursLabel}</dt>
-                <dd className="m-0 font-sans text-[17px] leading-[1.6]" dir="ltr">
+                <dt className="np-label mb-2 text-text-meta">
+                  {lp.hoursLabel}
+                </dt>
+                <dd
+                  className="m-0 font-sans text-[17px] leading-[1.6]"
+                  dir="ltr"
+                >
                   {t.footer.hours
                     .replace("{från}", oppettider.oppnar)
                     .replace("{till}", oppettider.stanger)}
@@ -308,7 +322,10 @@ export function LocationPage({
           {showsPricing() ? (
             <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
               {lp.priceLead}{" "}
-              <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
+              <Link
+                href={`${localePath(locale, "/")}#priser`}
+                className="text-accent-ink"
+              >
                 {lp.priceLink}
               </Link>
               .
@@ -371,6 +388,44 @@ export function LocationPage({
                   {a.name}
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* --- Persisk redovisning -----------------------------------------
+          Bara på svenska. Sidan Persisk redovisningsbyrå hade en enda
+          länk in från resten av den svenska sajten, och den satt i
+          sidfoten. En länk i innehållet, med orden folk söker på, väger
+          tyngre än en i sidfoten, och ortssidorna är sajtens mest besökta
+          svenska sidor. Orter som har en egen persisk stadssida länkar
+          dit, övriga till huvudsidan. Persiskan behöver ingen länk: där
+          är hela sajten redan sidan för persisktalande. */}
+      {locale === "sv" ? (
+        <section className="bg-page text-text">
+          <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[var(--pad-y-light)]">
+            <div className="border-s-4 border-accent bg-surface p-[clamp(24px,3vw,36px)]">
+              <h2 className="np-h3 mt-0 mb-3 text-[length:var(--fs-h3)] leading-[1.25]">
+                Persisktalande redovisningskonsult för {copy.name}
+              </h2>
+              <p className="m-0 mb-5 max-w-[62ch] font-sans text-[16px] leading-[1.75] text-text-muted">
+                Vill du hellre gå igenom din ekonomi på persiska? Vi förklarar
+                bokföring, moms och deklaration på persiska eller svenska, och
+                sköter allt formellt mot myndigheterna åt dig.
+              </p>
+              <Link
+                href={localePath(
+                  "sv",
+                  persiskOrt
+                    ? `/persisk-redovisningsbyra/${persiskOrt.slug}`
+                    : "/persisk-redovisningsbyra",
+                )}
+                className="font-sans text-[16px] font-semibold text-accent-ink underline-offset-4 hover:underline"
+              >
+                {persiskOrt
+                  ? `Persisk redovisningsbyrå för företagare i ${copy.name}`
+                  : "Persisk redovisningsbyrå"}
+              </Link>
             </div>
           </div>
         </section>

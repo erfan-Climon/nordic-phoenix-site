@@ -6,6 +6,7 @@ import {
   localesWithBlogIndex,
 } from "@/content/blog-copy";
 import { locations } from "@/content/locations";
+import { persiskaOrter } from "@/content/persisk-orter";
 import {
   localesForLocation,
   localesWithLocationIndex,
@@ -77,7 +78,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
       alternates: {
         languages: Object.fromEntries(
-          bloggSprak.map((alt) => [htmlLang[alt], abs(localePath(alt, "/blogg"))]),
+          bloggSprak.map((alt) => [
+            htmlLang[alt],
+            abs(localePath(alt, "/blogg")),
+          ]),
         ),
       },
     })),
@@ -136,7 +140,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   /** Tjänstesidorna finns på alla tre språk och länkar till varandra. */
-  const tjanstePaths = ["/tjanster", ...services.map((s) => `/tjanster/${s.slug}`)];
+  const tjanstePaths = [
+    "/tjanster",
+    ...services.map((s) => `/tjanster/${s.slug}`),
+  ];
   const tjanster = tjanstePaths.flatMap((path) =>
     locales.map((locale) => ({
       url: abs(localePath(locale, path)),
@@ -180,6 +187,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       alternates: { languages: persiskaSprak },
     },
+    /* Stadssidorna under den svenska sidan. Bara svenska, och därför utan
+       alternates: det finns ingen annan språkversion att peka ut. */
+    ...persiskaOrter.map((ort) => ({
+      url: abs(localePath("sv", `/persisk-redovisningsbyra/${ort.slug}`)),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 
   /**

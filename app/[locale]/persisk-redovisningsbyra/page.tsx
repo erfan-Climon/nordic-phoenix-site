@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
+import { persiskaOrter } from "@/content/persisk-orter";
 import { services } from "@/content/services";
 import { getServiceCopy } from "@/content/service-copy";
 import { company, phone, whatsappUrl } from "@/content/site";
@@ -103,6 +104,81 @@ const FRAGOR = [
   {
     q: "Kan allt skötas på distans?",
     a: "Ja. Bokföringen är helt digital och du skickar underlagen som foto eller fil. Vi sitter i Sollentuna norr om Stockholm och arbetar med företagare i hela Sverige, och möten hålls på persiska eller svenska via telefon eller video.",
+  },
+  /* Frågorna härifrån och ner finns bara på den svenska sidan. De svarar
+     på hur folk faktiskt söker på svenska: "iransk redovisningsbyrå",
+     "redovisning farsi", "persisk revisor". Sidan låg etta på de fraserna
+     när de lades till i november 2026, men utan att orden stod i texten.
+     Frågorna ger dem en naturlig plats i stället för att de trycks in i
+     löptexten. */
+  {
+    q: "Är persiska och farsi samma språk?",
+    a: "Ja. Farsi är språkets eget namn på persiska, så redovisning på farsi och redovisning på persiska är samma sak. Hos oss kan du gå igenom bokföring, moms och deklaration på farsi, och få svenska brev och blanketter förklarade på samma språk.",
+  },
+  {
+    q: "Är ni en iransk redovisningsbyrå?",
+    a: "Vi är en svensk redovisningsbyrå, registrerad i Sverige, med persiska som arbetsspråk vid sidan av svenskan. Byrån är grundad av Ali Nahroudi, som själv talar persiska. Den som söker en iransk redovisningsbyrå letar oftast efter just det: någon som kan svenska regler och förklarar dem på persiska.",
+  },
+  {
+    q: "Har ni en persisktalande revisor?",
+    a: "Vi är redovisningskonsulter, inte revisorer. I vardagligt tal kallas båda ofta revisor, men en revisor granskar bokföringen i efterhand medan en redovisningskonsult sköter den löpande. De flesta mindre aktiebolag behöver ingen revisor alls, och det du i praktiken behöver hjälp med är bokföring, moms, lön, bokslut och deklaration. Det gör vi, på persiska eller svenska.",
+  },
+  {
+    q: "Vad skiljer er från en förmedlingstjänst?",
+    a: "Vi är själva byrån. Du pratar direkt med den som sköter din bokföring, inte med en mellanhand som skickar din förfrågan vidare till någon annan. Det betyder också att samma person följer ditt företag över tid och känner till din historik när frågorna dyker upp.",
+  },
+  {
+    q: "Vad kostar bokföring på persiska?",
+    a: "Språket kostar inget extra. Priset bestäms av hur mycket som händer i företaget, till exempel antal fakturor och om du har anställda, och du får det innan något påbörjas. Första samtalet kostar ingenting.",
+  },
+];
+
+/**
+ * Branscherna är de där reglerna skiljer sig mest från ett vanligt
+ * tjänsteföretag, och där det därför spelar störst roll att få dem
+ * förklarade på sitt eget språk. Varje rad nämner en regel som faktiskt
+ * gäller branschen, inte en allmän försäkran om att vi kan den.
+ */
+const BRANSCHER = [
+  {
+    namn: "Restaurang och café",
+    text: "Certifierat kassaregister, personalliggare och dagskassor som ska stämma mot bokföringen varje dag.",
+  },
+  {
+    namn: "Taxi och transport",
+    text: "Taxameter kopplad till redovisningscentral, och intäkter som ska kunna följas pass för pass.",
+  },
+  {
+    namn: "Bygg och hantverk",
+    text: "Omvänd skattskyldighet mellan byggföretag, ROT-ansökningar och personalliggare på byggarbetsplatsen.",
+  },
+  {
+    namn: "Butik och e-handel",
+    text: "Lager, inköp från utlandet och moms som beror på var varan kommer ifrån och vem som köper den.",
+  },
+  {
+    namn: "Frisör och skönhet",
+    text: "Kassaregister och personalliggare, och ofta flera som hyr stol i samma lokal med var sin bokföring.",
+  },
+  {
+    namn: "Konsult och tjänster",
+    text: "Fakturering, F-skatt och frågan om när det lönar sig att gå från enskild firma till aktiebolag.",
+  },
+];
+
+/** Tre steg, samma ordning som arbetet faktiskt sker i. */
+const STEG = [
+  {
+    rubrik: "Ett samtal på persiska",
+    text: "Du berättar vad företaget gör och var du står i dag. Vi säger vad som behöver göras och vad det kostar.",
+  },
+  {
+    rubrik: "Vi lägger upp grunden",
+    text: "Registreringar, bokföringsprogram och rutiner för kvitton och fakturor kommer på plats, och vi tar över från din tidigare byrå om du har en.",
+  },
+  {
+    rubrik: "Löpande, utan att du behöver jaga",
+    text: "Du skickar underlagen som foto eller fil. Vi bokför, deklarerar och hör av oss när något kräver ett beslut från dig.",
   },
 ];
 
@@ -232,10 +308,95 @@ export default async function PersiskRedovisningsbyraPage({
           <p className={BROD}>
             Hos oss förs samtalet på persiska när du vill det. Underlagen,
             deklarationerna och kontakterna med Skatteverket och Bolagsverket
-            sköts på svenska av oss, som en del av uppdraget. Du behöver
-            varken tolka åt din revisor eller läsa svenska blanketter på egen
-            hand.
+            sköts på svenska av oss, som en del av uppdraget. Du behöver varken
+            tolka åt din revisor eller läsa svenska blanketter på egen hand.
           </p>
+          {/* Namngiven person, av samma skäl som under bloggartiklarna: råd
+              om pengar väger tyngre med en avsändare, både för läsaren och
+              för Google. */}
+          <p className={`${BROD} mt-6`}>
+            Byrån är grundad och drivs av Ali Nahroudi, redovisningskonsult, som
+            själv talar persiska. Det är alltså inte en tolkad tjänst: den som
+            kan reglerna är samma person som förklarar dem.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Branscher ───────────────────────────────────────────────── */}
+      <section className="bg-page text-text">
+        <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[clamp(56px,7vw,96px)]">
+          <h2 className={H2}>Branscher där språket gör störst skillnad</h2>
+          <p className={`${BROD} mb-[clamp(28px,3vw,40px)]`}>
+            Reglerna ser olika ut beroende på vad du arbetar med. De här
+            branscherna har egna krav utöver den vanliga bokföringen, och det är
+            också där flest missförstånd uppstår när allt ska läsas på svenska.
+          </p>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] border-t border-l border-[var(--hairline-light)]">
+            {BRANSCHER.map((b) => (
+              <div
+                key={b.namn}
+                className="border-r border-b border-[var(--hairline-light)] p-[clamp(24px,3vw,36px)]"
+              >
+                <h3 className="np-h3 mt-0 mb-3 text-[19px] leading-[1.3]">
+                  {b.namn}
+                </h3>
+                <p className="m-0 font-sans text-[15px] leading-[1.7] text-text-muted">
+                  {b.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Så går det till ─────────────────────────────────────────── */}
+      <section className="bg-page text-text">
+        <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[clamp(56px,7vw,96px)]">
+          <h2 className={H2}>Så går det till</h2>
+          <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[clamp(24px,3vw,40px)] p-0">
+            {STEG.map((steg, i) => (
+              <li key={steg.rubrik} className="border-t-2 border-accent pt-6">
+                <span className="mb-3 block font-mono text-[12px] tracking-[.16em] text-accent-ink">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="np-h3 mt-0 mb-3 text-[19px] leading-[1.3]">
+                  {steg.rubrik}
+                </h3>
+                <p className="m-0 font-sans text-[15px] leading-[1.7] text-text-muted">
+                  {steg.text}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── Städer ──────────────────────────────────────────────────── */}
+      <section className="bg-page text-text">
+        <div className="mx-auto max-w-[var(--content-max)] px-[var(--pad-x)] pb-[clamp(56px,7vw,96px)]">
+          <h2 className={H2}>Persisk redovisning i hela Sverige</h2>
+          <p className={`${BROD} mb-[clamp(28px,3vw,40px)]`}>
+            Kontoret ligger i Sollentuna norr om Stockholm, och arbetet sker
+            digitalt. Det spelar därför ingen roll var i landet företaget finns.
+            För några städer har vi skrivit mer om vad som är särskilt just där.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {persiskaOrter.map((ort) => (
+              <Link
+                key={ort.slug}
+                href={localePath("sv", `${PATH}/${ort.slug}`)}
+                className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-text no-underline uppercase transition-colors duration-300 hover:border-accent hover:text-accent-ink"
+              >
+                Persisk redovisningsbyrå {ort.name}
+              </Link>
+            ))}
+            <Link
+              href={localePath("sv", "/redovisningsbyra")}
+              className="border border-[var(--hairline-light)] px-5 py-3 font-mono text-[12px] tracking-[.12em] text-accent-ink no-underline uppercase transition-colors duration-300 hover:border-accent"
+            >
+              Alla orter
+            </Link>
+          </div>
         </div>
       </section>
 
