@@ -136,10 +136,11 @@ export const chatWidget = {
  * filmen för alla utom den som nyss hade tittat.
  *
  * Frågetecknet gör adressen till en ny resurs för webbläsaren, så bytet slår
- * igenom med en gång. Bump:a datumet nästa gång någon av herofilerna byts.
+ * igenom med en gång. Bump:a märket nästa gång någon av herofilerna byts.
+ * Bokstaven på slutet kom till när filerna byttes två gånger samma dag.
  * Påverkar inte Om-videon, som inte bytts sedan sajten byggdes.
  */
-const heroVersion = "2026-11-16";
+const heroVersion = "2026-11-16b";
 
 export const video = {
   /** Hero-bakgrunden. WebM först i markup, MP4 som fallback för Safari. */

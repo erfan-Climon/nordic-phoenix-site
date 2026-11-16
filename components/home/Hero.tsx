@@ -50,11 +50,24 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
          tjugo procent, och dit når ingen text längre. */
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink md:justify-center"
     >
-      {/* Bilden täcker inte hela sektionen på bred skärm utan drygt sjuttio
+      {/* Bilden täcker inte hela sektionen på bred skärm utan sextiofem
           procent, med en sned kant mot sektionens mörka botten. Kanten går
-          från fyrtio procent uppe till tjugo nere, alltså lutad åt vänster
-          nedtill: rubriken får en ren mörk yta att börja på, och bilden
-          öppnar sig ner mot knappraden.
+          från fyrtiofem procent uppe till tjugofem nere, alltså lutad åt
+          vänster nedtill: rubriken får en ren mörk yta att börja på, och
+          bilden öppnar sig ner mot knappraden.
+
+          Behållaren börjar vid tjugofem procent och inte vid noll, alltså
+          precis där kilen är som bredast. Ytan till vänster om den är ändå
+          bortklippt. Skillnaden är att bilden då får täcka 75 procent av
+          bredden i stället för 100, och eftersom den skalas för att täcka
+          sin behållare betyder det att motivet ritas mindre: lika stort som
+          innan filmen byttes, i stället för sexton procent större. Med den
+          smalare behållaren klipps dessutom högerkanten bort av sig själv,
+          så kopparlampan bakom honom försvinner helt på vanliga skärmar.
+
+          Polygonen räknas mot behållaren och inte mot sektionen: sektionens
+          45 procent ligger på 26,67 av de 75 som är kvar, och sektionens 25
+          ligger på noll.
 
           Beskärningen ligger på behållaren och inte på videon, så att
           posterbilden, videon och slöjan klipps likadant. Utan den
@@ -65,7 +78,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           där fyller bilden hela sektionen som förut. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 md:[clip-path:polygon(40%_0,100%_0,100%_100%,20%_100%)]"
+        className="absolute inset-0 md:left-[25%] md:[clip-path:polygon(26.67%_0,100%_0,100%_100%,0_100%)]"
       >
         {/* Posterbilden ligger alltid kvar. Den är hela bakgrunden på mobil och
             vid reducerad rörelse, och det som syns innan videon börjar spela. */}
@@ -82,16 +95,18 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
         <HeroBackgroundVideo />
 
-        {/* Ett enda jämnt filter över hela videon. Inga gradienter, ingen
-            kudde bakom texten: sådana lager gör bilden ljusare på vissa ställen
-            och mörkare på andra, vilket syns.
+        {/* Slöja bara på mobil.
 
-            Priset är att styrkan blir en avvägning. Uppmätt mot videons ljusaste
-            rutor krävs 0,88 för att varje element ska nå WCAG med ett jämnt
-            filter, och då är videon i praktiken borta. 0,50 är vald som
-            mellanläge: bilden syns, och texten bärs av sin egen skugga.
-            Kvarvarande värden står i README. */}
-        <div className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
+            På bred skärm ligger texten helt på den mörka kilen, och det
+            enda som lämnar den är knappraden: fyllda plattor som bär sin
+            egen kontrast. Där gjorde filtret bara bilden gråare än den är,
+            och det är borta.
+
+            På mobil finns ingen kil. Texten ligger rakt ovanpå bilden, och
+            ingressen hamnar över skjortan och fönstret, alltså bildens
+            ljusaste ytor. Utan filter bärs den bara av sin egen skugga och
+            blir svårläst. Därför ligger slöjan kvar under 768. */}
+        <div className="absolute inset-0 bg-[rgba(0,0,0,.35)] md:hidden" />
       </div>
 
       {/* Andande orange glöd uppe till höger */}
@@ -133,7 +148,13 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
            både i vänsterläst och högerläst text. Själva texten följer
            fortfarande skrivriktningen och radas upp från höger inuti sin
            egen kolumn, vilket är det persiskan behöver. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-0"
+        /* Blocket centreras i sektionen, och sidhuvudet ligger ovanpå den.
+           Utan luft upptill hamnade förraden och rubrikens första rad
+           bakom ordmärket och menyn, vilket på persiska såg ut som om
+           ordmärket stod två gånger. Toppluften halveras av
+           centreringen, så 176 flyttar ner blocket 88, alltså
+           sidhuvudets höjd. */
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-[96px]"
       >
         {/* Extra insteg i vänsterläst text. Insteget från vänsterkanten är
             detsamma på alla språk, men texten fyller ytan åt olika håll:
@@ -150,54 +171,70 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             blocket. Knappraden ska få sticka ut åt höger, ut på videon och
             ner på tangentbordet i bild, medan läsningen hålls kvar på den
             mörka kilen. */}
-        <div className="min-w-0 max-md:w-full max-md:max-w-full md:w-full">
-          <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
-            /* Mindre grad från 768 än tokenens 5,8vw. Rubriken ska rymmas på
+        {/* Insteg från vänsterkanten på bred skärm. Texten stod tidigare
+            tätt mot sidkanten medan knappraden började långt in på bilden,
+            och avståndet däremellan läste sig som två skilda block. Fysisk
+            padding, inte logisk: kolumnen ska ligga likadant på persiska. */}
+        <div className="min-w-0 max-md:w-full max-md:max-w-full md:w-full md:pl-[clamp(0px,3vw,44px)]">
+          {/* Rubriken och ingressen i en låda med fast höjd från 768.
+
+              Blocket flödar uppifrån, och rubriken och ingressen är olika
+              långa på svenska, engelska och persiska: svenskan mäter 556
+              pixlar och persiskan 522. Knappraden ärvde skillnaden och
+              hamnade tjugo pixlar högre på persiska, alltså bredvid
+              tangentbordet i stället för på det. Med en fast höjd står
+              raden på samma ställe på alla språk. Det språk som inte
+              fyller lådan får luft under ingressen, inte ihoptryckt text. */}
+          <div className="md:h-[560px]">
+            <h1 /* Skuggan gör texten läsbar utan att bilden behöver mörkas. */
+              /* Mindre grad från 768 än tokenens 5,8vw. Rubriken ska rymmas på
                den mörka kilen, och "Kontroll." mätte 390 px mot kilens dryga
                330 px användbara vid textens nedre kant. Mobilen rör vi inte:
                där ligger texten kvar över hela bilden. */
-            className={`m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)] ${tvaRader ? "md:text-[clamp(26px,3.8vw,66px)]" : "md:text-[clamp(34px,4.3vw,74px)]"}`}
-          >
-            {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
+              className={`m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)] ${tvaRader ? "md:text-[clamp(26px,3.8vw,66px)]" : "md:text-[clamp(34px,4.3vw,74px)]"}`}
+            >
+              {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
                 är ren varumärkestext utan ett enda sökord, och H1 är sidans
                 starkaste rubriksignal. Graden spelar ingen roll för hur
                 Google läser den, bara att den står i H1. */}
-            {/* Förraden satt tidigare i en mörk ruta som bar kontrasten. Nu
+              {/* Förraden satt tidigare i en mörk ruta som bar kontrasten. Nu
                 bär slöjan den i stället, och raden får vara ren typografi:
                 en kort orange linje och spärrad text. Linjen ger raden en
                 startpunkt utan att rita en låda runt den. */}
-            <span
-              className="mb-[clamp(18px,2vw,26px)] flex items-center gap-3 font-mono text-[clamp(11px,1vw,13px)] leading-[1.4] font-medium tracking-[.2em] text-on-dark uppercase [text-shadow:0_1px_3px_rgba(0,0,0,.9),0_2px_10px_rgba(0,0,0,.7)]"
-              style={{ animation: "np-rise .5s var(--ease) both" }}
-            >
               <span
-                aria-hidden="true"
-                className="h-[2px] w-8 shrink-0 rounded-full bg-accent"
-              />
-              {t.hero.eyebrow}
-            </span>
-            {/* Hållaren finns bara i persiskan och ger de två första orden
+                className="mb-[clamp(18px,2vw,26px)] flex items-center gap-3 font-mono text-[clamp(11px,1vw,13px)] leading-[1.4] font-medium tracking-[.2em] text-on-dark uppercase [text-shadow:0_1px_3px_rgba(0,0,0,.9),0_2px_10px_rgba(0,0,0,.7)]"
+                style={{ animation: "np-rise .5s var(--ease) both" }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-[2px] w-8 shrink-0 rounded-full bg-accent"
+                />
+                {t.hero.eyebrow}
+              </span>
+              {/* Hållaren finns bara i persiskan och ger de två första orden
                 en gemensam rad. I högerläst text radas de automatiskt från
                 höger, så ordningen blir densamma som i texten. */}
-            <Rad samman={tvaRader}>
-              <span style={{ animation: "np-rise .5s .05s var(--ease) both" }}>
-                {t.hero.w1}
-              </span>
-              <span
-                /* Dämpad men inte svag. #cbc4b9 mätte 2,7 mot videons ljusaste
+              <Rad samman={tvaRader}>
+                <span
+                  style={{ animation: "np-rise .5s .05s var(--ease) both" }}
+                >
+                  {t.hero.w1}
+                </span>
+                <span
+                  /* Dämpad men inte svag. #cbc4b9 mätte 2,7 mot videons ljusaste
                  utsnitt, alltså under kravet 3,0 för stor text, och det var
                  den redan innan slöjan fanns. Den här tonen läser fortfarande
                  som en nivå under raden ovanför men klarar mätningen, och
                  lösningen ligger i färgen i stället för i ett mörkare filter
                  över videon. */
-                className="text-[#e6dfd4]"
-                style={{ animation: "np-rise .5s .12s var(--ease) both" }}
-              >
-                {t.hero.w2}
-              </span>
-            </Rad>
-            <span
-              /* Solid orange, inte klippt gradient. Knappen syns mot videon
+                  className="text-[#e6dfd4]"
+                  style={{ animation: "np-rise .5s .12s var(--ease) both" }}
+                >
+                  {t.hero.w2}
+                </span>
+              </Rad>
+              <span
+                /* Solid orange, inte klippt gradient. Knappen syns mot videon
                  för att den är en fylld platta: orangen är bakgrunden och
                  täcker bilden. Ett ord är bara tunna streck med video emellan,
                  och behöver därför samma skugga som raderna ovanför för att
@@ -206,14 +243,14 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  background-clip: text används.
 
                  #ff9424 är knappens ljusa ände, alltså samma orange. */
-              className="text-[#ff9424] italic [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
-              style={{ animation: "np-rise .5s .19s var(--ease) both" }}
-            >
-              {t.hero.w3}
-            </span>
-          </h1>
+                className="text-[#ff9424] italic [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
+                style={{ animation: "np-rise .5s .19s var(--ease) both" }}
+              >
+                {t.hero.w3}
+              </span>
+            </h1>
 
-          {/* Bottenmarginalen lyfter knapparna så att de hamnar mitt på
+            {/* Bottenmarginalen lyfter knapparna så att de hamnar mitt på
               tangentbordet i bild.
 
               Marginalen ensam räcker inte. Hero är bottenförankrad, men
@@ -226,21 +263,21 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
               Bara på bred skärm: på mobil är bilden beskuren så hårt att det
               inte finns något tangentbord att träffa. */}
-          <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(10px,1.5vw,28px)] flex flex-col gap-7">
-            <p
-              /* Fem rader oavsett språk på bred skärm. Ingressen är olika
+            <div className="my-[clamp(32px,4vw,56px)] mb-[clamp(10px,1.5vw,28px)] flex flex-col gap-7">
+              <p
+                /* Fem rader oavsett språk på bred skärm. Ingressen är olika
                  lång på svenska, engelska och persiska, och eftersom
                  blocket flödar uppifrån hamnade knapparna på tre olika
                  höjder: uppmätt 700, 671 och 642 pixlar. Bara persiskan
                  landade då på tangentbordet i bild. Minsta höjden är den
                  längsta ingressens, så ingen text trängs ihop. */
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
-              style={{ animation: "np-rise .5s .26s var(--ease) both" }}
-            >
-              {t.hero.sub}
-            </p>
+                className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
+                style={{ animation: "np-rise .5s .26s var(--ease) both" }}
+              >
+                {t.hero.sub}
+              </p>
 
-            {/* Fågeln står centrerad i textkolumnen, under brödtexten. Den
+              {/* Fågeln står centrerad i textkolumnen, under brödtexten. Den
                 bär ingen information, därför aria-hidden: namnet står redan
                 i sidhuvudet och i rubriken. Bara från 768, på mobil ligger
                 texten över hela bilden och det finns ingen lugn yta.
@@ -248,19 +285,21 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 Hållaren har samma bredd och samma fysiska fästning som
                 rubriken, annars hade centreringen räknats mot hela
                 sektionsbredden och fågeln hamnat ute på videon. */}
-            <div className="hidden md:mr-auto md:block md:w-[min(360px,21vw)]">
-              <Image
-                aria-hidden="true"
-                src="/assets/phoenix-logo.webp"
-                alt=""
-                width={132}
-                height={132}
-                className="mx-auto h-auto w-[clamp(64px,7vw,104px)] opacity-90"
-                style={{ animation: "np-fade 1.2s .5s ease both" }}
-              />
+              <div className="hidden md:mr-auto md:block md:w-[min(360px,21vw)]">
+                <Image
+                  aria-hidden="true"
+                  src="/assets/phoenix-logo.webp"
+                  alt=""
+                  width={132}
+                  height={132}
+                  className="mx-auto h-auto w-[clamp(64px,7vw,104px)] opacity-90"
+                  style={{ animation: "np-fade 1.2s .5s ease both" }}
+                />
+              </div>
             </div>
-            <div
-              /* WhatsApp-knappen ligger först i koden, så att den primära
+          </div>
+          <div
+            /* WhatsApp-knappen ligger först i koden, så att den primära
                  åtgärden kommer först för skärmläsare och tangentbord.
 
                  I högerläst text hamnar den då längst till höger i raden,
@@ -287,7 +326,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  i vänsterläst text, och en vänd rad som bryts staplar dem
                  högerställda under en vänsterställd text. Uppmätt bröts
                  raden vid 900 men inte vid 1000. */
-              /* Knappraden är det enda som lämnar den mörka kilen. Den skjuts
+            /* Knappraden är det enda som lämnar den mörka kilen. Den skjuts
                  ut åt höger så att den landar på tangentbordet i bild, som
                  ligger på 29 till 54 procent av bredden. Knapparna är fyllda
                  plattor och bär sin egen kontrast, till skillnad från texten,
@@ -295,29 +334,28 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
                  På mobil staplas de i omvänd ordning, så att
                  WhatsApp-knappen hamnar närmast tummen. */
-              /* ml och mr är fysiska, inte logiska. Med ms/me hade raden
+            /* ml och mr är fysiska, inte logiska. Med ms/me hade raden
                  speglats i persiskan och hamnat till vänster om kilen i
                  stället för på tangentbordet. */
-              className="flex gap-[14px] max-md:flex-col-reverse md:ml-[clamp(20px,22vw,330px)] md:mr-auto md:w-max"
-              style={{ animation: "np-rise .5s .33s var(--ease) both" }}
+            className="flex gap-[14px] max-md:flex-col-reverse md:-mt-[141px] md:ml-[clamp(20px,39.5vw,600px)] md:mr-auto md:w-max"
+            style={{ animation: "np-rise .5s .33s var(--ease) both" }}
+          >
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener"
+              className="np-btn np-btn-primary px-9 py-[18px] text-[15px] md:px-[52px] md:py-[26px] md:text-[17px]"
             >
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener"
-                className="np-btn np-btn-primary px-9 py-[18px] text-[15px] md:px-[52px] md:py-[22px] md:text-[17px]"
-              >
-                {t.hero.cta1}
-              </a>
-              <Link
-                href={servicesHref}
-                /* Ljus variant av outline-knappen. Utilities vinner över
+              {t.hero.cta1}
+            </a>
+            <Link
+              href={servicesHref}
+              /* Ljus variant av outline-knappen. Utilities vinner över
                    @layer components, så basklassen behålls för geometrin. */
-                className="np-btn np-btn-outline border-[rgba(242,236,224,.5)] bg-[rgba(11,10,9,.42)] px-[30px] py-[17px] text-[15px] text-on-dark backdrop-blur-[6px] hover:border-accent-light hover:bg-[rgba(240,103,0,.3)] hover:text-on-dark"
-              >
-                {t.hero.cta2}
-              </Link>
-            </div>
+              className="np-btn np-btn-outline border-[rgba(242,236,224,.5)] bg-[rgba(11,10,9,.42)] px-[30px] py-[17px] text-[15px] text-on-dark backdrop-blur-[6px] hover:border-accent-light hover:bg-[rgba(240,103,0,.3)] hover:text-on-dark"
+            >
+              {t.hero.cta2}
+            </Link>
           </div>
         </div>
       </div>
