@@ -229,6 +229,11 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 />
                 {t.hero.eyebrow}
               </span>
+              {/* Blanksteg mellan raderna, här och längre ner. Raderna är egna
+                element i en flexkolumn, och utan text emellan läser Google
+                och skärmläsare ihop dem till ett ord: "StockholmKontroll."
+                och på persiska "سوئدشفاف،مطمئنو". En flexbehållare ritar inte
+                ut ensamma blanksteg, så raderna ser likadana ut som förut. */}{" "}
               {/* Hållaren finns bara i persiskan och ger de två första orden
                 en gemensam rad. I högerläst text radas de automatiskt från
                 höger, så ordningen blir densamma som i texten. */}
@@ -237,7 +242,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                   style={{ animation: "np-rise .5s .05s var(--ease) both" }}
                 >
                   {t.hero.w1}
-                </span>
+                </span>{" "}
                 <span
                   /* Dämpad men inte svag. #cbc4b9 mätte 2,7 mot videons ljusaste
                  utsnitt, alltså under kravet 3,0 för stor text, och det var
@@ -250,7 +255,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 >
                   {t.hero.w2}
                 </span>
-              </Rad>
+              </Rad>{" "}
               <span
                 /* Solid orange, inte klippt gradient. Knappen syns mot videon
                  för att den är en fylld platta: orangen är bakgrunden och
