@@ -31,6 +31,29 @@ Saknas den svarar formuläret med fel och hänvisar till WhatsApp.
 | `sida` | Sidan formuläret skickades från |
 | `utm_source` m.fl. | Kampanjparametrar när de finns |
 
+## Nuläge 2026-11-16
+
+Formuläret fungerar. Inskickningar skapar kontakt, får taggen och notisen går
+till byrån. Två saker är medvetet inte på plats:
+
+- **Bekräftelsemejlen till kunden är borttagna.** Steget fanns men skickade
+  den persiska texten till alla språk, och det skickades från
+  info@nordicphoenix.se trots att domänen inte är upplagd som avsändardomän i
+  underkontot. Med DMARC p=reject på nordicphoenix.se hade de studsat. Steget
+  togs bort så att resten kunde publiceras. Bygg det igen med If/Else enligt
+  nedan när domänen är verifierad.
+- **Avsändardomänen saknas.** Underkontot kör på den delade avsändaren
+  mail.climon.se. Dedikerad domän för nordicphoenix.se sätts upp under
+  Settings, Email Services, och kräver DNS-poster på domänen.
+
+Notera också att Inbound Webhook är en premiumtrigger. Varje inskickning
+kostar per körning.
+
+Fram till 16 november 2026 nådde ingen inskickning fram över huvud taget.
+Miljövariabeln var aldrig satt på Pages-projektet, och arbetsflödet var ett
+utkast hopsatt av återanvända steg från en Meta-kampanj: fel tagg, fel
+ämnesrad och fältmappningar mot fält vi inte skickar.
+
 ## Arbetsflödet i Climon System
 
 Namn: **Webbformulär: kontakt**
