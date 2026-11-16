@@ -9,11 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
 import { phone, whatsappUrl } from "@/content/site";
 import { PhoneGlyph } from "@/components/ui/icons";
-import {
-  type Locale,
-  localePath,
-  stripLocale,
-} from "@/lib/i18n";
+import { type Locale, localePath, stripLocale } from "@/lib/i18n";
 
 type Props = {
   locale: Locale;
@@ -91,7 +87,9 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
   const inkClass = onHero
     ? "text-on-dark [text-shadow:0_1px_3px_rgba(0,0,0,.65),0_4px_18px_rgba(0,0,0,.45)]"
     : "text-text";
-  const inkHoverClass = onHero ? "hover:text-accent-light" : "hover:text-accent-ink";
+  const inkHoverClass = onHero
+    ? "hover:text-accent-light"
+    : "hover:text-accent-ink";
 
   // Lås bakgrunden och lyssna på Escape medan mobilmenyn är öppen.
   useEffect(() => {
@@ -211,15 +209,27 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
 
                Panelen har toppstoppning i stället för marginal. Med en
                marginal blir det en glipa mellan länken och panelen, och
-               muspekaren tappar hovern på vägen ner. */
-            <div key={link.href} className="group relative">
+               muspekaren tappar hovern på vägen ner.
+
+               Behållaren har egen höjdstoppning så att hoverytan blir hela
+               sidhuvudets höjd och inte bara textraden. Den persiska
+               etiketten är 21 pixlar bred och 16 hög, och vägen ner till
+               panelen gick genom tre pixlar av den ytan: pekaren hann ut åt
+               sidan innan den nådde panelen, och menyn stängdes. */
+            <div key={link.href} className="group relative py-4">
               <Link
                 href={link.href}
                 className={`np-mono-link ${inkClass} ${inkHoverClass}`}
               >
                 {link.label}
               </Link>
-              <div className="invisible absolute start-1/2 top-full z-20 -translate-x-1/2 pt-4 opacity-0 transition-opacity duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+              <div /* Synligheten tonas, inte bara genomskinligheten. En synlighet som
+                     slår om direkt tar bort panelen i samma ögonblick som
+                     pekaren lämnar, medan en som tonas ligger kvar hela
+                     övergången ut. Det ger ett par tiondelar att nå panelen
+                     på, utan tillstånd i React och utan tidtagare. */
+                className="invisible absolute start-1/2 top-full z-20 -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
+              >
                 <div className="flex min-w-[200px] flex-col rounded-media border border-[var(--hairline-light)] bg-surface p-2 shadow-[var(--shadow-card-light)]">
                   {link.barn.map((barn) => (
                     <Link
@@ -255,7 +265,12 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
               till vänsterläst oavsett sidans riktning. */}
           <span dir="ltr">{phone.display}</span>
         </a>
-        <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
+        <LanguageMenu
+          locale={locale}
+          path={switchPath}
+          label={t.a11y.switchLanguage}
+          onDark={onHero}
+        />
         <Link
           href={whatsappUrl}
           target="_blank"
@@ -289,7 +304,12 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
         {/* Under 400px får logotyp, fullt företagsnamn och tre knappar inte
             plats. Språkknappen flyttas då ner i menyn i stället. */}
         <span className="hidden min-[368px]:block">
-          <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
+          <LanguageMenu
+            locale={locale}
+            path={switchPath}
+            label={t.a11y.switchLanguage}
+            onDark={onHero}
+          />
         </span>
         <button
           type="button"
@@ -365,7 +385,12 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
             className="border-b border-[var(--hairline-light)] py-4 min-[368px]:hidden"
             onClick={() => setMenuOpen(false)}
           >
-            <LanguageMenu locale={locale} path={switchPath} label={t.a11y.switchLanguage} onDark={onHero} />
+            <LanguageMenu
+              locale={locale}
+              path={switchPath}
+              label={t.a11y.switchLanguage}
+              onDark={onHero}
+            />
           </span>
           <Link
             href={whatsappUrl}
@@ -381,5 +406,3 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
     </header>
   );
 }
-
-
