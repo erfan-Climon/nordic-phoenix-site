@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { KlippSpelare } from "@/components/ui/KlippSpelare";
 import { articles } from "@/content/blog";
 import { getArticleCopy } from "@/content/blog-copy";
 import { publiceradeKlipp } from "@/content/klipp";
@@ -76,14 +77,12 @@ export function VideoguiderPage({ locale }: { locale: Locale }) {
                 aria-hidden="true"
                 className="absolute start-0 top-[-1px] h-[2px] w-14 bg-accent"
               />
-              <video
-                src={klipp.fil}
-                poster={klipp.affisch}
-                controls
-                playsInline
-                preload="none"
-                title={klipp.titel[locale]}
-                className="block h-auto w-full max-w-[260px] rounded-media bg-ink shadow-[0_18px_48px_rgba(23,19,16,.14)]"
+              <KlippSpelare
+                fil={klipp.fil}
+                affisch={klipp.affisch}
+                titel={klipp.titel[locale]}
+                spelaEtikett={t.klipp.spela}
+                className="w-full max-w-[260px] shadow-[0_18px_48px_rgba(23,19,16,.14)]"
               />
 
               <div className="min-w-0">
