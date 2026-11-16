@@ -94,7 +94,14 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
            Uppmätt låg det på 64 till 96 procent före ändringen. Insteget är
            detsamma på båda språken: det mäts från vänsterkanten oavsett
            riktning. */
-        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-0 rtl:justify-end"
+        /* Ingen rtl-spegling här. Hero-texten ska ligga på samma ställe
+           oavsett språk, för den mörka kilen ligger till vänster i bild på
+           alla språk. Kolumnen fästs därför med fysiska marginaler längre
+           ner, inte med logiska: `mr-auto` håller den vid vänsterkanten
+           både i vänsterläst och högerläst text. Själva texten följer
+           fortfarande skrivriktningen och radas upp från höger inuti sin
+           egen kolumn, vilket är det persiskan behöver. */
+        className="relative z-[2] flex w-full px-[var(--pad-x)] pt-[clamp(140px,18vh,220px)] md:pt-0"
       >
         {/* Extra insteg i vänsterläst text. Insteget från vänsterkanten är
             detsamma på alla språk, men texten fyller ytan åt olika håll:
@@ -117,7 +124,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                den mörka kilen, och "Kontroll." mätte 390 px mot kilens dryga
                330 px användbara vid textens nedre kant. Mobilen rör vi inte:
                där ligger texten kvar över hela bilden. */
-            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:max-w-[min(360px,21vw)] md:text-[clamp(34px,4.3vw,74px)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
+            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] md:text-[clamp(34px,4.3vw,74px)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
             {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
                 är ren varumärkestext utan ett enda sökord, och H1 är sidans
                 starkaste rubriksignal. Graden spelar ingen roll för hur
@@ -189,25 +196,31 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                  höjder: uppmätt 700, 671 och 642 pixlar. Bara persiskan
                  landade då på tangentbordet i bild. Minsta höjden är den
                  längsta ingressens, så ingen text trängs ihop. */
-              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
+              className="m-0 max-w-[46ch] font-sans text-[clamp(15px,1.3vw,18px)] leading-[1.65] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]"
               style={{ animation: "np-rise .5s .26s var(--ease) both" }}
             >
               {t.hero.sub}
             </p>
 
-            {/* Fågeln står under brödtexten, på den mörka kilen. Den bär
-                ingen information, därför aria-hidden: namnet står redan i
-                sidhuvudet och i rubriken. Bara från 768, på mobil ligger
-                texten över hela bilden och det finns ingen lugn yta. */}
-            <Image
-              aria-hidden="true"
-              src="/assets/phoenix-logo.webp"
-              alt=""
-              width={132}
-              height={132}
-              className="hidden h-auto w-[clamp(64px,7vw,104px)] opacity-90 md:block"
-              style={{ animation: "np-fade 1.2s .5s ease both" }}
-            />
+            {/* Fågeln står centrerad i textkolumnen, under brödtexten. Den
+                bär ingen information, därför aria-hidden: namnet står redan
+                i sidhuvudet och i rubriken. Bara från 768, på mobil ligger
+                texten över hela bilden och det finns ingen lugn yta.
+
+                Hållaren har samma bredd och samma fysiska fästning som
+                rubriken, annars hade centreringen räknats mot hela
+                sektionsbredden och fågeln hamnat ute på videon. */}
+            <div className="hidden md:mr-auto md:block md:w-[min(360px,21vw)]">
+              <Image
+                aria-hidden="true"
+                src="/assets/phoenix-logo.webp"
+                alt=""
+                width={132}
+                height={132}
+                className="mx-auto h-auto w-[clamp(64px,7vw,104px)] opacity-90"
+                style={{ animation: "np-fade 1.2s .5s ease both" }}
+              />
+            </div>
             <div
               /* WhatsApp-knappen ligger först i koden, så att den primära
                  åtgärden kommer först för skärmläsare och tangentbord.
@@ -244,7 +257,10 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
                  På mobil staplas de i omvänd ordning, så att
                  WhatsApp-knappen hamnar närmast tummen. */
-              className="flex gap-[14px] max-md:flex-col-reverse md:ml-[clamp(20px,22vw,330px)] md:w-max"
+              /* ml och mr är fysiska, inte logiska. Med ms/me hade raden
+                 speglats i persiskan och hamnat till vänster om kilen i
+                 stället för på tangentbordet. */
+              className="flex gap-[14px] max-md:flex-col-reverse md:ml-[clamp(20px,22vw,330px)] md:mr-auto md:w-max"
               style={{ animation: "np-rise .5s .33s var(--ease) both" }}
             >
               <a
