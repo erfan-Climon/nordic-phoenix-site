@@ -38,12 +38,13 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
         {/* Posterbilden ligger alltid kvar. Den är hela bakgrunden på mobil och
             vid reducerad rörelse, och det som syns innan videon börjar spela. */}
         {/* På mobil beskärs bilden hårt på bredden, och utsnittet styrs hit så
-            att både ansiktet och händerna på tangentbordet kommer med. 56
+            att både ansiktet och händerna på tangentbordet kommer med. 59
             procent är uträknat mot mobilfilen: videon är förbeskuren till
             exakt samma utsnitt, så bilden inte hoppar när videon tar över.
+            Procenttalet följer bildbredden: smalnas den av måste talet upp.
             På bred skärm ligger utsnittet centrerat. */}
         <div
-          className="absolute inset-0 bg-cover bg-[position:56%_center] md:bg-center"
+          className="absolute inset-0 bg-cover bg-[position:59%_center] md:bg-center"
           style={{ backgroundImage: `url(${video.heroPoster})` }}
         />
 

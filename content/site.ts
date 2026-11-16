@@ -132,7 +132,7 @@ export const video = {
   heroWebm: "/video/hero.webm",
   /**
    * Mobilversionen är förbeskuren till det utsnitt mobilen ändå visar, alltså
-   * 700 av 1700 bildpunkter kring ansiktet och händerna. Utsnittet är samma
+   * 700 av 1650 bildpunkter kring ansiktet och händerna. Utsnittet är samma
    * som posterbildens mobilposition, så bilden inte hoppar när videon tar
    * över. Bara MP4: H.264 spelas överallt, och en VP9 av samma klipp blev
    * fem gånger så stor.
