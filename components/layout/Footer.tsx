@@ -6,7 +6,7 @@ import {
   company,
   oppettider,
   phone,
-  social,
+  socialaKanaler,
   whatsappUrl,
 } from "@/content/site";
 import {
@@ -17,6 +17,7 @@ import { type Locale, localePath } from "@/lib/i18n";
 import { PhoneNumber } from "@/components/ui/PhoneNumber";
 import { SamtyckeLank } from "@/components/layout/SamtyckeLank";
 import { Epostlank } from "@/components/ui/Epostlank";
+import { SocialGlyph } from "@/components/ui/icons";
 
 const textClass = "font-sans text-[14px] leading-[1.7] text-on-dark-muted";
 const linkClass = `${textClass} no-underline transition-colors duration-300 hover:text-accent-light`;
@@ -42,12 +43,8 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
 
           <div className="flex flex-col gap-3">
             <FooterHeading>{t.footer.company}</FooterHeading>
-            <span className={textClass}>
-              {company.legalName}
-            </span>
-            <span className={textClass}>
-              Org.nr {company.orgNumber}
-            </span>
+            <span className={textClass}>{company.legalName}</span>
+            <span className={textClass}>Org.nr {company.orgNumber}</span>
             {/* Adressen leder till kontorsortens sida, på de språk där den
                 finns. Det är den enda länken till sidan som står på varje
                 sida av sajten, och ankartexten är just adressen. */}
@@ -87,30 +84,32 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
 
           <div className="flex flex-col gap-3">
             <FooterHeading>{t.footer.follow}</FooterHeading>
-            <a
-              href={social.instagram}
-              target="_blank"
-              rel="noopener"
-              className={linkClass}
-            >
-              Instagram
-            </a>
-            <a
-              href={social.facebook}
-              target="_blank"
-              rel="noopener"
-              className={linkClass}
-            >
-              Facebook
-            </a>
-            <a
-              href={social.tiktok}
-              target="_blank"
-              rel="noopener"
-              className={linkClass}
-            >
-              TikTok
-            </a>
+            {/* Märken i stället för namn. Raden står i en kolumn som också
+                rymmer öppettider och telefon, och tre textrader under
+                varandra tog lika mycket höjd som hela den kolumnen.
+
+                Namnet finns kvar för skärmläsare och som titel vid hover:
+                ett märke utan text är igenkänningsbart för den som ser det,
+                men säger ingenting till den som inte gör det.
+
+                Ytan runt märket är 40 pixlar, alltså tumstorlek, medan
+                märket självt är 20. */}
+            <ul className="m-0 flex list-none flex-wrap gap-1 p-0">
+              {socialaKanaler.map((kanal) => (
+                <li key={kanal.namn}>
+                  <a
+                    href={kanal.href}
+                    target="_blank"
+                    rel="noopener"
+                    title={kanal.etikett}
+                    className={`-ms-[10px] flex h-10 w-10 items-center justify-center rounded-full text-on-dark-muted transition-colors duration-300 hover:bg-[rgba(242,236,224,.08)] hover:text-accent-light`}
+                  >
+                    <SocialGlyph namn={kanal.namn} />
+                    <span className="sr-only">{kanal.etikett}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="flex flex-col items-start gap-3">

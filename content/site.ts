@@ -108,6 +108,23 @@ export const social = {
   tiktok: "https://www.tiktok.com/@nordicphoenix.redo",
 } as const;
 
+/**
+ * Kanalerna som visas i sidfotens länkrad, i den ordning de ska stå.
+ *
+ * Ordnade efter var byrån faktiskt publicerar: Instagram bär klippen, sedan
+ * Facebook och TikTok. `namn` väljer märket i SocialGlyph, så en ny kanal
+ * kräver en rad här och en bana där, inget annat.
+ *
+ * Byrån har även en LinkedIn-sida och en YouTube-kanal uppkopplade i Climon
+ * System, men deras publika adresser står inte där och är därför inte med
+ * här ännu. [FRÅGA ERFAN]
+ */
+export const socialaKanaler = [
+  { namn: "instagram", etikett: "Instagram", href: social.instagram },
+  { namn: "facebook", etikett: "Facebook", href: social.facebook },
+  { namn: "tiktok", etikett: "TikTok", href: social.tiktok },
+] as const;
+
 export const agencyCredit = {
   label: "Climon.se",
   href: "https://climon.se",

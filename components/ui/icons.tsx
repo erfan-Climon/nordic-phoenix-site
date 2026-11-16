@@ -42,7 +42,6 @@ export function PhoneGlyph({ size = 14 }: { size?: number }) {
   );
 }
 
-
 /** Bocken i prislistorna bär betydelse, därav den dolda texten. */
 export function CheckMark({ label }: { label: string }) {
   return (
@@ -53,3 +52,77 @@ export function CheckMark({ label }: { label: string }) {
   );
 }
 
+/**
+ * Plattformsmärken för sidfotens länkrad.
+ *
+ * Streckade och inte fyllda, av samma skäl som PhoneGlyph: de ska ta färg
+ * från texten runt omkring och tona med den vid hover, i stället för att
+ * ligga som fem olika varumärkesfärger i en rad på den mörka ytan.
+ *
+ * Ritade ur primitiver och enkla banor i stället för varumärkenas egna
+ * vektorer. De officiella banorna är tusentals tecken långa, och ett enda
+ * fel tecken ger en obegriplig form utan att något varnar.
+ */
+export type SocialNamn =
+  "instagram" | "facebook" | "tiktok" | "linkedin" | "youtube";
+
+const STRECK = {
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.7,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} as const;
+
+export function SocialGlyph({
+  namn,
+  size = 20,
+}: {
+  namn: SocialNamn;
+  size?: number;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+      {...STRECK}
+    >
+      {namn === "instagram" ? (
+        <>
+          <rect x="2.75" y="2.75" width="18.5" height="18.5" rx="5.25" />
+          <circle cx="12" cy="12" r="4.1" />
+          <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+        </>
+      ) : null}
+
+      {namn === "facebook" ? (
+        <path d="M15.5 2.75h-2.3a4.2 4.2 0 0 0-4.2 4.2v2.8H6.3v3.7h2.7v7.8h3.8v-7.8h2.8l.7-3.7h-3.5v-2.4a1 1 0 0 1 1-1h2.2z" />
+      ) : null}
+
+      {namn === "tiktok" ? (
+        <>
+          <path d="M14 2.9v11.6a3.6 3.6 0 1 1-2.7-3.5" />
+          <path d="M14 2.9c.4 2.7 2.5 4.7 5.2 5" />
+        </>
+      ) : null}
+
+      {namn === "linkedin" ? (
+        <>
+          <rect x="2.75" y="8.9" width="3.8" height="12.35" rx="0.6" />
+          <circle cx="4.65" cy="4.3" r="1.9" />
+          <path d="M10.6 21.25V8.9h3.6v1.7a4.3 4.3 0 0 1 3.9-2c2.6 0 3.9 1.7 3.9 4.9v7.75h-3.8v-7a1.9 1.9 0 0 0-3.8 0v7z" />
+        </>
+      ) : null}
+
+      {namn === "youtube" ? (
+        <>
+          <rect x="2.3" y="5.1" width="19.4" height="13.8" rx="4.2" />
+          <path d="M10.3 8.9 15.8 12l-5.5 3.1z" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
