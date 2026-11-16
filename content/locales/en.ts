@@ -200,7 +200,7 @@ export const en: Dictionary = {
     label: "Short clips",
     h2a: "One question,",
     h2b: "one minute.",
-    sub: "Ali takes one thing at a time, the questions business owners ask most. A new clip every Monday.",
+    sub: "Ali takes one thing at a time, the questions business owners ask most. The clips are in Persian and come out weekly.",
     folj: "Follow on Instagram",
     spela: "Play clip",
     seInlagg: "View the post",

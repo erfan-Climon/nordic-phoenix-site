@@ -92,12 +92,17 @@ export function Klipp({ t, locale }: { t: Dictionary; locale: Locale }) {
                         decoding="async"
                         className="block h-full w-full object-cover transition-transform duration-[.6s] ease-[var(--ease)] group-hover:scale-[1.04]"
                       />
+                      {/* Svag mörkning bara i mitten, så spelknappen har
+                          något att vila mot. Ingen botten-gradient: klippen
+                          har redan en inbränd fråga där, och två lager text
+                          i samma ruta blir rörigt. Rubriken står under
+                          kortet i stället. */}
                       <span
                         aria-hidden="true"
                         className="pointer-events-none absolute inset-0"
                         style={{
                           background:
-                            "linear-gradient(to top, rgba(10,9,8,.78) 0%, rgba(10,9,8,.12) 42%, transparent 70%)",
+                            "radial-gradient(ellipse at center, rgba(10,9,8,.3) 0%, transparent 58%)",
                         }}
                       />
                       <span
@@ -116,17 +121,17 @@ export function Klipp({ t, locale }: { t: Dictionary; locale: Locale }) {
                           <path d="M16 8.2a1.5 1.5 0 0 1 0 2.6L2.3 18.6A1.5 1.5 0 0 1 0 17.3V1.7A1.5 1.5 0 0 1 2.3.4Z" />
                         </svg>
                       </span>
-                      <span className="pointer-events-none absolute right-4 bottom-4 left-4 block font-sans text-[14px] leading-[1.45] font-medium text-on-dark">
-                        {k.titel[locale]}
-                      </span>
                     </button>
                   )}
                 </div>
+                <p className="mt-4 mb-1 font-sans text-[14.5px] leading-[1.45] font-medium text-ink">
+                  {k.titel[locale]}
+                </p>
                 <a
                   href={k.permalank}
                   target="_blank"
                   rel="noopener"
-                  className="mt-3 inline-block font-sans text-[13px] text-text-muted underline-offset-4 hover:text-accent-ink hover:underline"
+                  className="inline-block font-sans text-[13px] text-text-muted underline-offset-4 hover:text-accent-ink hover:underline"
                 >
                   {t.klipp.seInlagg}
                 </a>

@@ -39,15 +39,61 @@ export type Klipp = {
 };
 
 /**
- * Tom tills filerna finns. Sektionen renderar ingenting på en tom lista, så
- * sajten är hel under tiden.
+ * Bara klipp som redan ligger ute på Instagram står här. Sajten ska inte
+ * visa något före kontot: klippen publiceras en i veckan, och poängen med
+ * dem är att de drar folk till kontot.
  *
- * Lägg till ett klipp genom att spara MP4:an som
- * `public/video/klipp/<slug>.mp4` och en stillbild som
- * `public/video/klipp/<slug>.jpg`, och lägga en post här. Inget annat behöver
- * röras: ordningen kommer ur `publicerad`.
+ * Sju klipp spelades in i oktober 2026. De fyra som ännu inte är ute ligger
+ * färdigkomprimerade i `films/klipp/` utanför repot, för att en fil som inte
+ * visas inte ska ligga i bygget. Lägg till ett klipp så här:
+ *
+ *  1. kopiera `<slug>.mp4` och `<slug>.jpg` till `public/video/klipp/`
+ *  2. lägg en post här med datum och länk från inlägget
+ *
+ * Inget annat behöver röras. Ordningen kommer ur `publicerad`, och sektionen
+ * dyker upp av sig själv så länge listan inte är tom.
  */
-export const klipp: Klipp[] = [];
+export const klipp: Klipp[] = [
+  {
+    slug: "ta-ut-pengar-ur-ab",
+    fil: "/video/klipp/ta-ut-pengar-ur-ab.mp4",
+    affisch: "/video/klipp/ta-ut-pengar-ur-ab.jpg",
+    permalank:
+      "https://www.instagram.com/nordic.phoenix.redovisning/reel/De_fJPtnNv-/",
+    publicerad: "2026-10-27",
+    titel: {
+      sv: "Tre lagliga sätt att ta ut pengar ur ditt AB",
+      en: "Three legal ways to take money out of your limited company",
+      fa: "سه راه قانونی برای برداشت پول از شرکت",
+    },
+  },
+  {
+    slug: "preliminarskatt",
+    fil: "/video/klipp/preliminarskatt.mp4",
+    affisch: "/video/klipp/preliminarskatt.jpg",
+    permalank:
+      "https://www.instagram.com/nordic.phoenix.redovisning/reel/DfO8mZrD7LV/",
+    publicerad: "2026-11-02",
+    titel: {
+      sv: "Vad preliminärskatt är, och hur du ändrar den",
+      en: "What preliminary tax is, and how you change it",
+      fa: "مالیات علی‌الحساب چیست و چگونه آن را تغییر می‌دهید",
+    },
+  },
+  {
+    slug: "pengar-pa-kontot-eller-vinst",
+    fil: "/video/klipp/pengar-pa-kontot-eller-vinst.mp4",
+    affisch: "/video/klipp/pengar-pa-kontot-eller-vinst.jpg",
+    permalank:
+      "https://www.instagram.com/nordic.phoenix.redovisning/reel/Dfg9k_cmS-9/",
+    publicerad: "2026-11-10",
+    titel: {
+      sv: "Pengar på kontot är inte samma sak som vinst",
+      en: "Money in the account is not the same as profit",
+      fa: "پول در حساب با سود یکی نیست",
+    },
+  },
+];
 
 /** Nyast först. */
 export const publiceradeKlipp: Klipp[] = [...klipp].sort((a, b) =>
