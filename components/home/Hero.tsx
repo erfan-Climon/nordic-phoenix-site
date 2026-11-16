@@ -50,15 +50,15 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
          tjugo procent, och dit når ingen text längre. */
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink md:justify-center"
     >
-      {/* Bilden täcker inte hela sektionen på bred skärm utan sextiofem
+      {/* Bilden täcker inte hela sektionen på bred skärm utan sextio
           procent, med en sned kant mot sektionens mörka botten. Kanten går
-          från fyrtiofem procent uppe till tjugofem nere, alltså lutad åt
+          från femtio procent uppe till trettio nere, alltså lutad åt
           vänster nedtill: rubriken får en ren mörk yta att börja på, och
           bilden öppnar sig ner mot knappraden.
 
-          Behållaren börjar vid tjugofem procent och inte vid noll, alltså
+          Behållaren börjar vid trettio procent och inte vid noll, alltså
           precis där kilen är som bredast. Ytan till vänster om den är ändå
-          bortklippt. Skillnaden är att bilden då får täcka 75 procent av
+          bortklippt. Skillnaden är att bilden då får täcka 70 procent av
           bredden i stället för 100, och eftersom den skalas för att täcka
           sin behållare betyder det att motivet ritas mindre: lika stort som
           innan filmen byttes, i stället för sexton procent större. Med den
@@ -66,7 +66,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           så kopparlampan bakom honom försvinner helt på vanliga skärmar.
 
           Polygonen räknas mot behållaren och inte mot sektionen: sektionens
-          45 procent ligger på 26,67 av de 75 som är kvar, och sektionens 25
+          50 procent ligger på 28,57 av de 70 som är kvar, och sektionens 30
           ligger på noll.
 
           Beskärningen ligger på behållaren och inte på videon, så att
@@ -78,7 +78,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
           där fyller bilden hela sektionen som förut. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 md:left-[25%] md:[clip-path:polygon(26.67%_0,100%_0,100%_100%,0_100%)]"
+        className="absolute inset-0 md:left-[30%] md:[clip-path:polygon(28.57%_0,100%_0,100%_100%,0_100%)]"
       >
         {/* Posterbilden ligger alltid kvar. Den är hela bakgrunden på mobil och
             vid reducerad rörelse, och det som syns innan videon börjar spela. */}
@@ -107,6 +107,24 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             ljusaste ytor. Utan filter bärs den bara av sin egen skugga och
             blir svårläst. Därför ligger slöjan kvar under 768. */}
         <div className="absolute inset-0 bg-[rgba(0,0,0,.35)] md:hidden" />
+
+        {/* Mörkning nerifrån på bred skärm.
+
+            Skrivbordet, tangentbordet och händerna ligger i bildens nedre
+            del, och knapparna täckte bara en remsa av det: resten syntes
+            mellan och genom dem, vilket såg ostädat ut. I stället för att
+            lägga en platta bakom knapparna mörknar bilden nerifrån, som på
+            vilken bildsatt ingress som helst. Ansiktet och överkroppen rörs
+            inte, och knappraden landar på en lugn yta i stället för på
+            tangentbordet i bild.
+
+            Måtten: tangentbordet ligger på 74 till 82 procent av höjden,
+            alltså en bra bit upp i de 46 procent gradienten täcker, och där
+            är den redan nära nittio procent. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 hidden h-[46%] bg-gradient-to-t from-[rgba(11,10,9,.97)] via-[rgba(11,10,9,.88)] to-transparent md:block"
+        />
       </div>
 
       {/* Andande orange glöd uppe till höger */}
