@@ -5,9 +5,41 @@ import type { Dictionary } from "@/content/locales/sv";
 import { video, whatsappUrl } from "@/content/site";
 import { type Locale, localePath } from "@/lib/i18n";
 
+/**
+ * Lägger barnen på samma rad när `samman` är sant, annars under varandra.
+ *
+ * Fragmentet är med flit: rubriken är redan en kolumn, och utan hållare
+ * hamnar barnen direkt i den och får varsin rad. En hållare som alltid
+ * fanns hade behövt `display: contents`, som inte går att lita på
+ * tillsammans med flex i alla webbläsare.
+ */
+function Rad({
+  samman,
+  children,
+}: {
+  samman: boolean;
+  children: React.ReactNode;
+}) {
+  if (!samman) return <>{children}</>;
+  return <span className="flex flex-wrap gap-x-[.22em]">{children}</span>;
+}
+
 export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
   const home = localePath(locale, "/");
   const servicesHref = `${home}#tjanster`;
+
+  /**
+   * Persiskan radas i två rader i stället för tre.
+   *
+   * De två första orden är en fras och hör ihop, och svenskans tre
+   * enordsrader blir fyra på persiska: tredje raden är så lång att den bryts
+   * en gång till inne i den mörka kilen. Orden ett och två ställs därför på
+   * samma rad, och graden sänks en aning så att ingen av de två raderna
+   * bryts. Måtten: tredje raden mäter 5,2 gånger grundgraden, kilen ger
+   * 21vw, och 3,8vw håller sig under det hela vägen från 768 till den
+   * bredd där kolumnen slår i sitt tak på 360.
+   */
+  const tvaRader = locale === "fa";
 
   return (
     <section
@@ -45,7 +77,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             På bred skärm ligger utsnittet centrerat. */}
         <div
           className="absolute inset-0 bg-cover bg-[position:59%_center] md:bg-center"
-          style={{ backgroundImage: `url(${video.heroPoster})` }}
+          style={{ backgroundImage: `url("${video.heroPoster}")` }}
         />
 
         <HeroBackgroundVideo />
@@ -61,7 +93,6 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
             Kvarvarande värden står i README. */}
         <div className="absolute inset-0 bg-[rgba(0,0,0,.35)]" />
       </div>
-
 
       {/* Andande orange glöd uppe till höger */}
       <div
@@ -125,7 +156,8 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                den mörka kilen, och "Kontroll." mätte 390 px mot kilens dryga
                330 px användbara vid textens nedre kant. Mobilen rör vi inte:
                där ligger texten kvar över hela bilden. */
-            className="m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] md:text-[clamp(34px,4.3vw,74px)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)]">
+            className={`m-0 flex flex-col font-heading text-[length:var(--fs-hero)] leading-[0.98] tracking-[-.025em] text-on-dark md:mr-auto md:max-w-[min(360px,21vw)] [text-shadow:0_1px_2px_rgba(0,0,0,.95),0_2px_6px_rgba(0,0,0,.85),0_6px_24px_rgba(0,0,0,.7)] ${tvaRader ? "md:text-[clamp(26px,3.8vw,66px)]" : "md:text-[clamp(34px,4.3vw,74px)]"}`}
+          >
             {/* Sökordsraden. Den ligger inuti H1 med flit: rubriken nedanför
                 är ren varumärkestext utan ett enda sökord, och H1 är sidans
                 starkaste rubriksignal. Graden spelar ingen roll för hur
@@ -144,21 +176,26 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               />
               {t.hero.eyebrow}
             </span>
-            <span style={{ animation: "np-rise .5s .05s var(--ease) both" }}>
-              {t.hero.w1}
-            </span>
-            <span
-              /* Dämpad men inte svag. #cbc4b9 mätte 2,7 mot videons ljusaste
+            {/* Hållaren finns bara i persiskan och ger de två första orden
+                en gemensam rad. I högerläst text radas de automatiskt från
+                höger, så ordningen blir densamma som i texten. */}
+            <Rad samman={tvaRader}>
+              <span style={{ animation: "np-rise .5s .05s var(--ease) both" }}>
+                {t.hero.w1}
+              </span>
+              <span
+                /* Dämpad men inte svag. #cbc4b9 mätte 2,7 mot videons ljusaste
                  utsnitt, alltså under kravet 3,0 för stor text, och det var
                  den redan innan slöjan fanns. Den här tonen läser fortfarande
                  som en nivå under raden ovanför men klarar mätningen, och
                  lösningen ligger i färgen i stället för i ett mörkare filter
                  över videon. */
-              className="text-[#e6dfd4]"
-              style={{ animation: "np-rise .5s .12s var(--ease) both" }}
-            >
-              {t.hero.w2}
-            </span>
+                className="text-[#e6dfd4]"
+                style={{ animation: "np-rise .5s .12s var(--ease) both" }}
+              >
+                {t.hero.w2}
+              </span>
+            </Rad>
             <span
               /* Solid orange, inte klippt gradient. Knappen syns mot videon
                  för att den är en fylld platta: orangen är bakgrunden och
@@ -281,10 +318,8 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
                 {t.hero.cta2}
               </Link>
             </div>
-
           </div>
         </div>
-
       </div>
 
       {/* Etiketten satt tidigare på mediarutan. Rutan är borta i och med att

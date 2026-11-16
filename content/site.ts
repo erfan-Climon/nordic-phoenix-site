@@ -126,10 +126,25 @@ export const chatWidget = {
   widgetId: "6a4f7dcc88718db6dd6ed6a5",
 } as const;
 
+/**
+ * Versionsmärke på herofilerna.
+ *
+ * Filerna heter likadant varje gång filmen byts, och Cloudflare skickar dem
+ * med `max-age=14400`. En besökare som sett sidan under de senaste fyra
+ * timmarna får alltså den gamla filmen ur sin egen cache, utan att ens fråga
+ * servern. Det slog till direkt efter bytet 2026-11-16: sajten visade nya
+ * filmen för alla utom den som nyss hade tittat.
+ *
+ * Frågetecknet gör adressen till en ny resurs för webbläsaren, så bytet slår
+ * igenom med en gång. Bump:a datumet nästa gång någon av herofilerna byts.
+ * Påverkar inte Om-videon, som inte bytts sedan sajten byggdes.
+ */
+const heroVersion = "2026-11-16";
+
 export const video = {
   /** Hero-bakgrunden. WebM först i markup, MP4 som fallback för Safari. */
-  hero: "/video/hero.mp4",
-  heroWebm: "/video/hero.webm",
+  hero: `/video/hero.mp4?v=${heroVersion}`,
+  heroWebm: `/video/hero.webm?v=${heroVersion}`,
   /**
    * Mobilversionen är förbeskuren till det utsnitt mobilen ändå visar, alltså
    * 700 av 1650 bildpunkter kring ansiktet och händerna. Utsnittet är samma
@@ -137,8 +152,8 @@ export const video = {
    * över. Bara MP4: H.264 spelas överallt, och en VP9 av samma klipp blev
    * fem gånger så stor.
    */
-  heroMobile: "/video/hero-mobil.mp4",
-  heroPoster: "/video/hero-poster.jpg",
+  heroMobile: `/video/hero-mobil.mp4?v=${heroVersion}`,
+  heroPoster: `/video/hero-poster.jpg?v=${heroVersion}`,
   /**
    * Om-videon. Låg tidigare på leverantörens CloudFront och vägde 36 MB,
    * vilket var sidans enskilt tyngsta resurs. Källan var HEVC i .mov, som
