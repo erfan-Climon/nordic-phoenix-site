@@ -1,3 +1,6 @@
+import { klippartiklar } from "@/content/blog.klipp";
+import type { Locale } from "@/lib/i18n";
+
 /**
  * Bloggens innehåll.
  *
@@ -119,6 +122,28 @@ export type Article = {
    * texten är det.
    */
   notis?: { etikett: string; text: string };
+  /**
+   * Klippet artikeln bygger på, slug ur `content/klipp.ts`.
+   *
+   * Sju korta klipp spelades in hösten 2026, och texterna till dem är den
+   * skrivna versionen av vad som sägs i filmen. Klippet visas därför högt
+   * upp i artikeln, inte som en eftertanke sist.
+   */
+  klipp?: string;
+  /**
+   * Artikeln finns bara på detta språk.
+   *
+   * Bloggen har annars svenska som bas och persiskan som översättning, se
+   * `blog-copy.ts`. De sju klipptexterna skrevs direkt på persiska, och
+   * kundens största målgrupp är persisktalande företagare. Att översätta
+   * dem till svenska bara för att strukturen vill ha det hade gett en
+   * svensk text ingen efterfrågat.
+   *
+   * Satt fält betyder att fälten i den här posten är skrivna på det
+   * språket, och att artikeln inte genereras på något annat. Ingen dubblett
+   * uppstår: det finns helt enkelt ingen URL på de andra språken.
+   */
+  endastSprak?: Locale;
 };
 
 /**
@@ -2015,12 +2040,17 @@ const ALLA: Article[] = [
    stod tidigare i den ordning artiklarna skrevs in, alltså äldst först. En
    nyhetsartikel om valet hade då hamnat under en guide från augusti. Sorten
    är stabil, så artiklar med samma datum behåller sin inbördes ordning. */
-export const articles: Article[] = ALLA.filter(
+/* Guiderna plus texterna till de korta klippen. Klipptexterna ligger i en
+   egen fil: de är skrivna på persiska, hör ihop med en film var och växer i
+   takt med att klippen publiceras, medan guiderna är en planerad serie. */
+const ALLT = [...ALLA, ...klippartiklar];
+
+export const articles: Article[] = ALLT.filter(
   (article) => article.published <= IDAG,
 ).sort((a, b) => b.published.localeCompare(a.published));
 
 /** Hela listan, även det som ligger och väntar. Endast för verktyg. */
-export const allArticles: Article[] = ALLA;
+export const allArticles: Article[] = ALLT;
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((article) => article.slug === slug);

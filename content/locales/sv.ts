@@ -406,6 +406,8 @@ export const sv = {
     faqTitle: "Vanliga frågor",
     /* Rubriken över källraden sist i artikeln. */
     sourcesTitle: "Källor",
+    tocTitle: "I den här guiden",
+    seKlippet: "Se klippet på Instagram",
     ctaTitle: "Vill du ha hjälp med det här?",
     ctaButton: "Kontakta oss",
   },

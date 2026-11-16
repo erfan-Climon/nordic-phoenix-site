@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Innehallsforteckning } from "@/components/blogg/Innehallsforteckning";
 import { GooglePreferredSource } from "@/components/ui/GooglePreferredSource";
+import { publiceradeKlipp } from "@/content/klipp";
 import type { Article } from "@/content/blog";
 import { type ArticleCopy, articleAuthor } from "@/content/blog-copy";
 import { SITE_URL, company, whatsappUrl } from "@/content/site";
@@ -60,14 +62,20 @@ export function ArticlePage({
         },
         inLanguage: htmlLang[locale],
       },
-      {
-        "@type": "FAQPage",
-        mainEntity: copy.faq.map((post) => ({
-          "@type": "Question",
-          name: post.q,
-          acceptedAnswer: { "@type": "Answer", text: post.a },
-        })),
-      },
+      /* Bara när artikeln har frågor. Ett tomt FAQPage är schema utan
+         innehåll, och Google underkänner det. Klipptexterna har inga. */
+      ...(copy.faq.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: copy.faq.map((post) => ({
+                "@type": "Question",
+                name: post.q,
+                acceptedAnswer: { "@type": "Answer", text: post.a },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
@@ -79,6 +87,26 @@ export function ArticlePage({
     { name: copy.title, path: `${blogHref}/${article.slug}` },
   ]);
 
+  /**
+   * Avsnitten till innehållsförteckningen.
+   *
+   * Ankaret är blockets index och inte en slug av rubriktexten. Rubrikerna
+   * är persiska på hälften av artiklarna, och en translitterering hade
+   * antingen blivit oläslig eller krockat mellan två rubriker som skiljer
+   * sig åt bara på tecken som faller bort. Indexet är dessutom stabilt så
+   * länge blocken inte flyttas, och flyttas de är ankaret ändå fel.
+   */
+  const avsnitt = copy.blocks.flatMap((block, i) =>
+    block.type === "heading"
+      ? [{ id: `avsnitt-${i}`, text: block.text }]
+      : [],
+  );
+
+  /** Klippet som hör till artikeln, när det finns ett. */
+  const artikelklipp = article.klipp
+    ? publiceradeKlipp.find((k) => k.slug === article.klipp)
+    : undefined;
+
   return (
     <>
       {[jsonLd, brodsmulor].map((schema, i) => (
@@ -89,7 +117,7 @@ export function ArticlePage({
         />
       ))}
 
-      <section className="mx-auto max-w-[900px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
+      <section className="mx-auto max-w-[1100px] px-[var(--pad-x)] pt-[clamp(150px,18vh,220px)]">
         <Link
           href={blogHref}
           className="np-mono-link text-[12px] tracking-[.16em] text-text-meta hover:text-accent-ink"
@@ -101,10 +129,6 @@ export function ArticlePage({
           <span>{copy.tag}</span>
           <span aria-hidden="true">·</span>
           <time dateTime={article.published}>{copy.date}</time>
-          <span aria-hidden="true">·</span>
-          <span>
-            {article.readingMinutes} {t.blog.readingTime}
-          </span>
         </div>
 
         <h1 className="np-h2 mb-6 text-[length:var(--fs-h1)] leading-[1.05]">
@@ -112,9 +136,37 @@ export function ArticlePage({
           <em className="np-gradient-text">{copy.titleAccent}</em>
         </h1>
 
-        <p className="m-0 mb-[clamp(40px,5vw,64px)] max-w-[56ch] font-sans text-[clamp(16px,1.5vw,20px)] leading-[1.65] text-text-muted">
+        <p className="m-0 mb-[clamp(28px,3.5vw,40px)] max-w-[60ch] font-sans text-[clamp(16px,1.5vw,20px)] leading-[1.65] text-text-muted">
           {copy.intro}
         </p>
+
+        {/* Skribenten står högst upp och inte bara i rutan sist. Läsaren ska
+            veta vem som svarar för texten innan hen bestämmer sig för att
+            läsa den, särskilt på en sida om skatt. Porträttet visas bara för
+            byråns egen skribent: en gästskribent har inget porträtt, och
+            Alis bild bredvid någon annans namn vore fel. */}
+        <div className="mb-[clamp(32px,4vw,48px)] flex flex-wrap items-center gap-4 border-y border-[rgba(23,19,16,.12)] py-5">
+          {copy.author ? null : (
+            <Image
+              src="/assets/ali-portratt.webp"
+              alt=""
+              aria-hidden="true"
+              width={88}
+              height={88}
+              className="h-11 w-11 shrink-0 rounded-full object-cover"
+            />
+          )}
+          <div className="min-w-0">
+            <p className="m-0 font-sans text-[15px] leading-[1.3] font-medium text-ink">
+              {forfattare.name}
+            </p>
+            <p className="m-0 mt-[3px] font-sans text-[13px] leading-[1.4] text-text-meta">
+              {forfattare.role}
+              <span aria-hidden="true"> · </span>
+              {article.readingMinutes} {t.blog.readingTime}
+            </p>
+          </div>
+        </div>
 
         {/* Bilden är valfri. Artiklar utan egen bild visar ingen alls, i
             stället för en gemensam platshållare: samma bild på nio artiklar
@@ -123,15 +175,53 @@ export function ArticlePage({
           <Image
             src={bild}
             alt={copy.imageAlt}
-            width={900}
-            height={600}
+            width={1100}
+            height={733}
             priority
             className="block h-auto w-full rounded-media shadow-[0_24px_64px_rgba(23,19,16,.16)]"
           />
         ) : null}
+
+        {/* Klippet som artikeln bygger på, när det finns ett. Står högt upp
+            så att den som hellre tittar än läser får göra det direkt.
+
+            Smalt och stående, för klippen är 9:16. Full bredd hade gett en
+            halvmeter hög video på en bred skärm. Spelas först vid klick,
+            av samma skäl som i klippsektionen på startsidan: fyra
+            megabyte ska inte hämtas åt någon som bara skummar. */}
+        {artikelklipp ? (
+          <figure className="mt-[clamp(32px,4vw,48px)] mb-0 flex flex-col items-start gap-4">
+            <video
+              src={artikelklipp.fil}
+              poster={artikelklipp.affisch}
+              controls
+              playsInline
+              preload="none"
+              title={artikelklipp.titel[locale]}
+              className="block h-auto w-full max-w-[380px] rounded-media bg-ink shadow-[0_24px_64px_rgba(23,19,16,.16)]"
+            />
+            <a
+              href={artikelklipp.permalank}
+              target="_blank"
+              rel="noopener"
+              className="np-btn np-btn-outline px-6 py-3 text-[14px]"
+            >
+              {t.blog.seKlippet}
+            </a>
+          </figure>
+        ) : null}
       </section>
 
-      <article className="mx-auto max-w-[720px] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)]">
+      {/* Texten i vänsterspalt med innehållsförteckningen i sidkanten, i
+          stället för en enda smal spalt mitt på sidan. Under 1024 faller
+          förteckningen ovanför texten, där den fungerar som en vanlig
+          ingångslista. */}
+      <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-x-[clamp(32px,5vw,72px)] px-[var(--pad-x)] pt-[clamp(48px,6vw,80px)] pb-[clamp(96px,12vw,160px)] lg:grid-cols-[minmax(0,1fr)_240px]">
+        <aside className="mb-10 lg:order-2 lg:mb-0">
+          <Innehallsforteckning avsnitt={avsnitt} rubrik={t.blog.tocTitle} />
+        </aside>
+
+      <article className="min-w-0 max-w-[760px] lg:order-1">
         {/* Lägesbilden står före första stycket. En artikel om ett läge som
             fortfarande rör sig, som en regeringsbildning, ska säga det innan
             läsaren hunnit ta något som besked. Den orange listen i
@@ -157,7 +247,11 @@ export function ArticlePage({
             return (
               <h2
                 key={i}
-                className="np-h2 mb-5 text-[length:var(--fs-h3)] leading-[1.2] tracking-[-.01em]"
+                id={`avsnitt-${i}`}
+                /* scroll-mt håller rubriken fri från det fasta sidhuvudet
+                   när man hoppar hit från innehållsförteckningen. Utan det
+                   hamnar den bakom huvudet. */
+                className="np-h2 mb-5 scroll-mt-[calc(var(--header-h)+24px)] text-[length:var(--fs-h3)] leading-[1.2] tracking-[-.01em]"
               >
                 {block.text}
               </h2>
@@ -278,7 +372,7 @@ export function ArticlePage({
         {/* Frågorna måste stå som läsbar text på sidan. FAQPage-schemat i
             huvudet beskriver just de här frågorna, och Google underkänner
             schema vars innehåll besökaren inte kan se. */}
-        <section className="mt-[clamp(48px,6vw,72px)]">
+        <section className={copy.faq.length > 0 ? "mt-[clamp(48px,6vw,72px)]" : "hidden"}>
           <h2 className="np-h2 mb-8 text-[length:var(--fs-h3)] leading-[1.2] tracking-[-.01em]">
             {t.blog.faqTitle}
           </h2>
@@ -386,6 +480,7 @@ export function ArticlePage({
           </a>
         </div>
       </article>
+      </div>
     </>
   );
 }

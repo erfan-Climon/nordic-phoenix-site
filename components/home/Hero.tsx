@@ -244,7 +244,7 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
 
                  På mobil staplas de i omvänd ordning, så att
                  WhatsApp-knappen hamnar närmast tummen. */
-              className="flex gap-[14px] max-md:flex-col-reverse md:ml-[clamp(24px,25vw,380px)] md:w-max"
+              className="flex gap-[14px] max-md:flex-col-reverse md:ml-[clamp(20px,22vw,330px)] md:w-max"
               style={{ animation: "np-rise .5s .33s var(--ease) both" }}
             >
               <a

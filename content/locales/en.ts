@@ -393,6 +393,8 @@ export const en: Dictionary = {
     authorLabel: "Written by",
     faqTitle: "Frequently asked questions",
     sourcesTitle: "Sources",
+    tocTitle: "In this guide",
+    seKlippet: "Watch the clip on Instagram",
     ctaTitle: "Want help with this?",
     ctaButton: "Contact us",
   },

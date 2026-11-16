@@ -395,6 +395,8 @@ export const fa: Dictionary = {
     authorLabel: "نویسنده",
     faqTitle: "پرسش‌های متداول",
     sourcesTitle: "منابع",
+    tocTitle: "در این راهنما",
+    seKlippet: "مشاهده این ویدیو در اینستاگرام",
     ctaTitle: "در این زمینه به کمک نیاز دارید؟",
     ctaButton: "تماس با ما",
   },

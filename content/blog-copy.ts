@@ -29,12 +29,19 @@ export function getArticleCopy(
   article: Article,
   locale: Locale,
 ): ArticleCopy | undefined {
+  /* En artikel som bara finns på ett språk bär sin text i själva posten,
+     vilket språk det än är. Den ska inte renderas på något annat. */
+  if (article.endastSprak) {
+    return article.endastSprak === locale ? article : undefined;
+  }
   if (locale === "sv") return article;
   return TABELLER[locale]?.[article.slug];
 }
 
-/** Språk artikeln finns på. Svenskan finns alltid. */
+/** Språk artikeln finns på. Svenskan finns alltid, utom på enspråkiga. */
 export function localesForArticle(slug: string): Locale[] {
+  const article = articles.find((a) => a.slug === slug);
+  if (article?.endastSprak) return [article.endastSprak];
   return locales.filter(
     (locale) => locale === "sv" || Boolean(TABELLER[locale]?.[slug]),
   );
