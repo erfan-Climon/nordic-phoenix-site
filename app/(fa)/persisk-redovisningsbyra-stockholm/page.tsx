@@ -27,10 +27,11 @@ export const metadata: Metadata = {
   ...buildMetadata({
     locale: "fa",
     path: PATH,
-    title:
-      "حسابدار ایرانی و فارسی‌زبان در سوئد — Nordic Phoenix Redovisningsbyrå Stockholm",
+    /* Utan tankstreck (kundvänt) och kortare. Afghanerna och dari står med
+       sedan 2026-11-20, se fynden i grundgenomgången. */
+    title: "حسابدار ایرانی، افغان و فارسی‌زبان در سوئد | Nordic Phoenix",
     description:
-      "حسابدار ایرانی و فارسی‌زبان در سوئد. Nordic Phoenix Redovisningsbyrå در استکهلم خدمات bokföring، moms، lön، bokslut، årsredovisning و deklaration برای شرکت‌های ایرانی و فارسی‌زبان ارائه می‌دهد.",
+      "حسابدار ایرانی، افغان و فارسی‌زبان در سوئد. bokföring، moms، lön، bokslut و deklaration به فارسی و دری برای شرکت‌ها در سراسر سوئد.",
   }),
   /* Sidan ligger på roten och inte under /fa, vilket är avsiktligt: adressen
      är den gamla sajtens och bär både sökordet och auktoriteten.
@@ -67,6 +68,10 @@ const fragor = [
   {
     q: "آیا برای ثبت شرکت در سوئد باید مقیم سوئد باشم؟",
     a: "خیر. شما می‌توانید بدون اقامت در سوئد شرکت ثبت کنید. برای aktiebolag قانون تعیین می‌کند که بخشی از اعضای هیئت مدیره باید مقیم منطقه اقتصادی اروپا باشند، و اگر هیچ عضوی در سوئد ساکن نباشد شرکت باید یک گیرنده رسمی ابلاغیه در سوئد معرفی کند. در صورت لزوم می‌توان از Bolagsverket معافیت گرفت. ما این مسیر را از ابتدا تا پایان همراه شما هستیم.",
+  },
+  {
+    q: "آیا به زبان دری هم خدمات می‌دهید؟",
+    a: "بله. دری و فارسی یک زبان‌اند و تفاوتشان بیشتر در لهجه و برخی واژه‌هاست. صاحبان کسب‌وکار افغان می‌توانند همه خدمات ما را به دری دریافت کنند: دفترداری، moms، حقوق، bokslut و deklaration، و توضیح نامه‌های ادارات سوئد.",
   },
   {
     q: "F-skatt چیست و چرا به آن نیاز دارم؟",
@@ -111,7 +116,7 @@ const jsonLd = {
         addressRegion: company.region,
         addressCountry: company.country,
       },
-      availableLanguage: ["fa", "sv", "en"],
+      availableLanguage: ["fa", "prs", "sv", "en"],
       areaServed: { "@type": "Country", name: "Sverige" },
     },
     {
@@ -141,7 +146,7 @@ export default function Page() {
             حسابداری به زبان فارسی در سوئد
           </p>
           <h1 className="np-h2 mb-7 text-[length:var(--fs-h1)] leading-[1.15]">
-            حسابدار ایرانی و فارسی‌زبان{" "}
+            حسابدار ایرانی، افغان و فارسی‌زبان{" "}
             <em className="np-gradient-text">در سوئد.</em>
           </h1>
           <div className="max-w-[62ch] font-sans text-[clamp(16px,1.4vw,19px)] leading-[1.8] text-text-muted">
@@ -157,6 +162,11 @@ export default function Page() {
               مالی و مالیاتی خود را مطابق قوانین سوئد انجام دهند.
             </p>
             <p className="m-0 mb-5">
+              فرقی نمی‌کند اهل ایران باشید یا افغانستان، فارسی صحبت کنید یا دری.
+              همه خدمات ما به فارسی و دری در دسترس است و نامه‌های Skatteverket و
+              Bolagsverket را به زبان خودتان برایتان توضیح می‌دهیم.
+            </p>
+            <p className="m-0 mb-5">
               همچنین با تهیه طرح توجیهی، طرح تجاری یا affärsplan به مهاجرت شما
               به سوئد کمک می‌کنیم، برای ارائه به اداره مهاجرت Migrationsverket،
               بانک‌ها و آژانس کاریابی Arbetsförmedlingen.
@@ -167,10 +177,10 @@ export default function Page() {
                 persisktalande företagare söker på, och de två första är just
                 det AI-översikten lyfter fram om konkurrenterna. */}
             <p className="m-0">
-              برای ثبت شرکت لازم نیست مقیم سوئد باشید. ما به افراد غیرمقیم هم
-              در ثبت enskild firma و aktiebolag کمک می‌کنیم، درخواست F-skatt و
-              ثبت moms را انجام می‌دهیم و برای کسب‌وکارهای فعال در ساختمان و
-              خدمات خانگی درخواست‌های ROT و RUT را مدیریت می‌کنیم.
+              برای ثبت شرکت لازم نیست مقیم سوئد باشید. ما به افراد غیرمقیم هم در
+              ثبت enskild firma و aktiebolag کمک می‌کنیم، درخواست F-skatt و ثبت
+              moms را انجام می‌دهیم و برای کسب‌وکارهای فعال در ساختمان و خدمات
+              خانگی درخواست‌های ROT و RUT را مدیریت می‌کنیم.
             </p>
           </div>
           <div className="mt-[clamp(32px,4vw,48px)] flex flex-wrap gap-[14px]">

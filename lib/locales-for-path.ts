@@ -1,5 +1,9 @@
 import { getArticle } from "@/content/blog";
-import { localesForArticle, localesWithBlogIndex } from "@/content/blog-copy";
+import {
+  harVideoguider,
+  localesForArticle,
+  localesWithBlogIndex,
+} from "@/content/blog-copy";
 import { getLocation } from "@/content/locations";
 import {
   localesForLocation,
@@ -26,6 +30,11 @@ export function localesForPath(path: string): Locale[] {
   const rent = path.replace(/\/+$/, "") || "/";
 
   if (rent === "/blogg") return localesWithBlogIndex();
+
+  /* Videoguiderna finns bara på de språk som har skrivna klipptexter, i dag
+     persiska. Utan raden pekade språkmenyn på /sv/videoguider/ och
+     /en/videoguider/, som omdirigeras till bloggen. */
+  if (rent === "/videoguider") return locales.filter(harVideoguider);
 
   const artikel = rent.match(/^\/blogg\/([^/]+)$/);
   if (artikel) {

@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { matning } from "@/content/site";
+import { ringklick, whatsappklick } from "@/lib/handelser";
 import { lasLage, lasServerLage, prenumerera } from "@/lib/samtycke";
 
 /**
@@ -34,6 +35,26 @@ export function Matning() {
     if (matning.metaPixel) startaMetaPixel(matning.metaPixel);
     if (matning.tiktokPixel) startaTikTok(matning.tiktokPixel);
   }, [samtycke]);
+
+  /* Ett enda ställe för klick på telefonnummer och WhatsApp. Länkarna finns i
+     ett femtontal komponenter, de flesta serverkomponenter utan egen
+     klickhanterare, och fram till 2026-11-20 mättes inget telefonklick alls.
+     Länkar som rapporterar själva bär data-matt="egen" och hoppas över, så
+     att ingenting räknas två gånger. Utan samtycke finns inga verktyg på
+     window, och då gör funktionerna ingenting. */
+  useEffect(() => {
+    const vidKlick = (e: MouseEvent) => {
+      const lank = (e.target as Element | null)?.closest?.("a[href]");
+      if (!lank || lank.getAttribute("data-matt") === "egen") return;
+      const href = lank.getAttribute("href") ?? "";
+      const plats = window.location.pathname;
+      if (href.startsWith("tel:")) ringklick(plats);
+      else if (href.includes("wa.me/")) whatsappklick(plats);
+    };
+    document.addEventListener("click", vidKlick, { capture: true });
+    return () =>
+      document.removeEventListener("click", vidKlick, { capture: true });
+  }, []);
 
   useEffect(() => {
     if (samtycke !== "ja") return;
@@ -110,13 +131,26 @@ function startaTikTok(pixelId: string) {
   if (window.ttq) return;
 
   window.TiktokAnalyticsObject = "ttq";
-  const ttq = ([] as unknown) as TikTokPixel;
+  const ttq = [] as unknown as TikTokPixel;
   window.ttq = ttq;
 
   ttq.methods = [
-    "page", "track", "identify", "instances", "debug", "on", "off", "once",
-    "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent",
-    "revokeConsent", "grantConsent",
+    "page",
+    "track",
+    "identify",
+    "instances",
+    "debug",
+    "on",
+    "off",
+    "once",
+    "ready",
+    "alias",
+    "group",
+    "enableCookie",
+    "disableCookie",
+    "holdConsent",
+    "revokeConsent",
+    "grantConsent",
   ];
 
   ttq.setAndDefer = (mal: unknown, metod: string) => {

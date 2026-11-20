@@ -46,6 +46,20 @@ export function whatsappklick(plats: string): void {
 }
 
 /**
+ * Besökaren tryckte på ett telefonnummer.
+ *
+ * Fångas av klicklyssnaren i components/layout/Matning.tsx, som gäller alla
+ * tel:-länkar på sajten. Ett klick är inte ett samtal: på dator öppnas
+ * kanske ingenting. Det är ändå det närmaste sajten kan mäta, och samtal via
+ * sajten räknas som förfrågningar (Erfan 2026-11-20).
+ */
+export function ringklick(plats: string): void {
+  ga()?.("event", "phone_click", { plats });
+  meta()?.("trackCustom", "PhoneClick", { plats });
+  tiktok()?.track("Contact", { content_name: `ring:${plats}` });
+}
+
+/**
  * Leaden gick fram.
  *
  * Avfyras ENDAST efter att servern svarat att inskickningen lyckades, aldrig

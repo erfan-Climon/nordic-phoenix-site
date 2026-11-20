@@ -50,7 +50,7 @@ export async function generateMetadata({
       title:
         "Persisk redovisningsbyrå i Stockholm | Bokföring på persiska och svenska",
       description:
-        "Persisktalande redovisningsbyrå i Stockholm. Vi sköter bokföring, lön, moms, bokslut, årsredovisning och deklaration på persiska och svenska, digitalt i hela Sverige.",
+        "Redovisningsbyrå för iranska och afghanska företagare. Bokföring, lön, moms, bokslut och deklaration på persiska, dari och svenska i hela Sverige.",
     }),
     /* Egna alternativ i stället för den vanliga hjälparen. Den utgår från att
        språkversionerna ligger på samma sökväg med olika prefix, och det gör
@@ -114,6 +114,10 @@ const FRAGOR = [
   {
     q: "Är persiska och farsi samma språk?",
     a: "Ja. Farsi är språkets eget namn på persiska, så redovisning på farsi och redovisning på persiska är samma sak. Hos oss kan du gå igenom bokföring, moms och deklaration på farsi, och få svenska brev och blanketter förklarade på samma språk.",
+  },
+  {
+    q: "Kan ni hjälpa afghanska företagare på dari?",
+    a: "Ja. Dari är den persiska som talas i Afghanistan, och den som talar dari och den som talar farsi förstår varandra. Som afghansk företagare får du samma hjälp som alla våra kunder: bokföring, moms, lön, bokslut och deklaration, och brev från Skatteverket och Bolagsverket förklarade på ett språk du förstår.",
   },
   {
     q: "Är ni en iransk redovisningsbyrå?",
@@ -209,6 +213,7 @@ export default async function PersiskRedovisningsbyraPage({
     inLanguage: ["fa", "sv"],
     availableLanguage: [
       { "@type": "Language", name: "Persian", alternateName: "fa" },
+      { "@type": "Language", name: "Dari", alternateName: "prs" },
       { "@type": "Language", name: "Swedish", alternateName: "sv" },
     ],
     areaServed: { "@type": "Country", name: "Sweden" },
@@ -274,8 +279,9 @@ export default async function PersiskRedovisningsbyraPage({
             Nordic Phoenix Redovisningsbyrå är en persisktalande
             redovisningsbyrå. Vi sköter bokföring, lön, moms, bokslut,
             årsredovisning och deklaration för företagare i hela Sverige, och vi
-            gör det på persiska eller svenska. Du väljer det språk som gör att
-            du förstår din egen ekonomi bäst.
+            gör det på persiska, dari eller svenska. Byrån vänder sig till alla
+            persisktalande företagare, från Iran, Afghanistan och andra länder.
+            Du väljer det språk som gör att du förstår din egen ekonomi bäst.
           </p>
 
           {/* Språkbytet ska vara ett klick och inte en gissning. Länken pekar

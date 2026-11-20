@@ -36,6 +36,17 @@
 /persisk-redovisningsbyra    /persisk-redovisningsbyra-stockholm/ 301
 /persisk-redovisningsbyra-i-stockholm /persisk-redovisningsbyra-stockholm/ 301
 
+# Adresser som Search Console rapporterade som 404 (grundgenomgången
+# 2026-11-20). /home/ är en vy från den gamla ensidesappen. Mallarna låg
+# en tid även under /en/mallar/, men PDF:erna finns bara i /mallar/.
+/home                          /                          301
+/home/                         /                          301
+/en/mallar/aktiebok.pdf          /mallar/aktiebok.pdf          301
+/en/mallar/anstallningsavtal.pdf /mallar/anstallningsavtal.pdf 301
+/en/mallar/kundfaktura.pdf       /mallar/kundfaktura.pdf       301
+/en/mallar/tidrapport.pdf        /mallar/tidrapport.pdf        301
+/en/mallar/kvitto.pdf            /mallar/kvitto.pdf            301
+
 # Videoguiderna finns bara på persiska, eftersom klipptexterna är skrivna
 # på persiska. Rutten byggs ändå för /sv och /en: språkparametrarna kommer
 # från layouten i app/[locale], så sidans egen filtrering biter inte, och

@@ -51,7 +51,10 @@ export function ServicePage({
         addressCountry: company.country,
       },
     },
-    availableLanguage: ["sv", "en", "fa"],
+    /* prs är dari, persiskan i Afghanistan. Byrån tar emot kunder på dari
+       (Erfan 2026-11-20), och utan koden finns det ingenstans för en sökmotor
+       eller en AI att läsa det. */
+    availableLanguage: ["sv", "en", "fa", "prs"],
     inLanguage: htmlLang[locale],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -135,13 +138,23 @@ export function ServicePage({
           </nav>
 
           <h1 className="np-h2 mb-7 text-[length:var(--fs-h1)] leading-[1.05]">
-            {copy.h1Lead}{" "}
-            <em className="np-gradient-text">{copy.h1Accent}</em>
+            {copy.h1Lead} <em className="np-gradient-text">{copy.h1Accent}</em>
           </h1>
 
           <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[60ch] font-sans text-[clamp(16px,1.4vw,19px)] leading-[1.7] text-text-muted">
             {copy.intro}
           </p>
+
+          {/* Målgruppen i klartext, bara på persiska. Fram till 2026-11-20
+              nämnde sajten varken dari eller afghanska företagare, och ChatGPT
+              rekommenderade då en annan byrå till den som frågade efter dari,
+              med motiveringen att dari inte var bekräftat hos oss. */}
+          {locale === "fa" ? (
+            <p className="m-0 mb-[clamp(28px,3vw,40px)] max-w-[60ch] font-sans text-[clamp(15px,1.2vw,17px)] leading-[1.7] text-text-muted">
+              برای ایرانیان، افغان‌ها و همه فارسی‌زبانان در سراسر سوئد؛ به فارسی
+              و دری.
+            </p>
+          ) : null}
 
           {/* Innehållsförteckning. Ger besökaren en överblick direkt, och
               Google en tydlig bild av vad sidan faktiskt täcker. */}
@@ -291,7 +304,10 @@ export function ServicePage({
           {showsPricing() ? (
             <p className="mt-[clamp(32px,4vw,48px)] mb-0 font-sans text-[16px] leading-[1.7] text-text-muted">
               {s.priceLead}{" "}
-              <Link href={`${localePath(locale, "/")}#priser`} className="text-accent-ink">
+              <Link
+                href={`${localePath(locale, "/")}#priser`}
+                className="text-accent-ink"
+              >
                 {s.priceLink}
               </Link>
               .

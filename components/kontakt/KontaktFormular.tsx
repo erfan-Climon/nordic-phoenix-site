@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import type { Dictionary } from "@/content/locales/sv";
 import { whatsappUrl } from "@/content/site";
-import { formularStartat, kontaktSkickad, whatsappklick } from "@/lib/handelser";
+import {
+  formularStartat,
+  kontaktSkickad,
+  whatsappklick,
+} from "@/lib/handelser";
 import { type Locale, localePath } from "@/lib/i18n";
 import { GRANSER, type KontaktSprak } from "@/lib/kontakt/falt";
 import { fangaUtm, lasUtm } from "@/lib/utm";
@@ -24,7 +28,13 @@ const FALT =
   "w-full rounded-[10px] border border-[rgba(23,19,16,.18)] bg-surface px-4 py-3 font-sans text-[16px] text-text outline-none transition-colors duration-200 focus:border-accent focus:ring-2 focus:ring-[rgba(240,103,0,.25)]";
 const ETIKETT = "mb-2 block font-sans text-[14px] text-text-muted";
 
-export function KontaktFormular({ locale, t }: { locale: Locale; t: Dictionary }) {
+export function KontaktFormular({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary;
+}) {
   const k = t.kontakt;
   const [lage, setLage] = useState<Lage>("redo");
   const id = useId();
@@ -99,7 +109,11 @@ export function KontaktFormular({ locale, t }: { locale: Locale; t: Dictionary }
   ];
 
   return (
-    <form onSubmit={skicka} onFocusCapture={borjat} className="relative flex flex-col gap-5">
+    <form
+      onSubmit={skicka}
+      onFocusCapture={borjat}
+      className="relative flex flex-col gap-5"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor={`${id}-namn`} className={ETIKETT}>
@@ -155,7 +169,12 @@ export function KontaktFormular({ locale, t }: { locale: Locale; t: Dictionary }
           </label>
           {/* Förvalt sidans språk. Den som läser persiska sidan vill oftast
               bli kontaktad på persiska, men inte alltid. */}
-          <select id={`${id}-sprak`} name="sprak" defaultValue={locale} className={FALT}>
+          <select
+            id={`${id}-sprak`}
+            name="sprak"
+            defaultValue={locale}
+            className={FALT}
+          >
             {sprakval.map((s) => (
               <option key={s.varde} value={s.varde}>
                 {s.namn}
@@ -181,9 +200,18 @@ export function KontaktFormular({ locale, t }: { locale: Locale; t: Dictionary }
       {/* Honungsfälla, samma teknik som i landningssidans formulär: dolt för
           människor men synligt i HTML:en. Ett ifyllt värde ger ett låtsat
           kvitto och ingen förfrågan. */}
-      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
         <label htmlFor={`${id}-webb`}>Webbplats</label>
-        <input id={`${id}-webb`} name="webbplats" type="text" tabIndex={-1} autoComplete="off" />
+        <input
+          id={`${id}-webb`}
+          name="webbplats"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <button
@@ -204,6 +232,7 @@ export function KontaktFormular({ locale, t }: { locale: Locale; t: Dictionary }
             href={whatsappUrl}
             target="_blank"
             rel="noopener"
+            data-matt="egen"
             onClick={() => whatsappklick("kontaktformular-fel")}
             className="underline"
           >
@@ -214,7 +243,10 @@ export function KontaktFormular({ locale, t }: { locale: Locale; t: Dictionary }
 
       <p className="m-0 font-sans text-[13px] leading-[1.7] text-text-meta">
         {k.integritet}{" "}
-        <Link href={localePath(locale, "/integritetspolicy")} className="underline">
+        <Link
+          href={localePath(locale, "/integritetspolicy")}
+          className="underline"
+        >
           {k.integritetLank}
         </Link>
       </p>

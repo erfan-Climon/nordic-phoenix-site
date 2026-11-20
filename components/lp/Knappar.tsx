@@ -64,6 +64,7 @@ export function WhatsAppKnapp({
       href={halsokontroll.whatsappUrl}
       target="_blank"
       rel="noopener"
+      data-matt="egen"
       onClick={() => whatsappklick(plats)}
       className={`${klass ?? "np-btn np-btn-outline px-7 py-[16px] text-[16px]"} ${bred ? "w-full" : ""}`}
     >
