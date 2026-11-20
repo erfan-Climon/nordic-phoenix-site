@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { HeroBackgroundVideo } from "@/components/home/HeroBackgroundVideo";
 import type { Dictionary } from "@/content/locales/sv";
@@ -299,26 +298,6 @@ export function Hero({ t, locale }: { t: Dictionary; locale: Locale }) {
               >
                 {t.hero.sub}
               </p>
-
-              {/* Fågeln står centrerad i textkolumnen, under brödtexten. Den
-                bär ingen information, därför aria-hidden: namnet står redan
-                i sidhuvudet och i rubriken. Bara från 768, på mobil ligger
-                texten över hela bilden och det finns ingen lugn yta.
-
-                Hållaren har samma bredd och samma fysiska fästning som
-                rubriken, annars hade centreringen räknats mot hela
-                sektionsbredden och fågeln hamnat ute på videon. */}
-              <div className="hidden md:mr-auto md:block md:w-[min(360px,21vw)]">
-                <Image
-                  aria-hidden="true"
-                  src="/assets/phoenix-logo.webp"
-                  alt=""
-                  width={132}
-                  height={132}
-                  className="mx-auto h-auto w-[clamp(64px,7vw,104px)] opacity-90"
-                  style={{ animation: "np-fade 1.2s .5s ease both" }}
-                />
-              </div>
             </div>
           </div>
           <div

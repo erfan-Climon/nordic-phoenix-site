@@ -75,7 +75,7 @@ export function LanguageMenu({
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={label}
-        className={`flex h-11 items-center gap-[6px] px-1 font-mono text-[13px] font-medium tracking-[.08em] transition-colors duration-300 ${knappFärg}`}
+        className={`flex h-11 items-center gap-[6px] px-1 font-mono text-[13px] font-medium tracking-[.08em] transition-colors duration-300 xl:text-[15px] ${knappFärg}`}
       >
         <Glob />
         {localeButtonLabelShort[locale]}

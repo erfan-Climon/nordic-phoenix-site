@@ -164,17 +164,21 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
           : "border-[var(--hairline-light)] bg-[rgba(255,254,251,.95)] shadow-[0_2px_24px_rgba(23,19,16,.06)] backdrop-blur-[16px]"
       }`}
     >
-      <Link href={home} className="flex items-center gap-3 no-underline">
+      <Link
+        href={home}
+        className="flex items-center gap-3 no-underline xl:gap-4"
+      >
         <Image
           src="/assets/phoenix-logo.webp"
           alt="Nordic Phoenix"
-          /* 46px bred blir 36px hög. Headern är 77px och styrs av de 44px
-             höga knapparna, så logotypen kan växa hit utan att listen gör
-             det. Ankarlänkarnas scroll-margin räknar med den höjden. */
-          width={46}
-          height={36}
+          /* 46 punkter bred upp till 1280, därefter 62. Mellan 1024 och 1280
+             är raden full med den breda menyn, så hela sidhuvudet växer först
+             vid xl. På mobil delar loggan rad med telefon-, språk- och
+             menyknapparna och har ingen plats att växa på. */
+          width={62}
+          height={49}
           priority
-          className="block h-auto w-[46px]"
+          className="block h-auto w-[46px] xl:w-[62px]"
         />
         {/* Noto Naskh Arabic även på svenska och engelska. På persiska tvingar
             RTL-regeln i globals.css hela dokumentet till det snittet med
@@ -184,7 +188,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
             Får inte brytas till två rader: headern måste hålla sig på ~66px,
             det är höjden ankarlänkarnas scroll-margin räknar med. */}
         <span
-          className={`font-arabic text-[12px] font-medium whitespace-nowrap uppercase transition-colors duration-300 min-[360px]:text-[13px] ${inkClass}`}
+          className={`font-arabic text-[12px] font-medium whitespace-nowrap uppercase transition-colors duration-300 min-[360px]:text-[13px] xl:text-[16px] ${inkClass}`}
         >
           {/* Etiketten före ordmärket. Uppmätt: raden kräver 465px med
               etiketten och 374px utan. Brytpunkten sätts på 500px, vilket ger
@@ -200,7 +204,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
       </Link>
 
       {/* --- Full nav ---------------------------------------------------- */}
-      <nav className="hidden items-center gap-[clamp(14px,2.5vw,32px)] nav:flex">
+      <nav className="hidden items-center gap-[clamp(14px,2.5vw,36px)] nav:flex">
         {links.map((link) =>
           link.barn ? (
             /* Undermenyn öppnas på hover och på tangentbordsfokus, utan
@@ -219,7 +223,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
             <div key={link.href} className="group relative py-4">
               <Link
                 href={link.href}
-                className={`np-mono-link ${inkClass} ${inkHoverClass}`}
+                className={`np-mono-link xl:text-[15px] ${inkClass} ${inkHoverClass}`}
               >
                 {link.label}
               </Link>
@@ -235,7 +239,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
                     <Link
                       key={barn.href}
                       href={barn.href}
-                      className="np-mono-link rounded-[6px] px-3 py-[10px] text-text hover:bg-page hover:text-accent-ink"
+                      className="np-mono-link rounded-[6px] px-3 py-[10px] text-text xl:py-[11px] xl:text-[14px] hover:bg-page hover:text-accent-ink"
                     >
                       {barn.label}
                     </Link>
@@ -247,7 +251,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
             <Link
               key={link.href}
               href={link.href}
-              className={`np-mono-link ${inkClass} ${inkHoverClass}`}
+              className={`np-mono-link xl:text-[15px] ${inkClass} ${inkHoverClass}`}
             >
               {link.label}
             </Link>
@@ -257,7 +261,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
             nav-länkarna — det får normal siffersättning i stället. */}
         <a
           href={phone.href}
-          className={`flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap no-underline transition-colors duration-300 ${inkClass} ${inkHoverClass}`}
+          className={`flex items-center gap-2 font-mono text-[13px] font-medium whitespace-nowrap no-underline xl:text-[15px] transition-colors duration-300 ${inkClass} ${inkHoverClass}`}
         >
           <PhoneGlyph />
           {/* Siffror är svaga tecken i bidi och byter ordning i högerläst
@@ -275,7 +279,7 @@ export function Header({ locale, t, bloggHref, videoguiderHref }: Props) {
           href={whatsappUrl}
           target="_blank"
           rel="noopener"
-          className="np-btn rounded-button bg-[image:var(--gradient-accent)] px-5 py-[11px] font-mono text-[12px] font-medium tracking-[.1em] text-on-accent uppercase shadow-[var(--shadow-nav-button)] hover:-translate-y-px hover:text-on-accent hover:shadow-[0_8px_28px_rgba(240,103,0,.45)]"
+          className="np-btn rounded-button bg-[image:var(--gradient-accent)] whitespace-nowrap px-5 py-[11px] font-mono text-[12px] xl:px-6 xl:py-[13px] xl:text-[14px] font-medium tracking-[.1em] text-on-accent uppercase shadow-[var(--shadow-nav-button)] hover:-translate-y-px hover:text-on-accent hover:shadow-[0_8px_28px_rgba(240,103,0,.45)]"
         >
           {t.nav.cta}
         </Link>
