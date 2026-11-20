@@ -469,42 +469,6 @@
     opacity: 0.85;
   }
 }
-@keyframes np-wing-l {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(-7deg) translateY(3%);
-  }
-}
-@keyframes np-wing-r {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(7deg) translateY(3%);
-  }
-}
-@keyframes np-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(3.5%);
-  }
-}
-@keyframes np-tail-sway {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(2.4deg) translateY(-1.5%);
-  }
-}
 @keyframes np-glow {
   0%,
   100% {
