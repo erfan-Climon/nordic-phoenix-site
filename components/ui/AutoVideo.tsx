@@ -16,7 +16,7 @@ type Props = {
   /**
    * Videons verkliga pixelmått. Reserverar rutan innan filen laddats.
    *
-   * Utan dem antar webbläsaren 300 × 150, alltså 2:1. Om-videon är porträtt
+   * Utan dem antar webbläsaren 300 × 150, alltså 2:1. Förra Om-videon var porträtt
    * 720 × 1280, så rutan växte 445 px när metadatan kom och allt nedanför
    * hoppade. Uppmätt gav det CLS 0,25 där Googles gräns går vid 0,1.
    */

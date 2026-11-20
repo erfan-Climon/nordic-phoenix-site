@@ -11,16 +11,12 @@ const grain = (size: number, frequency: string, octaves: number) =>
 
 export function About({ t }: { t: Dictionary }) {
   return (
-    <section
-      id="om"
-      className="relative overflow-hidden bg-ink text-on-dark"
-    >
+    <section id="om" className="relative overflow-hidden bg-ink text-on-dark">
       <div className="mx-auto grid max-w-[var(--content-max)] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-[clamp(48px,7vw,120px)] px-[var(--pad-x)] py-[var(--pad-y)]">
         <div data-reveal data-reveal-delay="120" className="max-w-[760px]">
           <p className="np-label mb-9 text-accent-light">{t.about.label}</p>
           <h2 className="np-h2 mb-8 text-[length:var(--fs-h2)] leading-[1.15] tracking-[-.015em]">
-            {t.about.h2a}{" "}
-            <em className="text-accent-light">{t.about.h2b}</em>
+            {t.about.h2a} <em className="text-accent-light">{t.about.h2b}</em>
           </h2>
           <p className="m-0 mb-[18px] font-sans text-[16px] leading-[1.75] text-on-dark-muted">
             {t.about.p1}
@@ -34,14 +30,15 @@ export function About({ t }: { t: Dictionary }) {
 
         <div data-reveal data-reveal-delay="240" className="relative">
           <div className="relative overflow-hidden rounded-media border border-[rgba(242,236,224,.14)] shadow-[var(--shadow-card-dark)]">
-            {/* Porträttformat och visas oklippt — beskär inte videon. */}
+            {/* Logomotionen i 16:9, oklippt. Måtten är filens egna, så rutan
+                reserveras innan videon laddats. */}
             <AutoVideo
               src={video.about}
               webmSrc={video.aboutWebm}
               poster={video.aboutPoster}
               playWhenVisible
-              width={720}
-              height={1280}
+              width={1280}
+              height={716}
               title={t.about.videoTitle}
               className="block h-auto w-full bg-ink-card object-contain"
               style={{

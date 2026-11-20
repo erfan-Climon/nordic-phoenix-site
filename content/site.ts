@@ -157,7 +157,7 @@ export const chatWidget = {
  * Frågetecknet gör adressen till en ny resurs för webbläsaren, så bytet slår
  * igenom med en gång. Bump:a märket nästa gång någon av herofilerna byts.
  * Bokstaven på slutet kom till när filerna byttes två gånger samma dag.
- * Påverkar inte Om-videon, som inte bytts sedan sajten byggdes.
+ * Påverkar inte Om-videon, som har egna filnamn.
  */
 const heroVersion = "2026-11-16b";
 
@@ -175,13 +175,18 @@ export const video = {
   heroMobile: `/video/hero-mobil.mp4?v=${heroVersion}`,
   heroPoster: `/video/hero-poster.jpg?v=${heroVersion}`,
   /**
-   * Om-videon. Låg tidigare på leverantörens CloudFront och vägde 36 MB,
-   * vilket var sidans enskilt tyngsta resurs. Källan var HEVC i .mov, som
-   * varken Chrome eller Firefox spelar, och hade ett ljudspår som strippats.
+   * Om-videon är logomotionen från Higgsfield, 2026-08-14, hela scenen i
+   * 16:9. Originalet ligger i films/ och i kundens Drive. Det är fem
+   * sekunder och slutar inte där det börjar, så filen spelas framåt och
+   * sedan baklänges, tio sekunder, för att slingan inte ska hacka. Samma
+   * källa som fenixen i processektionen, där den är beskuren till logon.
+   *
+   * Nya filnamn i stället för ett versionsmärke: den gamla videon hette
+   * om.mp4 och kan ligga kvar i besökarnas cache.
    */
-  about: "/video/om.mp4",
-  aboutWebm: "/video/om.webm",
-  aboutPoster: "/video/om-poster.jpg",
+  about: "/video/om-logomotion.mp4",
+  aboutWebm: "/video/om-logomotion.webm",
+  aboutPoster: "/video/om-logomotion-poster.jpg",
 } as const;
 
 /** Visas i språksektionen oavsett valt språk, därför inte i ordlistorna. */
