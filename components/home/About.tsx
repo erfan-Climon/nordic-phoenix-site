@@ -29,7 +29,22 @@ export function About({ t }: { t: Dictionary }) {
         </div>
 
         <div data-reveal data-reveal-delay="240" className="relative">
-          <div className="relative overflow-hidden rounded-media border border-[rgba(242,236,224,.14)] shadow-[var(--shadow-card-dark)]">
+          {/* Ingen ram. Kanterna tonas ut mot sektionens bakgrund med en mask,
+              så logomotionen ser inbakad ut i stället för att ligga i en ruta
+              (Erfan 2026-11-21). Masken är en ellips som är helt täckande i
+              mitten och genomskinlig vid kanterna. Videons egen bakgrund är
+              blågrå och inte sektionens varmsvarta, och utan mjuk övergång
+              syntes den som en fyrkant. Masken gäller också kornlagren
+              nedan, så de tonas ut med bilden. */}
+          <div
+            className="relative overflow-hidden"
+            style={{
+              maskImage:
+                "radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%)",
+            }}
+          >
             {/* Logomotionen i 16:9, oklippt. Måtten är filens egna, så rutan
                 reserveras innan videon laddats. */}
             <AutoVideo
@@ -40,7 +55,7 @@ export function About({ t }: { t: Dictionary }) {
               width={1280}
               height={716}
               title={t.about.videoTitle}
-              className="block h-auto w-full bg-ink-card object-contain"
+              className="block h-auto w-full object-contain"
               style={{
                 filter:
                   "saturate(1.08) contrast(1.07) brightness(1.02) sepia(.05) hue-rotate(-4deg)",
@@ -72,15 +87,6 @@ export function About({ t }: { t: Dictionary }) {
                 backgroundImage: grain(120, "0.65", 1),
                 backgroundSize: "90px 90px",
                 animation: "np-grain .9s steps(3) infinite",
-              }}
-            />
-            {/* 4 · vinjett */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, transparent 52%, rgba(10,9,8,.44) 100%)",
               }}
             />
           </div>
