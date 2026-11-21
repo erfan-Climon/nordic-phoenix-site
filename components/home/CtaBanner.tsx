@@ -40,7 +40,7 @@ export function CtaBanner({ t }: { t: Dictionary }) {
         <div className="flex items-end justify-center px-[clamp(24px,3vw,48px)] pt-[clamp(40px,4vw,64px)]">
           {/* Bottenjusterad så figuren "står" i banderollens underkant.
               Bilden är sista rutan i herofilmen, där Ali tittar in i kameran,
-              frilagd och beskuren ovanför händerna (2026-11-21). Bildskärmen
+              frilagd och beskuren vid bröstet (2026-11-21). Bildskärmen
               i filmen skymmer hans vänstra arm, därför det raka snittet mot
               bildens vänsterkant. Studioporträttet ali-portratt.webp finns
               kvar för artiklarnas författarruta. */}
@@ -48,7 +48,7 @@ export function CtaBanner({ t }: { t: Dictionary }) {
             src="/assets/ali-leende.webp"
             alt={t.banner.portraitAlt}
             width={960}
-            height={903}
+            height={790}
             loading="lazy"
             className="block h-auto w-[min(460px,92%)] [filter:drop-shadow(0_18px_40px_rgba(28,15,5,.35))]"
           />
